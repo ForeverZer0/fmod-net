@@ -1,0 +1,281 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F1A3262B-D6BB-4351-B331-45BCCD44FC57}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FMOD.Sharp</RootNamespace>
+    <AssemblyName>FMOD.Sharp</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;X86</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <WarningLevel>3</WarningLevel>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;X86</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;X64</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;X64</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Structs\AdvancedSettings.cs" />
+    <Compile Include="Structs\Channel.cs" />
+    <Compile Include="Structs\Channel.Native.cs">
+      <DependentUpon>Channel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ChannelControl.cs" />
+    <Compile Include="ChannelControl.Native.cs">
+      <DependentUpon>ChannelControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ChannelGroup.cs" />
+    <Compile Include="ChannelGroup.Native.cs">
+      <DependentUpon>ChannelGroup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ColorSlider.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ColorSlider.designer.cs">
+      <DependentUpon>ColorSlider.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\KnobControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NumericUnitUpDown.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\NumericUnitUpDown.Designer.cs">
+      <DependentUpon>NumericUnitUpDown.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WaveformPathFactory.cs" />
+    <Compile Include="Controls\ControlHelper.cs" />
+    <Compile Include="Controls\WaveForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\WaveForm.Designer.cs">
+      <DependentUpon>WaveForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Core.cs" />
+    <Compile Include="Data\ConeSettings.cs" />
+    <Compile Include="Data\DistanceFilter.cs" />
+    <Compile Include="Data\FadePoint.cs" />
+    <Compile Include="Data\LoopPoints.cs" />
+    <Compile Include="Data\MixMatrix.cs" />
+    <Compile Include="Data\Polygon.cs" />
+    <Compile Include="Data\PolygonAttributes.cs" />
+    <Compile Include="Data\Driver.cs" />
+    <Compile Include="Data\Rotation.cs" />
+    <Compile Include="Data\SoundInfo.cs" />
+    <Compile Include="Data\SpeakerMix.cs" />
+    <Compile Include="Delegates.cs" />
+    <Compile Include="Dsp.cs" />
+    <Compile Include="Dsp.Native.cs">
+      <DependentUpon>Dsp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DspConnection.cs" />
+    <Compile Include="Data\DspInfo.cs" />
+    <Compile Include="DspConnection.Native.cs">
+      <DependentUpon>DspConnection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dsps\Fft.cs" />
+    <Compile Include="Enums\ChannelControlCallbackType.cs" />
+    <Compile Include="Enums\ChannelControlType.cs" />
+    <Compile Include="Enums\ChannelMask.cs" />
+    <Compile Include="Enums\ChannelOrder.cs" />
+    <Compile Include="Enums\DebugFlags.cs" />
+    <Compile Include="Enums\DebugMode.cs" />
+    <Compile Include="Enums\DriverState.cs" />
+    <Compile Include="Enums\DspConnectionType.cs" />
+    <Compile Include="Enums\DspParameterDataTypes.cs" />
+    <Compile Include="Enums\DspParameterType.cs" />
+    <Compile Include="Enums\DspResampler.cs" />
+    <Compile Include="Enums\DspType.cs" />
+    <Compile Include="Enums\ErrorCallbackInstanceType.cs" />
+    <Compile Include="Enums\FftWindowSize.cs" />
+    <Compile Include="Enums\FloatMappingType.cs" />
+    <Compile Include="Enums\InitFlags.cs" />
+    <Compile Include="Enums\MemoryType.cs" />
+    <Compile Include="Enums\Mode.cs" />
+    <Compile Include="Enums\OpenState.cs" />
+    <Compile Include="Enums\OutputType.cs" />
+    <Compile Include="Enums\PluginType.cs" />
+    <Compile Include="Enums\Result.cs" />
+    <Compile Include="Enums\SoundFormat.cs" />
+    <Compile Include="Enums\SoundGroupBehavior.cs" />
+    <Compile Include="Enums\SoundType.cs" />
+    <Compile Include="Enums\Speaker.cs" />
+    <Compile Include="Enums\SpeakerMode.cs" />
+    <Compile Include="Enums\SystemCallbackType.cs" />
+    <Compile Include="Enums\TagDataType.cs" />
+    <Compile Include="Enums\TagType.cs" />
+    <Compile Include="Enums\TimeUnit.cs" />
+    <Compile Include="FmodException.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="FmodSystem.Native.cs">
+      <DependentUpon>FmodSystem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Geometry.cs" />
+    <Compile Include="Geometry.Native.cs">
+      <DependentUpon>Geometry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Handle.cs" />
+    <Compile Include="MemoryBuffer.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ResultStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResultStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Reverb3D.cs" />
+    <Compile Include="Reverb3D.Native.cs">
+      <DependentUpon>Reverb3D.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReverbPresets.cs" />
+    <Compile Include="Sound.cs" />
+    <Compile Include="Sound.Native.cs">
+      <DependentUpon>Sound.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SoundGroup.cs" />
+    <Compile Include="SoundGroup.Native.cs">
+      <DependentUpon>SoundGroup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SoundLock.cs" />
+    <Compile Include="Structs\AsyncReadInfo.cs" />
+    <Compile Include="Enums\DspIndex.cs" />
+    <Compile Include="Data\ChannelFormat.cs" />
+    <Compile Include="Data\DspDelay.cs" />
+    <Compile Include="Structs\BufferReader.cs" />
+    <Compile Include="Structs\CreateSoundExInfo.cs" />
+    <Compile Include="Structs\DspBufferArray.cs" />
+    <Compile Include="Structs\DspDescription.cs" />
+    <Compile Include="Structs\DspMeteringInfo.cs" />
+    <Compile Include="Structs\DspParameterDesc.cs" />
+    <Compile Include="Structs\DspParameterDescBool.cs" />
+    <Compile Include="Structs\DspParameterDescData.cs" />
+    <Compile Include="Structs\DspParameterDescFloat.cs" />
+    <Compile Include="Structs\DspParameterDescInt.cs" />
+    <Compile Include="Structs\DspParameterDescUnion.cs" />
+    <Compile Include="Structs\DspParameterFft.cs" />
+    <Compile Include="Enums\DspProcessOperation.cs" />
+    <Compile Include="Structs\DspState.cs" />
+    <Compile Include="Structs\ErrorCallbackInfo.cs" />
+    <Compile Include="Structs\FloatMapping.cs" />
+    <Compile Include="Structs\FloatMappingPiecewiseLinear.cs" />
+    <Compile Include="Structs\Int24.cs" />
+    <Compile Include="Structs\PluginList.cs" />
+    <Compile Include="Structs\PortIndex.cs" />
+    <Compile Include="Data\Reverb3DAttributes.cs" />
+    <Compile Include="Structs\ReverbProperties.cs" />
+    <Compile Include="Structs\STRUCT_TEMP.cs" />
+    <Compile Include="Structs\Tag.cs" />
+    <Compile Include="Structs\ThreeDAttributes.cs" />
+    <Compile Include="Structs\Vector.cs" />
+    <Compile Include="Data\WetDryMix.cs" />
+    <Compile Include="FmodSystem.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TagHelper.cs" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(Platform)' == 'x86'">
+    <None Include="fmod.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup Condition="'$(Platform)' == 'x64'">
+    <None Include="fmod64.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Controls\ColorSlider.resx">
+      <DependentUpon>ColorSlider.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\KnobControl.resx">
+      <DependentUpon>KnobControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\WaveForm.resx">
+      <DependentUpon>WaveForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ResultStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResultStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WaveformIcon.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

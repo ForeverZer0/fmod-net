@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Reflection;
-using System.Resources;
 using FMOD.Sharp.Enums;
 
 namespace FMOD.Sharp

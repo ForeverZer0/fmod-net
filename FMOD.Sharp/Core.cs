@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
 using System.Resources;
+using System.Text.RegularExpressions;
 using FMOD.Sharp.Enums;
 
 namespace FMOD.Sharp
@@ -75,6 +76,15 @@ namespace FMOD.Sharp
 		public static string GetResultString(Result result)
 		{
 			return GetResultString(Enum.GetName(typeof(Result), result));
+		}
+
+		public static Version Uint32ToVersion(uint version)
+		{
+			var str = version.ToString("X8");
+			var major = Int32.Parse(str.Substring(0, 4));
+			var minor = Int32.Parse(str.Substring(4, 2));
+			var build = Int32.Parse(str.Substring(6, 2));
+			return new Version(major, minor, build);
 		}
 	}
 }

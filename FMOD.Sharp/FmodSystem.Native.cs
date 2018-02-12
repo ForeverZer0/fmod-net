@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 using FMOD.Sharp.Enums;
 using FMOD.Sharp.Structs;
 
@@ -73,7 +70,6 @@ namespace FMOD.Sharp
 		[DllImport(Core.LIBRARY)]
 		private static extern Result FMOD_System_UnlockDSP(IntPtr system);
 
-
 		[DllImport(Core.LIBRARY)]
 		private static extern Result FMOD_System_SetOutput(IntPtr system, OutputType output);
 
@@ -100,18 +96,18 @@ namespace FMOD.Sharp
 		private static extern Result FMOD_System_GetSoftwareChannels(IntPtr system, out int numsoftwarechannels);
 
 		[DllImport(Core.LIBRARY)]
-		private static extern Result FMOD_System_SetSoftwareFormat(IntPtr system, int samplerate, SpeakerMode SpeakerMode,
+		private static extern Result FMOD_System_SetSoftwareFormat(IntPtr system, int samplerate, SpeakerMode speakerMode,
 			int numrawspeakers);
 
 		[DllImport(Core.LIBRARY)]
 		private static extern Result FMOD_System_GetSoftwareFormat(IntPtr system, out int samplerate,
-			out SpeakerMode SpeakerMode, out int numrawspeakers);
+			out SpeakerMode speakerMode, out int numRawSpeakers);
 
 		[DllImport(Core.LIBRARY)]
-		private static extern Result FMOD_System_SetDSPBufferSize(IntPtr system, uint bufferlength, int numbuffers);
+		private static extern Result FMOD_System_SetDSPBufferSize(IntPtr system, uint bufferLength, int numBuffers);
 
 		[DllImport(Core.LIBRARY)]
-		private static extern Result FMOD_System_GetDSPBufferSize(IntPtr system, out uint bufferlength, out int numbuffers);
+		private static extern Result FMOD_System_GetDSPBufferSize(IntPtr system, out uint bufferLength, out int numBuffers);
 
 		[DllImport(Core.LIBRARY)]
 		private static extern Result FMOD_System_SetFileSystem(IntPtr system, FileOpenCallback useropen,
@@ -135,8 +131,7 @@ namespace FMOD.Sharp
 		private static extern Result FMOD_System_GetNumNestedPlugins(IntPtr system, uint handle, out int count);
 
 		[DllImport(Core.LIBRARY)]
-		private static extern Result
-			FMOD_System_GetNestedPlugin(IntPtr system, uint handle, int index, out uint nestedhandle);
+		private static extern Result FMOD_System_GetNestedPlugin(IntPtr system, uint handle, int index, out uint nestedhandle);
 
 		[DllImport(Core.LIBRARY)]
 		private static extern Result FMOD_System_GetNumPlugins(IntPtr system, PluginType pluginType, out int numplugins);
@@ -242,8 +237,8 @@ namespace FMOD.Sharp
 			out float geometry, out float update, out float total);
 
 		[DllImport(Core.LIBRARY)]
-		private static extern Result FMOD_System_GetFileUsage(IntPtr system, out Int64 sampleBytesRead,
-			out Int64 streamBytesRead, out Int64 otherBytesRead);
+		private static extern Result FMOD_System_GetFileUsage(IntPtr system, out long sampleBytesRead,
+			out long streamBytesRead, out long otherBytesRead);
 
 		[DllImport(Core.LIBRARY)]
 		private static extern Result FMOD_System_GetSoundRAM(IntPtr system, out int currentalloced, out int maxalloced,
@@ -269,14 +264,14 @@ namespace FMOD.Sharp
 			IntPtr channelgroup, bool passThru);
 
 		[DllImport(Core.LIBRARY)]
-		private static extern Result FMOD_System_DetachChannelGroupFromPort(IntPtr system, IntPtr channelgroup);
+		private static extern Result FMOD_System_DetachChannelGroupFromPort(IntPtr system, IntPtr channelGroup);
 
 		[DllImport(Core.LIBRARY)]
-		private static extern Result FMOD_System_GetRecordNumDrivers(IntPtr system, out int numdrivers, out int numconnected);
+		private static extern Result FMOD_System_GetRecordNumDrivers(IntPtr system, out int numDrivers, out int numConnected);
 
 		[DllImport(Core.LIBRARY)]
 		private static extern Result FMOD_System_GetRecordDriverInfo(IntPtr system, int id, IntPtr name, int namelen,
-			out Guid guid, out int systemrate, out SpeakerMode SpeakerMode, out int SpeakerModechannels, out DriverState state);
+			out Guid guid, out int systemRate, out SpeakerMode speakerMode, out int speakerModeChannels, out DriverState state);
 
 		[DllImport(Core.LIBRARY)]
 		private static extern Result FMOD_System_GetRecordPosition(IntPtr system, int id, out uint position);

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Drawing;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
@@ -181,7 +183,7 @@ namespace FMOD.Sharp
 		{
 			var max = maxChannels.Clamp(1, Core.MAX_CHANNEL_WIDTH);
 			NativeInvoke(FMOD_System_Init(this, max, flags, extradriverdata ?? IntPtr.Zero));
-
+			// TODO: Do this better
 			if (selfUpdate)
 			{
 				_updateTimer = new Timer(SelfUpdate, null, 0, UPDATE_FREQUENCY);
@@ -294,7 +296,7 @@ namespace FMOD.Sharp
 		public event EventHandler SoundCreated;
 		public event EventHandler ReverbCreated;
 
-		public Dsp CreateDspFromType(DspType dspType)
+		public Dsp CreateDspByType(DspType dspType)
 		{
 			NativeInvoke(FMOD_System_CreateDSPByType(this, dspType, out var dsp));
 			DspCreated?.Invoke(this, EventArgs.Empty);
@@ -417,8 +419,39 @@ namespace FMOD.Sharp
 			}
 		}
 
+		public int SoftwareChannels
+		{
+			get
+			{
+				NativeInvoke(FMOD_System_GetSoftwareChannels(this, out var channels));
+				return channels;
+			}
+			set
+			{
+				NativeInvoke(FMOD_System_SetSoftwareChannels(this, value));
+				SoftwareChannelsChanged?.Invoke(this, EventArgs.Empty);
+			}
+		}
+
+
 		public event EventHandler ChannelGroupCreated;
 		public event EventHandler SoundGroupCreated;
+		public event EventHandler SelectedDriverChanged;
+		public event EventHandler SoftwareChannelsChanged;
+
+		public int SelectedDriver
+		{
+			get
+			{
+				NativeInvoke(FMOD_System_GetDriver(this, out var driverId));
+				return driverId;
+			}
+			set
+			{
+				NativeInvoke(FMOD_System_SetDriver(this, value));
+				SelectedDriverChanged?.Invoke(this, EventArgs.Empty);
+			}
+		}
 
 		public ChannelGroup CreateChannelGroup(string name)
 		{
@@ -454,6 +487,54 @@ namespace FMOD.Sharp
 			}
 		}
 
+		public event EventHandler DspBufferChanged;
+
+		public void SetDspBufferSize(uint bufferLength, int bufferCount)
+		{
+			NativeInvoke(FMOD_System_SetDSPBufferSize(this, bufferLength, bufferCount));
+			DspBufferChanged?.Invoke(this, EventArgs.Empty);
+		}
+
+		public uint DspBuffersLength
+		{
+			get
+			{
+				NativeInvoke(FMOD_System_GetDSPBufferSize(this, out var bufferLength, out var dummy));
+				return bufferLength;
+			}
+			set
+			{
+				NativeInvoke(FMOD_System_GetDSPBufferSize(this, out var dummy, out var count));
+				NativeInvoke(FMOD_System_SetDSPBufferSize(this, value, count));
+				DspBufferChanged?.Invoke(this, EventArgs.Empty);
+			}
+		}
+
+		public event EventHandler PluginPathChanged;
+
+		public void SetPluginPath(string path)
+		{
+			var bytes = Encoding.UTF8.GetBytes(path);
+			NativeInvoke(FMOD_System_SetPluginPath(this, bytes));
+			PluginPathChanged?.Invoke(this, EventArgs.Empty);
+		}
+
+		public int DspBuffersCount
+		{
+			get
+			{
+				NativeInvoke(FMOD_System_GetDSPBufferSize(this, out var dummy, out var count));
+				return count;
+			}
+			set
+			{
+				NativeInvoke(FMOD_System_GetDSPBufferSize(this, out var bufferLength, out var dummy));
+				NativeInvoke(FMOD_System_SetDSPBufferSize(this, bufferLength, value));
+				DspBufferChanged?.Invoke(this, EventArgs.Empty);
+			}
+		}
+
+
 		public int DriversCount
 		{
 			get
@@ -462,6 +543,407 @@ namespace FMOD.Sharp
 				return count;
 			}
 		}
-	}
+
+		public event EventHandler PluginLoaded;
+		public event EventHandler PluginUnloaded;
+
+		public uint LoadPlugin(string path, uint priority = 128u)
+		{
+			var bytes = Encoding.UTF8.GetBytes(path);
+			NativeInvoke(FMOD_System_LoadPlugin(this, bytes, out var handle, priority));
+			PluginLoaded?.Invoke(this, EventArgs.Empty);
+			return handle;
+		}
+
+		public void UnloadPlugin(uint pluginHandle)
+		{
+			NativeInvoke(FMOD_System_UnloadPlugin(this, pluginHandle));
+			PluginUnloaded?.Invoke(this, EventArgs.Empty);
+		}
+
+		public int GetNestedPluginCount(uint pluginHandle)
+		{
+			NativeInvoke(FMOD_System_GetNumNestedPlugins(this, pluginHandle, out var count));
+			return count;
+		}
+
+		public int GetPluginCount(PluginType type)
+		{
+			NativeInvoke(FMOD_System_GetNumPlugins(this, type, out var count));
+			return count;
+		}
+
+		public uint GetPluginHandle(PluginType type, int index)
+		{
+			NativeInvoke(FMOD_System_GetPluginHandle(this, type, index, out var handle));
+			return handle;
+		}
+
+		public PluginInfo GetPluginInfo(uint handle)
+		{
+			using (var buffer = new MemoryBuffer(512))
+			{
+				NativeInvoke(FMOD_System_GetPluginInfo(this, handle, out var type, 
+					buffer.Pointer, 512, out var version));
+				return new PluginInfo
+				{
+					Handle = handle,
+					Name = buffer.ToString(Encoding.UTF8),
+					Type = type,
+					Version = Core.Uint32ToVersion(version)
+				};
+			}
+		}
+
+		public Version Version
+		{
+			get
+			{
+				NativeInvoke(FMOD_System_GetVersion(this, out var version));
+				return Core.Uint32ToVersion(version);
+			}
+		}
+
+		public IntPtr OutputHandle
+		{
+			get
+			{
+				NativeInvoke(FMOD_System_GetOutputHandle(this, out var handle));
+				return handle;
+			}
+		}
+
+		public event EventHandler BufferSizeChanged;
+
+		public uint BufferSize
+		{
+			get
+			{
+				NativeInvoke(FMOD_System_GetStreamBufferSize(this, out var size, out var dummy));
+				return size;
+			}
+			set
+			{
+				NativeInvoke(FMOD_System_GetStreamBufferSize(this, out var dummy, out var type));
+				NativeInvoke(FMOD_System_SetStreamBufferSize(this, value, type));
+				BufferSizeChanged?.Invoke(this, EventArgs.Empty);
+			}
+		}
+
+		public TimeUnit BufferSizeType
+		{
+			get
+			{
+				NativeInvoke(FMOD_System_GetStreamBufferSize(this, out var dummy, out var type));
+				return type;
+			}
+			set
+			{
+				NativeInvoke(FMOD_System_GetStreamBufferSize(this, out var size, out var dummy));
+				NativeInvoke(FMOD_System_SetStreamBufferSize(this, size, value));
+				BufferSizeChanged?.Invoke(this, EventArgs.Empty);
+			}
+		}
+
+		public void SetBufferSize(uint size, TimeUnit type)
+		{
+			NativeInvoke(FMOD_System_SetStreamBufferSize(this, size, type));
+			BufferSizeChanged?.Invoke(this, EventArgs.Empty);
+		}
+
+		public RamUsage GetRamUsage()
+		{
+			NativeInvoke(FMOD_System_GetSoundRAM(this, out var current, out var max, out var total));
+			return new RamUsage
+			{
+				CurrentlyAllocated = current,
+				MaximumAllocated = max,
+				Total = total
+			};
+		}
+
+		public FileUsage GetFileUsage()
+		{
+			NativeInvoke(FMOD_System_GetFileUsage(this, out var samples, out var stream, out var other));
+			return new FileUsage
+			{
+				SampleBytes = samples,
+				StreamBytes = stream,
+				OtherBytes = other
+			};
+		}
+
+		public CpuUsage GetCpuUsage()
+		{
+			NativeInvoke(FMOD_System_GetCPUUsage(this, out var dsp, out var stream, out var geometry,
+				out var update, out var total));
+			return new CpuUsage
+			{
+				Dsp = dsp,
+				Stream = stream,
+				Geometry = geometry,
+				Update = update,
+				Total = total
+			};
+		}
+
+		public Dsp CreateDsp(DspDescription description)
+		{
+			NativeInvoke(FMOD_System_CreateDSP(this, ref description, out var dsp));
+			DspCreated?.Invoke(this, EventArgs.Empty);
+			return Core.Create<Dsp>(dsp);
+		}
+
+		public Dsp CreateByPlugin(uint pluginHandle)
+		{
+			NativeInvoke(FMOD_System_CreateDSPByPlugin(this, pluginHandle, out var dsp));
+			DspCreated?.Invoke(this, EventArgs.Empty);
+			return Core.Create<Dsp>(dsp);
+		}
+
+		public event EventHandler ChannelGroupAttached;
+		public event EventHandler ChannelGroupDetached;
+
+		public void DetachChannelGroupFromPort(ChannelGroup channelGroup)
+		{
+			NativeInvoke(FMOD_System_DetachChannelGroupFromPort(this, channelGroup));
+			ChannelGroupDetached?.Invoke(this, EventArgs.Empty);
+		}
+
+		public void AttachChannelGroupToPort(uint portType, ulong portIndex, ChannelGroup channelGroup, bool passThru)
+		{
+			NativeInvoke(FMOD_System_AttachChannelGroupToPort(this, portType, portIndex, channelGroup, passThru));
+			ChannelGroupAttached?.Invoke(this, EventArgs.Empty);
+		}
+
+		public Geometry LoadGeometry(string filename)
+		{
+			return LoadGeometry(File.ReadAllBytes(filename));
+		}
+
+		public Geometry LoadGeometry(byte[] binary)
+		{
+			var handle = GCHandle.Alloc(binary, GCHandleType.Pinned);
+			var geometry = LoadGeometry(handle.AddrOfPinnedObject(), binary.Length);
+			handle.Free();
+			return geometry;
+		}
+
+		public Geometry LoadGeometry(IntPtr data, int dataSize)
+		{
+			NativeInvoke(FMOD_System_LoadGeometry(this, data, dataSize, out var geometry));
+			GeometryCreated?.Invoke(this, EventArgs.Empty);
+			return Core.Create<Geometry>(geometry);
+		}
+
+		public SpeakerPosition GetSpeakerPosition(Speaker speaker)
+		{
+			NativeInvoke(FMOD_System_GetSpeakerPosition(this, speaker, out var x, out var y, out var active));
+			return new SpeakerPosition(speaker, x, y, active);
+		}
+
+		public void SetSpeakerPosition(SpeakerPosition position)
+		{
+			SetSpeakerPosition(position.Speaker, position.Location.X, 
+				position.Location.Y, position.IsActive);
+		}
+
+		public void SetSpeakerPosition(Speaker speaker, float x, float y, bool isActive = true)
+		{
+			NativeInvoke(FMOD_System_SetSpeakerPosition(this, speaker, x, y, isActive));
+			SpeakerPositionChanged?.Invoke(this, EventArgs.Empty);
+		}
+
+		public void SetSpeakerPosition(Speaker speaker, PointF location, bool isActive = true)
+		{
+			SetSpeakerPosition(speaker, location.X, location.Y, isActive);
+		}
+
+		public event EventHandler SpeakerPositionChanged;
+
+		public SpeakerPosition[] GetSpeakerPositions()
+		{
+			var speakers = (Speaker[]) Enum.GetValues(typeof(Speaker));
+			var positions = new SpeakerPosition[speakers.Length];
+			for (var i = 0; i < speakers.Length; i++)
+			{
+				var speaker = speakers[i];
+				NativeInvoke(FMOD_System_GetSpeakerPosition(this, speaker, out var x, out var y, out var active));
+				positions[i] = new SpeakerPosition(speaker, x, y, active);
+			}
+			return positions;
+		}
+
+		public void SetSpeakerPositions(SpeakerPosition[] speakerPositions)
+		{
+			foreach (var position in speakerPositions)
+				SetSpeakerPosition(position);
+		}
+
+		public uint GetOutputByPlugin()
+		{
+			NativeInvoke(FMOD_System_GetOutputByPlugin(this, out var handle));
+			return handle;
+		}
+
+		public void SetOutputByPlugin(uint pluginHandle)
+		{
+			NativeInvoke(FMOD_System_SetOutputByPlugin(this, pluginHandle));
+			OutputChanged?.Invoke(this, EventArgs.Empty);
+		}
+
+		public uint GetNestedPlugin(uint pluginHandle, int index)
+		{
+			NativeInvoke(FMOD_System_GetNestedPlugin(this, pluginHandle, index, out var nestedHandle));
+			return nestedHandle;
+		}
+
+		public DspDescription GetDspDescriptionByPlugin(uint pluginHandle)
+		{
+			NativeInvoke(FMOD_System_GetDSPInfoByPlugin(this, pluginHandle, out var infoPtr));
+			// TODO: Check ptr validity
+			return (DspDescription) Marshal.PtrToStructure(infoPtr, typeof(DspDescription));
+		}
+
+		public event EventHandler DspRegistered;
+		
+		public uint RegisterDsp(DspDescription description)
+		{
+			NativeInvoke(FMOD_System_RegisterDSP(this, ref description, out var handle));
+			DspRegistered?.Invoke(this, EventArgs.Empty);
+			return handle;
+		}
+
+		public SoftwareFormat SoftwareFormat
+		{
+			get
+			{
+				NativeInvoke(FMOD_System_GetSoftwareFormat(this, out var rate, out var mode, out var numSpeakers));
+				return new SoftwareFormat
+				{
+					SampleRate = rate,
+					SpeakerMode = mode,
+					RawSpeakerCount = numSpeakers
+				};
+			}
+			set
+			{
+
+				NativeInvoke(FMOD_System_SetSoftwareFormat(this, value.SampleRate, 
+					value.SpeakerMode, value.RawSpeakerCount));
+				SoftwareFormatChanged?.Invoke(this, EventArgs.Empty);
+			}
+		}
+
+		public event EventHandler SoftwareFormatChanged;
+
+		public void SetSoftwareFormat(int sampleRate, SpeakerMode speakerMode, int rawSpeakerCount = 0)
+		{
+			NativeInvoke(FMOD_System_SetSoftwareFormat(this, sampleRate.Clamp(8000, 192000), speakerMode, rawSpeakerCount));
+			SoftwareFormatChanged?.Invoke(this, EventArgs.Empty);
+		}
+
+		public int GetSpeakerModeChannelCount(SpeakerMode mode)
+		{
+			NativeInvoke(FMOD_System_GetSpeakerModeChannels(this, mode, out int count));
+			return count;
+		}
+
+		public void SetCallback(SystemCallback callback, SystemCallbackType type)
+		{
+			NativeInvoke(FMOD_System_SetCallback(this, callback, type));
+		}
+
+
+		public event EventHandler ListenerCountChanged;
+
+
+		public int ListenerCount
+		{
+			get
+			{
+				NativeInvoke(FMOD_System_Get3DNumListeners(this, out var listenerCount));
+				return listenerCount;
+			}
+			set
+			{
+				NativeInvoke(FMOD_System_Set3DNumListeners(this, value.Clamp(1, Core.MAX_LISTENERS)));
+				ListenerCountChanged?.Invoke(this, EventArgs.Empty);
+			}
+		}
+
+		public System3DSettings Settings3D
+		{
+			get
+			{
+				NativeInvoke(FMOD_System_Get3DSettings(this, out var doppler, out var distance, out var rolloff));
+				return new System3DSettings
+				{
+					DopplerScale = doppler,
+					DistanceFactor = distance,
+					RolloffScale = rolloff
+				};
+			}
+			set { Set3DSettings(value.DopplerScale, value.DistanceFactor, value.RolloffScale); }
+		}
+
+		public event EventHandler Settings3DChanged;
+
+		public void Set3DSettings(float dopplerScale, float distanceFactor, float rolloffScale)
+		{
+			NativeInvoke(FMOD_System_Set3DSettings(this, dopplerScale, distanceFactor, rolloffScale));
+			Settings3DChanged?.Invoke(this, EventArgs.Empty);
+		}
+
+		public int PlayingChannelCount
+		{
+			get
+			{
+				NativeInvoke(FMOD_System_GetChannelsPlaying(this, out var count, out var dummy));
+				return count;
+			}
+		}
+
+		public int RealChannelPlayingCount
+		{
+			get
+			{
+				NativeInvoke(FMOD_System_GetChannelsPlaying(this, out var dummy, out var count));
+				return count;
+			}
+		}
+
+		public ThreeDAttributes GetListenerAttributes(int listener)
+		{
+			NativeInvoke(FMOD_System_Get3DListenerAttributes(this, listener, out var position,
+				out var velocity, out var forward, out var up));
+			return new ThreeDAttributes
+			{
+				Forward = forward,
+				Velocity = velocity,
+				Position = position,
+				Up = up
+			};
+		}
+
+		public void SetListenerAttributes(int listener, ThreeDAttributes attributes)
+		{
+			SetListenerAttributes(listener, attributes.Position, attributes.Velocity, attributes.Forward, attributes.Up);
+		}
+
+		public void SetListenerAttributes(int listener, Vector position, Vector velocity, Vector forward, Vector up)
+		{
+
+			NativeInvoke(FMOD_System_Set3DListenerAttributes(this, listener, ref position, ref velocity, ref forward, ref up));
+			ListenerAttributesChanged?.Invoke(this, EventArgs.Empty);
+		}
+
+		public event EventHandler ListenerAttributesChanged;
 	
+
+
+
+
+
+	}
 }

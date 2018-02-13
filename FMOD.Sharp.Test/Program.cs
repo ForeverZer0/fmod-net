@@ -49,7 +49,7 @@ namespace FMOD.Sharp
 						_failed++;
 						continue;
 					}
-					using (var dsp = new Dsp(handle))
+					using (var dsp = Core.Create<Dsp>(handle))
 						GenerateClass(className, dsp);
 					FlushBuffer(className);
 				}
@@ -115,7 +115,7 @@ namespace FMOD.Sharp
 		private static void GenerateClass(string className, Dsp dsp)
 		{
 			Console.ForegroundColor = ConsoleColor.Blue;
-			Console.WriteLine($"Discovered {dsp.GetInfo()}.... ");
+			Console.WriteLine($"Discovered {dsp.GetInfo()}... ");
 			_buffer.AppendLine("using System;");
 			_buffer.AppendLine();
 			_buffer.AppendLine($"namespace {NAMESPACE}");
@@ -145,7 +145,7 @@ namespace FMOD.Sharp
 
 		private static void GenerateConstructor(string className)
 		{
-			_buffer.AppendLine($"\t\tpublic {className}(IntPtr handle) : base(handle)");
+			_buffer.AppendLine($"\t\tinternal {className}(IntPtr handle) : base(handle)");
 			_buffer.AppendLine("\t\t{");
 			_buffer.AppendLine("\t\t}");
 		}
@@ -153,7 +153,22 @@ namespace FMOD.Sharp
 		private static void GenerateEvent(int index, DspParameterDesc desc)
 		{
 			var eventName = $"{FormatName(desc.Name)}Changed";
-			_buffer.AppendLine($"\t\tpublic event EventHandler<ParamChangeEventArgs> {eventName};");
+
+			switch (desc.Type)
+			{
+				case DspParameterType.Float:
+					_buffer.AppendLine($"\t\tpublic event EventHandler<DspFloatParamChangedEventArgs> {eventName};");
+					break;
+				case DspParameterType.Int:
+					break;
+				case DspParameterType.Bool:
+					_buffer.AppendLine($"\t\tpublic event EventHandler<DspBoolParamChangedEventArgs> {eventName};");
+					break;
+				case DspParameterType.Data:
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
 		}
 
 		private static void GenerateParameter(int index, DspParameterDesc desc)
@@ -195,12 +210,9 @@ namespace FMOD.Sharp
 			_buffer.AppendLine($"\t\t\tget => GetParameterFloat({index});");
 			_buffer.AppendLine("\t\t\tset");
 			_buffer.AppendLine("\t\t\t{");
-			_buffer.AppendLine($"\t\t\t\tSetParameterFloat({index}, value.Clamp({min:0.0#}f, {max:0.0#}f));");
-			_buffer.AppendLine($"\t\t\t\t{name}Changed?.Invoke(this, new ParamChangeEventArgs {{");
-			_buffer.AppendLine($"\t\t\t\t\tIndex = {index},");
-			_buffer.AppendLine($"\t\t\t\t\tParameterType = DspParameterType.Float,");
-			_buffer.AppendLine($"\t\t\t\t\tValue = value");
-			_buffer.AppendLine("\t\t\t\t});");
+			_buffer.AppendLine($"\t\t\t\tvar clamped = value.Clamp({min:0.0###}f, {max:0.0###}f);");
+			_buffer.AppendLine($"\t\t\t\tSetParameterFloat({index}, clamped);");
+			_buffer.AppendLine($"\t\t\t\t{name}Changed?.Invoke(this, new DspFloatParamChangedEventArgs({index}, clamped, {min:0.0###}f, {max:0.0###}f));");
 			_buffer.AppendLine("\t\t\t}");
 			_buffer.AppendLine("\t\t}");
 		}
@@ -210,7 +222,7 @@ namespace FMOD.Sharp
 			_buffer.AppendLine($"\t\tpublic int {name}");
 			_buffer.AppendLine("\t\t{");
 			_buffer.AppendLine($"\t\t\tget => GetParameterInt({index});");
-			_buffer.AppendLine($"\t\t\tset => SetParameterInt({index}, value.Clamp({min}, {max}));");
+			_buffer.AppendLine($"\t\t\tset {{ SetParameterInt({index}, value.Clamp({min}, {max})); }}");
 			_buffer.AppendLine("\t\t}");
 		}
 
@@ -219,7 +231,10 @@ namespace FMOD.Sharp
 			_buffer.AppendLine($"\t\tpublic bool {name}");
 			_buffer.AppendLine("\t\t{");
 			_buffer.AppendLine($"\t\t\tget => GetParameterBool({index});");
-			_buffer.AppendLine($"\t\t\tset => SetParameterBool({index}, value);");
+			_buffer.AppendLine("\t\t\t{");
+			_buffer.AppendLine($"\t\t\t\tSetParameterBool({index}, value);");
+			_buffer.AppendLine($"\t\t\t\t{name}Changed?.Invoke(this, new DspBoolParamChangedEventArgs({index}, value));");
+			_buffer.AppendLine("\t\t\t}");
 			_buffer.AppendLine("\t\t}");
 		}
 		private static void GenerateDataParameter(int index, string name)
@@ -227,7 +242,7 @@ namespace FMOD.Sharp
 			_buffer.AppendLine($"\t\tpublic byte[] {name}");
 			_buffer.AppendLine("\t\t{");
 			_buffer.AppendLine($"\t\t\tget => GetParameterData({index});");
-			_buffer.AppendLine($"\t\t\tset => SetParameterData({index}, value);");
+			_buffer.AppendLine($"\t\t\tset {{ SetParameterData({index}, value); }}");
 			_buffer.AppendLine("\t\t}");
 		}
 	}

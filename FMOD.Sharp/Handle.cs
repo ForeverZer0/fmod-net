@@ -4,8 +4,16 @@ using FMOD.Sharp.Interfaces;
 
 namespace FMOD.Sharp
 {
+	/// <summary>
+	/// <para>Describes a basic pointer, or handle, to a native FMOD object.</para>
+	/// <para>This class must be inherited.</para>
+	/// </summary>
+	/// <seealso cref="FMOD.Sharp.Interfaces.IHandle" />
 	public abstract class Handle : IHandle
 	{
+		/// <summary>
+		/// Occurs when the object the handle points to is released and no longer valid.
+		/// </summary>
 		public event EventHandler Disposed;
 
 		private IntPtr _pointer;
@@ -60,7 +68,7 @@ namespace FMOD.Sharp
 		/// <exception cref="FmodException">Thrown when the return value of the function does not equal <see cref="Result.OK"/> and the <see cref="throwException"/> parameter is <c>false</c>.</exception>
 		/// <seealso cref="FmodException"/>
 		/// <seealso cref="Result"/>
-		public Result NativeInvoke(Result result, bool throwException = true)
+		public static Result NativeInvoke(Result result, bool throwException = true)
 		{
 			if (result != Result.OK && throwException)
 				throw new FmodException(result, Core.GetResultString(result));

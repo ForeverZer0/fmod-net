@@ -1,5 +1,6 @@
 ﻿using System;
 using FMOD.Sharp.Data;
+using FMOD.Sharp.Dsps;
 
 namespace FMOD.Sharp
 {
@@ -159,6 +160,64 @@ namespace FMOD.Sharp
 			ChannelGroup = group;
 			Connection = connection;
 		}
+	}
 
+
+
+
+	public class DspParamChangedEventArgs : EventArgs
+	{
+		public int ParameterIndex { get; }
+
+		public DspParamChangedEventArgs(int parameterIndex)
+		{
+			ParameterIndex = parameterIndex;
+		}
+	}
+
+	public class DspFloatParamChangedEventArgs : DspParamChangedEventArgs
+	{
+		public float Value { get; }
+
+		public float MinValue { get; }
+
+		public float MaxValue { get; }
+
+		public DspFloatParamChangedEventArgs(int index, float value, float min = float.MinValue, float max = float.MaxValue) : base(index)
+		{
+			Value = value;
+			MinValue = min;
+			MaxValue = max;
+		}
+	}
+
+	public class DspBoolParamChangedEventArgs : DspParamChangedEventArgs
+	{
+		public bool Value { get; }
+
+		public DspBoolParamChangedEventArgs(int index, bool value) : base(index)
+		{
+			Value = value;
+		}
+	}
+
+	public class DspChannelMixGainChangedEventArgs : DspFloatParamChangedEventArgs
+	{
+		public int ChannelIndex { get; }
+
+		public DspChannelMixGainChangedEventArgs(int parameterIndex, int channelIndex, float gain) : base(parameterIndex, gain, -80.0f, 10.0f)
+		{
+			ChannelIndex = channelIndex;
+		}
+	}
+
+	public class DspPitchFftChangedEventArgs : DspParamChangedEventArgs
+	{
+		public PitchShift.FftWindowSize FftWindow { get; }
+
+		public DspPitchFftChangedEventArgs(int parameterIndex, PitchShift.FftWindowSize windowSize) : base(parameterIndex)
+		{
+			FftWindow = windowSize;
+		}
 	}
 }

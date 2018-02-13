@@ -8,11 +8,15 @@ using FMOD.Sharp.Structs;
 
 namespace FMOD.Sharp
 {
+	/// <inheritdoc />
+	/// <summary>
+	/// <para>Describes a Digital Signal Processing unit for applying effects on sounds.</para>
+	/// <para>This class must be inherited.</para>
+	/// </summary>
+	/// <seealso cref="T:FMOD.Sharp.Handle" />
 	public partial class Dsp : Handle
 	{
 		#region Delegates & Events
-
-
 
 		public event EventHandler<ParamChangeEventArgs> ParameterChanged;
 
@@ -226,10 +230,6 @@ namespace FMOD.Sharp
 		{
 			if (dspHandle == IntPtr.Zero)
 				return null;
-			if (dspType == DspType.Fft)
-				return Core.Create<Fft>(dspHandle);
-			return null;
-			/*
 			switch (dspType)
 			{
 				case DspType.Unknown:
@@ -299,7 +299,7 @@ namespace FMOD.Sharp
 				case DspType.ConvolutionReverb:
 					return Core.Create<ConvolutionReverb>(dspHandle);
 				case DspType.ChannelMix:
-					return null; // TODO: Fix
+					return Core.Create<ChannelMix>(dspHandle);
 				case DspType.Transceiver:
 					return Core.Create<Transceiver>(dspHandle);
 				case DspType.ObjectPan:
@@ -311,7 +311,6 @@ namespace FMOD.Sharp
 				default:
 					return null;
 			}
-			*/
 		}
 
 		public int GetDataParameterIndex(int dataType)
@@ -325,14 +324,11 @@ namespace FMOD.Sharp
 			var namePtr = Marshal.StringToHGlobalAnsi(new String(' ', 32));
 			NativeInvoke(FMOD_DSP_GetInfo(this, namePtr, out var version, out var channels,
 				out var width, out var height));
-			var bytes = BitConverter.GetBytes(version);
-			var major = BitConverter.ToUInt16(bytes, 2);
-			var minor = BitConverter.ToUInt16(bytes, 0);
 			// TODO: Fix implementation for version
 			return new DspInfo
 			{
 				Name = Marshal.PtrToStringAnsi(namePtr, 32).Trim(),
-				Version = new Version(major, minor),
+				Version = Core.Uint32ToVersion(version),
 				ChannelCount = channels,
 				ConfigWindowSize = new Size(width, height)
 			};
@@ -436,8 +432,9 @@ namespace FMOD.Sharp
 
 		protected void SetParameterData(int index, byte[] data)
 		{
-			NativeInvoke(FMOD_DSP_SetParameterData(this, index, Marshal.UnsafeAddrOfPinnedArrayElement(data, 0),
-				(uint) data.Length));
+			var gcHandle = GCHandle.Alloc(data, GCHandleType.Pinned);
+			NativeInvoke(FMOD_DSP_SetParameterData(this, index, gcHandle.AddrOfPinnedObject(), (uint) data.Length));
+			gcHandle.Free();
 			ParameterChanged?.Invoke(this, new ParamChangeEventArgs
 			{
 				Index = index,

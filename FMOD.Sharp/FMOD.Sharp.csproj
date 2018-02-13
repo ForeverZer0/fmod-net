@@ -100,6 +100,13 @@
     <Compile Include="Data\SpeakerPosition.cs" />
     <Compile Include="Data\SyncpointInfo.cs" />
     <Compile Include="Data\System3DSettings.cs" />
+    <Compile Include="Dsps\ChannelMix.cs" />
+    <Compile Include="Dsps\Chorus.cs" />
+    <Compile Include="Dsps\ConvolutionReverb.cs" />
+    <Compile Include="Dsps\Echo.cs" />
+    <Compile Include="Dsps\Flange.cs" />
+    <Compile Include="Dsps\PitchShift.cs" />
+    <Compile Include="Dsps\Tremolo.cs" />
     <Compile Include="Interfaces\IHandle.cs" />
     <Compile Include="Structs\AdvancedSettings.cs" />
     <Compile Include="Channel.cs" />
@@ -158,7 +165,6 @@
     <Compile Include="DspConnection.Native.cs">
       <DependentUpon>DspConnection.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dsps\Fft.cs" />
     <Compile Include="Enums\ChannelControlCallbackType.cs" />
     <Compile Include="Enums\ChannelControlType.cs" />
     <Compile Include="Enums\ChannelMask.cs" />
@@ -246,6 +252,7 @@
     <Compile Include="Structs\ErrorCallbackInfo.cs" />
     <Compile Include="Structs\FloatMapping.cs" />
     <Compile Include="Structs\FloatMappingPiecewiseLinear.cs" />
+    <Compile Include="Structs\ImpulseResponse.cs" />
     <Compile Include="Structs\Int24.cs" />
     <Compile Include="Structs\OutputDescription.cs" />
     <Compile Include="Structs\PluginList.cs" />

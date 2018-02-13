@@ -6,10 +6,21 @@ using FMOD.Sharp.Structs;
 
 namespace FMOD.Sharp
 {
+	/// <summary>
+	/// <para>The base class for both <see cref="Channel"/> and <see cref="ChannelGroup"/>.</para>
+	/// <para>This class must be inherited.</para>
+	/// </summary>
+	/// <seealso cref="FMOD.Sharp.Handle" />
+	/// <seealso cref="Channel"/>
+	/// <seealso cref="ChannelGroup"/>
 	public abstract partial class ChannelControl : Handle
 	{
 		#region Constants & Fields
 
+		/// <summary>
+		/// It is necessary to keep a reference (non-local variable) to the callback, otherwise it 
+		/// gets garbage-collected and will throw an exception when the callback is invoked by FMOD.
+		/// </summary>
 		// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
 		private readonly ChannelCallback _channelCallbackDelegate;
 

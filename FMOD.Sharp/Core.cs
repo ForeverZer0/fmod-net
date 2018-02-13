@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
 using System.Resources;
-using System.Text.RegularExpressions;
 using FMOD.Sharp.Enums;
 
 namespace FMOD.Sharp
 {
 	public static class Core
 	{
+#if X64
+		public const string LIBRARY = "fmod64";
+#elif X86
+		public const string LIBRARY = "fmod";
+#endif
+
 		public const int VERSION = 0x00011002;
 		public const int MAX_CHANNELS = 32;
 		public const int MAX_LISTENERS = 8;
@@ -17,18 +22,13 @@ namespace FMOD.Sharp
 		public const int MAX_SYSTEMS = 8;
 
 		private const BindingFlags BINDING_FLAGS = BindingFlags.NonPublic | BindingFlags.Instance;
-		private static ResourceManager _resxManager;
+		private static readonly ResourceManager _resxManager;
 		private static readonly Dictionary<IntPtr, Handle> _handles;
-
-#if X64
-		public const string LIBRARY = "fmod64";
-#elif X86
-		public const string LIBRARY = "fmod";
-#endif
 
 		static Core()
 		{
 			_handles = new Dictionary<IntPtr, Handle>();
+			_resxManager = new ResourceManager("FMOD.Sharp.ResultStrings", Assembly.GetExecutingAssembly());
 		}
 
 		public static T Create<T>(IntPtr handle) where T : Handle
@@ -39,26 +39,26 @@ namespace FMOD.Sharp
 				return (T) _handles[handle];
 			var obj = (T) Activator.CreateInstance(typeof(T), BINDING_FLAGS, null, 
 				new object[] { handle }, CultureInfo.InvariantCulture);
-			obj.Disposed += (s, e) => Destroy(handle);
-			_handles[handle] = obj;
+			AddReference(handle, obj);
 			return obj;
 		}
 
-		private static void Destroy(IntPtr handle)
+		private static void RemoveReference(IntPtr handle)
 		{
-			
+			if (!_handles.ContainsKey(handle)) 
+				return;
+			_handles[handle] = null;
+			_handles.Remove(handle);
 		}
 
 		public static void AddReference<T>(IntPtr pointer, T handle) where T : Handle
 		{
+			handle.Disposed += (s, e) => RemoveReference(pointer);
 			_handles[pointer] = handle;
-			handle.Disposed += (s, e) => _handles.Remove(pointer);
 		}
 
 		public static string GetResultString(string resultName)
 		{
-			if (_resxManager == null)
-				_resxManager = new ResourceManager("FMOD.Sharp.ResultStrings", Assembly.GetExecutingAssembly());
 			var str = _resxManager.GetString(resultName, CultureInfo.CurrentCulture);
 			return String.IsNullOrEmpty(str) ? "Unknown Error" : str;
 		}

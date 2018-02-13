@@ -7,9 +7,9 @@ namespace FMOD.Sharp.Data
 {
 	public class DspDelay
 	{
-		public uint ClockStart { get; set; }
+		public ulong ClockStart { get; set; }
 
-		public uint ClockEnd { get; set; }
+		public ulong ClockEnd { get; set; }
 
 		public bool StopChannels { get; set; }
 	}

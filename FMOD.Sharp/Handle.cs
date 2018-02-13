@@ -1,9 +1,10 @@
 ﻿using System;
 using FMOD.Sharp.Enums;
+using FMOD.Sharp.Interfaces;
 
 namespace FMOD.Sharp
 {
-	public abstract class Handle : IEquatable<Handle>, IDisposable
+	public abstract class Handle : IHandle
 	{
 		public event EventHandler Disposed;
 
@@ -38,14 +39,30 @@ namespace FMOD.Sharp
 			Disposed?.Invoke(this, EventArgs.Empty);
 		}
 
+		/// <summary>
+		/// Performs an implicit conversion from <see cref="Handle"/> to <see cref="IntPtr"/>.
+		/// </summary>
+		/// <param name="handle">The handle.</param>
+		/// <returns>
+		/// The result of the conversion.
+		/// </returns>
 		public static implicit operator IntPtr(Handle handle)
 		{
 			return handle._pointer;
 		}
 
-		public static Result NativeInvoke(Result result, bool throwError = true)
+		/// <summary>
+		/// Encapsulates invocations to functions of the native FMOD library, receiving the result, and throwing exceptions when necessary.
+		/// </summary>
+		/// <param name="result">The <see cref="Result"/> returned by the function call.</param>
+		/// <param name="throwException">If set to <c>true</c>, an <see cref="FmodException"/> will be thrown if the return value does not equal <seealso cref="Result.OK"/>.</param>
+		/// <returns>The <see cref="Result"/> returned by the function call.</returns>
+		/// <exception cref="FmodException">Thrown when the return value of the function does not equal <see cref="Result.OK"/> and the <see cref="throwException"/> parameter is <c>false</c>.</exception>
+		/// <seealso cref="FmodException"/>
+		/// <seealso cref="Result"/>
+		public Result NativeInvoke(Result result, bool throwException = true)
 		{
-			if (throwError && result == Result.OK)
+			if (result != Result.OK && throwException)
 				throw new FmodException(result, Core.GetResultString(result));
 			return result;
 		}

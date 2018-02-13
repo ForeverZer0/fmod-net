@@ -9,7 +9,7 @@ namespace FMOD.Sharp
 {
 	public partial class Geometry : Handle
 	{
-		public Geometry(IntPtr handle) : base(handle)
+		internal Geometry(IntPtr handle) : base(handle)
 		{
 		}
 

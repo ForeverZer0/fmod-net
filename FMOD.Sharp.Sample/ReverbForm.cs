@@ -15,7 +15,7 @@ namespace FMOD.Sharp.Sample
 			//@"C:\Users\syles\Desktop\BACKUPS\Halsey - hopeless fountain kingdom (Deluxe) (2017) [320]\03. Eyes Closed.mp3";
 
 		private Channel _channel;
-		private Reverb3D _reverb;
+		private Reverb _reverb;
 		private Sound _sound;
 		private FmodSystem _system;
 

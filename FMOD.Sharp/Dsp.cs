@@ -20,7 +20,7 @@ namespace FMOD.Sharp
 
 		#region Constructors & Destructor
 
-		public Dsp(IntPtr handle) : base(handle)
+		internal Dsp(IntPtr handle) : base(handle)
 		{
 		}
 

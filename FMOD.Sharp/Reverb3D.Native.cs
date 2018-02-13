@@ -5,7 +5,7 @@ using FMOD.Sharp.Structs;
 
 namespace FMOD.Sharp
 {
-	public partial class Reverb3D
+	public partial class Reverb
 	{
 		#region Native Methods
 

@@ -84,6 +84,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Args.cs" />
+    <Compile Include="Controls\Fmod.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\Fmod.Designer.cs">
+      <DependentUpon>Fmod.cs</DependentUpon>
+    </Compile>
     <Compile Include="Data\CpuUsage.cs" />
     <Compile Include="Data\FileUsage.cs" />
     <Compile Include="Data\PluginInfo.cs" />
@@ -91,7 +98,9 @@
     <Compile Include="Data\ReverbPreset.cs" />
     <Compile Include="Data\SoftwareFormat.cs" />
     <Compile Include="Data\SpeakerPosition.cs" />
+    <Compile Include="Data\SyncpointInfo.cs" />
     <Compile Include="Data\System3DSettings.cs" />
+    <Compile Include="Interfaces\IHandle.cs" />
     <Compile Include="Structs\AdvancedSettings.cs" />
     <Compile Include="Channel.cs" />
     <Compile Include="Channel.Native.cs">
@@ -133,7 +142,6 @@
     <Compile Include="Data\DistanceFilter.cs" />
     <Compile Include="Data\FadePoint.cs" />
     <Compile Include="Data\LoopPoints.cs" />
-    <Compile Include="Data\MixMatrix.cs" />
     <Compile Include="Data\Polygon.cs" />
     <Compile Include="Data\PolygonAttributes.cs" />
     <Compile Include="Data\Driver.cs" />
@@ -203,9 +211,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ResultStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="Reverb3D.cs" />
+    <Compile Include="Reverb.cs" />
     <Compile Include="Reverb3D.Native.cs">
-      <DependentUpon>Reverb3D.cs</DependentUpon>
+      <DependentUpon>Reverb.cs</DependentUpon>
     </Compile>
     <Compile Include="ReverbPresets.cs" />
     <Compile Include="Sound.cs" />
@@ -216,12 +224,12 @@
     <Compile Include="SoundGroup.Native.cs">
       <DependentUpon>SoundGroup.cs</DependentUpon>
     </Compile>
-    <Compile Include="SoundLock.cs" />
     <Compile Include="Structs\AsyncReadInfo.cs" />
     <Compile Include="Enums\DspIndex.cs" />
     <Compile Include="Data\ChannelFormat.cs" />
     <Compile Include="Data\DspDelay.cs" />
     <Compile Include="Structs\BufferReader.cs" />
+    <Compile Include="Structs\CodecDescription.cs" />
     <Compile Include="Structs\CreateSoundExInfo.cs" />
     <Compile Include="Structs\DspBufferArray.cs" />
     <Compile Include="Structs\DspDescription.cs" />
@@ -239,6 +247,7 @@
     <Compile Include="Structs\FloatMapping.cs" />
     <Compile Include="Structs\FloatMappingPiecewiseLinear.cs" />
     <Compile Include="Structs\Int24.cs" />
+    <Compile Include="Structs\OutputDescription.cs" />
     <Compile Include="Structs\PluginList.cs" />
     <Compile Include="Structs\PortIndex.cs" />
     <Compile Include="Data\Reverb3DAttributes.cs" />
@@ -267,6 +276,9 @@
       <DependentUpon>ColorSlider.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Fmod.resx">
+      <DependentUpon>Fmod.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\KnobControl.resx">
       <DependentUpon>KnobControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -280,6 +292,7 @@
     <EmbeddedResource Include="ResultStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ResultStrings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

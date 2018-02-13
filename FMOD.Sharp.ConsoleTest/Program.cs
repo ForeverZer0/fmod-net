@@ -20,25 +20,6 @@ namespace FMOD.Sharp.ConsoleTest
 		{
 
 
-			foreach (Result value in Enum.GetValues(typeof(Result)))
-			{
-				var str = Core.GetResultString(value);
-				Console.ForegroundColor = ConsoleColor.DarkCyan;
-				Console.WriteLine(value);
-				Console.ForegroundColor = ConsoleColor.White;
-				Console.WriteLine(str);
-				Console.WriteLine();
-
-			}
-			Console.ReadLine();
-			
-
-
-
-
-
-
-
 
 			using (var system = FmodSystem.Create())
 			{

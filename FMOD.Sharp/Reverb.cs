@@ -23,8 +23,8 @@ namespace FMOD.Sharp
 	///     </para>
 	/// </remarks>
 	/// <seealso cref="FMOD.Sharp.Handle" />
-	/// <seealso cref="FmodSystem.CreateReverb3D" />
-	public partial class Reverb3D : Handle
+	/// <seealso cref="FmodSystem.CreateReverb" />
+	public partial class Reverb : Handle
 	{
 		#region Delegates & Events
 
@@ -53,10 +53,10 @@ namespace FMOD.Sharp
 		#region Constructors & Destructor
 
 		/// <summary>
-		///     Initializes a new instance of the <see cref="Reverb3D" /> class.
+		///     Initializes a new instance of the <see cref="Reverb" /> class.
 		/// </summary>
 		/// <param name="handle">The handle to the object.</param>
-		public Reverb3D(IntPtr handle) : base(handle)
+		internal Reverb(IntPtr handle) : base(handle)
 		{
 		}
 
@@ -66,7 +66,7 @@ namespace FMOD.Sharp
 
 		/// <summary>
 		///     <para>
-		///         Gets or sets a value indicating whether this <see cref="Reverb3D" /> is active and contributes to the 3D
+		///         Gets or sets a value indicating whether this <see cref="Reverb" /> is active and contributes to the 3D
 		///         scene.
 		///     </para>
 		///     <para><c>true</c> = Active, <c>false</c> = Inactive. Default = <c>true</c>.</para>
@@ -100,7 +100,7 @@ namespace FMOD.Sharp
 		/// </value>
 		/// <seealso cref="ReverbProperties" />
 		/// <seealso cref="ReverbPresets" />
-		/// <seealso cref="FmodSystem.CreateReverb3D" />
+		/// <seealso cref="FmodSystem.CreateReverb" />
 		public ReverbProperties Properties
 		{
 			get
@@ -148,7 +148,7 @@ namespace FMOD.Sharp
 		}
 
 		/// <summary>
-		///     Gets or sets a user value that the <see cref="Reverb3D" /> object will store internally.
+		///     Gets or sets a user value that the <see cref="Reverb" /> object will store internally.
 		/// </summary>
 		/// <value>
 		///     The user data.

@@ -9,7 +9,7 @@ namespace FMOD.Sharp
 {
 	public partial class Sound : Handle
 	{
-		public Sound(IntPtr handle) : base(handle)
+		internal Sound(IntPtr handle) : base(handle)
 		{
 		}
 
@@ -26,10 +26,10 @@ namespace FMOD.Sharp
 		{
 			get
 			{
-				using (var buffer = new MemoryBuffer(256))
+				using (var buffer = new MemoryBuffer(512))
 				{
-					NativeInvoke(FMOD_Sound_GetName(this, buffer.Pointer, 256));
-					return buffer.ToString();
+					NativeInvoke(FMOD_Sound_GetName(this, buffer.Pointer, 512));
+					return buffer.ToString(Encoding.UTF8);
 				}
 			}
 		}
@@ -43,11 +43,13 @@ namespace FMOD.Sharp
 			}
 			set
 			{
-				if (value < -1)
-					value = -1;
-				NativeInvoke(FMOD_Sound_SetLoopCount(this, value));
+				NativeInvoke(FMOD_Sound_SetLoopCount(this, Math.Max(-1, value)));
+				LoopCountChanged?.Invoke(this, EventArgs.Empty);
 			}
 		}
+
+		public event EventHandler LoopCountChanged;
+		public event EventHandler UserDataChanged;
 
 		public IntPtr UserData
 		{
@@ -56,7 +58,11 @@ namespace FMOD.Sharp
 				NativeInvoke(FMOD_Sound_GetUserData(this, out var data));
 				return data;
 			}
-			set => NativeInvoke(FMOD_Sound_SetUserData(this, value));
+			set
+			{
+				NativeInvoke(FMOD_Sound_SetUserData(this, value));
+				UserDataChanged?.Invoke(this, EventArgs.Empty);
+			}
 		}
 
 		public override void Dispose()
@@ -71,6 +77,8 @@ namespace FMOD.Sharp
 			return length;
 		}
 
+		public event EventHandler ModeChanged;
+
 		public Mode Mode
 		{
 			get
@@ -78,7 +86,11 @@ namespace FMOD.Sharp
 				NativeInvoke(FMOD_Sound_GetMode(this, out var mode));
 				return mode;
 			}
-			set => NativeInvoke(FMOD_Sound_SetMode(this, value));
+			set
+			{
+				NativeInvoke(FMOD_Sound_SetMode(this, value));
+				ModeChanged?.Invoke(this, EventArgs.Empty);
+			}
 		}
 
 		public float DefaultFrequency
@@ -88,7 +100,11 @@ namespace FMOD.Sharp
 				NativeInvoke(FMOD_Sound_GetDefaults(this, out var frequency, out var dummy));
 				return frequency;
 			}
-			set => NativeInvoke(FMOD_Sound_SetDefaults(this, value, DefaultPriority));
+			set
+			{
+				NativeInvoke(FMOD_Sound_SetDefaults(this, value, DefaultPriority)); 
+				DefaultsChanged?.Invoke(this, EventArgs.Empty);
+			}
 		}
 
 		public int DefaultPriority
@@ -98,7 +114,11 @@ namespace FMOD.Sharp
 				NativeInvoke(FMOD_Sound_GetDefaults(this, out var dummy, out var priority));
 				return priority;
 			}
-			set => NativeInvoke(FMOD_Sound_SetDefaults(this, DefaultFrequency, value.Clamp(0, 256)));
+			set
+			{
+				NativeInvoke(FMOD_Sound_SetDefaults(this, DefaultFrequency, value.Clamp(0, 256))); 
+				DefaultsChanged?.Invoke(this, EventArgs.Empty);
+			}
 		}
 
 		public SoundInfo Info
@@ -157,11 +177,12 @@ namespace FMOD.Sharp
 			}
 		}
 
-
+		public event EventHandler DefaultsChanged;
 
 		public void SetDefaults(float frequency = 44100.0f, int priority = 128)
 		{
 			NativeInvoke(FMOD_Sound_SetDefaults(this, frequency, priority.Clamp(0, 256)));
+			DefaultsChanged?.Invoke(this, EventArgs.Empty);
 		}
 
 		public LoopPoints GetLoopPoints(TimeUnit timeUnit = TimeUnit.Ms)
@@ -182,6 +203,8 @@ namespace FMOD.Sharp
 			};
 		}
 
+		public event EventHandler LoopPointAdded;
+
 		public void SetLoopPoints(LoopPoints points)
 		{
 			SetLoopPoints(points.LoopStart, points.LoopEnd, points.StartTimeUnit, points.EndTimeUnit);
@@ -195,6 +218,7 @@ namespace FMOD.Sharp
 		public void SetLoopPoints(uint loopStart, uint loopEnd, TimeUnit startUnit, TimeUnit endUnit)
 		{
 			NativeInvoke(FMOD_Sound_SetLoopPoints(this, loopStart, startUnit, loopEnd, endUnit));
+			LoopPointAdded?.Invoke(this, EventArgs.Empty);
 		}
 
 
@@ -241,30 +265,117 @@ namespace FMOD.Sharp
 			return tags;
 		}
 
-		public SoundLock LockBuffer(uint offset, uint length)
+		public event EventHandler MusicSpeedChanged;
+		public event EventHandler SoundGroupChanged;
+		public event EventHandler Locked;
+		public event EventHandler Unlocked;
+
+		public SoundGroup SoundGroup
 		{
-			return new SoundLock(this, offset, length);
+			get
+			{
+				NativeInvoke(FMOD_Sound_GetSoundGroup(this, out var soundGroup));
+				return Core.Create<SoundGroup>(soundGroup);
+			}
+			set
+			{
+				NativeInvoke(FMOD_Sound_SetSoundGroup(this, value));
+				SoundGroupChanged?.Invoke(this, EventArgs.Empty);
+			}
+		}
+
+		public float MusicSpeed
+		{
+			get
+			{
+				NativeInvoke(FMOD_Sound_GetMusicSpeed(this, out var speed));
+				return speed;
+			}
+			set
+			{
+				NativeInvoke(FMOD_Sound_SetMusicSpeed(this, value.Clamp(0.01f, 100.0f)));
+				MusicSpeedChanged?.Invoke(this, EventArgs.Empty);
+			}
 		}
 
 		public void Lock(uint offset, uint length, out IntPtr ptr1, out IntPtr ptr2,
 			out uint len1, out uint len2)
 		{
 			NativeInvoke(FMOD_Sound_Lock(this, offset, length, out ptr1, out ptr2, out len1, out len2));
+			Locked?.Invoke(this, EventArgs.Empty);
 		}
 
 		public void Unlock(IntPtr ptr1, IntPtr ptr2, uint len1, uint len2)
 		{
 			NativeInvoke(FMOD_Sound_Unlock(this, ptr1, ptr2, len1, len2));
+			Unlocked?.Invoke(this, EventArgs.Empty);
+		}
+
+
+		public uint ReadData(IntPtr buffer, uint length)
+		{
+			NativeInvoke(FMOD_Sound_ReadData(this, buffer, length, out var readBytes));
+			return readBytes;
+		}
+
+		public byte[] ReadData(uint length)
+		{
+			var buffer = new byte[length];
+			var gcHandle = GCHandle.Alloc(buffer, GCHandleType.Pinned);
+			NativeInvoke(FMOD_Sound_ReadData(this, gcHandle.AddrOfPinnedObject(), length, out var readBytes));
+			gcHandle.Free();
+			if (readBytes >= length) 
+				return buffer;
+			var reSized = new byte[readBytes];
+			Buffer.BlockCopy(buffer, 0, reSized, 0, (int)readBytes);
+			return reSized;
+		}
+
+		public void SeekData(uint pcm)
+		{
+			NativeInvoke(FMOD_Sound_SeekData(this, pcm));
+		}
+
+		public IntPtr GetSyncPoint(int index)
+		{
+			NativeInvoke(FMOD_Sound_GetSyncPoint(this, index, out var point));
+			return point;
+		}
+
+		public SyncPointInfo GetSyncpointInfo(IntPtr syncPoint, TimeUnit offsetType = TimeUnit.Ms)
+		{
+			using (var buffer = new MemoryBuffer(512))
+			{
+				NativeInvoke(FMOD_Sound_GetSyncPointInfo(this, syncPoint, buffer.Pointer, 512, out var offset, offsetType));
+				return new SyncPointInfo
+				{
+					Name = buffer.ToString(Encoding.UTF8),
+					Offset = offset,
+					OffsetTimeUnit = offsetType
+				};
+			}
+			
 		}
 
 	
 
 
-		[DllImport(Core.LIBRARY)]
-		public static extern Result FMOD_Sound_ReadData(IntPtr sound, IntPtr buffer, uint length, out uint read);
+
+
+
+
+
+
+
+
+
+
 
 		[DllImport(Core.LIBRARY)]
-		public static extern Result FMOD_Sound_SeekData(IntPtr sound, uint pcm);
+		private static extern Result FMOD_Sound_ReadData(IntPtr sound, IntPtr buffer, uint length, out uint read);
+
+		[DllImport(Core.LIBRARY)]
+		private static extern Result FMOD_Sound_SeekData(IntPtr sound, uint pcm);
 
 
 

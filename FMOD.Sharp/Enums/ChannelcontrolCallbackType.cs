@@ -9,7 +9,7 @@ namespace FMOD.Sharp.Enums
     {
         End,                
         Virtualvoice,       
-        Syncpoint,          
+        SyncPoint,          
         Occlusion,          
         Max               
     }

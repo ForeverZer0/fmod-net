@@ -25,7 +25,7 @@ namespace FMOD.Sharp
 
 		#region Constructors & Destructor
 
-		public SoundGroup(IntPtr handle) : base(handle)
+		internal SoundGroup(IntPtr handle) : base(handle)
 		{
 		}
 

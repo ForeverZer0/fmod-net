@@ -11,58 +11,48 @@ namespace FMOD.Sharp
 	public static class Core
 	{
 		public const int VERSION = 0x00011002;
-		public const int MAX_CHANNEL_WIDTH = 32;
+		public const int MAX_CHANNELS = 32;
 		public const int MAX_LISTENERS = 8;
-		public const int REVERB_MAXINSTANCES = 4;
+		public const int MAX_REVERBS = 4;
 		public const int MAX_SYSTEMS = 8;
 
+		private const BindingFlags BINDING_FLAGS = BindingFlags.NonPublic | BindingFlags.Instance;
 		private static ResourceManager _resxManager;
+		private static readonly Dictionary<IntPtr, Handle> _handles;
 
 #if X64
-		public const string LIBRARY = "fmod64.dll";
-
-		public static Dictionary<long, Handle> ValidHandles { get; }
+		public const string LIBRARY = "fmod64";
 #elif X86
-		public const string LIBRARY = "fmod.dll";
-
-		public static Dictionary<int, Handle> ValidHandles { get; }
+		public const string LIBRARY = "fmod";
 #endif
 
 		static Core()
 		{
-#if X64
-			ValidHandles = new Dictionary<long, Handle>();
-#elif X86
-			ValidHandles = new Dictionary<int, Handle>();
-#endif
+			_handles = new Dictionary<IntPtr, Handle>();
 		}
 
-		public static T Create<T>(IntPtr pointer) where T : Handle
+		public static T Create<T>(IntPtr handle) where T : Handle
 		{
-#if X64
-			var ptrValue = pointer.ToInt64();
-#elif X86
-			var ptrValue = pointer.ToInt32();
-#endif
-			if (pointer == IntPtr.Zero)
+			if (handle == IntPtr.Zero)
 				return null;
-			if (ValidHandles.ContainsKey(ptrValue))
-				return (T) ValidHandles[ptrValue];
-			var obj = (T) Activator.CreateInstance(typeof(T), pointer);
-			obj.Disposed += (s, e) => ValidHandles.Remove(ptrValue);
-			ValidHandles[ptrValue] = obj;
+			if (_handles.ContainsKey(handle))
+				return (T) _handles[handle];
+			var obj = (T) Activator.CreateInstance(typeof(T), BINDING_FLAGS, null, 
+				new object[] { handle }, CultureInfo.InvariantCulture);
+			obj.Disposed += (s, e) => Destroy(handle);
+			_handles[handle] = obj;
 			return obj;
+		}
+
+		private static void Destroy(IntPtr handle)
+		{
+			
 		}
 
 		public static void AddReference<T>(IntPtr pointer, T handle) where T : Handle
 		{
-#if X64
-			var ptrValue = pointer.ToInt64();
-#elif X86
-			var ptrValue = pointer.ToInt32();
-#endif
-			ValidHandles[ptrValue] = handle;
-			handle.Disposed += (s, e) => ValidHandles.Remove(ptrValue);
+			_handles[pointer] = handle;
+			handle.Disposed += (s, e) => _handles.Remove(pointer);
 		}
 
 		public static string GetResultString(string resultName)

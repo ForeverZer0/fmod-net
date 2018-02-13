@@ -38,7 +38,7 @@ namespace FMOD.Sharp
 		/// Initializes a new instance of the <see cref="DspConnection"/> class.
 		/// </summary>
 		/// <param name="handle">The handle to the object.</param>
-		public DspConnection(IntPtr handle) : base(handle)
+		internal DspConnection(IntPtr handle) : base(handle)
 		{
 		}
 

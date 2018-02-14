@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Security;
 using FMOD.Sharp.Enums;
 
 namespace FMOD.Sharp.DSP
 {
+	[SuppressUnmanagedCodeSecurity]
 	public partial class DspConnection
 	{
 		[DllImport(Core.LIBRARY)]

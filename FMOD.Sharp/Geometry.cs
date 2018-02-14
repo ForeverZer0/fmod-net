@@ -7,7 +7,7 @@ using FMOD.Sharp.Structs;
 
 namespace FMOD.Sharp
 {
-	public partial class Geometry : Handle
+	public partial class Geometry : HandleBase
 	{
 		internal Geometry(IntPtr handle) : base(handle)
 		{
@@ -97,11 +97,6 @@ namespace FMOD.Sharp
 				var up = value.Up;
 				NativeInvoke(FMOD_Geometry_SetRotation(this, ref forward, ref up));
 			}
-		}
-
-		public override void Dispose()
-		{
-			NativeInvoke(FMOD_Geometry_Release(this));
 		}
 
 		public PolygonAttributes GetPolygonAttributes(int index)

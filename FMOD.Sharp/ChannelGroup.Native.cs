@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Security;
 using FMOD.Sharp.Enums;
 
 namespace FMOD.Sharp
 {
+	[SuppressUnmanagedCodeSecurity]
 	public partial class ChannelGroup
 	{
-		[DllImport(Core.LIBRARY)]
-		private static extern Result FMOD_ChannelGroup_Release(IntPtr channelGroup);
-
 		[DllImport(Core.LIBRARY)]
 		private static extern Result FMOD_ChannelGroup_AddGroup(IntPtr channelGroup, IntPtr group, bool propagateDspClock,
 			out IntPtr connection);

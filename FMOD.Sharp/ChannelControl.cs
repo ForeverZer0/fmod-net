@@ -11,10 +11,10 @@ namespace FMOD.Sharp
 	/// <para>The base class for both <see cref="Channel"/> and <see cref="ChannelGroup"/>.</para>
 	/// <para>This class must be inherited.</para>
 	/// </summary>
-	/// <seealso cref="FMOD.Sharp.Handle" />
+	/// <seealso cref="HandleBase" />
 	/// <seealso cref="Channel"/>
 	/// <seealso cref="ChannelGroup"/>
-	public abstract partial class ChannelControl : Handle
+	public abstract partial class ChannelControl : HandleBase
 	{
 		#region Constants & Fields
 
@@ -405,27 +405,6 @@ namespace FMOD.Sharp
 			{
 				NativeInvoke(FMOD_ChannelGroup_GetFadePoints(this, out var numPoints, null, null));
 				return (int) numPoints;
-			}
-		}
-
-
-		/// <summary>
-		///     Gets a value indicating whether this instance is disposed.
-		/// </summary>
-		/// <value>
-		///     <c>true</c> if this instance is disposed; otherwise, <c>false</c>.
-		/// </value>
-		public override bool IsDisposed
-		{
-			get
-			{
-				if (base.IsDisposed)
-					return true;
-				var result = FMOD_ChannelGroup_IsPlaying(this, out var dummy);
-				if (result != Result.InvalidHandle)
-					return false;
-				SetDisposed();
-				return true;
 			}
 		}
 

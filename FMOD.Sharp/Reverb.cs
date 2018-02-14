@@ -22,9 +22,9 @@ namespace FMOD.Sharp
 	///         3D reverb setting is set to the default ambient reverb setting.
 	///     </para>
 	/// </remarks>
-	/// <seealso cref="FMOD.Sharp.Handle" />
+	/// <seealso cref="HandleBase" />
 	/// <seealso cref="FmodSystem.CreateReverb" />
-	public partial class Reverb : Handle
+	public partial class Reverb : HandleBase
 	{
 		#region Delegates & Events
 
@@ -171,16 +171,6 @@ namespace FMOD.Sharp
 		#endregion
 
 		#region Methods
-
-		/// <inheritdoc />
-		/// <summary>
-		///     Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-		/// </summary>
-		public override void Dispose()
-		{
-			NativeInvoke(FMOD_Reverb3D_Release(this));
-			base.Dispose();
-		}
 
 		/// <summary>
 		///     Sets the 3D properties of the "virtual" reverb object.

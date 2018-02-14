@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Security;
 using FMOD.Sharp.Enums;
 using FMOD.Sharp.Structs;
 
 namespace FMOD.Sharp
 {
+	[SuppressUnmanagedCodeSecurity]
 	public partial class Reverb
 	{
 		#region Native Methods
@@ -21,9 +23,6 @@ namespace FMOD.Sharp
 
 		[DllImport(Core.LIBRARY)]
 		private static extern Result FMOD_Reverb3D_GetUserData(IntPtr reverb, out IntPtr userData);
-
-		[DllImport(Core.LIBRARY)]
-		private static extern Result FMOD_Reverb3D_Release(IntPtr reverb);
 
 		[DllImport(Core.LIBRARY)]
 		private static extern Result FMOD_Reverb3D_Set3DAttributes(IntPtr reverb, ref Vector position, float minDistance,

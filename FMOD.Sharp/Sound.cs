@@ -7,7 +7,7 @@ using FMOD.Sharp.Structs;
 
 namespace FMOD.Sharp
 {
-	public partial class Sound : Handle
+	public partial class Sound : HandleBase
 	{
 		internal Sound(IntPtr handle) : base(handle)
 		{
@@ -63,12 +63,6 @@ namespace FMOD.Sharp
 				NativeInvoke(FMOD_Sound_SetUserData(this, value));
 				UserDataChanged?.Invoke(this, EventArgs.Empty);
 			}
-		}
-
-		public override void Dispose()
-		{
-			NativeInvoke(FMOD_Sound_Release(this));
-			base.Dispose();
 		}
 
 		public uint GetLength(TimeUnit timeUnit = TimeUnit.Ms)

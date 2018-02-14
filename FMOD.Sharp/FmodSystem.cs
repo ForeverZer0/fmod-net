@@ -2,7 +2,9 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
+using System.Runtime.ConstrainedExecution;
 using System.Runtime.InteropServices;
+using System.Security.Permissions;
 using System.Text;
 using System.Threading;
 using FMOD.Sharp.Data;
@@ -12,7 +14,8 @@ using FMOD.Sharp.Structs;
 
 namespace FMOD.Sharp
 {
-	public partial class FmodSystem : Handle
+
+	public partial class FmodSystem : HandleBase
 	{
 		#region Constants & Fields
 
@@ -109,6 +112,8 @@ namespace FMOD.Sharp
 		private FmodSystem(IntPtr handle) : base(handle)
 		{
 		}
+
+
 
 		#endregion
 
@@ -290,8 +295,8 @@ namespace FMOD.Sharp
 		{
 			get
 			{
-				NativeInvoke(FMOD_System_GetOutputHandle(this, out var handle));
-				return handle;
+				NativeInvoke(FMOD_System_GetOutputHandle(this, out var outputHandle));
+				return outputHandle;
 			}
 		}
 
@@ -445,12 +450,7 @@ namespace FMOD.Sharp
 			NativeInvoke(FMOD_System_AttachFileSystem(this, userOpen, userClose, userRead, userSeek));
 		}
 
-		public void ClearReverb(int index)
-		{
-			NativeInvoke(FMOD_System_SetReverbProperties(this, index, 0));
-		}
-
-		public void Close()
+		public void CloseSystem()
 		{
 			NativeInvoke(FMOD_System_Close(this));
 			Closed?.Invoke(this, EventArgs.Empty);
@@ -597,7 +597,6 @@ namespace FMOD.Sharp
 		public override void Dispose()
 		{
 			_updateTimer?.Dispose();
-			NativeInvoke(FMOD_System_Release(this));
 			base.Dispose();
 		}
 
@@ -707,8 +706,8 @@ namespace FMOD.Sharp
 
 		public uint GetOutputByPlugin()
 		{
-			NativeInvoke(FMOD_System_GetOutputByPlugin(this, out var handle));
-			return handle;
+			NativeInvoke(FMOD_System_GetOutputByPlugin(this, out var outputHandle));
+			return outputHandle;
 		}
 
 		public int GetPluginCount(PluginType type)
@@ -719,19 +718,19 @@ namespace FMOD.Sharp
 
 		public uint GetPluginHandle(PluginType type, int index)
 		{
-			NativeInvoke(FMOD_System_GetPluginHandle(this, type, index, out var handle));
-			return handle;
+			NativeInvoke(FMOD_System_GetPluginHandle(this, type, index, out var pluginHandle));
+			return pluginHandle;
 		}
 
-		public PluginInfo GetPluginInfo(uint handle)
+		public PluginInfo GetPluginInfo(uint pluginHandle)
 		{
 			using (var buffer = new MemoryBuffer(512))
 			{
-				NativeInvoke(FMOD_System_GetPluginInfo(this, handle, out var type,
+				NativeInvoke(FMOD_System_GetPluginInfo(this, pluginHandle, out var type,
 					buffer.Pointer, 512, out var version));
 				return new PluginInfo
 				{
-					Handle = handle,
+					Handle = pluginHandle,
 					Name = buffer.ToString(Encoding.UTF8),
 					Type = type,
 					Version = Core.UInt32ToVersion(version)
@@ -829,9 +828,9 @@ namespace FMOD.Sharp
 
 		public Geometry LoadGeometry(byte[] binary)
 		{
-			var handle = GCHandle.Alloc(binary, GCHandleType.Pinned);
-			var geometry = LoadGeometry(handle.AddrOfPinnedObject(), binary.Length);
-			handle.Free();
+			var gcHandle = GCHandle.Alloc(binary, GCHandleType.Pinned);
+			var geometry = LoadGeometry(gcHandle.AddrOfPinnedObject(), binary.Length);
+			gcHandle.Free();
 			return geometry;
 		}
 
@@ -845,9 +844,9 @@ namespace FMOD.Sharp
 		public uint LoadPlugin(string path, uint priority = 128u)
 		{
 			var bytes = Encoding.UTF8.GetBytes(path);
-			NativeInvoke(FMOD_System_LoadPlugin(this, bytes, out var handle, priority));
+			NativeInvoke(FMOD_System_LoadPlugin(this, bytes, out var pluginHandle, priority));
 			PluginLoaded?.Invoke(this, EventArgs.Empty);
-			return handle;
+			return pluginHandle;
 		}
 
 		public void LockDsp()
@@ -884,23 +883,23 @@ namespace FMOD.Sharp
 
 		public uint RegisterCodec(CodecDescription description, uint priority)
 		{
-			NativeInvoke(FMOD_System_RegisterCodec(this, ref description, out var handle, priority));
+			NativeInvoke(FMOD_System_RegisterCodec(this, ref description, out var codecHandle, priority));
 			CodecRegistered?.Invoke(this, EventArgs.Empty);
-			return handle;
+			return codecHandle;
 		}
 
 		public uint RegisterDsp(DspDescription description)
 		{
-			NativeInvoke(FMOD_System_RegisterDSP(this, ref description, out var handle));
+			NativeInvoke(FMOD_System_RegisterDSP(this, ref description, out var dspHandle));
 			DspRegistered?.Invoke(this, EventArgs.Empty);
-			return handle;
+			return dspHandle;
 		}
 		
 		public uint RegisterOutput(OutputDescription description)
 		{
-			NativeInvoke(FMOD_System_RegisterOutput(this, ref description, out var handle));
+			NativeInvoke(FMOD_System_RegisterOutput(this, ref description, out var outputHandle));
 			OutputRegistered?.Invoke(this, EventArgs.Empty);
-			return handle;
+			return outputHandle;
 		}
 
 		public void ResumeMixer()

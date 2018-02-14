@@ -5,7 +5,7 @@ using FMOD.Sharp.Enums;
 
 namespace FMOD.Sharp
 {
-	public partial class SoundGroup : Handle
+	public partial class SoundGroup : HandleBase
 	{
 		#region Delegates & Events
 
@@ -147,12 +147,6 @@ namespace FMOD.Sharp
 		#endregion
 
 		#region Methods
-
-		public override void Dispose()
-		{
-			NativeInvoke(FMOD_SoundGroup_Release(this));
-			base.Dispose();
-		}
 
 		public Sound GetSound(int index)
 		{

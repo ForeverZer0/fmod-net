@@ -1,14 +1,13 @@
 using System;
 using System.Runtime.InteropServices;
+using System.Security;
 using FMOD.Sharp.Enums;
 
 namespace FMOD.Sharp
 {
+	[SuppressUnmanagedCodeSecurity]
 	public partial class Sound
 	{
-		[DllImport(Core.LIBRARY)]
-		private static extern Result FMOD_Sound_Release(IntPtr sound);
-
 		[DllImport(Core.LIBRARY)]
 		private static extern Result FMOD_Sound_GetSystemObject(IntPtr sound, out IntPtr system);
 

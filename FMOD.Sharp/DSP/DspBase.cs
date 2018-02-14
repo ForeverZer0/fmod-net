@@ -12,8 +12,8 @@ namespace FMOD.Sharp.DSP
 	/// <para>Describes a Digital Signal Processing unit for applying effects on sounds.</para>
 	/// <para>This class must be inherited.</para>
 	/// </summary>
-	/// <seealso cref="T:FMOD.Sharp.Handle" />
-	public partial class DspBase : Handle
+	/// <seealso cref="T:FMOD.Sharp.HandleBase" />
+	public partial class DspBase : HandleBase
 	{
 		#region Delegates & Events
 
@@ -212,12 +212,6 @@ namespace FMOD.Sharp.DSP
 		public void DisconnectOutputs()
 		{
 			NativeInvoke(FMOD_DSP_DisconnectAll(this, false, true));
-		}
-
-		public override void Dispose()
-		{
-			NativeInvoke(FMOD_DSP_Release(this));
-			base.Dispose();
 		}
 
 		public void EnableMetering()

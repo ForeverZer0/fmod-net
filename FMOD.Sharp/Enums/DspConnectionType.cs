@@ -6,7 +6,6 @@ namespace FMOD.Sharp.Enums
 	/// <summary>
 	/// List of connection types between two <see cref="DspBase"/> nodes.
 	/// </summary>
-	/// <seealso cref="DspBDspBaseInput"/>
 	/// <seealso cref="DspConnection.Type"/>
 	public enum DspConnectionType 
     {

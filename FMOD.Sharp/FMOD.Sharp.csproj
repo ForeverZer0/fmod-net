@@ -126,7 +126,6 @@
     <Compile Include="DSP\SfxReverb.cs" />
     <Compile Include="DSP\ThreeEq.cs" />
     <Compile Include="DSP\Tremolo.cs" />
-    <Compile Include="Interfaces\IHandle.cs" />
     <Compile Include="Structs\AdvancedSettings.cs" />
     <Compile Include="Channel.cs" />
     <Compile Include="Channel.Native.cs">
@@ -223,7 +222,7 @@
     <Compile Include="Geometry.Native.cs">
       <DependentUpon>Geometry.cs</DependentUpon>
     </Compile>
-    <Compile Include="Handle.cs" />
+    <Compile Include="HandleBase.cs" />
     <Compile Include="MemoryBuffer.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

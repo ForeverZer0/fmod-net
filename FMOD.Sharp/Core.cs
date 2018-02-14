@@ -23,15 +23,15 @@ namespace FMOD.Sharp
 
 		private const BindingFlags BINDING_FLAGS = BindingFlags.NonPublic | BindingFlags.Instance;
 		private static readonly ResourceManager _resxManager;
-		private static readonly Dictionary<IntPtr, Handle> _handles;
+		private static readonly Dictionary<IntPtr, HandleBase> _handles;
 
 		static Core()
 		{
-			_handles = new Dictionary<IntPtr, Handle>();
+			_handles = new Dictionary<IntPtr, HandleBase>();
 			_resxManager = new ResourceManager("FMOD.Sharp.ResultStrings", Assembly.GetExecutingAssembly());
 		}
 
-		public static T Create<T>(IntPtr handle) where T : Handle
+		public static T Create<T>(IntPtr handle) where T : HandleBase
 		{
 			if (handle == IntPtr.Zero)
 				return null;
@@ -51,7 +51,7 @@ namespace FMOD.Sharp
 			_handles.Remove(handle);
 		}
 
-		public static void AddReference<T>(IntPtr pointer, T handle) where T : Handle
+		public static void AddReference<T>(IntPtr pointer, T handle) where T : HandleBase
 		{
 			handle.Disposed += (s, e) => RemoveReference(pointer);
 			_handles[pointer] = handle;

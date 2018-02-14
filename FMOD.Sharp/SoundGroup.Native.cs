@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Security;
 using FMOD.Sharp.Enums;
 
 namespace FMOD.Sharp
 {
+	[SuppressUnmanagedCodeSecurity]
 	public partial class SoundGroup
 	{
 		#region Methods
@@ -38,9 +40,6 @@ namespace FMOD.Sharp
 
 		[DllImport(Core.LIBRARY)]
 		private static extern Result FMOD_SoundGroup_GetVolume(IntPtr soundgroup, out float volume);
-
-		[DllImport(Core.LIBRARY)]
-		private static extern Result FMOD_SoundGroup_Release(IntPtr soundgroup);
 
 		[DllImport(Core.LIBRARY)]
 		private static extern Result FMOD_SoundGroup_SetMaxAudible(IntPtr soundgroup, int maxAudible);

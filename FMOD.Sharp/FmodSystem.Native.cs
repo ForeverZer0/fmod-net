@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Security;
 using FMOD.Sharp.Enums;
 using FMOD.Sharp.Structs;
 
 namespace FMOD.Sharp
 {
+	[SuppressUnmanagedCodeSecurity]
 	public partial class FmodSystem
 	{
 		#region Methods
@@ -232,9 +234,6 @@ namespace FMOD.Sharp
 		
 		[DllImport(Core.LIBRARY)]
 		private static extern Result FMOD_System_RegisterDSP(IntPtr system, ref DspDescription description, out uint handle);
-
-		[DllImport(Core.LIBRARY)]
-		private static extern Result FMOD_System_Release(IntPtr system);
 
 		[DllImport(Core.LIBRARY)]
 		private static extern Result FMOD_System_Set3DListenerAttributes(IntPtr system, int listener, ref Vector pos,

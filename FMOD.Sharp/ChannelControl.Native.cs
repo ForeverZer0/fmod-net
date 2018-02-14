@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Security;
 using FMOD.Sharp.Enums;
 using FMOD.Sharp.Structs;
 
 namespace FMOD.Sharp
 {
+	[SuppressUnmanagedCodeSecurity]
 	public partial class ChannelControl
 	{
 		#region Methods

@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Security;
 using FMOD.Sharp.Enums;
 using FMOD.Sharp.Structs;
 
 namespace FMOD.Sharp.DSP
 {
+	[SuppressUnmanagedCodeSecurity]
 	public partial class DspBase
 	{
-		[DllImport(Core.LIBRARY)]
-		private static extern Result FMOD_DSP_Release(IntPtr dsp);
-
 		[DllImport(Core.LIBRARY)]
 		private static extern Result FMOD_DSP_GetNumInputs(IntPtr dsp, out int numinputs);
 

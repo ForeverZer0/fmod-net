@@ -4,11 +4,11 @@ using FMOD.Sharp.Enums;
 namespace FMOD.Sharp.DSP
 {
 	/// <summary>
-	/// <para>Represents a connection between two <see cref="Handle"/> units.</para>
+	/// <para>Represents a connection between two <see cref="HandleBase"/> units.</para>
 	/// <para>Think of it as the line between two circles.</para>
 	/// </summary>
 	/// <seealso cref="FMOD.Sharp" />
-	public partial class DspConnection : Handle
+	public partial class DspConnection : HandleBase
 	{
 		#region Delegates & Events
 

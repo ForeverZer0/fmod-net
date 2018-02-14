@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Security;
 using FMOD.Sharp.Enums;
 using FMOD.Sharp.Structs;
 
 namespace FMOD.Sharp
 {
+	[SuppressUnmanagedCodeSecurity]
 	public partial class Geometry
 	{
 		#region Native Methods
@@ -44,9 +46,6 @@ namespace FMOD.Sharp
 
 		[DllImport(Core.LIBRARY)]
 		private static extern Result FMOD_Geometry_GetUserData(IntPtr geometry, out IntPtr userData);
-
-		[DllImport(Core.LIBRARY)]
-		private static extern Result FMOD_Geometry_Release(IntPtr geometry);
 
 		[DllImport(Core.LIBRARY)]
 		private static extern Result FMOD_Geometry_Save(IntPtr geometry, IntPtr data, out int dataSize);

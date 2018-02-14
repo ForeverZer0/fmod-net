@@ -51,11 +51,6 @@ namespace FMOD.Sharp
 
 		public event EventHandler<ChannelGroupAddEventArgs> ChannelGroupAdded;
 
-		public override void Dispose()
-		{
-			NativeInvoke(FMOD_ChannelGroup_Release(this));
-			base.Dispose();
-		}
 
 		public DspConnection AddGroup(ChannelGroup group, bool propagateDspClock = true)
 		{

@@ -29,31 +29,31 @@ namespace FMOD.Sharp
 		private static extern Result FMOD_DSP_Reset(IntPtr dsp);
 
 		[DllImport(Core.LIBRARY)]
-		private static extern Result FMOD_DSP_SetParameterFloat(IntPtr dsp, int index, float value);
+		protected static extern Result FMOD_DSP_SetParameterFloat(IntPtr dsp, int index, float value);
 
 		[DllImport(Core.LIBRARY)]
-		private static extern Result FMOD_DSP_SetParameterInt(IntPtr dsp, int index, int value);
+		protected static extern Result FMOD_DSP_SetParameterInt(IntPtr dsp, int index, int value);
 
 		[DllImport(Core.LIBRARY)]
-		private static extern Result FMOD_DSP_SetParameterBool(IntPtr dsp, int index, bool value);
+		protected static extern Result FMOD_DSP_SetParameterBool(IntPtr dsp, int index, bool value);
 
 		[DllImport(Core.LIBRARY)]
-		private static extern Result FMOD_DSP_SetParameterData(IntPtr dsp, int index, IntPtr data, uint length);
+		protected static extern Result FMOD_DSP_SetParameterData(IntPtr dsp, int index, IntPtr data, uint length);
 
 		[DllImport(Core.LIBRARY)]
-		private static extern Result FMOD_DSP_GetParameterFloat(IntPtr dsp, int index, out float value, IntPtr valuestr,
+		protected static extern Result FMOD_DSP_GetParameterFloat(IntPtr dsp, int index, out float value, IntPtr valuestr,
 			int valuestrlen);
 
 		[DllImport(Core.LIBRARY)]
-		private static extern Result FMOD_DSP_GetParameterInt(IntPtr dsp, int index, out int value, IntPtr valuestr,
+		protected static extern Result FMOD_DSP_GetParameterInt(IntPtr dsp, int index, out int value, IntPtr valuestr,
 			int valuestrlen);
 
 		[DllImport(Core.LIBRARY)]
-		private static extern Result FMOD_DSP_GetParameterBool(IntPtr dsp, int index, out bool value, IntPtr valuestr,
+		protected static extern Result FMOD_DSP_GetParameterBool(IntPtr dsp, int index, out bool value, IntPtr valuestr,
 			int valuestrlen);
 
 		[DllImport(Core.LIBRARY)]
-		private static extern Result FMOD_DSP_GetParameterData(IntPtr dsp, int index, out IntPtr data, out uint length,
+		protected static extern Result FMOD_DSP_GetParameterData(IntPtr dsp, int index, out IntPtr data, out uint length,
 			IntPtr valuestr, int valuestrlen);
 
 		[DllImport(Core.LIBRARY)]

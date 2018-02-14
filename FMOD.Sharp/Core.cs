@@ -68,7 +68,7 @@ namespace FMOD.Sharp
 			return GetResultString(Enum.GetName(typeof(Result), result));
 		}
 
-		public static Version Uint32ToVersion(uint version)
+		public static Version UInt32ToVersion(uint version)
 		{
 			var str = version.ToString("X8");
 			var major = Int32.Parse(str.Substring(0, 4));

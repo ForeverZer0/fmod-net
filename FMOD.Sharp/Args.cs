@@ -220,4 +220,55 @@ namespace FMOD.Sharp
 			FftWindow = windowSize;
 		}
 	}
+
+	public class DspMultiBandEqFilterChangedEventArgs : DspParamChangedEventArgs
+	{
+		public MultiBandEq.Band Band { get; }
+
+		public MultiBandEq.Filter Filter { get; }
+
+		public DspMultiBandEqFilterChangedEventArgs(int parameterIndex, MultiBandEq.Band band, MultiBandEq.Filter filter) :
+			base(parameterIndex)
+		{
+			Band = band;
+			Filter = filter;
+		}
+	}
+
+	public class DspMultiBandEqFloatChangedEventArgs : DspFloatParamChangedEventArgs
+	{
+		public MultiBandEq.Band Band { get; }
+
+		public DspMultiBandEqFloatChangedEventArgs(int parameterIndex, MultiBandEq.Band band, float value, float max, float min) :
+			base(parameterIndex, value, min, max)
+		{
+			Band = band;
+		}
+	}
+
+	public class DspOscillatorTypeChangedEventArgs : DspParamChangedEventArgs
+	{
+		public Oscillator.WaveformType OscillatorType { get; }
+
+		public DspOscillatorTypeChangedEventArgs(int parameterIndex, Oscillator.WaveformType type) :
+			base(parameterIndex)
+		{
+			OscillatorType = type;
+		}
+	}
+
+	public class DspFftWindowChangedEventArgs : DspParamChangedEventArgs
+	{
+		public Fft.WindowSize WindowSize { get; }
+
+		public Fft.WindowType WindowType { get; }
+
+		public DspFftWindowChangedEventArgs(int parameterIndex, Fft.WindowSize size, Fft.WindowType type) :
+			base(parameterIndex)
+		{
+			WindowSize = size;
+			WindowType = type;
+		}
+	}
 }
+

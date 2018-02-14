@@ -230,34 +230,35 @@ namespace FMOD.Sharp
 		{
 			if (dspHandle == IntPtr.Zero)
 				return null;
+#pragma warning disable 618
 			switch (dspType)
 			{
 				case DspType.Unknown:
 					return null;
-				case DspType.Mixer:
-					return Core.Create<Mixer>(dspHandle);
+//				case DspType.Mixer:
+//					return Core.Create<Mixer>(dspHandle);
 				case DspType.Oscillator:
 					return Core.Create<Oscillator>(dspHandle);
 				case DspType.Lowpass:
 					return Core.Create<Lowpass>(dspHandle);
-				case DspType.ItLowpass:
-					return Core.Create<ItLowpass>(dspHandle);
+//				case DspType.ItLowpass:
+//					return Core.Create<ItLowpass>(dspHandle);
 				case DspType.Highpass:
 					return Core.Create<Highpass>(dspHandle);
 				case DspType.Echo:
 					return Core.Create<Echo>(dspHandle);
-				case DspType.Fader:
-					return Core.Create<Fader>(dspHandle);
+//				case DspType.Fader:
+//					return Core.Create<Fader>(dspHandle);
 				case DspType.Flange:
 					return Core.Create<Flange>(dspHandle);
 				case DspType.Distortion:
 					return Core.Create<Distortion>(dspHandle);
-				case DspType.Normalize:
-					return Core.Create<Normalize>(dspHandle);
-				case DspType.Limiter:
-					return Core.Create<Limiter>(dspHandle);
-				case DspType.ParamEq:
-					return Core.Create<ParamEq>(dspHandle);
+//				case DspType.Normalize:
+//					return Core.Create<Normalize>(dspHandle);
+//				case DspType.Limiter:
+//					return Core.Create<Limiter>(dspHandle);
+//				case DspType.ParamEq:
+//					return Core.Create<ParamEq>(dspHandle);
 				case DspType.PitchShift:
 					return Core.Create<PitchShift>(dspHandle);
 				case DspType.Chorus:
@@ -266,44 +267,44 @@ namespace FMOD.Sharp
 					return null;
 				case DspType.WinampPlugin:
 					return null;
-				case DspType.ItEcho:
-					return Core.Create<ItEcho>(dspHandle);
-				case DspType.Compressor:
-					return Core.Create<Compressor>(dspHandle);
+//				case DspType.ItEcho:
+//					return Core.Create<ItEcho>(dspHandle);
+//				case DspType.Compressor:
+//					return Core.Create<Compressor>(dspHandle);
 				case DspType.SfxReverb:
 					return Core.Create<SfxReverb>(dspHandle);
 				case DspType.LowpassSimple:
 					return Core.Create<LowpassSimple>(dspHandle);
-				case DspType.Delay:
-					return Core.Create<Delay>(dspHandle);
+//				case DspType.Delay:
+//					return Core.Create<Delay>(dspHandle);
 				case DspType.Tremolo:
 					return Core.Create<Tremolo>(dspHandle);
 				case DspType.LadspaPlugin:
 					return null;
-				case DspType.Send:
-					return Core.Create<Send>(dspHandle);
-				case DspType.Return:
-					return Core.Create<Return>(dspHandle);
+//				case DspType.Send:
+//					return Core.Create<Send>(dspHandle);
+//				case DspType.Return:
+//					return Core.Create<Return>(dspHandle);
 				case DspType.HighpassSimple:
 					return Core.Create<HighpassSimple>(dspHandle);
-				case DspType.Pan:
-					return Core.Create<Pan>(dspHandle);
-				case DspType.ThreeEq:
-					return Core.Create<ThreeEq>(dspHandle);
+//				case DspType.Pan:
+//					return Core.Create<Pan>(dspHandle);
+//				case DspType.ThreeEq:
+//					return Core.Create<ThreeEq>(dspHandle);
 				case DspType.Fft:
 					return Core.Create<Fft>(dspHandle);
-				case DspType.LoudnessMeter:
-					return Core.Create<LoudnessMeter>(dspHandle);
-				case DspType.EnvelopeFollower:
-					return Core.Create<EnvelopeFollower>(dspHandle);
+//				case DspType.LoudnessMeter:
+//					return Core.Create<LoudnessMeter>(dspHandle);
+//				case DspType.EnvelopeFollower:
+//					return Core.Create<EnvelopeFollower>(dspHandle);
 				case DspType.ConvolutionReverb:
 					return Core.Create<ConvolutionReverb>(dspHandle);
 				case DspType.ChannelMix:
 					return Core.Create<ChannelMix>(dspHandle);
-				case DspType.Transceiver:
-					return Core.Create<Transceiver>(dspHandle);
-				case DspType.ObjectPan:
-					return Core.Create<ObjectPan>(dspHandle);
+//				case DspType.Transceiver:
+//					return Core.Create<Transceiver>(dspHandle);
+//				case DspType.ObjectPan:
+//					return Core.Create<ObjectPan>(dspHandle);
 				case DspType.MultiBandEq:
 					return Core.Create<MultiBandEq>(dspHandle);
 				case DspType.Max:
@@ -311,6 +312,7 @@ namespace FMOD.Sharp
 				default:
 					return null;
 			}
+#pragma warning restore 618
 		}
 
 		public int GetDataParameterIndex(int dataType)
@@ -328,7 +330,7 @@ namespace FMOD.Sharp
 			return new DspInfo
 			{
 				Name = Marshal.PtrToStringAnsi(namePtr, 32).Trim(),
-				Version = Core.Uint32ToVersion(version),
+				Version = Core.UInt32ToVersion(version),
 				ChannelCount = channels,
 				ConfigWindowSize = new Size(width, height)
 			};

@@ -410,7 +410,7 @@ namespace FMOD.Sharp
 			get
 			{
 				NativeInvoke(FMOD_System_GetVersion(this, out var version));
-				return Core.Uint32ToVersion(version);
+				return Core.UInt32ToVersion(version);
 			}
 		}
 
@@ -726,7 +726,7 @@ namespace FMOD.Sharp
 					Handle = handle,
 					Name = buffer.ToString(Encoding.UTF8),
 					Type = type,
-					Version = Core.Uint32ToVersion(version)
+					Version = Core.UInt32ToVersion(version)
 				};
 			}
 		}

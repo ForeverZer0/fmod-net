@@ -51,6 +51,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <DocumentationFile>bin\x86\Release\FMOD.Sharp.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -103,9 +104,20 @@
     <Compile Include="Dsps\ChannelMix.cs" />
     <Compile Include="Dsps\Chorus.cs" />
     <Compile Include="Dsps\ConvolutionReverb.cs" />
+    <Compile Include="Dsps\Distortion.cs" />
     <Compile Include="Dsps\Echo.cs" />
+    <Compile Include="Dsps\Fft.cs" />
     <Compile Include="Dsps\Flange.cs" />
+    <Compile Include="Dsps\Highpass.cs" />
+    <Compile Include="Dsps\HighpassSimple.cs" />
+    <Compile Include="Dsps\ItEcho.cs" />
+    <Compile Include="Dsps\Lowpass.cs" />
+    <Compile Include="Dsps\LowpassSimple.cs" />
+    <Compile Include="Dsps\MultiBandEq.cs" />
+    <Compile Include="Dsps\Oscillator.cs" />
     <Compile Include="Dsps\PitchShift.cs" />
+    <Compile Include="Dsps\SfxReverb.cs" />
+    <Compile Include="Dsps\ThreeEq.cs" />
     <Compile Include="Dsps\Tremolo.cs" />
     <Compile Include="Interfaces\IHandle.cs" />
     <Compile Include="Structs\AdvancedSettings.cs" />
@@ -178,7 +190,6 @@
     <Compile Include="Enums\DspResampler.cs" />
     <Compile Include="Enums\DspType.cs" />
     <Compile Include="Enums\ErrorCallbackInstanceType.cs" />
-    <Compile Include="Enums\FftWindowSize.cs" />
     <Compile Include="Enums\FloatMappingType.cs" />
     <Compile Include="Enums\InitFlags.cs" />
     <Compile Include="Enums\MemoryType.cs" />
@@ -259,6 +270,7 @@
     <Compile Include="Structs\PortIndex.cs" />
     <Compile Include="Data\Reverb3DAttributes.cs" />
     <Compile Include="Structs\ReverbProperties.cs" />
+    <Compile Include="Structs\SpectrumData.cs" />
     <Compile Include="Structs\STRUCT_TEMP.cs" />
     <Compile Include="Structs\Tag.cs" />
     <Compile Include="Data\ThreeDAttributes.cs" />

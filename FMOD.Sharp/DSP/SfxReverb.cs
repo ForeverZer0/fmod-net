@@ -1,7 +1,7 @@
 ﻿using System;
 using FMOD.Sharp.Structs;
 
-namespace FMOD.Sharp.Dsps
+namespace FMOD.Sharp.DSP
 {
 	/// <inheritdoc />
 	/// <summary>
@@ -11,9 +11,9 @@ namespace FMOD.Sharp.Dsps
 	///     <para>This is a high quality I3DL2 based reverb.</para>
 	///     <para>On top of the I3DL2 property set, "Dry Level" is also included to allow the dry mix to be changed.</para>
 	/// </remarks>
-	/// <seealso cref="T:FMOD.Sharp.Dsp" />
+	/// <seealso cref="T:FMOD.Sharp.DspBase" />
 	/// <seealso cref="T:FMOD.Sharp.Structs.ReverbProperties" />
-	public class SfxReverb : Dsp
+	public class SfxReverb : DspBase
 	{
 		/// <summary>
 		///     Initializes a new instance of the <see cref="SfxReverb" /> class.

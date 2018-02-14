@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FMOD.Sharp.Dsps
+namespace FMOD.Sharp.DSP
 {
 	/// <inheritdoc />
 	/// <summary>
@@ -10,8 +10,8 @@ namespace FMOD.Sharp.Dsps
 	///         support DirectX effects!
 	///     </para>
 	/// </summary>
-	/// <seealso cref="T:FMOD.Sharp.Dsp" />
-	public class ItEcho : Dsp
+	/// <seealso cref="T:FMOD.Sharp.DspBase" />
+	public class ItEcho : DspBase
 	{
 		/// <summary>
 		///     Initializes a new instance of the <see cref="ItEcho" /> class.

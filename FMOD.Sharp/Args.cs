@@ -1,6 +1,6 @@
 ﻿using System;
 using FMOD.Sharp.Data;
-using FMOD.Sharp.Dsps;
+using FMOD.Sharp.DSP;
 
 namespace FMOD.Sharp
 {
@@ -175,6 +175,22 @@ namespace FMOD.Sharp
 		}
 	}
 
+	public class DspIntParamChangedEventArgs : DspParamChangedEventArgs
+	{
+		public int Value { get; }
+
+		public int MinValue { get; }
+
+		public int MaxValue { get; }
+
+		public DspIntParamChangedEventArgs(int index, int value, int min = int.MinValue, int max = int.MaxValue) : base(index)
+		{
+			Value = value;
+			MinValue = min;
+			MaxValue = max;
+		}
+	}
+
 	public class DspFloatParamChangedEventArgs : DspParamChangedEventArgs
 	{
 		public float Value { get; }
@@ -211,16 +227,6 @@ namespace FMOD.Sharp
 		}
 	}
 
-	public class DspPitchFftChangedEventArgs : DspParamChangedEventArgs
-	{
-		public PitchShift.FftWindowSize FftWindow { get; }
-
-		public DspPitchFftChangedEventArgs(int parameterIndex, PitchShift.FftWindowSize windowSize) : base(parameterIndex)
-		{
-			FftWindow = windowSize;
-		}
-	}
-
 	public class DspMultiBandEqFilterChangedEventArgs : DspParamChangedEventArgs
 	{
 		public MultiBandEq.Band Band { get; }
@@ -246,28 +252,14 @@ namespace FMOD.Sharp
 		}
 	}
 
-	public class DspOscillatorTypeChangedEventArgs : DspParamChangedEventArgs
+	public class DspDelayChangedEventArgs : DspFloatParamChangedEventArgs
 	{
-		public Oscillator.WaveformType OscillatorType { get; }
+		public int Channel { get; }
 
-		public DspOscillatorTypeChangedEventArgs(int parameterIndex, Oscillator.WaveformType type) :
-			base(parameterIndex)
+		public DspDelayChangedEventArgs(int parameterIndex, float value) :
+			base(parameterIndex, value, 0.0f, 10000.0f)
 		{
-			OscillatorType = type;
-		}
-	}
-
-	public class DspFftWindowChangedEventArgs : DspParamChangedEventArgs
-	{
-		public Fft.WindowSize WindowSize { get; }
-
-		public Fft.WindowType WindowType { get; }
-
-		public DspFftWindowChangedEventArgs(int parameterIndex, Fft.WindowSize size, Fft.WindowType type) :
-			base(parameterIndex)
-		{
-			WindowSize = size;
-			WindowType = type;
+			Channel = parameterIndex;
 		}
 	}
 }

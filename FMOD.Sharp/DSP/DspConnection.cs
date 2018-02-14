@@ -1,13 +1,13 @@
 ﻿using System;
 using FMOD.Sharp.Enums;
 
-namespace FMOD.Sharp
+namespace FMOD.Sharp.DSP
 {
 	/// <summary>
-	/// <para>Represents a connection between two <see cref="Dsp"/> units.</para>
+	/// <para>Represents a connection between two <see cref="Handle"/> units.</para>
 	/// <para>Think of it as the line between two circles.</para>
 	/// </summary>
-	/// <seealso cref="FMOD.Sharp.Handle" />
+	/// <seealso cref="FMOD.Sharp" />
 	public partial class DspConnection : Handle
 	{
 		#region Delegates & Events
@@ -47,26 +47,26 @@ namespace FMOD.Sharp
 		#region Properties & Indexers
 
 		/// <summary>
-		/// Gets the <see cref="Dsp">DSP</see> unit that is the input of this connection.
+		/// Gets the <see cref="DspConnection">DSP</see> unit that is the input of this connection.
 		/// </summary>
 		/// <value>
 		/// The input DSP.
 		/// </value>
 		/// <remarks>
-		/// <para>A <see cref="DspConnection"/> joins two <see cref="Dsp"/> units together (think of it as the line between two circles).</para>
-		/// <para>Each <see cref="DspConnection"/> has one input and one output.</para>
+		/// <para>A <see cref="DspConnection"/> joins two <see cref="DspBase.AddInput"/> units together (think of it as the line between two circles).</para>
+		/// <para>Each <see cref="DspBase"/> has one input and one output.</para>
 		/// <alert class="note">
-		/// <para>If a <see cref="Dsp.AddInput"/> just occurred, the connection might not be ready because the <see cref="Dsp"/> system is still queued to connect in the background. If so the function will return <see cref="Result.NotReady"/> and the input will be <c>null</c>. Poll until it is ready.</para>
+		/// <para>If a <see cref="Result.NotReady"/> just occurred, the connection might not be ready because the <see cref="DspBase.AddInput"/> system is still queued to connect in the background. If so the function will return <see cref="DspBase"/> and the input will be <c>null</c>. Poll until it is ready.</para>
 		/// </alert>
 		/// </remarks>
-		/// <seealso cref="Dsp.AddInput"/>
-		/// <seealso cref="DspConnection.Output"/>
-		public Dsp Input
+		/// <seealso cref="DspConnection"/>
+		/// <seealso cref="DspBase"/>
+		public DspBase Input
 		{
 			get
 			{
 				NativeInvoke(FMOD_DSPConnection_GetInput(this, out var dsp));
-				return Core.Create<Dsp>(dsp);
+				return Core.Create<DspBase>(dsp);
 			}
 		}
 
@@ -77,8 +77,8 @@ namespace FMOD.Sharp
 		/// <value>
 		/// The mix.
 		/// </value>
-		/// <seealso cref="Dsp.GetInput"/>
-		/// <seealso cref="Dsp.GetOutput"/>
+		/// <seealso cref="DspBase.GetInput"/>
+		/// <seealso cref="DspBase.GetOutput"/>
 		public float Mix
 		{
 			get
@@ -94,38 +94,38 @@ namespace FMOD.Sharp
 		}
 
 		/// <summary>
-		/// Gets the <see cref="Dsp"/> unit that is the output of this connection.
+		/// Gets the <see cref="DspConnection"/> unit that is the output of this connection.
 		/// </summary>
 		/// <value>
 		/// The output.
 		/// </value>
 		/// <remarks>
-		/// <para>A <see cref="DspConnection"/> joins two <see cref="Dsp"/> units together (think of it as the line between two circles).</para>
-		/// <para>Each <see cref="DspConnection"/> has one input and one output.</para>
+		/// <para>A <see cref="DspConnection"/> joins two <see cref="DspBase.AddInput"/> units together (think of it as the line between two circles).</para>
+		/// <para>Each <see cref="DspBase"/> has one input and one output.</para>
 		/// <alert class="note">
-		/// <para>If a <see cref="Dsp.AddInput"/> just occurred, the connection might not be ready because the <see cref="Dsp">DSP</see> system is still queued to connect in the background.</para>
-		/// <para>If so the function will return <see cref="Result.NotReady"/> and the input will be <c>null</c>. Poll until it is ready.</para>
+		/// <para>If a <see cref="Result.NotReady"/> just occurred, the connection might not be ready because the <see cref="DspBase.AddInput">DSP</see> system is still queued to connect in the background.</para>
+		/// <para>If so the function will return <see cref="DspBase"/> and the input will be <c>null</c>. Poll until it is ready.</para>
 		/// </alert>
 		/// </remarks>
-		/// <seealso cref="Dsp.AddInput"/>
-		/// <seealso cref="DspConnection.Input"/>
-		public Dsp Output
+		/// <seealso cref="DspConnection"/>
+		/// <seealso cref="DspBase"/>
+		public DspBase Output
 		{
 			get
 			{
 				NativeInvoke(FMOD_DSPConnection_GetOutput(this, out var dsp));
-				return Core.Create<Dsp>(dsp);
+				return Core.Create<DspBase>(dsp);
 			}
 		}
 
 		/// <summary>
-		/// <para>Gets the type of the connection between two <see cref="Dsp"/> units.</para> 
-		/// <para>This can be <see cref="DspConnectionType.Standard"/>, <see cref="DspConnectionType.SideChain"/>, <see cref="DspConnectionType.Send"/>, or <see cref="DspConnectionType.SendSideChain"/>.</para>
+		/// <para>Gets the type of the connection between two <see cref="DspConnectionType.Standard"/> units.</para> 
+		/// <para>This can be <see cref="DspConnectionType"/>, <see cref="DspConnectionType"/>, <see cref="DspConnectionType"/>, or <see cref="DspConnectionType"/>.</para>
 		/// </summary>
 		/// <value>
 		/// The type.
 		/// </value>
-		/// <seealso cref="DspConnectionType"/>
+		/// <seealso cref="DspBase"/>
 		public DspConnectionType Type
 		{
 			get
@@ -174,13 +174,13 @@ namespace FMOD.Sharp
 		}
 
 		/// <summary>
-		/// <para>Sets a <math>NxN</math> panning matrix on a <see cref="Dsp">DSP</see> connection. </para>
+		/// <para>Sets a <math>NxN</math> panning matrix on a <see cref="DspBase">DSP</see> connection. </para>
 		/// <para>Skipping/hop is supported, so memory for the matrix can be wider than the width of the <see cref="inChannels"/> parameter.</para>
 		/// </summary>
-		/// <param name="matrix">An array of floating point matrix data, where rows represent output speakers, and columns represent input channels.</param>
-		/// <param name="outChannels">Number of output channels in the matrix being specified.</param>
-		/// <param name="inChannels">Number of input channels in the matrix being specified. </param>
-		/// <param name="inChannelHop">Number of floating point values stored in memory for a row, so that the memory can be skipped through correctly to read the right values, if the intended matrix memory to be read from is wider than the matrix stored in the <see cref="DspConnection"/>. </param>
+		/// <param name="outChannels">An array of floating point matrix data, where rows represent output speakers, and columns represent input channels.</param>
+		/// <param name="inChannels">Number of output channels in the matrix being specified.</param>
+		/// <param name="inChannelHop">Number of input channels in the matrix being specified. </param>
+		/// <param name="inChannelHop">Number of floating point values stored in memory for a row, so that the memory can be skipped through correctly to read the right values, if the intended matrix memory to be read from is wider than the matrix stored in the <see cref="DspBase"/>. </param>
 		public void SetMixMatrix(float[] matrix, int outChannels, int inChannels, int inChannelHop)
 		{
 			NativeInvoke(FMOD_DSPConnection_SetMixMatrix(this, matrix, outChannels, inChannels, inChannelHop));

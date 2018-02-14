@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FMOD.Sharp.Dsps
+namespace FMOD.Sharp.DSP
 {
 	/// <inheritdoc />
 	/// <summary>
@@ -21,10 +21,10 @@ namespace FMOD.Sharp.Dsps
 	/// </example>
 	/// <remarks>
 	/// </remarks>
-	/// <seealso cref="T:FMOD.Sharp.Dsp" />
+	/// <seealso cref="T:FMOD.Sharp.DspBase" />
 	/// <seealso cref="T:FMOD.Sharp.Dsps.MultiBandEq"/>
 	[Obsolete("Deprecated and will be removed in a future release, to emulate with MultiBandEq. See documentation for example.")]
-	public class Highpass : Dsp
+	public class Highpass : DspBase
 	{
 		/// <summary>
 		///     Initializes a new instance of the <see cref="Highpass" /> class.

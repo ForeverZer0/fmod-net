@@ -2,16 +2,16 @@
 using System.Runtime.InteropServices;
 using FMOD.Sharp.Structs;
 
-namespace FMOD.Sharp.Dsps
+namespace FMOD.Sharp.DSP
 {
 	/// <inheritdoc />
 	/// <summary>
 	///     Uses a Fast Fourier Transform algorithm to obtains spectrum data of a sound for analysis.
 	/// </summary>
-	/// <seealso cref="P:FMOD.Sharp.Dsps.Fft.SpectrumData" />
-	/// <seealso cref="T:FMOD.Sharp.Dsps.Fft.WindowSize" />
-	/// <seealso cref="T:FMOD.Sharp.Dsps.Fft.WindowType" />
-	public class Fft : Dsp
+	/// <seealso cref="P:FMOD.Sharp.DSP.Fft.SpectrumData" />
+	/// <seealso cref="T:FMOD.Sharp.DSP.Fft.WindowSize" />
+	/// <seealso cref="T:FMOD.Sharp.DSP.Fft.WindowType" />
+	public class Fft : DspBase
 	{
 		/// <summary>
 		///     Describes window sizes to use with a Fast Fourier Transform calculation.
@@ -150,7 +150,7 @@ namespace FMOD.Sharp.Dsps
 			set
 			{
 				SetParameterInt(0, (int) value);
-				WindowSizeChanged?.Invoke(this, new DspFftWindowChangedEventArgs(0, value, Type));
+				WindowSizeChanged?.Invoke(this, EventArgs.Empty);
 			}
 		}
 
@@ -165,7 +165,7 @@ namespace FMOD.Sharp.Dsps
 			set
 			{
 				SetParameterInt(1, (int) value);
-				WindowTypeChanged?.Invoke(this, new DspFftWindowChangedEventArgs(1, Size, value));
+				WindowTypeChanged?.Invoke(this, EventArgs.Empty);
 			}
 		}
 
@@ -194,18 +194,16 @@ namespace FMOD.Sharp.Dsps
 		///     Occurs when <see cref="Size" /> property is changed.
 		/// </summary>
 		/// <seealso cref="Fft" />
-		/// <seealso cref="DspFftWindowChangedEventArgs" />
 		/// <seealso cref="WindowSize" />
 		/// <seealso cref="WindowType" />
-		public event EventHandler<DspFftWindowChangedEventArgs> WindowSizeChanged;
+		public event EventHandler WindowSizeChanged;
 
 		/// <summary>
 		///     Occurs when <see cref="Type" /> property is changed.
 		/// </summary>
 		/// <seealso cref="Fft" />
-		/// <seealso cref="DspFftWindowChangedEventArgs" />
 		/// <seealso cref="WindowSize" />
 		/// <seealso cref="WindowType" />
-		public event EventHandler<DspFftWindowChangedEventArgs> WindowTypeChanged;
+		public event EventHandler WindowTypeChanged;
 	}
 }

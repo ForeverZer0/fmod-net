@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using FMOD.Sharp.Enums;
 
-namespace FMOD.Sharp
+namespace FMOD.Sharp.DSP
 {
 	public partial class DspConnection
 	{

@@ -1,13 +1,13 @@
 ﻿using System;
 
-namespace FMOD.Sharp.Dsps
+namespace FMOD.Sharp.DSP
 {
 	/// <inheritdoc />
 	/// <summary>
 	///     Applies a basic "echo" effect to a sound.
 	/// </summary>
 	/// <seealso cref="T:FMOD.Sharp.Dsp" />
-	public class Echo : Dsp
+	public class Echo : DspBase
 	{
 		/// <summary>
 		///     Initializes a new instance of the <see cref="Echo" /> class.

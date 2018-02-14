@@ -1,4 +1,5 @@
-﻿using FMOD.Sharp.Structs;
+﻿using FMOD.Sharp.DSP;
+using FMOD.Sharp.Structs;
 
 namespace FMOD.Sharp.Enums
 {
@@ -32,46 +33,46 @@ namespace FMOD.Sharp.Enums
 		Dma,
 
 		/// <summary>
-		///     <see cref="Dsp" /> connection error. Connection possibly caused a cyclic dependency or connected dsps with
+		///     <see cref="DspBase" /> connection error. Connection possibly caused a cyclic dependency or connected dsps with
 		///     incompatible buffer counts.
 		/// </summary>
 		DspConnection,
 
 		/// <summary>
-		///     <see cref="Dsp" /> return code from a DSP process query callback. Tells mixer not to call the process callback and
+		///     <see cref="DspBase" /> return code from a DSP process query callback. Tells mixer not to call the process callback and
 		///     therefore not consume CPU. Use this to optimize the DSP graph.
 		/// </summary>
 		DspDontProcess,
 
 		/// <summary>
-		///     <see cref="Dsp" /> Format error. A DSP unit may have attempted to connect to this network with the wrong format, or
+		///     <see cref="DspBase" /> Format error. A DSP unit may have attempted to connect to this network with the wrong format, or
 		///     a matrix may have been set with the wrong size if the target unit has a specified channel map.
 		/// </summary>
 		DspFormat,
 
 		/// <summary>
-		///     <see cref="Dsp" /> is already in the mixer's DSP network. It must be removed before being reinserted or released.
+		///     <see cref="DspBase" /> is already in the mixer's DSP network. It must be removed before being reinserted or released.
 		/// </summary>
 		DspInUse,
 
 		/// <summary>
-		///     <see cref="Dsp" /> connection error. Couldn't find the DSP unit specified.
+		///     <see cref="DspBase" /> connection error. Couldn't find the DSP unit specified.
 		/// </summary>
 		DspNotFound,
 
 		/// <summary>
-		///     <see cref="Dsp" /> operation error. Cannot perform operation on this DSP as it is reserved by the system.
+		///     <see cref="DspBase" /> operation error. Cannot perform operation on this DSP as it is reserved by the system.
 		/// </summary>
 		DspReserved,
 
 		/// <summary>
-		///     <see cref="Dsp" /> return code from a DSP process query callback. Tells mixer silence would be produced from read,
+		///     <see cref="DspBase" /> return code from a DSP process query callback. Tells mixer silence would be produced from read,
 		///     so go idle and not consume CPU. Use this to optimize the DSP graph.
 		/// </summary>
 		DspSilence,
 
 		/// <summary>
-		///     <see cref="Dsp" /> operation cannot be performed on a DSP of this type.
+		///     <see cref="DspBase" /> operation cannot be performed on a DSP of this type.
 		/// </summary>
 		DspType,
 

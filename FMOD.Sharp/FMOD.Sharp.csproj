@@ -101,24 +101,31 @@
     <Compile Include="Data\SpeakerPosition.cs" />
     <Compile Include="Data\SyncpointInfo.cs" />
     <Compile Include="Data\System3DSettings.cs" />
-    <Compile Include="Dsps\ChannelMix.cs" />
-    <Compile Include="Dsps\Chorus.cs" />
-    <Compile Include="Dsps\ConvolutionReverb.cs" />
-    <Compile Include="Dsps\Distortion.cs" />
-    <Compile Include="Dsps\Echo.cs" />
-    <Compile Include="Dsps\Fft.cs" />
-    <Compile Include="Dsps\Flange.cs" />
-    <Compile Include="Dsps\Highpass.cs" />
-    <Compile Include="Dsps\HighpassSimple.cs" />
-    <Compile Include="Dsps\ItEcho.cs" />
-    <Compile Include="Dsps\Lowpass.cs" />
-    <Compile Include="Dsps\LowpassSimple.cs" />
-    <Compile Include="Dsps\MultiBandEq.cs" />
-    <Compile Include="Dsps\Oscillator.cs" />
-    <Compile Include="Dsps\PitchShift.cs" />
-    <Compile Include="Dsps\SfxReverb.cs" />
-    <Compile Include="Dsps\ThreeEq.cs" />
-    <Compile Include="Dsps\Tremolo.cs" />
+    <Compile Include="DSP\ChannelMix.cs" />
+    <Compile Include="DSP\Chorus.cs" />
+    <Compile Include="DSP\Compressor.cs" />
+    <Compile Include="DSP\ConvolutionReverb.cs" />
+    <Compile Include="DSP\Delay.cs" />
+    <Compile Include="DSP\Distortion.cs" />
+    <Compile Include="DSP\Echo.cs" />
+    <Compile Include="DSP\Fader.cs" />
+    <Compile Include="DSP\Fft.cs" />
+    <Compile Include="DSP\Flange.cs" />
+    <Compile Include="DSP\Highpass.cs" />
+    <Compile Include="DSP\HighpassSimple.cs" />
+    <Compile Include="DSP\ItEcho.cs" />
+    <Compile Include="DSP\Lowpass.cs" />
+    <Compile Include="DSP\LowpassSimple.cs" />
+    <Compile Include="DSP\MultiBandEq.cs" />
+    <Compile Include="DSP\Normalize.cs" />
+    <Compile Include="DSP\Oscillator.cs" />
+    <Compile Include="DSP\Pan.cs" />
+    <Compile Include="DSP\ParamEq.cs" />
+    <Compile Include="DSP\PitchShift.cs" />
+    <Compile Include="DSP\Return.cs" />
+    <Compile Include="DSP\SfxReverb.cs" />
+    <Compile Include="DSP\ThreeEq.cs" />
+    <Compile Include="DSP\Tremolo.cs" />
     <Compile Include="Interfaces\IHandle.cs" />
     <Compile Include="Structs\AdvancedSettings.cs" />
     <Compile Include="Channel.cs" />
@@ -168,13 +175,13 @@
     <Compile Include="Data\SoundInfo.cs" />
     <Compile Include="Data\SpeakerMix.cs" />
     <Compile Include="Delegates.cs" />
-    <Compile Include="Dsp.cs" />
-    <Compile Include="Dsp.Native.cs">
-      <DependentUpon>Dsp.cs</DependentUpon>
+    <Compile Include="DSP\DspBase.cs" />
+    <Compile Include="DSP\Dsp.Native.cs">
+      <DependentUpon>DspBase.cs</DependentUpon>
     </Compile>
-    <Compile Include="DspConnection.cs" />
+    <Compile Include="DSP\DspConnection.cs" />
     <Compile Include="Data\DspInfo.cs" />
-    <Compile Include="DspConnection.Native.cs">
+    <Compile Include="DSP\DspConnection.Native.cs">
       <DependentUpon>DspConnection.cs</DependentUpon>
     </Compile>
     <Compile Include="Enums\ChannelControlCallbackType.cs" />

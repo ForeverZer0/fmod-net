@@ -3,9 +3,9 @@ using System.Runtime.InteropServices;
 using FMOD.Sharp.Enums;
 using FMOD.Sharp.Structs;
 
-namespace FMOD.Sharp
+namespace FMOD.Sharp.DSP
 {
-	public partial class Dsp
+	public partial class DspBase
 	{
 		[DllImport(Core.LIBRARY)]
 		private static extern Result FMOD_DSP_Release(IntPtr dsp);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using FMOD.Sharp.Data;
+using FMOD.Sharp.DSP;
 using FMOD.Sharp.Enums;
 using FMOD.Sharp.Structs;
 
@@ -39,15 +40,15 @@ namespace FMOD.Sharp
 		}
 
 
-		public void AddDsp(Dsp dsp, DspIndex index)
+		public void AddDsp(DspBase dspBase, DspIndex index)
 		{
-			NativeInvoke(FMOD_ChannelGroup_AddDSP(this, index, dsp));
+			NativeInvoke(FMOD_ChannelGroup_AddDSP(this, index, dspBase));
 			DspAdded?.Invoke(this, EventArgs.Empty);
 		}
 
-		public void AddDsp(Dsp dsp, int index)
+		public void AddDsp(DspBase dspBase, int index)
 		{
-			NativeInvoke(FMOD_ChannelGroup_AddDSP(this, index, dsp));
+			NativeInvoke(FMOD_ChannelGroup_AddDSP(this, index, dspBase));
 			DspAdded?.Invoke(this, EventArgs.Empty);
 		}
 
@@ -77,10 +78,10 @@ namespace FMOD.Sharp
 			return audibility;
 		}
 
-		public Dsp GetDsp(int index)
+		public DspBase GetDsp(int index)
 		{
 			NativeInvoke(FMOD_ChannelGroup_GetDSP(this, index, out var dsp));
-			return Core.Create<Dsp>(dsp);
+			return Core.Create<DspBase>(dsp);
 		}
 
 		public void GetDspClocks(out ulong head, out ulong tail)
@@ -88,9 +89,9 @@ namespace FMOD.Sharp
 			NativeInvoke(FMOD_ChannelGroup_GetDSPClock(this, out head, out tail));
 		}
 
-		public int GetDspIndex(Dsp dsp)
+		public int GetDspIndex(DspBase dspBase)
 		{
-			NativeInvoke(FMOD_ChannelGroup_GetDSPIndex(this, dsp, out var index));
+			NativeInvoke(FMOD_ChannelGroup_GetDSPIndex(this, dspBase, out var index));
 			return index;
 		}
 
@@ -121,9 +122,9 @@ namespace FMOD.Sharp
 			Paused = true;
 		}
 
-		public void RemoveDsp(Dsp dsp)
+		public void RemoveDsp(DspBase dspBase)
 		{
-			NativeInvoke(FMOD_ChannelGroup_RemoveDSP(this, dsp));
+			NativeInvoke(FMOD_ChannelGroup_RemoveDSP(this, dspBase));
 			DspRemoved?.Invoke(this, EventArgs.Empty);
 		}
 
@@ -157,14 +158,14 @@ namespace FMOD.Sharp
 			ThreeDDistanceFilterChanged?.Invoke(this, EventArgs.Empty);
 		}
 
-		public void SetDspIndex(Dsp dsp, DspIndex index)
+		public void SetDspIndex(DspBase dspBase, DspIndex index)
 		{
-			NativeInvoke(FMOD_ChannelGroup_SetDSPIndex(this, dsp, index));
+			NativeInvoke(FMOD_ChannelGroup_SetDSPIndex(this, dspBase, index));
 		}
 
-		public void SetDspIndex(Dsp dsp, int index)
+		public void SetDspIndex(DspBase dspBase, int index)
 		{
-			NativeInvoke(FMOD_ChannelGroup_SetDSPIndex(this, dsp, Math.Max(-3, index)));
+			NativeInvoke(FMOD_ChannelGroup_SetDSPIndex(this, dspBase, Math.Max(-3, index)));
 		}
 
 		public void SetFadePointRamp(ulong dspClock, float targetVolume)

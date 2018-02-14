@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FMOD.Sharp.Dsps
+namespace FMOD.Sharp.DSP
 {
 	/// <inheritdoc />
 	/// <summary>
@@ -29,8 +29,8 @@ namespace FMOD.Sharp.Dsps
 	///         instantaneous phase.
 	///     </para>
 	/// </remarks>
-	/// <seealso cref="T:FMOD.Sharp.Dsp" />
-	public class Tremolo : Dsp
+	/// <seealso cref="T:FMOD.Sharp.DspBase" />
+	public class Tremolo : DspBase
 	{
 		/// <summary>
 		///     Initializes a new instance of the <see cref="Tremolo" /> class.

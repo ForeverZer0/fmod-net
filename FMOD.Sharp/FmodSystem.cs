@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using FMOD.Sharp.Data;
+using FMOD.Sharp.DSP;
 using FMOD.Sharp.Enums;
 using FMOD.Sharp.Structs;
 
@@ -463,11 +464,11 @@ namespace FMOD.Sharp
 			return system;
 		}
 
-		public Dsp CreateByPlugin(uint pluginHandle)
+		public DspBase CreateByPlugin(uint pluginHandle)
 		{
 			NativeInvoke(FMOD_System_CreateDSPByPlugin(this, pluginHandle, out var dsp));
 			DspCreated?.Invoke(this, EventArgs.Empty);
-			return Core.Create<Dsp>(dsp);
+			return Core.Create<DspBase>(dsp);
 		}
 
 		public ChannelGroup CreateChannelGroup(string name)
@@ -478,18 +479,25 @@ namespace FMOD.Sharp
 			return Core.Create<ChannelGroup>(group);
 		}
 
-		public Dsp CreateDsp(DspDescription description)
+		public DspBase CreateDsp(DspDescription description)
 		{
 			NativeInvoke(FMOD_System_CreateDSP(this, ref description, out var dsp));
 			DspCreated?.Invoke(this, EventArgs.Empty);
-			return Core.Create<Dsp>(dsp);
+			return Core.Create<DspBase>(dsp);
 		}
 
-		public Dsp CreateDspByType(DspType dspType)
+		public T CreateDspByType<T>() where T : DspBase
+		{
+			if (Enum.TryParse<DspType>(typeof(T).Name, true, out var dspType))
+				return (T) CreateDspByType(dspType);
+			return null;
+		}
+
+		public DspBase CreateDspByType(DspType dspType)
 		{
 			NativeInvoke(FMOD_System_CreateDSPByType(this, dspType, out var dsp));
 			DspCreated?.Invoke(this, EventArgs.Empty);
-			return Dsp.FromType(dsp, dspType);
+			return DspBase.FromType(dsp, dspType);
 		}
 
 		public Geometry CreateGeometry(int maxPolygons, int maxVertices)
@@ -848,9 +856,9 @@ namespace FMOD.Sharp
 			DspLocked?.Invoke(this, EventArgs.Empty);
 		}
 
-		public Channel PlayDsp(Dsp dsp, bool paused = false, ChannelGroup group = null)
+		public Channel PlayDsp(DspBase dspBase, bool paused = false, ChannelGroup group = null)
 		{
-			NativeInvoke(FMOD_System_PlayDSP(this, dsp, group ?? IntPtr.Zero, paused, out var channel));
+			NativeInvoke(FMOD_System_PlayDSP(this, dspBase, group ?? IntPtr.Zero, paused, out var channel));
 			DspPlayed?.Invoke(this, EventArgs.Empty);
 			return Core.Create<Channel>(channel);
 		}

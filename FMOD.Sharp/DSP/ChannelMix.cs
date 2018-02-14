@@ -1,15 +1,15 @@
 ﻿using System;
 using FMOD.Sharp.Enums;
 
-namespace FMOD.Sharp.Dsps
+namespace FMOD.Sharp.DSP
 {
 	/// <inheritdoc />
 	/// <summary>
 	///     Provides functions for mixing gain levels and output grouping on speakers.
 	/// </summary>
-	/// <seealso cref="T:FMOD.Sharp.Dsp" />
+	/// <seealso cref="T:FMOD.Sharp.DspBase" />
 	/// <seealso cref="T:FMOD.Sharp.Dsps.ChannelMix.Output" />
-	public class ChannelMix : Dsp
+	public class ChannelMix : DspBase
 	{
 		/// <summary>
 		///     Parameter types for the <see cref="ChannelMix.OutputGrouping" /> parameter for <see cref="ChannelMix" />.

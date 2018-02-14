@@ -2,11 +2,10 @@
 using System.Drawing;
 using System.Runtime.InteropServices;
 using FMOD.Sharp.Data;
-using FMOD.Sharp.Dsps;
 using FMOD.Sharp.Enums;
 using FMOD.Sharp.Structs;
 
-namespace FMOD.Sharp
+namespace FMOD.Sharp.DSP
 {
 	/// <inheritdoc />
 	/// <summary>
@@ -14,7 +13,7 @@ namespace FMOD.Sharp
 	/// <para>This class must be inherited.</para>
 	/// </summary>
 	/// <seealso cref="T:FMOD.Sharp.Handle" />
-	public partial class Dsp : Handle
+	public partial class DspBase : Handle
 	{
 		#region Delegates & Events
 
@@ -24,7 +23,7 @@ namespace FMOD.Sharp
 
 		#region Constructors & Destructor
 
-		internal Dsp(IntPtr handle) : base(handle)
+		internal DspBase(IntPtr handle) : base(handle)
 		{
 		}
 
@@ -179,9 +178,9 @@ namespace FMOD.Sharp
 
 		#region Methods
 
-		public DspConnection AddInput(Dsp dsp, DspConnectionType type = DspConnectionType.Standard)
+		public DspConnection AddInput(DspBase dspBase, DspConnectionType type = DspConnectionType.Standard)
 		{
-			NativeInvoke(FMOD_DSP_AddInput(this, dsp, out var connection, type));
+			NativeInvoke(FMOD_DSP_AddInput(this, dspBase, out var connection, type));
 			return Core.Create<DspConnection>(connection);
 		}
 
@@ -195,14 +194,14 @@ namespace FMOD.Sharp
 			NativeInvoke(FMOD_DSP_DisconnectAll(this, true, true));
 		}
 
-		public void DisconnectFrom(Dsp dsp)
+		public void DisconnectFrom(DspBase dspBase)
 		{
-			NativeInvoke(FMOD_DSP_DisconnectFrom(this, dsp, IntPtr.Zero));
+			NativeInvoke(FMOD_DSP_DisconnectFrom(this, dspBase, IntPtr.Zero));
 		}
 
-		public void DisconnectFrom(Dsp dsp, DspConnection connection)
+		public void DisconnectFrom(DspBase dspBase, DspConnection connection)
 		{
-			NativeInvoke(FMOD_DSP_DisconnectFrom(this, dsp, connection));
+			NativeInvoke(FMOD_DSP_DisconnectFrom(this, dspBase, connection));
 		}
 
 		public void DisconnectInputs()
@@ -226,7 +225,7 @@ namespace FMOD.Sharp
 			NativeInvoke(FMOD_DSP_SetMeteringEnabled(this, true, true));
 		}
 
-		public static Dsp FromType(IntPtr dspHandle, DspType dspType)
+		public static DspBase FromType(IntPtr dspHandle, DspType dspType)
 		{
 			if (dspHandle == IntPtr.Zero)
 				return null;
@@ -336,10 +335,10 @@ namespace FMOD.Sharp
 			};
 		}
 
-		public Dsp GetInput(int index)
+		public DspBase GetInput(int index)
 		{
 			NativeInvoke(FMOD_DSP_GetInput(this, index, out var input, out var dummy));
-			return Core.Create<Dsp>(input);
+			return Core.Create<DspBase>(input);
 		}
 
 		public DspConnection GetInputConnection(int index)
@@ -348,10 +347,10 @@ namespace FMOD.Sharp
 			return Core.Create<DspConnection>(connection);
 		}
 
-		public Dsp GetOutput(int index)
+		public DspBase GetOutput(int index)
 		{
 			NativeInvoke(FMOD_DSP_GetOutput(this, index, out var output, out var dummy));
-			return Core.Create<Dsp>(output);
+			return Core.Create<DspBase>(output);
 		}
 
 		public ChannelFormat GetOutputChannelFormat()

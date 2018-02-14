@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using FMOD.Sharp.DSP;
 
 namespace FMOD.Sharp
 {

@@ -33,12 +33,6 @@ namespace FMOD.Sharp
 
 	public delegate Result FileAsyncCancelCallback(IntPtr handle, IntPtr userdata);
 
-	public delegate IntPtr MemoryAllocCallback(uint size, MemoryType type, StringWrapper sourcestr);
-
-	public delegate IntPtr MemoryReallocCallback(IntPtr ptr, uint size, MemoryType type, StringWrapper sourcestr);
-
-	public delegate void MemoryFreeCallback(IntPtr ptr, MemoryType type, StringWrapper sourcestr);
-
 	public delegate float Cb_3DRolloffcallback(IntPtr channelraw, float distance);
 
 	public delegate Result DspCreateCallback(ref DspState dspState);

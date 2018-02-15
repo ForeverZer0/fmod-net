@@ -86,12 +86,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Args.cs" />
-    <Compile Include="Controls\Fmod.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\Fmod.Designer.cs">
-      <DependentUpon>Fmod.cs</DependentUpon>
-    </Compile>
     <Compile Include="Data\CpuUsage.cs" />
     <Compile Include="Data\FileUsage.cs" />
     <Compile Include="Data\PluginInfo.cs" />
@@ -108,24 +102,34 @@
     <Compile Include="DSP\Delay.cs" />
     <Compile Include="DSP\Distortion.cs" />
     <Compile Include="DSP\Echo.cs" />
+    <Compile Include="DSP\EnvelopeFollower.cs" />
     <Compile Include="DSP\Fader.cs" />
     <Compile Include="DSP\Fft.cs" />
     <Compile Include="DSP\Flange.cs" />
     <Compile Include="DSP\Highpass.cs" />
     <Compile Include="DSP\HighpassSimple.cs" />
     <Compile Include="DSP\ItEcho.cs" />
+    <Compile Include="DSP\ItLowpass.cs" />
+    <Compile Include="DSP\Limiter.cs" />
+    <Compile Include="DSP\LoudnessMeter.cs" />
     <Compile Include="DSP\Lowpass.cs" />
     <Compile Include="DSP\LowpassSimple.cs" />
+    <Compile Include="DSP\Mixer.cs" />
     <Compile Include="DSP\MultiBandEq.cs" />
     <Compile Include="DSP\Normalize.cs" />
+    <Compile Include="DSP\ObjectPan.cs" />
     <Compile Include="DSP\Oscillator.cs" />
     <Compile Include="DSP\Pan.cs" />
     <Compile Include="DSP\ParamEq.cs" />
     <Compile Include="DSP\PitchShift.cs" />
     <Compile Include="DSP\Return.cs" />
+    <Compile Include="DSP\Send.cs" />
     <Compile Include="DSP\SfxReverb.cs" />
     <Compile Include="DSP\ThreeEq.cs" />
+    <Compile Include="DSP\Transceiver.cs" />
     <Compile Include="DSP\Tremolo.cs" />
+    <Compile Include="DSP\Util.cs" />
+    <Compile Include="MemoryManager.cs" />
     <Compile Include="Structs\AdvancedSettings.cs" />
     <Compile Include="Channel.cs" />
     <Compile Include="Channel.Native.cs">
@@ -138,29 +142,6 @@
     <Compile Include="ChannelGroup.cs" />
     <Compile Include="ChannelGroup.Native.cs">
       <DependentUpon>ChannelGroup.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ColorSlider.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\ColorSlider.designer.cs">
-      <DependentUpon>ColorSlider.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\KnobControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\NumericUnitUpDown.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\NumericUnitUpDown.Designer.cs">
-      <DependentUpon>NumericUnitUpDown.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\WaveformPathFactory.cs" />
-    <Compile Include="Controls\ControlHelper.cs" />
-    <Compile Include="Controls\WaveForm.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\WaveForm.Designer.cs">
-      <DependentUpon>WaveForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Core.cs" />
     <Compile Include="Data\ConeSettings.cs" />
@@ -223,6 +204,9 @@
       <DependentUpon>Geometry.cs</DependentUpon>
     </Compile>
     <Compile Include="HandleBase.cs" />
+    <Compile Include="HandleBase.Native.cs">
+      <DependentUpon>HandleBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="MemoryBuffer.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -235,7 +219,7 @@
       <DependentUpon>ResultStrings.resx</DependentUpon>
     </Compile>
     <Compile Include="Reverb.cs" />
-    <Compile Include="Reverb3D.Native.cs">
+    <Compile Include="Reverb.Native.cs">
       <DependentUpon>Reverb.cs</DependentUpon>
     </Compile>
     <Compile Include="ReverbPresets.cs" />
@@ -297,19 +281,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Controls\ColorSlider.resx">
-      <DependentUpon>ColorSlider.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\Fmod.resx">
-      <DependentUpon>Fmod.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\KnobControl.resx">
-      <DependentUpon>KnobControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\WaveForm.resx">
-      <DependentUpon>WaveForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

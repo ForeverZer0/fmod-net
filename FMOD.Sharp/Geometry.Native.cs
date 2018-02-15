@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Security;
+using System.Security.Permissions;
 using FMOD.Sharp.Enums;
 using FMOD.Sharp.Structs;
 
 namespace FMOD.Sharp
 {
-	[SuppressUnmanagedCodeSecurity]
+	[SuppressUnmanagedCodeSecurity][SecurityPermission(SecurityAction.Demand, UnmanagedCode = true)]
 	public partial class Geometry
 	{
 		#region Native Methods

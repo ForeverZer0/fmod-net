@@ -9,57 +9,53 @@ using Microsoft.Win32.SafeHandles;
 
 namespace FMOD.Sharp
 {
-	[SuppressUnmanagedCodeSecurity]
-	public abstract class HandleBase : SafeHandleZeroOrMinusOneIsInvalid
+	public abstract partial class HandleBase : SafeHandleZeroOrMinusOneIsInvalid
 	{
-		[DllImport(Core.LIBRARY)]
-		private static extern Result FMOD_System_Release(IntPtr system);
+		private bool _isInvalid;
+		private readonly int _handleHashCode;
 
-		[DllImport(Core.LIBRARY)]
-		private static extern Result FMOD_ChannelGroup_Release(IntPtr channelControl);
 
-		[DllImport(Core.LIBRARY)]
-		private static extern Result FMOD_Sound_Release(IntPtr sound);
+		public event EventHandler Disposed;
 
-		[DllImport(Core.LIBRARY)]
-		private static extern Result FMOD_SoundGroup_Release(IntPtr soundgroup);
-
-		[DllImport(Core.LIBRARY)]
-		private static extern Result FMOD_DSP_Release(IntPtr dsp);
-
-		[DllImport(Core.LIBRARY)]
-		private static extern Result FMOD_Geometry_Release(IntPtr geometry);
-
-		[DllImport(Core.LIBRARY)]
-		private static extern Result FMOD_Reverb3D_Release(IntPtr reverb);
-
+		protected HandleBase(IntPtr nativeHandle) : base(true)
+		{
+			_handleHashCode = nativeHandle.GetHashCode();
+			SetHandle(nativeHandle);
+		}
 
 		[ReliabilityContract(Consistency.WillNotCorruptState, Cer.MayFail)]
 		protected override bool ReleaseHandle()
 		{
 			_isInvalid = true;
-			switch (this)
+			try
 			{
-				case Sound _:
-					return FMOD_Sound_Release(handle) == Result.OK;
-				case DspBase _:
-					return FMOD_DSP_Release(handle) == Result.OK;
-				case Reverb _:
-					return FMOD_Reverb3D_Release(handle) == Result.OK;
-				case FmodSystem _:
-					return FMOD_System_Release(handle) == Result.OK;
-				case ChannelGroup _:
-					return FMOD_ChannelGroup_Release(handle) == Result.OK;
-				case SoundGroup _:
-					return FMOD_SoundGroup_Release(handle) == Result.OK;
-				case Geometry _:
-					return FMOD_Geometry_Release(handle) == Result.OK;
-				default:
-					return true;
+				switch (this)
+				{
+					case Sound _:
+						return FMOD_Sound_Release(handle) == Result.OK;
+					case DspBase _:
+						return FMOD_DSP_Release(handle) == Result.OK;
+					case Reverb _:
+						return FMOD_Reverb3D_Release(handle) == Result.OK;
+					case FmodSystem _:
+						return FMOD_System_Release(handle) == Result.OK;
+					case ChannelGroup _:
+						return FMOD_ChannelGroup_Release(handle) == Result.OK;
+					case SoundGroup _:
+						return FMOD_SoundGroup_Release(handle) == Result.OK;
+					case Geometry _:
+						return FMOD_Geometry_Release(handle) == Result.OK;
+					default:
+						return true;
+				}
+			}
+			catch (AccessViolationException)
+			{
+				// Already released
+				return true;
 			}
 		}
 
-		[SecurityPermission(SecurityAction.Demand, UnmanagedCode = true)]
 		protected override void Dispose(bool disposing)
 		{
 			if (!IsInvalid)
@@ -69,10 +65,7 @@ namespace FMOD.Sharp
 		}
 
 
-		protected HandleBase(IntPtr nativeHandle) : base(true)
-		{
-			SetHandle(nativeHandle);
-		}
+
 
 		
 
@@ -89,25 +82,20 @@ namespace FMOD.Sharp
 
 
 
-		/// <summary>
-		/// Occurs when the object the handleBase points to is released and no longer valid.
-		/// </summary>
-		public event EventHandler Disposed;
 
-		private bool _isInvalid;
-
+		
 
 
 		public override bool IsInvalid
 		{
-			get => _isInvalid || handle == IntPtr.Zero;
+			get => IsClosed || _isInvalid || handle == IntPtr.Zero;
 		}
 
 
 		/// <summary>
 		/// Performs an implicit conversion from <see cref="HandleBase"/> to <see cref="IntPtr"/>.
 		/// </summary>
-		/// <param name="handleBase">The handleBase.</param>
+		/// <param name="handleBase">An instance of a HandleBase or derived class.</param>
 		/// <returns>
 		/// The result of the conversion.
 		/// </returns>
@@ -132,14 +120,12 @@ namespace FMOD.Sharp
 			return result;
 		}
 
-
-
 		#region Equality Functions
 
 		public bool Equals(HandleBase other)
 		{
 			#if X64
-			return handleBase.ToInt64() == other?.handleBase.ToInt64();
+			return handle.ToInt64() == other?.handle.ToInt64();
 			#elif X86
 			return handle.ToInt32() == other?.handle.ToInt32();
 			#endif
@@ -152,8 +138,7 @@ namespace FMOD.Sharp
 
 		public override int GetHashCode()
 		{
-			// ReSharper disable once NonReadonlyMemberInGetHashCode
-			return handle.GetHashCode();
+			return _handleHashCode;
 		}
 
 		public static bool operator ==(HandleBase a, HandleBase b)

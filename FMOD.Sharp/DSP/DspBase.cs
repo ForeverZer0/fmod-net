@@ -15,11 +15,6 @@ namespace FMOD.Sharp.DSP
 	/// <seealso cref="T:FMOD.Sharp.HandleBase" />
 	public partial class DspBase : HandleBase
 	{
-		#region Delegates & Events
-
-		public event EventHandler<ParamChangeEventArgs> ParameterChanged;
-
-		#endregion
 
 		#region Constructors & Destructor
 
@@ -228,30 +223,30 @@ namespace FMOD.Sharp.DSP
 			{
 				case DspType.Unknown:
 					return null;
-//				case DspType.Mixer:
-//					return Core.Create<Mixer>(dspHandle);
+				case DspType.Mixer:
+					return Core.Create<Mixer>(dspHandle);
 				case DspType.Oscillator:
 					return Core.Create<Oscillator>(dspHandle);
 				case DspType.Lowpass:
 					return Core.Create<Lowpass>(dspHandle);
-//				case DspType.ItLowpass:
-//					return Core.Create<ItLowpass>(dspHandle);
+				case DspType.ItLowpass:
+					return Core.Create<ItLowpass>(dspHandle);
 				case DspType.Highpass:
 					return Core.Create<Highpass>(dspHandle);
 				case DspType.Echo:
 					return Core.Create<Echo>(dspHandle);
-//				case DspType.Fader:
-//					return Core.Create<Fader>(dspHandle);
+				case DspType.Fader:
+					return Core.Create<Fader>(dspHandle);
 				case DspType.Flange:
 					return Core.Create<Flange>(dspHandle);
 				case DspType.Distortion:
 					return Core.Create<Distortion>(dspHandle);
-//				case DspType.Normalize:
-//					return Core.Create<Normalize>(dspHandle);
-//				case DspType.Limiter:
-//					return Core.Create<Limiter>(dspHandle);
-//				case DspType.ParamEq:
-//					return Core.Create<ParamEq>(dspHandle);
+				case DspType.Normalize:
+					return Core.Create<Normalize>(dspHandle);
+				case DspType.Limiter:
+					return Core.Create<Limiter>(dspHandle);
+				case DspType.ParamEq:
+					return Core.Create<ParamEq>(dspHandle);
 				case DspType.PitchShift:
 					return Core.Create<PitchShift>(dspHandle);
 				case DspType.Chorus:
@@ -260,44 +255,44 @@ namespace FMOD.Sharp.DSP
 					return null;
 				case DspType.WinampPlugin:
 					return null;
-//				case DspType.ItEcho:
-//					return Core.Create<ItEcho>(dspHandle);
-//				case DspType.Compressor:
-//					return Core.Create<Compressor>(dspHandle);
+				case DspType.ItEcho:
+					return Core.Create<ItEcho>(dspHandle);
+				case DspType.Compressor:
+					return Core.Create<Compressor>(dspHandle);
 				case DspType.SfxReverb:
 					return Core.Create<SfxReverb>(dspHandle);
 				case DspType.LowpassSimple:
 					return Core.Create<LowpassSimple>(dspHandle);
-//				case DspType.Delay:
-//					return Core.Create<Delay>(dspHandle);
+				case DspType.Delay:
+					return Core.Create<Delay>(dspHandle);
 				case DspType.Tremolo:
 					return Core.Create<Tremolo>(dspHandle);
 				case DspType.LadspaPlugin:
 					return null;
-//				case DspType.Send:
-//					return Core.Create<Send>(dspHandle);
-//				case DspType.Return:
-//					return Core.Create<Return>(dspHandle);
+				case DspType.Send:
+					return Core.Create<Send>(dspHandle);
+				case DspType.Return:
+					return Core.Create<Return>(dspHandle);
 				case DspType.HighpassSimple:
 					return Core.Create<HighpassSimple>(dspHandle);
-//				case DspType.Pan:
-//					return Core.Create<Pan>(dspHandle);
-//				case DspType.ThreeEq:
-//					return Core.Create<ThreeEq>(dspHandle);
+				case DspType.Pan:
+					return Core.Create<Pan>(dspHandle);
+				case DspType.ThreeEq:
+					return Core.Create<ThreeEq>(dspHandle);
 				case DspType.Fft:
 					return Core.Create<Fft>(dspHandle);
-//				case DspType.LoudnessMeter:
-//					return Core.Create<LoudnessMeter>(dspHandle);
-//				case DspType.EnvelopeFollower:
-//					return Core.Create<EnvelopeFollower>(dspHandle);
+				case DspType.LoudnessMeter:
+					return Core.Create<LoudnessMeter>(dspHandle);
+				case DspType.EnvelopeFollower:
+					return Core.Create<EnvelopeFollower>(dspHandle);
 				case DspType.ConvolutionReverb:
 					return Core.Create<ConvolutionReverb>(dspHandle);
 				case DspType.ChannelMix:
 					return Core.Create<ChannelMix>(dspHandle);
-//				case DspType.Transceiver:
-//					return Core.Create<Transceiver>(dspHandle);
-//				case DspType.ObjectPan:
-//					return Core.Create<ObjectPan>(dspHandle);
+				case DspType.Transceiver:
+					return Core.Create<Transceiver>(dspHandle);
+				case DspType.ObjectPan:
+					return Core.Create<ObjectPan>(dspHandle);
 				case DspType.MultiBandEq:
 					return Core.Create<MultiBandEq>(dspHandle);
 				case DspType.Max:
@@ -417,12 +412,6 @@ namespace FMOD.Sharp.DSP
 		protected void SetParameterBool(int index, bool value)
 		{
 			NativeInvoke(FMOD_DSP_SetParameterBool(this, index, value));
-			ParameterChanged?.Invoke(this, new ParamChangeEventArgs
-			{
-				Index = index,
-				ParameterType = DspParameterType.Bool,
-				Value = value
-			});
 		}
 
 		protected void SetParameterData(int index, byte[] data)
@@ -430,64 +419,18 @@ namespace FMOD.Sharp.DSP
 			var gcHandle = GCHandle.Alloc(data, GCHandleType.Pinned);
 			NativeInvoke(FMOD_DSP_SetParameterData(this, index, gcHandle.AddrOfPinnedObject(), (uint) data.Length));
 			gcHandle.Free();
-			ParameterChanged?.Invoke(this, new ParamChangeEventArgs
-			{
-				Index = index,
-				ParameterType = DspParameterType.Data,
-				Value = data
-			});
 		}
 
 		protected void SetParameterFloat(int index, float value)
 		{
 			NativeInvoke(FMOD_DSP_SetParameterFloat(this, index, value));
-			ParameterChanged?.Invoke(this, new ParamChangeEventArgs
-			{
-				Index = index,
-				ParameterType = DspParameterType.Float,
-				Value = value
-			});
 		}
 
 		protected void SetParameterInt(int index, int value)
 		{
 			NativeInvoke(FMOD_DSP_SetParameterInt(this, index, value));
-			ParameterChanged?.Invoke(this, new ParamChangeEventArgs
-			{
-				Index = index,
-				ParameterType = DspParameterType.Int,
-				Value = value
-			});
 		}
 
 		#endregion
-
-		public class ParamChangeEventArgs : EventArgs
-		{
-			#region Constructors & Destructor
-
-			public ParamChangeEventArgs()
-			{
-			}
-
-			public ParamChangeEventArgs(int index, DspParameterType type, object value)
-			{
-				Index = index;
-				ParameterType = type;
-				Value = value;
-			}
-
-			#endregion
-
-			#region Properties & Indexers
-
-			public int Index { get; set; }
-
-			public DspParameterType ParameterType { get; set; }
-
-			public object Value { get; set; }
-
-			#endregion
-		}
 	}
 }

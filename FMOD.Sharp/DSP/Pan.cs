@@ -8,7 +8,7 @@ namespace FMOD.Sharp.DSP
 	/// <seealso cref="DspBase" />
 	public class Pan : DspBase
 	{
-
+		// TODO: IMPLEMENT
 
 		public event EventHandler<DspFloatParamChangedEventArgs> PositionChanged;
 

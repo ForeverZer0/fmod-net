@@ -1,10 +1,7 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Drawing;
 using System.IO;
-using System.Runtime.ConstrainedExecution;
 using System.Runtime.InteropServices;
-using System.Security.Permissions;
 using System.Text;
 using System.Threading;
 using FMOD.Sharp.Data;
@@ -14,9 +11,16 @@ using FMOD.Sharp.Structs;
 
 namespace FMOD.Sharp
 {
-
 	public partial class FmodSystem : HandleBase
 	{
+		#region Constructors & Destructor
+
+		private FmodSystem(IntPtr handle) : base(handle)
+		{
+		}
+
+		#endregion
+
 		#region Constants & Fields
 
 		public int UPDATE_FREQUENCY = 1000 / 60;
@@ -104,16 +108,6 @@ namespace FMOD.Sharp
 		public event EventHandler UserDataChanged;
 
 		public event EventHandler WorldSizeChanged;
-
-		#endregion
-
-		#region Constructors & Destructor
-
-		private FmodSystem(IntPtr handle) : base(handle)
-		{
-		}
-
-
 
 		#endregion
 
@@ -594,10 +588,10 @@ namespace FMOD.Sharp
 			ChannelGroupDetached?.Invoke(this, EventArgs.Empty);
 		}
 
-		public override void Dispose()
+		protected override void Dispose(bool disposing)
 		{
 			_updateTimer?.Dispose();
-			base.Dispose();
+			base.Dispose(disposing);
 		}
 
 		public Channel GetChannel(int index)
@@ -894,7 +888,7 @@ namespace FMOD.Sharp
 			DspRegistered?.Invoke(this, EventArgs.Empty);
 			return dspHandle;
 		}
-		
+
 		public uint RegisterOutput(OutputDescription description)
 		{
 			NativeInvoke(FMOD_System_RegisterOutput(this, ref description, out var outputHandle));
@@ -980,47 +974,297 @@ namespace FMOD.Sharp
 			SoftwareFormatChanged?.Invoke(this, EventArgs.Empty);
 		}
 
+		/// <summary>
+		///     <para>
+		///         This function allows the user to specify the position of their actual physical speaker to account for non
+		///         standard setups.
+		///     </para>
+		///     <para>It also allows the user to disable speakers from 3D consideration in a game.</para>
+		///     <para>
+		///         The function is for describing the "real world" speaker placement to provide a more natural panning solution
+		///         for 3D sound. Graphical configuration screens in an application could draw icons for speaker placement that the
+		///         user could position at their will.
+		///     </para>
+		/// </summary>
+		/// <param name="position">A <see cref="SpeakerPosition" /> object describing the location of a speaker.</param>
+		/// <remarks>
+		///     <para>
+		///         See <see cref="SetSpeakerPosition(Speaker, float, float, bool)" /> for full explanation of these values, with
+		///         examples.
+		///     </para>
+		/// </remarks>
+		/// <seealso cref="GetSpeakerPosition" />
+		/// <seealso cref="GetSpeakerPositions" />
+		/// <seealso cref="SoftwareFormat" />
+		/// <seealso cref="SpeakerMode" />
+		/// <seealso cref="Speaker" />
+		/// <seealso cref="SpeakerPosition" />
 		public void SetSpeakerPosition(SpeakerPosition position)
 		{
 			SetSpeakerPosition(position.Speaker, position.Location.X,
 				position.Location.Y, position.IsActive);
 		}
 
+		/// <summary>
+		///     <para>
+		///         This function allows the user to specify the position of their actual physical speaker to account for non
+		///         standard setups.
+		///     </para>
+		///     <para>It also allows the user to disable speakers from 3D consideration in a game.</para>
+		///     <para>
+		///         The function is for describing the "real world" speaker placement to provide a more natural panning solution
+		///         for 3D sound. Graphical configuration screens in an application could draw icons for speaker placement that the
+		///         user could position at their will.
+		///     </para>
+		/// </summary>
+		/// <param name="speaker">The selected speaker of interest to position.</param>
+		/// <param name="x">
+		///     The 2D X offset in relation to the listening position. For example <c>-1.0</c> would mean the speaker
+		///     is on the left, and <c>+1.0</c> would mean the speaker is on the right. <c>0.0</c> is the speaker is in the middle.
+		/// </param>
+		/// <param name="y">
+		///     The 2D Y offset in relation to the listening position. For example <c>-1.0</c> would mean the speaker
+		///     is behind the listener, and <c>+1.0</c> would mean the speaker is in front of the listener.
+		/// </param>
+		/// <param name="isActive">
+		///     Enables or disables speaker from 3D consideration. Useful for disabling center speaker for
+		///     vocals for example, or the low-frequency. <paramref name="x" /> and <paramref name="y" /> can be anything in this
+		///     case.
+		/// </param>
+		/// <example>
+		///     <para>A typical stereo setup would look like this:</para>
+		///     
+		///         <code language="CSharp" numberLines="true" title="Stereo Setup">
+		///  system.SetSpeakerPosition(Speaker.FrontLeft, -1.0f, 0.0f, true);
+		///  system.SetSpeakerPosition(Speaker.FrontRight, 1.0f, 0.0f, true);
+		///  </code>
+		///         <para>A typical 7.1 setup would look like this:</para>
+		///         <code language="CSharp" numberLines="true" title="7.1 Surround Setup">
+		///  system.SetSpeakerPosition(Speaker.FrontLeft, Util.SinFromAngle(-30), Util.CosFromAngle(-30), true);
+		///  system.SetSpeakerPosition(Speaker.FrontRight, Util.SinFromAngle(30), Util.CosFromAngle(30), true);
+		///  system.SetSpeakerPosition(Speaker.FrontCenter, Util.SinFromAngle(0), Util.CosFromAngle(0), true);
+		///  system.SetSpeakerPosition(Speaker.LowFrequency, Util.SinFromAngle(0), Util.CosFromAngle(0), true);
+		///  system.SetSpeakerPosition(Speaker.SurroundLeft, Util.SinFromAngle(-90), Util.CosFromAngle(-90), true);
+		///  system.SetSpeakerPosition(Speaker.SurroundRight, Util.SinFromAngle(90), Util.CosFromAngle(90), true);
+		///  system.SetSpeakerPosition(Speaker.RearLeft, Util.SinFromAngle(-150), Util.CosFromAngle(-150), true);
+		///  system.SetSpeakerPosition(Speaker.RearRight, Util.SinFromAngle(150), Util.CosFromAngle(150), true);
+		///  </code>
+		///         <para>
+		///             For reference, the <see cref="Util.SinFromAngle" /> and <see cref="Util.CosFromAngle" /> helper
+		///             functions are available in the <see cref="Util" /> class. They merely provide a shortcut converting the
+		///             angle from degrees to radians, performing the <see cref="Math.Sin" /> or <see cref="Math.Cos" /> functions,
+		///             and casting from a <c>double</c> to a <c>float</c>.
+		///         </para>
+		///  <code language="CSharp" numberLines="true" title="Util Helper Functions">
+		///  public const double RADIAN_FACTOR = Math.PI / 180.0;
+		///  
+		///  public static float SinFromAngle(float angle)
+		///  {
+		///  	return (float) Math.Sin(RADIAN_FACTOR * angle);
+		///  }
+		///  
+		///  public static float CosFromAngle(float angle)
+		///  {
+		///  	return (float) Math.Cos(RADIAN_FACTOR * angle);
+		///  }
+		///  </code>
+		///     </example>
+		/// <remarks>
+		///     <para>
+		///         You could use this function to make sounds in front of your come out of different physical speakers. If you
+		///         specified for example that <see cref="Speaker.RearRight" /> was in front of you at (<c>0.0, 1.0</c>) and you
+		///         organized the other speakers accordingly the 3D audio would come out of the side right speaker when it was in
+		///         front instead of the default which is only to the side.
+		///     </para>
+		///     <para>
+		///         This function is also useful if speakers are not "perfectly symmetrical". For example if the center speaker
+		///         was closer to the front left than the front right, this function could be used to position that center speaker
+		///         accordingly and FMOD would skew the panning appropriately to make it sound correct again.
+		///     </para>
+		///     <para>
+		///         The 2D coordinates used are only used to generate angle information. Size / distance does not matter in
+		///         FMOD's implementation because it is not FMOD's job to attenuate or amplify the signal based on speaker
+		///         distance. If it amplified the signal in the digital domain the audio could clip/become distorted. It is better
+		///         to use the amplifier's analogue level capabilities to balance speaker volumes.
+		///     </para>
+		///     <para>
+		///         Setting the <see cref="SoftwareFormat" /> property overrides these values, so this property must be changed
+		///         after this.
+		///     </para>
+		/// </remarks>
+		/// <seealso cref="GetSpeakerPosition" />
+		/// <seealso cref="GetSpeakerPositions" />
+		/// <seealso cref="SoftwareFormat" />
+		/// <seealso cref="SpeakerMode" />
+		/// <seealso cref="Speaker" />
+		/// <seealso cref="SpeakerPosition" />
 		public void SetSpeakerPosition(Speaker speaker, float x, float y, bool isActive = true)
 		{
 			NativeInvoke(FMOD_System_SetSpeakerPosition(this, speaker, x, y, isActive));
 			SpeakerPositionChanged?.Invoke(this, EventArgs.Empty);
 		}
 
+		/// <summary>
+		///     <para>
+		///         This function allows the user to specify the position of their actual physical speaker to account for non
+		///         standard setups.
+		///     </para>
+		///     <para>It also allows the user to disable speakers from 3D consideration in a game.</para>
+		///     <para>
+		///         The function is for describing the "real world" speaker placement to provide a more natural panning solution
+		///         for 3D sound. Graphical configuration screens in an application could draw icons for speaker placement that the
+		///         user could position at their will.
+		///     </para>
+		/// </summary>
+		/// <param name="speaker">The selected speaker of interest to position.</param>
+		/// <param name="location">
+		///     The 2D X and Y offset in relation to the listening position.
+		///     <see cref="SetSpeakerPosition(Speaker, float, float, bool)" /> for full explanation of these values.
+		/// </param>
+		/// <param name="isActive">
+		///     Enables or disables speaker from 3D consideration. Useful for disabling center speaker for
+		///     vocals for example, or the low-frequency. <paramref name="location.X" /> and <paramref name="location.Y" /> can be
+		///     anything in this case.
+		/// </param>
+		/// <remarks>
+		///     <para>
+		///         See <see cref="SetSpeakerPosition(Speaker, float, float, bool)" /> for full explanation of these values, with
+		///         examples.
+		///     </para>
+		/// </remarks>
+		/// <seealso cref="GetSpeakerPosition" />
+		/// <seealso cref="GetSpeakerPositions" />
+		/// <seealso cref="SoftwareFormat" />
+		/// <seealso cref="SpeakerMode" />
+		/// <seealso cref="Speaker" />
+		/// <seealso cref="SpeakerPosition" />
 		public void SetSpeakerPosition(Speaker speaker, PointF location, bool isActive = true)
 		{
 			SetSpeakerPosition(speaker, location.X, location.Y, isActive);
 		}
 
+		/// <summary>
+		///     <para>
+		///         This function allows the user to specify the position of their actual physical speaker to account for non
+		///         standard setups.
+		///     </para>
+		///     <para>It also allows the user to disable speakers from 3D consideration in a game.</para>
+		///     <para>
+		///         The function is for describing the "real world" speaker placement to provide a more natural panning solution
+		///         for 3D sound. Graphical configuration screens in an application could draw icons for speaker placement that the
+		///         user could position at their will.
+		///     </para>
+		/// </summary>
+		/// <param name="speakerPositions">
+		///     An array of <see cref="SpeakerPosition" /> objects describing the location of the
+		///     speakers.
+		/// </param>
+		/// <remarks>
+		///     <para>
+		///         See <see cref="SetSpeakerPosition(Speaker, float, float, bool)" /> for full explanation of these values, with
+		///         examples.
+		///     </para>
+		/// </remarks>
+		/// <seealso cref="GetSpeakerPosition" />
+		/// <seealso cref="GetSpeakerPositions" />
+		/// <seealso cref="SoftwareFormat" />
+		/// <seealso cref="SpeakerMode" />
+		/// <seealso cref="Speaker" />
+		/// <seealso cref="SpeakerPosition" />
 		public void SetSpeakerPositions(SpeakerPosition[] speakerPositions)
 		{
 			foreach (var position in speakerPositions)
 				SetSpeakerPosition(position);
 		}
 
+		/// <summary>
+		///     Suspend mixer thread and relinquish usage of audio hardware while maintaining internal state.
+		/// </summary>
+		/// <remarks>
+		///     <para>Used on mobile platforms when entering a backgrounded state to reduce CPU to 0%.</para>
+		///     <para>All internal state will be maintained, i.e. created sound and channels will stay available in memory.</para>
+		/// </remarks>
 		public void SuspendMixer()
 		{
 			NativeInvoke(FMOD_System_MixerSuspend(this));
 			MixerSuspended?.Invoke(this, EventArgs.Empty);
 		}
 
+		/// <summary>
+		///     Unloads a plugin from memory.
+		/// </summary>
+		/// <param name="pluginHandle">Handle to a pre-existing plugin.</param>
+		/// <seealso cref="LoadPlugin" />
 		public void UnloadPlugin(uint pluginHandle)
 		{
 			NativeInvoke(FMOD_System_UnloadPlugin(this, pluginHandle));
 			PluginUnloaded?.Invoke(this, EventArgs.Empty);
 		}
 
+		/// <summary>
+		///     Mutual exclusion function to unlock the FMOD DSP engine (which runs asynchronously in another thread) and let it
+		///     continue executing.
+		/// </summary>
+		/// <remarks>The DSP engine must be locked with <see cref="LockDsp" /> before this function is called.</remarks>
+		/// <seealso cref="LockDsp" />
 		public void UnlockDsp()
 		{
 			NativeInvoke(FMOD_System_UnlockDSP(this));
 			DspUnlocked?.Invoke(this, EventArgs.Empty);
 		}
 
+		/// <summary>
+		///     <para>Updates the <see cref="FmodSystem" />.</para>
+		///     <para>This should be called once per 'game' tick, or once per frame in your application.</para>
+		/// </summary>
+		/// <remarks>
+		///     This updates the following things:
+		///     <list class="bullet">
+		///         <listItem>
+		///             <para>3D Sound. <see cref="Update" /> must be called to get 3D positioning. </para>
+		///         </listItem>
+		///         <listItem>
+		///             <para>
+		///                 Virtual voices. If more voices are played than there are real voices, <see cref="Update" /> must be
+		///                 called to handle the virtualization.
+		///             </para>
+		///         </listItem>
+		///         <listItem>
+		///             <para>*_NRT output modes. <see cref="Update" /> must be called to drive the output for these output modes. </para>
+		///         </listItem>
+		///         <listItem>
+		///             <para>
+		///                 <see cref="InitFlags.StreamFromUpdate" />. <see cref="Update" /> must be called to update the
+		///                 streamer if this flag has been used.
+		///             </para>
+		///         </listItem>
+		///         <listItem>
+		///             <para>Callbacks. <see cref="Update" /> must be called to fire callbacks if they are specified. </para>
+		///         </listItem>
+		///         <listItem>
+		///             <para></para>
+		///             <see cref="Mode.NonBlocking" />. <see cref="Update" /> must be called to make sounds opened with
+		///             <see cref="Mode.NonBlocking" /> flag to work properly.
+		///         </listItem>
+		///     </list>
+		///     <para>
+		///         If <see cref="OutputType.NoSoundNrt" /> or <see cref="OutputType.WavWriterNrt" /> output modes are used, this
+		///         function also drives the software / DSP engine, instead of it running asynchronously in a thread as is the
+		///         default behaviour.
+		///     </para>
+		///     <para>
+		///         This can be used for faster than realtime updates to the decoding or DSP engine which might be useful if the
+		///         output is the wav writer for example.
+		///     </para>
+		///     <para>
+		///         If <see cref="InitFlags.StreamFromUpdate" /> is used, this function will update the stream engine. Combining
+		///         this with the non realtime output will mean smoother captured output.
+		///     </para>
+		/// </remarks>
+		/// <seealso cref="Initialize" />
+		/// <seealso cref="InitFlags" />
+		/// <seealso cref="OutputType" />
+		/// <seealso cref="Mode" />
 		public void Update()
 		{
 			NativeInvoke(FMOD_System_Update(this));

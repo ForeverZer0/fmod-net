@@ -35,9 +35,15 @@ namespace FMOD.Sharp
 		{
 			if (handle == IntPtr.Zero)
 				return null;
+			T obj;
 			if (_handles.ContainsKey(handle))
-				return (T) _handles[handle];
-			var obj = (T) Activator.CreateInstance(typeof(T), BINDING_FLAGS, null, 
+			{
+				obj = (T)_handles[handle];
+				if (!obj.IsInvalid)
+					return obj;
+				RemoveReference(handle);
+			}
+			obj = (T) Activator.CreateInstance(typeof(T), BINDING_FLAGS, null, 
 				new object[] { handle }, CultureInfo.InvariantCulture);
 			AddReference(handle, obj);
 			return obj;

@@ -243,6 +243,7 @@ namespace FMOD.Sharp
 			switch (type)
 			{
 				case ChannelControlCallbackType.End:
+					SetHandleAsInvalid();
 					SoundEnded?.Invoke(this, new ChannelSoundEndEventArgs(CurrentSound));
 					break;
 				case ChannelControlCallbackType.Virtualvoice:

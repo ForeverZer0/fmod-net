@@ -13,6 +13,11 @@ Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "FMOD.Sharp.Documentation", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FMOD.Sharp.Controls", "FMOD.Sharp.Controls\FMOD.Sharp.Controls.csproj", "{5986F0EC-FD7E-4E00-8ABD-AAE92C6AC4E0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C265F5F2-0ED0-4982-9E70-3FFA7B6AD7A2}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE.md = LICENSE.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

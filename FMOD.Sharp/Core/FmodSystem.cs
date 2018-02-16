@@ -36,16 +36,14 @@ namespace FMOD.Core
 
 		public event EventHandler DspBufferChanged;
 
-		public event EventHandler DspCreated;
-
-		public event EventHandler DspLocked;
-
-		public event EventHandler DspPlayed;
-
-		public event EventHandler DspRegistered;
-
-		public event EventHandler DspUnlocked;
-
+		/// <summary>
+		/// Occurs when a new <see cref="Geometry"/> is created.
+		/// </summary>
+		/// <seealso cref="Geometry"/>
+		/// <seealso cref="CreateGeometry"/>
+		/// <seealso cref="LoadGeometry(string)"/>
+		/// <seealso cref="LoadGeometry(byte[])"/>
+		/// <seealso cref="LoadGeometry(IntPtr, int)"/>
 		public event EventHandler GeometryCreated;
 
 		public event EventHandler ListenerAttributesChanged;
@@ -103,17 +101,6 @@ namespace FMOD.Core
 		#region Properties & Indexers
 
 
-
-
-
-
-
-
-
-
-
-
-
 		public int DspBuffersCount
 		{
 			get
@@ -145,49 +132,8 @@ namespace FMOD.Core
 		}
 
 
-		public int ListenerCount
-		{
-			get
-			{
-				NativeInvoke(FMOD_System_Get3DNumListeners(this, out var listenerCount));
-				return listenerCount;
-			}
-			set
-			{
-				NativeInvoke(FMOD_System_Set3DNumListeners(this, value.Clamp(1, Constants.MAX_LISTENERS)));
-				ListenerCountChanged?.Invoke(this, EventArgs.Empty);
-			}
-		}
 
 
-
-
-		public IntPtr OutputHandle
-		{
-			get
-			{
-				NativeInvoke(FMOD_System_GetOutputHandle(this, out var outputHandle));
-				return outputHandle;
-			}
-		}
-
-		public int PlayingChannelCount
-		{
-			get
-			{
-				NativeInvoke(FMOD_System_GetChannelsPlaying(this, out var count, out var dummy));
-				return count;
-			}
-		}
-
-		public int RealChannelPlayingCount
-		{
-			get
-			{
-				NativeInvoke(FMOD_System_GetChannelsPlaying(this, out var dummy, out var count));
-				return count;
-			}
-		}
 
 
 
@@ -206,52 +152,46 @@ namespace FMOD.Core
 			set => Set3DSettings(value.DopplerScale, value.DistanceFactor, value.RolloffScale);
 		}
 
-		public int SoftwareChannels
-		{
-			get
-			{
-				NativeInvoke(FMOD_System_GetSoftwareChannels(this, out var channels));
-				return channels;
-			}
-			set
-			{
-				NativeInvoke(FMOD_System_SetSoftwareChannels(this, value));
-				SoftwareChannelsChanged?.Invoke(this, EventArgs.Empty);
-			}
-		}
 
-		public Version Version
-		{
-			get
-			{
-				NativeInvoke(FMOD_System_GetVersion(this, out var version));
-				return Util.UInt32ToVersion(version);
-			}
-		}
-
-		public float WorldSize
-		{
-			get
-			{
-				NativeInvoke(FMOD_System_GetGeometrySettings(this, out var worldSize));
-				return worldSize;
-			}
-			set
-			{
-				NativeInvoke(FMOD_System_SetGeometrySettings(this, value));
-				WorldSizeChanged?.Invoke(this, EventArgs.Empty);
-			}
-		}
 
 		#endregion
 
 		#region Methods
 
+		/// <summary>
+		/// Route the signal from a channel group into a seperate audio port on the output driver.
+		/// </summary>
+		/// <param name="portType">Output driver specific audio port type. See extra platform specific header (if it exists) for port numbers, i.e. fmod_psvita.h, fmod_wiiu.h, fmodorbis.h.</param>
+		/// <param name="portIndex">Output driver specific index of the audio port.</param>
+		/// <param name="channelGroup"><see cref="ChannelGroup"/> to route away to the new port.</param>
+		/// <param name="passThru">If <c>true</c> the signal will continue to be passed through to the main mix, if <c>false</c> the signal will be entirely to the designated port.</param>
+		/// <remarks>
+		/// Note that an <b>FMOD</b> port is a hardware specific reference, to hardware devices that exist on only certain platforms (like a console headset, or dedicated hardware music channel for example). It is not supported on all platforms.
+		/// </remarks>
+		/// <seealso cref="DetachChannelGroupFromPort"/>
+		/// <seealso cref="ChannelGroup"/>
+		/// <seealso cref="ChannelGroupAttached"/>
 		public void AttachChannelGroupToPort(uint portType, ulong portIndex, ChannelGroup channelGroup, bool passThru)
 		{
 			NativeInvoke(FMOD_System_AttachChannelGroupToPort(this, portType, portIndex, channelGroup, passThru));
 			ChannelGroupAttached?.Invoke(this, EventArgs.Empty);
 		}
+
+		/// <summary>
+		/// Disconnect a channel group from a port and route audio back to the default port of the output driver.
+		/// </summary>
+		/// <param name="channelGroup"><see cref="ChannelGroup"/> to route away back to the default audio port.</param>
+		/// <seealso cref="ChannelGroup"/>
+		/// <seealso cref="AttachChannelGroupToPort"/>
+		/// <seealso cref="ChannelGroupDetached"/>
+		public void DetachChannelGroupFromPort(ChannelGroup channelGroup)
+		{
+			NativeInvoke(FMOD_System_DetachChannelGroupFromPort(this, channelGroup));
+			ChannelGroupDetached?.Invoke(this, EventArgs.Empty);
+		}
+
+
+
 
 		public void AttachFileSystem(FileOpenCallback userOpen, FileCloseCallback userClose, FileReadCallback userRead,
 			FileSeekCallback userSeek)
@@ -259,21 +199,9 @@ namespace FMOD.Core
 			NativeInvoke(FMOD_System_AttachFileSystem(this, userOpen, userClose, userRead, userSeek));
 		}
 
-		public void CloseSystem()
-		{
-			NativeInvoke(FMOD_System_Close(this));
-			Closed?.Invoke(this, EventArgs.Empty);
-		}
 
-		public static FmodSystem Create()
-		{
-			NativeInvoke(FMOD_System_Create(out var pointer));
-			var system = new FmodSystem(pointer);
-			CoreHelper.AddReference(pointer, system);
-			return system;
-		}
 
-		public Dsp CreateByPlugin(uint pluginHandle)
+		public Dsp CreateDspByPlugin(uint pluginHandle)
 		{
 			NativeInvoke(FMOD_System_CreateDSPByPlugin(this, pluginHandle, out var dsp));
 			DspCreated?.Invoke(this, EventArgs.Empty);
@@ -309,99 +237,11 @@ namespace FMOD.Core
 			return Dsp.FromType(dsp, dspType);
 		}
 
-		public Geometry CreateGeometry(int maxPolygons, int maxVertices)
-		{
-			NativeInvoke(FMOD_System_CreateGeometry(this, maxPolygons, maxVertices, out var geometry));
-			GeometryCreated?.Invoke(this, EventArgs.Empty);
-			return CoreHelper.Create<Geometry>(geometry);
-		}
 
-		public Reverb CreateReverb()
-		{
-			NativeInvoke(FMOD_System_CreateReverb3D(this, out var reverb));
-			ReverbCreated?.Invoke(this, EventArgs.Empty);
-			return CoreHelper.Create<Reverb>(reverb);
-		}
 
-		public Sound CreateSound(string source, Mode mode = Mode.Default)
-		{
-			var stringData = Encoding.UTF8.GetBytes(source + Char.MinValue);
-			var exinfo = new CreateSoundExInfo();
-			exinfo.cbsize = Marshal.SizeOf(exinfo);
-			SoundCreated?.Invoke(this, EventArgs.Empty);
-			return CreateSound(stringData, mode, ref exinfo);
-		}
 
-		public Sound CreateSound(string source, Mode mode, ref CreateSoundExInfo exinfo)
-		{
-			var stringData = Encoding.UTF8.GetBytes(source + Char.MinValue);
-			exinfo.cbsize = Marshal.SizeOf(exinfo);
-			SoundCreated?.Invoke(this, EventArgs.Empty);
-			return CreateSound(stringData, mode, ref exinfo);
-		}
 
-		public Sound CreateSound(byte[] source, Mode mode = Mode.Default)
-		{
-			var exinfo = new CreateSoundExInfo();
-			exinfo.cbsize = Marshal.SizeOf(exinfo);
-			SoundCreated?.Invoke(this, EventArgs.Empty);
-			return CreateSound(source, mode, ref exinfo);
-		}
 
-		public Sound CreateSound(byte[] source, Mode mode, ref CreateSoundExInfo exinfo)
-		{
-			exinfo.cbsize = Marshal.SizeOf(exinfo);
-			NativeInvoke(FMOD_System_CreateSound(this, source, mode, ref exinfo, out var sound));
-			SoundCreated?.Invoke(this, EventArgs.Empty);
-			return CoreHelper.Create<Sound>(sound);
-		}
-
-		public SoundGroup CreateSoundGroup(string name)
-		{
-			var bytesName = Encoding.UTF8.GetBytes(name);
-			NativeInvoke(FMOD_System_CreateSoundGroup(this, bytesName, out var group));
-			SoundGroupCreated?.Invoke(this, EventArgs.Empty);
-			return CoreHelper.Create<SoundGroup>(group);
-		}
-
-		public Sound CreateStream(string source, Mode mode = Mode.Default)
-		{
-			var stringData = Encoding.UTF8.GetBytes(source + Char.MinValue);
-			var exinfo = new CreateSoundExInfo();
-			exinfo.cbsize = Marshal.SizeOf(exinfo);
-			SoundCreated?.Invoke(this, EventArgs.Empty);
-			return CreateSound(stringData, mode, ref exinfo);
-		}
-
-		public Sound CreateStream(string source, Mode mode, ref CreateSoundExInfo exinfo)
-		{
-			var stringData = Encoding.UTF8.GetBytes(source + Char.MinValue);
-			exinfo.cbsize = Marshal.SizeOf(exinfo);
-			SoundCreated?.Invoke(this, EventArgs.Empty);
-			return CreateStream(stringData, mode, ref exinfo);
-		}
-
-		public Sound CreateStream(byte[] source, Mode mode = Mode.Default)
-		{
-			var exinfo = new CreateSoundExInfo();
-			exinfo.cbsize = Marshal.SizeOf(exinfo);
-			SoundCreated?.Invoke(this, EventArgs.Empty);
-			return CreateStream(source, mode, ref exinfo);
-		}
-
-		public Sound CreateStream(byte[] source, Mode mode, ref CreateSoundExInfo exinfo)
-		{
-			exinfo.cbsize = Marshal.SizeOf(exinfo);
-			NativeInvoke(FMOD_System_CreateStream(this, source, mode, ref exinfo, out var sound));
-			SoundCreated?.Invoke(this, EventArgs.Empty);
-			return CoreHelper.Create<Sound>(sound);
-		}
-
-		public void DetachChannelGroupFromPort(ChannelGroup channelGroup)
-		{
-			NativeInvoke(FMOD_System_DetachChannelGroupFromPort(this, channelGroup));
-			ChannelGroupDetached?.Invoke(this, EventArgs.Empty);
-		}
 
 		protected override void Dispose(bool disposing)
 		{
@@ -433,8 +273,6 @@ namespace FMOD.Core
 		{
 			NativeInvoke(FMOD_System_GetDefaultMixMatrix(this, sourceMode, targetMode, matrix, matrixHop));
 		}
-
-
 
 		public DspDescription GetDspDescriptionByPlugin(uint pluginHandle)
 		{
@@ -543,33 +381,6 @@ namespace FMOD.Core
 			};
 		}
 
-		public Driver GetRecordDriver(int id)
-		{
-			using (var buffer = new MemoryBuffer(512))
-			{
-				NativeInvoke(FMOD_System_GetRecordDriverInfo(this, id, buffer.Pointer, 512, out var guid, out var rate,
-					out var speakerMode, out var channels, out var state));
-				return new Driver
-				{
-					Id = id,
-					Guid = guid,
-					Name = buffer.ToString(Encoding.UTF8),
-					SpeakerMode = speakerMode,
-					SpeakerModeChannels = channels,
-					State = state,
-					SystemRate = rate
-				};
-			}
-		}
-
-		public uint GetRecordPosition(int driverId)
-		{
-			NativeInvoke(FMOD_System_GetRecordPosition(this, driverId, out var position));
-			return position;
-		}
-
-
-
 		public int GetSpeakerModeChannelCount(SpeakerMode mode)
 		{
 			NativeInvoke(FMOD_System_GetSpeakerModeChannels(this, mode, out var count));
@@ -594,8 +405,6 @@ namespace FMOD.Core
 			}
 			return positions;
 		}
-
-
 
 		public void EnableSelfUpdate(int tickFreq)
 		{
@@ -643,11 +452,7 @@ namespace FMOD.Core
 			return pluginHandle;
 		}
 
-		public void LockDsp()
-		{
-			NativeInvoke(FMOD_System_LockDSP(this));
-			DspLocked?.Invoke(this, EventArgs.Empty);
-		}
+
 
 		public Channel PlayDsp(Dsp dsp, bool paused = false, ChannelGroup group = null)
 		{
@@ -696,12 +501,6 @@ namespace FMOD.Core
 			return outputHandle;
 		}
 
-		public void ResumeMixer()
-		{
-			NativeInvoke(FMOD_System_MixerResume(this));
-			MixerResumed?.Invoke(this, EventArgs.Empty);
-		}
-
 		public void Set3DRolloffCallback(Cb_3DRolloffcallback callback)
 		{
 			NativeInvoke(FMOD_System_Set3DRolloffCallback(this, callback));
@@ -712,8 +511,6 @@ namespace FMOD.Core
 			NativeInvoke(FMOD_System_Set3DSettings(this, dopplerScale, distanceFactor, rolloffScale));
 			Settings3DChanged?.Invoke(this, EventArgs.Empty);
 		}
-
-
 
 		public void SetCallback(SystemCallback callback, SystemCallbackType type)
 		{
@@ -759,9 +556,969 @@ namespace FMOD.Core
 
 
 
+
+
+
+
+
 		#region Documentation Complete
 
-		
+		/// <summary>
+		/// <para>Closes the <see cref="FmodSystem"/> object without freeing the object's memory, so the system handle will still be valid.</para>
+		/// <para>Closing the output renders objects created with this system object invalid. Make sure any instance of a <see cref="Sound"/>, <see cref="ChannelControl"/>, <see cref="Geometry"/>, or <see cref="Dsp"/> is disposed before calling this function.</para>
+		/// </summary>
+		/// <seealso cref="Initialize()"/>
+		/// <seealso cref="Dispose"/>
+		public void CloseSystem()
+		{
+			NativeInvoke(FMOD_System_Close(this));
+			Closed?.Invoke(this, EventArgs.Empty);
+		}
+
+		/// <summary>
+		/// <para>Creates and returns a new <see cref="FmodSystem"/> object.</para>
+		/// <para>This must be called to create an <see cref="FmodSystem"/> object before you can do anything else. Use this function to create 1, or multiple instances of system objects.</para>
+		/// </summary>
+		/// <returns>A newly created <see cref="FmodSystem"/> object.</returns>
+		/// <remarks><alert class="warning">
+		/// Calls to this method and <see cref="Dispose"/> are not thread-safe. Do not call these functions simultaneously from multiple threads at once.
+		/// </alert></remarks>
+		/// <seealso cref="Initialize()"/>
+		/// <seealso cref="Dispose"/>
+		public static FmodSystem Create()
+		{
+			NativeInvoke(FMOD_System_Create(out var pointer));
+			var system = new FmodSystem(pointer);
+			CoreHelper.AddReference(pointer, system);
+			return system;
+		}
+
+		/// <summary>
+		/// <para>Gets the handle to the system level output device module.</para>
+		/// <para>This means a pointer to a DirectX "LPDIRECTSOUND", or a WINMM handle, or with something like with <see cref="OutputType.NoSound"/> output, the handle will be <see cref="IntPtr.Zero"/>.</para>
+		/// </summary>
+		/// <value>
+		/// The output handle.
+		/// </value>
+		/// <remarks>
+		/// Must be called after <seealso cref="Initialize()"/>.<lineBreak/>
+		/// Cast the resulting pointer depending on what output system pointer you are after.
+		/// </remarks>
+		/// <seealso cref="Initialize()"/>
+		/// <seealso cref="OutputType"/>
+		/// <seealso cref="Output"/>
+		public IntPtr OutputHandle
+		{
+			get
+			{
+				NativeInvoke(FMOD_System_GetOutputHandle(this, out var outputHandle));
+				return outputHandle;
+			}
+		}
+
+		/// <summary>
+		/// Gets the number of currently playing channels, both real and virtual.
+		/// </summary>
+		/// <value>
+		/// The number of real and virtual channels currently playing.
+		/// </value>
+		/// <seealso cref="ChannelControl.IsPlaying"/>
+		/// <seealso cref="Channel.IsVirtual"/>
+		/// <seealso cref="PlayingRealChannelCount"/>
+		public int PlayingChannelCount
+		{
+			get
+			{
+				NativeInvoke(FMOD_System_GetChannelsPlaying(this, out var count, out var dummy));
+				return count;
+			}
+		}
+
+		/// <summary>
+		/// Gets the number of currently playing channels, excluding virtual channels.
+		/// </summary>
+		/// <value>
+		/// The number of real channels currently playing.
+		/// </value>
+		/// <seealso cref="ChannelControl.IsPlaying"/>
+		/// <seealso cref="Channel.IsVirtual"/>
+		/// <seealso cref="PlayingChannelCount"/>
+		public int PlayingRealChannelCount
+		{
+			get
+			{
+				NativeInvoke(FMOD_System_GetChannelsPlaying(this, out var dummy, out var count));
+				return count;
+			}
+		}
+
+		/// <summary>
+		/// Creates and returns a base geometry object which can then have polygons added to it.
+		/// </summary>
+		/// <param name="maxPolygons">Maximum number of polygons within this object. </param>
+		/// <param name="maxVertices">Maximum number of vertices within this object. </param>
+		/// <returns>A newly created <see cref="Geometry"/> object.</returns>
+		/// <remarks>
+		/// <para>Polygons can be added to a geometry object using <see cref="Geometry.AddPolygon(Polygon)"/>.</para>
+		/// <para>
+		/// A geometry object stores its list of polygons in a structure optimized for quick line intersection testing and efficient insertion and updating.<lineBreak/>
+		/// The structure works best with regularly shaped polygons with minimal overlap.<lineBreak/>
+		/// Many overlapping polygons, or clusters of long thin polygons may not be handled efficiently.<lineBreak/>
+		/// Axis aligned polygons are handled most efficiently.
+		/// </para>
+		/// <para>The same type of structure is used to optimize line intersection testing with multiple geometry objects.</para>
+		/// <para>
+		/// It is important to set the value of maxworldsize to an appropriate value using <see cref="WorldSize"/>.<lineBreak/>
+		/// Objects or polygons outside the range of <see cref="WorldSize"/> will not be handled efficiently.<lineBreak/>
+		/// Conversely, if <see cref="WorldSize"/> is excessively large, the structure may lose precision and efficiency may drop.
+		/// </para>
+		/// </remarks>
+		/// <seealso cref="Geometry"/>
+		/// <seealso cref="GeometryCreated"/>
+		/// <seealso cref="LoadGeometry(string)"/>
+		/// <seealso cref="Geometry.AddPolygon(Polygon)"/>
+		/// <seealso cref="WorldSize"/>
+		public Geometry CreateGeometry(int maxPolygons, int maxVertices)
+		{
+			NativeInvoke(FMOD_System_CreateGeometry(this, maxPolygons, maxVertices, out var geometry));
+			GeometryCreated?.Invoke(this, EventArgs.Empty);
+			return CoreHelper.Create<Geometry>(geometry);
+		}
+
+		/// <summary>
+		/// <para>Creates a "virtual reverb" object. This object reacts to 3D location and morphs the reverb environment based on how close it is to the reverb object's center.</para>
+		/// <para>Multiple reverb objects can be created to achieve a multi-reverb environment. One physical reverb object is used for all 3D reverb objects (slot <c>0</c> by default).</para>
+		/// </summary>
+		/// <returns>A newly created <see cref="Reverb"/> object.</returns>
+		/// <remarks>
+		/// <para>
+		/// The 3D reverb object is a sphere having 3D attributes (position, minimum distance, maximum distance) and reverb properties.<lineBreak/>
+		/// The properties and 3D attributes of all reverb objects collectively determine, along with the listener's position, the settings of and input gains into a single 3D reverb DSP.<lineBreak/>
+		/// When the listener is within the sphere of effect of one or more 3D reverbs, the listener's 3D reverb properties are a weighted combination of such 3D reverbs.<lineBreak/>
+		/// When the listener is outside all of the reverbs, no reverb is applied.
+		/// </para>
+		/// <para>
+		/// In <b>FMODEx</b> a special "ambient" reverb setting was used when outside the influence of all reverb spheres. This function no longer exists.<lineBreak/>
+		/// To avoid this reverb intefering with the reverb slot used by the 3D reverb, 2D reverb should use a different slot ID with <see cref="SetReverbProperties"/>, otherwise <see cref="FMOD.Structures.AdvancedSettings.reverb3Dinstance"/> can also be used to place 3D reverb on a different physical reverb slot. Use <see cref="ChannelControl.SetReverbProperties"/> to turn off reverb for 2D sounds (ie set wet = <c>0</c>).
+		/// </para>
+		/// <para>Creating multiple reverb objects does not impact performance. These are "virtual reverbs". There will still be only one physical reverb DSP running that just morphs between the different virtual reverbs.</para>
+		/// <para>
+		/// Note about physical reverb <seealso cref="Dsp"/> unit allocation. To remove the DSP unit and the associated CPU cost, first make sure all 3D reverb objects are released. Then call <see cref="SetReverbProperties"/> with the 3D reverb's slot ID (default is <c>0</c>) with a property point of <c>null</c>, to signal that the physical reverb instance should be deleted.
+		/// </para>
+		/// <para>If a 3D reverb is still present, and <see cref="SetReverbProperties"/> function is called to free the physical reverb, the 3D reverb system will immediately recreate it upon the next <see cref="Update"/> call.</para>
+		/// </remarks>
+		/// <seealso cref="Reverb"/>
+		/// <seealso cref="ReverbCreated"/>
+		/// <seealso cref="Reverb.Dispose"/>
+		/// <seealso cref="GetReverbProperties"/>
+		/// <seealso cref="SetReverbProperties"/>
+		/// <seealso cref="Update"/>
+		/// <seealso cref="T:FMOD.Structures.AdvancedSettings"/>
+		/// <seealso cref="FmodSystem.AdvancedSettings"/>
+		public Reverb CreateReverb()
+		{
+			NativeInvoke(FMOD_System_CreateReverb3D(this, out var reverb));
+			ReverbCreated?.Invoke(this, EventArgs.Empty);
+			return CoreHelper.Create<Reverb>(reverb);
+		}
+
+		/// <summary>
+		/// Gets or sets the maximum number of software mixed channels possible.
+		/// <para>Default = 64.</para>
+		/// </summary>
+		/// <value>
+		/// The software channels.
+		/// </value>
+		/// <remarks>This function cannot be called after <b>FMOD</b> is already activated, it must be called before <see cref="Initialize()"/>, or after <see cref="CloseSystem"/>.</remarks>
+		/// <seealso cref="Initialize()"/>
+		/// <seealso cref="CloseSystem"/>
+		public int SoftwareChannels
+		{
+			get
+			{
+				NativeInvoke(FMOD_System_GetSoftwareChannels(this, out var channels));
+				return channels;
+			}
+			set
+			{
+				NativeInvoke(FMOD_System_SetSoftwareChannels(this, value));
+				SoftwareChannelsChanged?.Invoke(this, EventArgs.Empty);
+			}
+		}
+
+		/// <summary>
+		/// Gets the current version of <b>FMOD</b> being used.
+		/// </summary>
+		/// <value>
+		/// The version.
+		/// </value>
+		public Version Version
+		{
+			get
+			{
+				NativeInvoke(FMOD_System_GetVersion(this, out var version));
+				return Util.UInt32ToVersion(version);
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the maximum world size for the geometry engine.
+		/// </summary>
+		/// <value>
+		/// The maximum world size.
+		/// </value>
+		/// <remarks>
+		/// <para>
+		/// Setting maxworldsize should be done first before creating any <see cref="Geometry"/>.<lineBreak/>
+		/// It can be done any time afterwards but may be slow in this case.
+		/// </para>
+		/// <para>
+		/// Objects or polygons outside the range of maxworldsize will not be handled efficiently.<lineBreak/>
+		/// Conversely, if maxworldsize is excessively large, the structure may loose precision and efficiency may drop.
+		/// </para>
+		/// </remarks>
+		/// <seealso cref="CreateGeometry"/>
+		/// <seealso cref="Geometry"/>
+		/// <seealso cref="WorldSizeChanged"/>
+		public float WorldSize
+		{
+			get
+			{
+				NativeInvoke(FMOD_System_GetGeometrySettings(this, out var worldSize));
+				return worldSize;
+			}
+			set
+			{
+				NativeInvoke(FMOD_System_SetGeometrySettings(this, value));
+				WorldSizeChanged?.Invoke(this, EventArgs.Empty);
+			}
+		}
+
+		/// <summary>
+		/// Occurs when a <see cref="Dsp"/> is created.
+		/// </summary>
+		/// <seealso cref="CreateDsp"/>
+		/// <seealso cref="CreateDspByType"/>
+		/// <seealso cref="CreateDspByType{T}"/>
+		/// <seealso cref="CreateDspByPlugin"/>
+		public event EventHandler DspCreated;
+
+		/// <summary>
+		/// Occurs when <see cref="LockDsp"/> is invoked.
+		/// </summary>
+		/// <seealso cref="Dsp"/>
+		/// <seealso cref="LockDsp"/>
+		/// <seealso cref="UnlockDsp"/>
+		public event EventHandler DspLocked;
+
+		/// <summary>
+		/// Occurs when a <see cref="Dsp"/> is played.
+		/// </summary>
+		/// <seealso cref="Dsp"/>
+		/// <seealso cref="PlayDsp"/>
+		public event EventHandler DspPlayed;
+
+		/// <summary>
+		/// Occurs when a <see cref="Dsp"/> is registered.
+		/// </summary>
+		/// <seealso cref="Dsp"/>
+		/// <seealso cref="RegisterDsp"/>
+		public event EventHandler DspRegistered;
+
+		/// <summary>
+		/// Occurs when <see cref="UnlockDsp"/> is invoked.
+		/// </summary>
+		/// <seealso cref="Dsp"/>
+		/// <seealso cref="LockDsp"/>
+		/// <seealso cref="UnlockDsp"/>
+		public event EventHandler DspUnlocked;
+
+		/// <summary>
+		/// Creates a sound group, which can store handles to multiple <see cref="Sound"/> objects.
+		/// </summary>
+		/// <param name="name">Name of sound group.</param>
+		/// <returns>The created <see cref="SoundGroup"/>.</returns>
+		/// <remarks>
+		/// Once a <see cref="SoundGroup"/> is created, <see cref="Sound.SoundGroup"/> is used to put a sound in a <see cref="SoundGroup"/>.
+		/// </remarks>
+		/// <seealso cref="Sound"/>
+		/// <seealso cref="SoundGroup"/>
+		/// <seealso cref="SoundGroupCreated"/>
+		public SoundGroup CreateSoundGroup(string name)
+		{
+			var bytesName = Encoding.UTF8.GetBytes(name + char.MinValue);
+			NativeInvoke(FMOD_System_CreateSoundGroup(this, bytesName, out var group));
+			SoundGroupCreated?.Invoke(this, EventArgs.Empty);
+			return CoreHelper.Create<SoundGroup>(group);
+		}
+
+		/// <summary>
+		/// Loads a sound into memory, or opens it for streaming.
+		/// </summary>
+		/// <param name="source">
+		/// <para>Name of the file or URL to open.</para>
+		/// <para>For CD playback the name should be a drive letter with a colon, example "D:" (windows only).</para>
+		/// </param>
+		/// <returns>A newly created <see cref="Sound"/> object.</returns>
+		/// <remarks>
+		/// <alert class="note"><para>
+		/// <b>Important!</b> By default (<see cref="Mode.CreateSample"/>) <b>FMOD</b> will try to load and decompress the whole sound into memory! Use <see cref="Mode.CreateStream"/> to open it as a stream and have it play back in realtime! <see cref="Mode.CreateCompressedSample"/> can also be used for certain formats.
+		/// </para></alert>
+		/// <list type="bullet">
+		/// <item><para>
+		/// To open a file or URL as a stream, so that it decompresses / reads at runtime, instead of loading / decompressing into memory all at the time of this call, use the <see cref="Mode.CreateStream"/> flag. This is like a "stream" in <b>FMOD 3</b>. 
+		/// </para></item>
+		/// <item><para>
+		/// To open a file or URL as a compressed sound effect that is not streamed and is not decompressed into memory at load time, use <see cref="Mode.CreateCompressedSample"/>. This is supported with MPEG (mp2/mp3), ADPCM/FADPCM, XMA, AT9 and FSB Vorbis files only. This is useful for those who want realtime compressed sound effects, but not the overhead of disk access. 
+		/// </para></item>
+		/// <item><para>
+		/// To open a sound as 2D, so that it is not affected by 3D processing, use the <see cref="Mode.TwoD"/> flag. 3D sound commands will be ignored on these types of sounds.
+		/// </para></item>
+		/// <item><para>
+		/// To open a sound as 3D, so that it is treated as a 3D sound, use the <see cref="Mode.ThreeD"/> flag. Calls to <see cref="Channel.SetPan"/> will be ignored on these types of sounds. 
+		/// </para></item>
+		/// </list>
+		/// <para>Note that <see cref="Mode.OpenRaw"/>, <see cref="Mode.OpenMemory"/>, <see cref="Mode.OpenMemoryPoint"/> and <see cref="Mode.OpenUser"/> will not work here without the <see cref="CreateSoundExInfo"/> structure present, as more information is needed.</para>
+		/// <para>Use <see cref="Mode.NonBlocking"/> to have the sound open or load in the background. You can use <see cref="Sound.GetOpenState()"/> to determine if it has finished loading / opening or not. While it is loading (not ready), sound functions are not accessable for that sound.</para>
+		/// <para>To account for slow devices or computers that might cause buffer underrun (skipping/stuttering/repeating blocks of audio), use <see cref="SetStreamBufferSize(uint, TimeUnit)"/>.</para>
+		/// <para>To play WMA files on Windows, the user must have the latest Windows media player codecs installed (Windows Media Player 9). The user can download this as an installer (wmfdist.exe) from www.fmod.org download page if they desire or you may wish to redistribute it with your application (this is allowed). This installer does NOT install windows media player, just the necessary WMA codecs needed.</para>
+		/// <para>
+		/// Specifying <see cref="Mode.OpenMemoryPoint"/> will POINT to your memory rather allocating its own sound buffers and duplicating it internally.<lineBreak/>
+		/// <b><u>This means you cannot free the memory while FMOD is using it, until after <see cref="Sound.Dispose"/> is called.</u></b><lineBreak/>
+		/// With <see cref="Mode.OpenMemoryPoint"/>, for PCM formats, only WAV, FSB and RAW are supported. For compressed formats, only those formats supported by <see cref="Mode.CreateCompressedSample"/> are supported.
+		/// </para>
+		/// </remarks>
+		/// <seealso cref="Mode"/>
+		/// <seealso cref="CreateSoundExInfo"/>
+		/// <seealso cref="SoundCreated"/>
+		/// <seealso cref="Sound.GetOpenState()"/>
+		/// <seealso cref="Channel.SetPan"/>
+		/// <seealos cref="SetStreamBufferSize(uint, TimeUnit)"/>
+		/// <seealso cref="CreateSound(byte[], Mode, CreateSoundExInfo?)"/>
+		/// <seealso cref="CreateStream(string, Mode, CreateSoundExInfo?)"/>
+		public Sound CreateSound(string source)
+		{
+			var strBytes = Encoding.UTF8.GetBytes(source + char.MinValue);
+			return CreateSound(strBytes, Mode.Default, null);
+		}
+
+		/// <summary>
+		/// Loads a sound into memory, or opens it for streaming.
+		/// </summary>
+		/// <param name="source">
+		/// <para>Name of the file or URL to open.</para>
+		/// <para>For CD playback the name should be a drive letter with a colon, example "D:" (windows only).</para>
+		/// </param>
+		/// <param name="mode">Behaviour modifier for opening the sound. See <see cref="Mode"/> and remarks section for more. </param>
+		/// <returns>A newly created <see cref="Sound"/> object.</returns>
+		/// <remarks>
+		/// <alert class="note"><para>
+		/// <b>Important!</b> By default (<see cref="Mode.CreateSample"/>) <b>FMOD</b> will try to load and decompress the whole sound into memory! Use <see cref="Mode.CreateStream"/> to open it as a stream and have it play back in realtime! <see cref="Mode.CreateCompressedSample"/> can also be used for certain formats.
+		/// </para></alert>
+		/// <list type="bullet">
+		/// <item><para>
+		/// To open a file or URL as a stream, so that it decompresses / reads at runtime, instead of loading / decompressing into memory all at the time of this call, use the <see cref="Mode.CreateStream"/> flag. This is like a "stream" in <b>FMOD 3</b>. 
+		/// </para></item>
+		/// <item><para>
+		/// To open a file or URL as a compressed sound effect that is not streamed and is not decompressed into memory at load time, use <see cref="Mode.CreateCompressedSample"/>. This is supported with MPEG (mp2/mp3), ADPCM/FADPCM, XMA, AT9 and FSB Vorbis files only. This is useful for those who want realtime compressed sound effects, but not the overhead of disk access. 
+		/// </para></item>
+		/// <item><para>
+		/// To open a sound as 2D, so that it is not affected by 3D processing, use the <see cref="Mode.TwoD"/> flag. 3D sound commands will be ignored on these types of sounds.
+		/// </para></item>
+		/// <item><para>
+		/// To open a sound as 3D, so that it is treated as a 3D sound, use the <see cref="Mode.ThreeD"/> flag. Calls to <see cref="Channel.SetPan"/> will be ignored on these types of sounds. 
+		/// </para></item>
+		/// </list>
+		/// <para>Note that <see cref="Mode.OpenRaw"/>, <see cref="Mode.OpenMemory"/>, <see cref="Mode.OpenMemoryPoint"/> and <see cref="Mode.OpenUser"/> will not work here without the <see cref="CreateSoundExInfo"/> structure present, as more information is needed.</para>
+		/// <para>Use <see cref="Mode.NonBlocking"/> to have the sound open or load in the background. You can use <see cref="Sound.GetOpenState()"/> to determine if it has finished loading / opening or not. While it is loading (not ready), sound functions are not accessable for that sound.</para>
+		/// <para>To account for slow devices or computers that might cause buffer underrun (skipping/stuttering/repeating blocks of audio), use <see cref="SetStreamBufferSize(uint, TimeUnit)"/>.</para>
+		/// <para>To play WMA files on Windows, the user must have the latest Windows media player codecs installed (Windows Media Player 9). The user can download this as an installer (wmfdist.exe) from www.fmod.org download page if they desire or you may wish to redistribute it with your application (this is allowed). This installer does NOT install windows media player, just the necessary WMA codecs needed.</para>
+		/// <para>
+		/// Specifying <see cref="Mode.OpenMemoryPoint"/> will POINT to your memory rather allocating its own sound buffers and duplicating it internally.<lineBreak/>
+		/// <b><u>This means you cannot free the memory while FMOD is using it, until after <see cref="Sound.Dispose"/> is called.</u></b><lineBreak/>
+		/// With <see cref="Mode.OpenMemoryPoint"/>, for PCM formats, only WAV, FSB and RAW are supported. For compressed formats, only those formats supported by <see cref="Mode.CreateCompressedSample"/> are supported.
+		/// </para>
+		/// </remarks>
+		/// <seealso cref="Mode"/>
+		/// <seealso cref="CreateSoundExInfo"/>
+		/// <seealso cref="SoundCreated"/>
+		/// <seealso cref="Sound.GetOpenState()"/>
+		/// <seealso cref="Channel.SetPan"/>
+		/// <seealos cref="SetStreamBufferSize(uint, TimeUnit)"/>
+		/// <seealso cref="CreateSound(byte[], Mode, CreateSoundExInfo?)"/>
+		/// <seealso cref="CreateStream(string, Mode, CreateSoundExInfo?)"/>
+		public Sound CreateSound(string source, Mode mode)
+		{
+			var strBytes = Encoding.UTF8.GetBytes(source + char.MinValue);
+			return CreateSound(strBytes, mode, null);
+		}
+
+		/// <summary>
+		/// Loads a sound into memory, or opens it for streaming.
+		/// </summary>
+		/// <param name="source">
+		/// <para>Name of the file or URL to open.</para>
+		/// <para>For CD playback the name should be a drive letter with a colon, example "D:" (windows only).</para>
+		/// </param>
+		/// <param name="mode">Behaviour modifier for opening the sound. See <see cref="Mode"/> and remarks section for more. </param>
+		/// <param name="exInfo">
+		/// <para>A <see cref="CreateSoundExInfo"/> structure which lets the user provide extended information while playing the sound. </para>
+		/// <para>Optional. Specify <c>null</c> to ignore.</para>
+		/// </param>
+		/// <returns>A newly created <see cref="Sound"/> object.</returns>
+		/// <remarks>
+		/// <alert class="note"><para>
+		/// <b>Important!</b> By default (<see cref="Mode.CreateSample"/>) <b>FMOD</b> will try to load and decompress the whole sound into memory! Use <see cref="Mode.CreateStream"/> to open it as a stream and have it play back in realtime! <see cref="Mode.CreateCompressedSample"/> can also be used for certain formats.
+		/// </para></alert>
+		/// <list type="bullet">
+		/// <item><para>
+		/// To open a file or URL as a stream, so that it decompresses / reads at runtime, instead of loading / decompressing into memory all at the time of this call, use the <see cref="Mode.CreateStream"/> flag. This is like a "stream" in <b>FMOD 3</b>. 
+		/// </para></item>
+		/// <item><para>
+		/// To open a file or URL as a compressed sound effect that is not streamed and is not decompressed into memory at load time, use <see cref="Mode.CreateCompressedSample"/>. This is supported with MPEG (mp2/mp3), ADPCM/FADPCM, XMA, AT9 and FSB Vorbis files only. This is useful for those who want realtime compressed sound effects, but not the overhead of disk access. 
+		/// </para></item>
+		/// <item><para>
+		/// To open a sound as 2D, so that it is not affected by 3D processing, use the <see cref="Mode.TwoD"/> flag. 3D sound commands will be ignored on these types of sounds.
+		/// </para></item>
+		/// <item><para>
+		/// To open a sound as 3D, so that it is treated as a 3D sound, use the <see cref="Mode.ThreeD"/> flag. Calls to <see cref="Channel.SetPan"/> will be ignored on these types of sounds. 
+		/// </para></item>
+		/// </list>
+		/// <para>Note that <see cref="Mode.OpenRaw"/>, <see cref="Mode.OpenMemory"/>, <see cref="Mode.OpenMemoryPoint"/> and <see cref="Mode.OpenUser"/> will not work here without the <see cref="CreateSoundExInfo"/> structure present, as more information is needed.</para>
+		/// <para>Use <see cref="Mode.NonBlocking"/> to have the sound open or load in the background. You can use <see cref="Sound.GetOpenState()"/> to determine if it has finished loading / opening or not. While it is loading (not ready), sound functions are not accessable for that sound.</para>
+		/// <para>To account for slow devices or computers that might cause buffer underrun (skipping/stuttering/repeating blocks of audio), use <see cref="SetStreamBufferSize(uint, TimeUnit)"/>.</para>
+		/// <para>To play WMA files on Windows, the user must have the latest Windows media player codecs installed (Windows Media Player 9). The user can download this as an installer (wmfdist.exe) from www.fmod.org download page if they desire or you may wish to redistribute it with your application (this is allowed). This installer does NOT install windows media player, just the necessary WMA codecs needed.</para>
+		/// <para>
+		/// Specifying <see cref="Mode.OpenMemoryPoint"/> will POINT to your memory rather allocating its own sound buffers and duplicating it internally.<lineBreak/>
+		/// <b><u>This means you cannot free the memory while FMOD is using it, until after <see cref="Sound.Dispose"/> is called.</u></b><lineBreak/>
+		/// With <see cref="Mode.OpenMemoryPoint"/>, for PCM formats, only WAV, FSB and RAW are supported. For compressed formats, only those formats supported by <see cref="Mode.CreateCompressedSample"/> are supported.
+		/// </para>
+		/// </remarks>
+		/// <seealso cref="Mode"/>
+		/// <seealso cref="CreateSoundExInfo"/>
+		/// <seealso cref="SoundCreated"/>
+		/// <seealso cref="Sound.GetOpenState()"/>
+		/// <seealso cref="Channel.SetPan"/>
+		/// <seealos cref="SetStreamBufferSize(uint, TimeUnit)"/>
+		/// <seealso cref="CreateSound(byte[], Mode, CreateSoundExInfo?)"/>
+		/// <seealso cref="CreateStream(string, Mode, CreateSoundExInfo?)"/>
+		public Sound CreateSound(string source, Mode mode, CreateSoundExInfo? exInfo)
+		{
+			var strBytes = Encoding.UTF8.GetBytes(source + char.MinValue);
+			return CreateSound(strBytes, Mode.Default, exInfo);
+		}
+
+		/// <summary>
+		/// Loads a sound into memory, or opens it for streaming.
+		/// </summary>
+		/// <param name="source">
+		/// <para>Name of the file or URL to open encoded in a UTF-8 <see cref="T:byte[]"/>, or a preloaded sound memory block if <see cref="Mode.OpenMemory"/> or <see cref="Mode.OpenMemoryPoint"/> is used. </para>
+		/// <para>For CD playback the name should be a drive letter with a colon, example "D:" (windows only).</para>
+		/// </param>
+		/// <returns>A newly created <see cref="Sound"/> object.</returns>
+		/// <remarks>
+		/// <alert class="note"><para>
+		/// <b>Important!</b> By default (<see cref="Mode.CreateSample"/>) <b>FMOD</b> will try to load and decompress the whole sound into memory! Use <see cref="Mode.CreateStream"/> to open it as a stream and have it play back in realtime! <see cref="Mode.CreateCompressedSample"/> can also be used for certain formats.
+		/// </para></alert>
+		/// <list type="bullet">
+		/// <item><para>
+		/// To open a file or URL as a stream, so that it decompresses / reads at runtime, instead of loading / decompressing into memory all at the time of this call, use the <see cref="Mode.CreateStream"/> flag. This is like a "stream" in <b>FMOD 3</b>. 
+		/// </para></item>
+		/// <item><para>
+		/// To open a file or URL as a compressed sound effect that is not streamed and is not decompressed into memory at load time, use <see cref="Mode.CreateCompressedSample"/>. This is supported with MPEG (mp2/mp3), ADPCM/FADPCM, XMA, AT9 and FSB Vorbis files only. This is useful for those who want realtime compressed sound effects, but not the overhead of disk access. 
+		/// </para></item>
+		/// <item><para>
+		/// To open a sound as 2D, so that it is not affected by 3D processing, use the <see cref="Mode.TwoD"/> flag. 3D sound commands will be ignored on these types of sounds.
+		/// </para></item>
+		/// <item><para>
+		/// To open a sound as 3D, so that it is treated as a 3D sound, use the <see cref="Mode.ThreeD"/> flag. Calls to <see cref="Channel.SetPan"/> will be ignored on these types of sounds. 
+		/// </para></item>
+		/// </list>
+		/// <para>Note that <see cref="Mode.OpenRaw"/>, <see cref="Mode.OpenMemory"/>, <see cref="Mode.OpenMemoryPoint"/> and <see cref="Mode.OpenUser"/> will not work here without the <see cref="CreateSoundExInfo"/> structure present, as more information is needed.</para>
+		/// <para>Use <see cref="Mode.NonBlocking"/> to have the sound open or load in the background. You can use <see cref="Sound.GetOpenState()"/> to determine if it has finished loading / opening or not. While it is loading (not ready), sound functions are not accessable for that sound.</para>
+		/// <para>To account for slow devices or computers that might cause buffer underrun (skipping/stuttering/repeating blocks of audio), use <see cref="SetStreamBufferSize(uint, TimeUnit)"/>.</para>
+		/// <para>To play WMA files on Windows, the user must have the latest Windows media player codecs installed (Windows Media Player 9). The user can download this as an installer (wmfdist.exe) from www.fmod.org download page if they desire or you may wish to redistribute it with your application (this is allowed). This installer does NOT install windows media player, just the necessary WMA codecs needed.</para>
+		/// <para>
+		/// Specifying <see cref="Mode.OpenMemoryPoint"/> will POINT to your memory rather allocating its own sound buffers and duplicating it internally.<lineBreak/>
+		/// <b><u>This means you cannot free the memory while FMOD is using it, until after <see cref="Sound.Dispose"/> is called.</u></b><lineBreak/>
+		/// With <see cref="Mode.OpenMemoryPoint"/>, for PCM formats, only WAV, FSB and RAW are supported. For compressed formats, only those formats supported by <see cref="Mode.CreateCompressedSample"/> are supported.
+		/// </para>
+		/// </remarks>
+		/// <seealso cref="Mode"/>
+		/// <seealso cref="CreateSoundExInfo"/>
+		/// <seealso cref="SoundCreated"/>
+		/// <seealso cref="Sound.GetOpenState()"/>
+		/// <seealso cref="Channel.SetPan"/>
+		/// <seealos cref="SetStreamBufferSize(uint, TimeUnit)"/>
+		/// <seealso cref="CreateSound(string, Mode, CreateSoundExInfo?)"/>
+		/// <seealso cref="CreateStream(byte[], Mode, CreateSoundExInfo?)"/>
+		public Sound CreateSound(byte[] source)
+		{
+			return CreateSound(source, Mode.Default, null);
+		}
+
+		/// <summary>
+		/// Loads a sound into memory, or opens it for streaming.
+		/// </summary>
+		/// <param name="source">
+		/// <para>Name of the file or URL to open encoded in a UTF-8 <see cref="T:byte[]"/>, or a preloaded sound memory block if <see cref="Mode.OpenMemory"/> or <see cref="Mode.OpenMemoryPoint"/> is used. </para>
+		/// <para>For CD playback the name should be a drive letter with a colon, example "D:" (windows only).</para>
+		/// </param>
+		/// <param name="mode">Behaviour modifier for opening the sound. See <see cref="Mode"/> and remarks section for more. </param>
+		/// <returns>A newly created <see cref="Sound"/> object.</returns>
+		/// <remarks>
+		/// <alert class="note"><para>
+		/// <b>Important!</b> By default (<see cref="Mode.CreateSample"/>) <b>FMOD</b> will try to load and decompress the whole sound into memory! Use <see cref="Mode.CreateStream"/> to open it as a stream and have it play back in realtime! <see cref="Mode.CreateCompressedSample"/> can also be used for certain formats.
+		/// </para></alert>
+		/// <list type="bullet">
+		/// <item><para>
+		/// To open a file or URL as a stream, so that it decompresses / reads at runtime, instead of loading / decompressing into memory all at the time of this call, use the <see cref="Mode.CreateStream"/> flag. This is like a "stream" in <b>FMOD 3</b>. 
+		/// </para></item>
+		/// <item><para>
+		/// To open a file or URL as a compressed sound effect that is not streamed and is not decompressed into memory at load time, use <see cref="Mode.CreateCompressedSample"/>. This is supported with MPEG (mp2/mp3), ADPCM/FADPCM, XMA, AT9 and FSB Vorbis files only. This is useful for those who want realtime compressed sound effects, but not the overhead of disk access. 
+		/// </para></item>
+		/// <item><para>
+		/// To open a sound as 2D, so that it is not affected by 3D processing, use the <see cref="Mode.TwoD"/> flag. 3D sound commands will be ignored on these types of sounds.
+		/// </para></item>
+		/// <item><para>
+		/// To open a sound as 3D, so that it is treated as a 3D sound, use the <see cref="Mode.ThreeD"/> flag. Calls to <see cref="Channel.SetPan"/> will be ignored on these types of sounds. 
+		/// </para></item>
+		/// </list>
+		/// <para>Note that <see cref="Mode.OpenRaw"/>, <see cref="Mode.OpenMemory"/>, <see cref="Mode.OpenMemoryPoint"/> and <see cref="Mode.OpenUser"/> will not work here without the <see cref="CreateSoundExInfo"/> structure present, as more information is needed.</para>
+		/// <para>Use <see cref="Mode.NonBlocking"/> to have the sound open or load in the background. You can use <see cref="Sound.GetOpenState()"/> to determine if it has finished loading / opening or not. While it is loading (not ready), sound functions are not accessable for that sound.</para>
+		/// <para>To account for slow devices or computers that might cause buffer underrun (skipping/stuttering/repeating blocks of audio), use <see cref="SetStreamBufferSize(uint, TimeUnit)"/>.</para>
+		/// <para>To play WMA files on Windows, the user must have the latest Windows media player codecs installed (Windows Media Player 9). The user can download this as an installer (wmfdist.exe) from www.fmod.org download page if they desire or you may wish to redistribute it with your application (this is allowed). This installer does NOT install windows media player, just the necessary WMA codecs needed.</para>
+		/// <para>
+		/// Specifying <see cref="Mode.OpenMemoryPoint"/> will POINT to your memory rather allocating its own sound buffers and duplicating it internally.<lineBreak/>
+		/// <b><u>This means you cannot free the memory while FMOD is using it, until after <see cref="Sound.Dispose"/> is called.</u></b><lineBreak/>
+		/// With <see cref="Mode.OpenMemoryPoint"/>, for PCM formats, only WAV, FSB and RAW are supported. For compressed formats, only those formats supported by <see cref="Mode.CreateCompressedSample"/> are supported.
+		/// </para>
+		/// </remarks>
+		/// <seealso cref="Mode"/>
+		/// <seealso cref="CreateSoundExInfo"/>
+		/// <seealso cref="SoundCreated"/>
+		/// <seealso cref="Sound.GetOpenState()"/>
+		/// <seealso cref="Channel.SetPan"/>
+		/// <seealos cref="SetStreamBufferSize(uint, TimeUnit)"/>
+		/// <seealso cref="CreateSound(string, Mode, CreateSoundExInfo?)"/>
+		/// <seealso cref="CreateStream(byte[], Mode, CreateSoundExInfo?)"/>
+		public Sound CreateSound(byte[] source, Mode mode)
+		{
+			return CreateSound(source, mode, null);
+		}
+
+		/// <summary>
+		/// Loads a sound into memory, or opens it for streaming.
+		/// </summary>
+		/// <param name="source">
+		/// <para>Name of the file or URL to open encoded in a UTF-8 <see cref="T:byte[]"/>, or a preloaded sound memory block if <see cref="Mode.OpenMemory"/> or <see cref="Mode.OpenMemoryPoint"/> is used. </para>
+		/// <para>For CD playback the name should be a drive letter with a colon, example "D:" (windows only).</para>
+		/// </param>
+		/// <param name="mode">Behaviour modifier for opening the sound. See <see cref="Mode"/> and remarks section for more. </param>
+		/// <param name="exInfo">
+		/// <para>A <see cref="CreateSoundExInfo"/> structure which lets the user provide extended information while playing the sound. </para>
+		/// <para>Optional. Specify <c>null</c> to ignore.</para>
+		/// </param>
+		/// <returns>A newly created <see cref="Sound"/> object.</returns>
+		/// <remarks>
+		/// <alert class="note"><para>
+		/// <b>Important!</b> By default (<see cref="Mode.CreateSample"/>) <b>FMOD</b> will try to load and decompress the whole sound into memory! Use <see cref="Mode.CreateStream"/> to open it as a stream and have it play back in realtime! <see cref="Mode.CreateCompressedSample"/> can also be used for certain formats.
+		/// </para></alert>
+		/// <list type="bullet">
+		/// <item><para>
+		/// To open a file or URL as a stream, so that it decompresses / reads at runtime, instead of loading / decompressing into memory all at the time of this call, use the <see cref="Mode.CreateStream"/> flag. This is like a "stream" in <b>FMOD 3</b>. 
+		/// </para></item>
+		/// <item><para>
+		/// To open a file or URL as a compressed sound effect that is not streamed and is not decompressed into memory at load time, use <see cref="Mode.CreateCompressedSample"/>. This is supported with MPEG (mp2/mp3), ADPCM/FADPCM, XMA, AT9 and FSB Vorbis files only. This is useful for those who want realtime compressed sound effects, but not the overhead of disk access. 
+		/// </para></item>
+		/// <item><para>
+		/// To open a sound as 2D, so that it is not affected by 3D processing, use the <see cref="Mode.TwoD"/> flag. 3D sound commands will be ignored on these types of sounds.
+		/// </para></item>
+		/// <item><para>
+		/// To open a sound as 3D, so that it is treated as a 3D sound, use the <see cref="Mode.ThreeD"/> flag. Calls to <see cref="Channel.SetPan"/> will be ignored on these types of sounds. 
+		/// </para></item>
+		/// </list>
+		/// <para>Note that <see cref="Mode.OpenRaw"/>, <see cref="Mode.OpenMemory"/>, <see cref="Mode.OpenMemoryPoint"/> and <see cref="Mode.OpenUser"/> will not work here without the <see cref="CreateSoundExInfo"/> structure present, as more information is needed.</para>
+		/// <para>Use <see cref="Mode.NonBlocking"/> to have the sound open or load in the background. You can use <see cref="Sound.GetOpenState()"/> to determine if it has finished loading / opening or not. While it is loading (not ready), sound functions are not accessable for that sound.</para>
+		/// <para>To account for slow devices or computers that might cause buffer underrun (skipping/stuttering/repeating blocks of audio), use <see cref="SetStreamBufferSize(uint, TimeUnit)"/>.</para>
+		/// <para>To play WMA files on Windows, the user must have the latest Windows media player codecs installed (Windows Media Player 9). The user can download this as an installer (wmfdist.exe) from www.fmod.org download page if they desire or you may wish to redistribute it with your application (this is allowed). This installer does NOT install windows media player, just the necessary WMA codecs needed.</para>
+		/// <para>
+		/// Specifying <see cref="Mode.OpenMemoryPoint"/> will POINT to your memory rather allocating its own sound buffers and duplicating it internally.<lineBreak/>
+		/// <b><u>This means you cannot free the memory while FMOD is using it, until after <see cref="Sound.Dispose"/> is called.</u></b><lineBreak/>
+		/// With <see cref="Mode.OpenMemoryPoint"/>, for PCM formats, only WAV, FSB and RAW are supported. For compressed formats, only those formats supported by <see cref="Mode.CreateCompressedSample"/> are supported.
+		/// </para>
+		/// </remarks>
+		/// <seealso cref="Mode"/>
+		/// <seealso cref="CreateSoundExInfo"/>
+		/// <seealso cref="SoundCreated"/>
+		/// <seealso cref="Sound.GetOpenState()"/>
+		/// <seealso cref="Channel.SetPan"/>
+		/// <seealos cref="SetStreamBufferSize(uint, TimeUnit)"/>
+		/// <seealso cref="CreateSound(string, Mode, CreateSoundExInfo?)"/>
+		/// <seealso cref="CreateStream(byte[], Mode, CreateSoundExInfo?)"/>
+		public Sound CreateSound(byte[] source, Mode mode, CreateSoundExInfo? exInfo)
+		{
+			IntPtr sound;
+			if (exInfo.HasValue)
+			{
+				var info = exInfo.Value;
+				info.cbsize = Marshal.SizeOf(info);
+				NativeInvoke(FMOD_System_CreateSound(this, source, mode, ref info, out sound));
+			}
+			else
+			{
+				NativeInvoke(FMOD_System_CreateSound(this, source, mode, IntPtr.Zero, out sound));
+			}
+			SoundCreated?.Invoke(this, EventArgs.Empty);
+			return CoreHelper.Create<Sound>(sound);
+		}
+
+		/// <summary>
+		/// <para>Opens a sound for streaming.</para>
+		/// <para>This function is a helper function that is the same as <see cref="CreateSound(string)"/>, but has the <see cref="Mode.CreateStream"/> flag added internally.</para>
+		/// </summary>
+		/// <param name="source">Name of the file or URL to open.</param>
+		/// <returns>A newly created <see cref="Sound"/> object.</returns>
+		/// <remarks>
+		/// <alert class="note">
+		/// <para>A stream only has one decode buffer and file handle, and therefore can only be played once. It cannot play multiple times at once because it cannot share a stream buffer if the stream is playing at different positions.</para>
+		/// <para>Open multiple streams to have them play concurrently.</para>
+		/// </alert>
+		/// <list type="bullet">
+		/// <item><para>
+		/// To open a file or URL as a stream, so that it decompresses / reads at runtime, instead of loading / decompressing into memory all at the time of this call, use the <see cref="Mode.CreateStream"/> flag. This is like a "stream" in <b>FMOD 3</b>. 
+		/// </para></item>
+		/// <item><para>
+		/// To open a file or URL as a compressed sound effect that is not streamed and is not decompressed into memory at load time, use <see cref="Mode.CreateCompressedSample"/>. This is supported with MPEG (mp2/mp3), ADPCM/FADPCM, XMA, AT9 and FSB Vorbis files only. This is useful for those who want realtime compressed sound effects, but not the overhead of disk access. 
+		/// </para></item>
+		/// <item><para>
+		/// To open a sound as 2D, so that it is not affected by 3D processing, use the <see cref="Mode.TwoD"/> flag. 3D sound commands will be ignored on these types of sounds.
+		/// </para></item>
+		/// <item><para>
+		/// To open a sound as 3D, so that it is treated as a 3D sound, use the <see cref="Mode.ThreeD"/> flag. Calls to <see cref="Channel.SetPan"/> will be ignored on these types of sounds. 
+		/// </para></item>
+		/// </list>
+		/// <para>Note that <see cref="Mode.OpenRaw"/>, <see cref="Mode.OpenMemory"/>, <see cref="Mode.OpenMemoryPoint"/> and <see cref="Mode.OpenUser"/> will not work here without the <see cref="CreateSoundExInfo"/> structure present, as more information is needed.</para>
+		/// <para>Use <see cref="Mode.NonBlocking"/> to have the sound open or load in the background. You can use <see cref="Sound.GetOpenState()"/> to determine if it has finished loading / opening or not. While it is loading (not ready), sound functions are not accessable for that sound.</para>
+		/// <para>To account for slow devices or computers that might cause buffer underrun (skipping/stuttering/repeating blocks of audio), use <see cref="SetStreamBufferSize(uint, TimeUnit)"/>.</para>
+		/// <para>Note that FMOD_CREATESAMPLE will be ignored, overriden by this function because this is simply a wrapper to <see cref="CreateSound(string, Mode, CreateSoundExInfo?)"/> that provides the <see cref="Mode.CreateStream"/> flag. The <see cref="Mode.CreateStream"/> flag overrides <see cref="Mode.CreateSample"/>.</para>
+		/// </remarks>
+		/// <seealso cref="Sound"/>
+		/// <seealso cref="Encoding.UTF8"/>
+		/// <seealso cref="SetStreamBufferSize(uint, TimeUnit)"/>
+		/// <seealso cref="CreateStream(byte[], Mode, CreateSoundExInfo?)"/>
+		/// <seealso cref="Mode"/>
+		/// <seealso cref="CreateSoundExInfo"/>
+		/// <seealso cref="Channel.SetPan"/>
+		/// <seealso cref="Sound.GetOpenState()"/>
+		/// <seealso cref="OpenStateInfo"/>
+		public Sound CreateStream(string source)
+		{
+			var strBytes = Encoding.UTF8.GetBytes(source + char.MinValue);
+			return CreateStream(strBytes, Mode.Default, null);
+		}
+
+		/// <summary>
+		/// <para>Opens a sound for streaming.</para>
+		/// <para>This function is a helper function that is the same as <see cref="CreateSound(string, Mode)"/>, but has the <see cref="Mode.CreateStream"/> flag added internally.</para>
+		/// </summary>
+		/// <param name="source">Name of the file or URL to open.</param>
+		/// <param name="mode">
+		/// <para>Behaviour modifier for opening the sound.</para>
+		/// <para>See <see cref="Mode"/> and remarks for more.</para>
+		/// </param>
+		/// <returns>A newly created <see cref="Sound"/> object.</returns>
+		/// <remarks>
+		/// <alert class="note">
+		/// <para>A stream only has one decode buffer and file handle, and therefore can only be played once. It cannot play multiple times at once because it cannot share a stream buffer if the stream is playing at different positions.</para>
+		/// <para>Open multiple streams to have them play concurrently.</para>
+		/// </alert>
+		/// <list type="bullet">
+		/// <item><para>
+		/// To open a file or URL as a stream, so that it decompresses / reads at runtime, instead of loading / decompressing into memory all at the time of this call, use the <see cref="Mode.CreateStream"/> flag. This is like a "stream" in <b>FMOD 3</b>. 
+		/// </para></item>
+		/// <item><para>
+		/// To open a file or URL as a compressed sound effect that is not streamed and is not decompressed into memory at load time, use <see cref="Mode.CreateCompressedSample"/>. This is supported with MPEG (mp2/mp3), ADPCM/FADPCM, XMA, AT9 and FSB Vorbis files only. This is useful for those who want realtime compressed sound effects, but not the overhead of disk access. 
+		/// </para></item>
+		/// <item><para>
+		/// To open a sound as 2D, so that it is not affected by 3D processing, use the <see cref="Mode.TwoD"/> flag. 3D sound commands will be ignored on these types of sounds.
+		/// </para></item>
+		/// <item><para>
+		/// To open a sound as 3D, so that it is treated as a 3D sound, use the <see cref="Mode.ThreeD"/> flag. Calls to <see cref="Channel.SetPan"/> will be ignored on these types of sounds. 
+		/// </para></item>
+		/// </list>
+		/// <para>Note that <see cref="Mode.OpenRaw"/>, <see cref="Mode.OpenMemory"/>, <see cref="Mode.OpenMemoryPoint"/> and <see cref="Mode.OpenUser"/> will not work here without the <see cref="CreateSoundExInfo"/> structure present, as more information is needed.</para>
+		/// <para>Use <see cref="Mode.NonBlocking"/> to have the sound open or load in the background. You can use <see cref="Sound.GetOpenState()"/> to determine if it has finished loading / opening or not. While it is loading (not ready), sound functions are not accessable for that sound.</para>
+		/// <para>To account for slow devices or computers that might cause buffer underrun (skipping/stuttering/repeating blocks of audio), use <see cref="SetStreamBufferSize(uint, TimeUnit)"/>.</para>
+		/// <para>Note that FMOD_CREATESAMPLE will be ignored, overriden by this function because this is simply a wrapper to <see cref="CreateSound(string, Mode, CreateSoundExInfo?)"/> that provides the <see cref="Mode.CreateStream"/> flag. The <see cref="Mode.CreateStream"/> flag overrides <see cref="Mode.CreateSample"/>.</para>
+		/// </remarks>
+		/// <seealso cref="Sound"/>
+		/// <seealso cref="Encoding.UTF8"/>
+		/// <seealso cref="SetStreamBufferSize(uint, TimeUnit)"/>
+		/// <seealso cref="CreateStream(byte[], Mode, CreateSoundExInfo?)"/>
+		/// <seealso cref="Mode"/>
+		/// <seealso cref="CreateSoundExInfo"/>
+		/// <seealso cref="Channel.SetPan"/>
+		/// <seealso cref="Sound.GetOpenState()"/>
+		/// <seealso cref="OpenStateInfo"/>
+		public Sound CreateStream(string source, Mode mode)
+		{
+			var strBytes = Encoding.UTF8.GetBytes(source + char.MinValue);
+			return CreateStream(strBytes, mode, null);
+		}
+
+		/// <summary>
+		/// <para>Opens a sound for streaming.</para>
+		/// <para>This function is a helper function that is the same as <see cref="CreateSound(string, Mode, CreateSoundExInfo?)"/>, but has the <see cref="Mode.CreateStream"/> flag added internally.</para>
+		/// </summary>
+		/// <param name="source">Name of the file or URL to open.</param>
+		/// <param name="mode">
+		/// <para>Behaviour modifier for opening the sound.</para>
+		/// <para>See <see cref="Mode"/> and remarks for more.</para>
+		/// </param>
+		/// <param name="exInfo">
+		/// <para>A <see cref="CreateSoundExInfo"/> structure which lets the user provide extended information while playing the sound. </para>
+		/// <para>Optional. Specify <c>null</c> to ignore.</para>
+		/// </param>
+		/// <returns>A newly created <see cref="Sound"/> object.</returns>
+		/// <remarks>
+		/// <alert class="note">
+		/// <para>A stream only has one decode buffer and file handle, and therefore can only be played once. It cannot play multiple times at once because it cannot share a stream buffer if the stream is playing at different positions.</para>
+		/// <para>Open multiple streams to have them play concurrently.</para>
+		/// </alert>
+		/// <list type="bullet">
+		/// <item><para>
+		/// To open a file or URL as a stream, so that it decompresses / reads at runtime, instead of loading / decompressing into memory all at the time of this call, use the <see cref="Mode.CreateStream"/> flag. This is like a "stream" in <b>FMOD 3</b>. 
+		/// </para></item>
+		/// <item><para>
+		/// To open a file or URL as a compressed sound effect that is not streamed and is not decompressed into memory at load time, use <see cref="Mode.CreateCompressedSample"/>. This is supported with MPEG (mp2/mp3), ADPCM/FADPCM, XMA, AT9 and FSB Vorbis files only. This is useful for those who want realtime compressed sound effects, but not the overhead of disk access. 
+		/// </para></item>
+		/// <item><para>
+		/// To open a sound as 2D, so that it is not affected by 3D processing, use the <see cref="Mode.TwoD"/> flag. 3D sound commands will be ignored on these types of sounds.
+		/// </para></item>
+		/// <item><para>
+		/// To open a sound as 3D, so that it is treated as a 3D sound, use the <see cref="Mode.ThreeD"/> flag. Calls to <see cref="Channel.SetPan"/> will be ignored on these types of sounds. 
+		/// </para></item>
+		/// </list>
+		/// <para>Note that <see cref="Mode.OpenRaw"/>, <see cref="Mode.OpenMemory"/>, <see cref="Mode.OpenMemoryPoint"/> and <see cref="Mode.OpenUser"/> will not work here without the <see cref="CreateSoundExInfo"/> structure present, as more information is needed.</para>
+		/// <para>Use <see cref="Mode.NonBlocking"/> to have the sound open or load in the background. You can use <see cref="Sound.GetOpenState()"/> to determine if it has finished loading / opening or not. While it is loading (not ready), sound functions are not accessable for that sound.</para>
+		/// <para>To account for slow devices or computers that might cause buffer underrun (skipping/stuttering/repeating blocks of audio), use <see cref="SetStreamBufferSize(uint, TimeUnit)"/>.</para>
+		/// <para>Note that FMOD_CREATESAMPLE will be ignored, overriden by this function because this is simply a wrapper to <see cref="CreateSound(string, Mode, CreateSoundExInfo?)"/> that provides the <see cref="Mode.CreateStream"/> flag. The <see cref="Mode.CreateStream"/> flag overrides <see cref="Mode.CreateSample"/>.</para>
+		/// </remarks>
+		/// <seealso cref="Sound"/>
+		/// <seealso cref="Encoding.UTF8"/>
+		/// <seealso cref="SetStreamBufferSize(uint, TimeUnit)"/>
+		/// <seealso cref="CreateStream(byte[], Mode, CreateSoundExInfo?)"/>
+		/// <seealso cref="Mode"/>
+		/// <seealso cref="CreateSoundExInfo"/>
+		/// <seealso cref="Channel.SetPan"/>
+		/// <seealso cref="Sound.GetOpenState()"/>
+		/// <seealso cref="OpenStateInfo"/>
+		public Sound CreateStream(string source, Mode mode, CreateSoundExInfo? exInfo)
+		{
+			var strBytes = Encoding.UTF8.GetBytes(source + char.MinValue);
+			return CreateStream(strBytes, Mode.Default, exInfo);
+		}
+
+		/// <summary>
+		/// <para>Opens a sound for streaming.</para>
+		/// <para>This function is a helper function that is the same as <see cref="CreateSound(byte[])"/>, but has the <see cref="Mode.CreateStream"/> flag added internally.</para>
+		/// </summary>
+		/// <param name="source">Name of the file or URL to open encoded in UTF-8 as a <see cref="T:byte[]"/>.</param>
+		/// <returns>A newly created <see cref="Sound"/> object.</returns>
+		/// <remarks>
+		/// <alert class="note">
+		/// <para>A stream only has one decode buffer and file handle, and therefore can only be played once. It cannot play multiple times at once because it cannot share a stream buffer if the stream is playing at different positions.</para>
+		/// <para>Open multiple streams to have them play concurrently.</para>
+		/// </alert>
+		/// <list type="bullet">
+		/// <item><para>
+		/// To open a file or URL as a stream, so that it decompresses / reads at runtime, instead of loading / decompressing into memory all at the time of this call, use the <see cref="Mode.CreateStream"/> flag. This is like a "stream" in <b>FMOD 3</b>. 
+		/// </para></item>
+		/// <item><para>
+		/// To open a file or URL as a compressed sound effect that is not streamed and is not decompressed into memory at load time, use <see cref="Mode.CreateCompressedSample"/>. This is supported with MPEG (mp2/mp3), ADPCM/FADPCM, XMA, AT9 and FSB Vorbis files only. This is useful for those who want realtime compressed sound effects, but not the overhead of disk access. 
+		/// </para></item>
+		/// <item><para>
+		/// To open a sound as 2D, so that it is not affected by 3D processing, use the <see cref="Mode.TwoD"/> flag. 3D sound commands will be ignored on these types of sounds.
+		/// </para></item>
+		/// <item><para>
+		/// To open a sound as 3D, so that it is treated as a 3D sound, use the <see cref="Mode.ThreeD"/> flag. Calls to <see cref="Channel.SetPan"/> will be ignored on these types of sounds. 
+		/// </para></item>
+		/// </list>
+		/// <para>Note that <see cref="Mode.OpenRaw"/>, <see cref="Mode.OpenMemory"/>, <see cref="Mode.OpenMemoryPoint"/> and <see cref="Mode.OpenUser"/> will not work here without the <see cref="CreateSoundExInfo"/> structure present, as more information is needed.</para>
+		/// <para>Use <see cref="Mode.NonBlocking"/> to have the sound open or load in the background. You can use <see cref="Sound.GetOpenState()"/> to determine if it has finished loading / opening or not. While it is loading (not ready), sound functions are not accessable for that sound.</para>
+		/// <para>To account for slow devices or computers that might cause buffer underrun (skipping/stuttering/repeating blocks of audio), use <see cref="SetStreamBufferSize(uint, TimeUnit)"/>.</para>
+		/// <para>Note that FMOD_CREATESAMPLE will be ignored, overriden by this function because this is simply a wrapper to <see cref="CreateSound(byte[])"/> that provides the <see cref="Mode.CreateStream"/> flag. The <see cref="Mode.CreateStream"/> flag overrides <see cref="Mode.CreateSample"/>.</para>
+		/// </remarks>
+		/// <seealso cref="Sound"/>
+		/// <seealso cref="Encoding.UTF8"/>
+		/// <seealso cref="SetStreamBufferSize(uint, TimeUnit)"/>
+		/// <seealso cref="CreateStream(string, Mode, CreateSoundExInfo?)"/>
+		/// <seealso cref="Mode"/>
+		/// <seealso cref="CreateSoundExInfo"/>
+		/// <seealso cref="Channel.SetPan"/>
+		/// <seealso cref="Sound.GetOpenState()"/>
+		/// <seealso cref="OpenStateInfo"/>
+		public Sound CreateStream(byte[] source)
+		{
+			return CreateStream(source, Mode.Default, null);
+		}
+
+		/// <summary>
+		/// <para>Opens a sound for streaming.</para>
+		/// <para>This function is a helper function that is the same as <see cref="CreateSound(byte[], Mode)"/>, but has the <see cref="Mode.CreateStream"/> flag added internally.</para>
+		/// </summary>
+		/// <param name="source">Name of the file or URL to open encoded in UTF-8 as a <see cref="T:byte[]"/>.</param>
+		/// <param name="mode">
+		/// <para>Behaviour modifier for opening the sound.</para>
+		/// <para>See <see cref="Mode"/> and remarks for more.</para>
+		/// </param>
+		/// <returns>A newly created <see cref="Sound"/> object.</returns>
+		/// <remarks>
+		/// <alert class="note">
+		/// <para>A stream only has one decode buffer and file handle, and therefore can only be played once. It cannot play multiple times at once because it cannot share a stream buffer if the stream is playing at different positions.</para>
+		/// <para>Open multiple streams to have them play concurrently.</para>
+		/// </alert>
+		/// <list type="bullet">
+		/// <item><para>
+		/// To open a file or URL as a stream, so that it decompresses / reads at runtime, instead of loading / decompressing into memory all at the time of this call, use the <see cref="Mode.CreateStream"/> flag. This is like a "stream" in <b>FMOD 3</b>. 
+		/// </para></item>
+		/// <item><para>
+		/// To open a file or URL as a compressed sound effect that is not streamed and is not decompressed into memory at load time, use <see cref="Mode.CreateCompressedSample"/>. This is supported with MPEG (mp2/mp3), ADPCM/FADPCM, XMA, AT9 and FSB Vorbis files only. This is useful for those who want realtime compressed sound effects, but not the overhead of disk access. 
+		/// </para></item>
+		/// <item><para>
+		/// To open a sound as 2D, so that it is not affected by 3D processing, use the <see cref="Mode.TwoD"/> flag. 3D sound commands will be ignored on these types of sounds.
+		/// </para></item>
+		/// <item><para>
+		/// To open a sound as 3D, so that it is treated as a 3D sound, use the <see cref="Mode.ThreeD"/> flag. Calls to <see cref="Channel.SetPan"/> will be ignored on these types of sounds. 
+		/// </para></item>
+		/// </list>
+		/// <para>Note that <see cref="Mode.OpenRaw"/>, <see cref="Mode.OpenMemory"/>, <see cref="Mode.OpenMemoryPoint"/> and <see cref="Mode.OpenUser"/> will not work here without the <see cref="CreateSoundExInfo"/> structure present, as more information is needed.</para>
+		/// <para>Use <see cref="Mode.NonBlocking"/> to have the sound open or load in the background. You can use <see cref="Sound.GetOpenState()"/> to determine if it has finished loading / opening or not. While it is loading (not ready), sound functions are not accessable for that sound.</para>
+		/// <para>To account for slow devices or computers that might cause buffer underrun (skipping/stuttering/repeating blocks of audio), use <see cref="SetStreamBufferSize(uint, TimeUnit)"/>.</para>
+		/// <para>Note that FMOD_CREATESAMPLE will be ignored, overriden by this function because this is simply a wrapper to <see cref="CreateSound(byte[], Mode)"/> that provides the <see cref="Mode.CreateStream"/> flag. The <see cref="Mode.CreateStream"/> flag overrides <see cref="Mode.CreateSample"/>.</para>
+		/// </remarks>
+		/// <seealso cref="Sound"/>
+		/// <seealso cref="Encoding.UTF8"/>
+		/// <seealso cref="SetStreamBufferSize(uint, TimeUnit)"/>
+		/// <seealso cref="CreateStream(string, Mode, CreateSoundExInfo?)"/>
+		/// <seealso cref="Mode"/>
+		/// <seealso cref="CreateSoundExInfo"/>
+		/// <seealso cref="Channel.SetPan"/>
+		/// <seealso cref="Sound.GetOpenState()"/>
+		/// <seealso cref="OpenStateInfo"/>
+		public Sound CreateStream(byte[] source, Mode mode)
+		{
+			return CreateStream(source, mode, null);
+		}
+
+		/// <summary>
+		/// <para>Opens a sound for streaming.</para>
+		/// <para>This function is a helper function that is the same as <see cref="CreateSound(byte[], Mode, CreateSoundExInfo?)"/>, but has the <see cref="Mode.CreateStream"/> flag added internally.</para>
+		/// </summary>
+		/// <param name="source">Name of the file or URL to open encoded in UTF-8 as a <see cref="T:byte[]"/>.</param>
+		/// <param name="mode">
+		/// <para>Behaviour modifier for opening the sound.</para>
+		/// <para>See <see cref="Mode"/> and remarks for more.</para>
+		/// </param>
+		/// <param name="exInfo">
+		/// <para>A <see cref="CreateSoundExInfo"/> structure which lets the user provide extended information while playing the sound. </para>
+		/// <para>Optional. Specify <c>null</c> to ignore.</para>
+		/// </param>
+		/// <returns>A newly created <see cref="Sound"/> object.</returns>
+		/// <remarks>
+		/// <alert class="note">
+		/// <para>A stream only has one decode buffer and file handle, and therefore can only be played once. It cannot play multiple times at once because it cannot share a stream buffer if the stream is playing at different positions.</para>
+		/// <para>Open multiple streams to have them play concurrently.</para>
+		/// </alert>
+		/// <list type="bullet">
+		/// <item><para>
+		/// To open a file or URL as a stream, so that it decompresses / reads at runtime, instead of loading / decompressing into memory all at the time of this call, use the <see cref="Mode.CreateStream"/> flag. This is like a "stream" in <b>FMOD 3</b>. 
+		/// </para></item>
+		/// <item><para>
+		/// To open a file or URL as a compressed sound effect that is not streamed and is not decompressed into memory at load time, use <see cref="Mode.CreateCompressedSample"/>. This is supported with MPEG (mp2/mp3), ADPCM/FADPCM, XMA, AT9 and FSB Vorbis files only. This is useful for those who want realtime compressed sound effects, but not the overhead of disk access. 
+		/// </para></item>
+		/// <item><para>
+		/// To open a sound as 2D, so that it is not affected by 3D processing, use the <see cref="Mode.TwoD"/> flag. 3D sound commands will be ignored on these types of sounds.
+		/// </para></item>
+		/// <item><para>
+		/// To open a sound as 3D, so that it is treated as a 3D sound, use the <see cref="Mode.ThreeD"/> flag. Calls to <see cref="Channel.SetPan"/> will be ignored on these types of sounds. 
+		/// </para></item>
+		/// </list>
+		/// <para>Note that <see cref="Mode.OpenRaw"/>, <see cref="Mode.OpenMemory"/>, <see cref="Mode.OpenMemoryPoint"/> and <see cref="Mode.OpenUser"/> will not work here without the <see cref="CreateSoundExInfo"/> structure present, as more information is needed.</para>
+		/// <para>Use <see cref="Mode.NonBlocking"/> to have the sound open or load in the background. You can use <see cref="Sound.GetOpenState()"/> to determine if it has finished loading / opening or not. While it is loading (not ready), sound functions are not accessable for that sound.</para>
+		/// <para>To account for slow devices or computers that might cause buffer underrun (skipping/stuttering/repeating blocks of audio), use <see cref="SetStreamBufferSize(uint, TimeUnit)"/>.</para>
+		/// <para>Note that FMOD_CREATESAMPLE will be ignored, overriden by this function because this is simply a wrapper to <see cref="CreateSound(byte[], Mode, CreateSoundExInfo?)"/> that provides the <see cref="Mode.CreateStream"/> flag. The <see cref="Mode.CreateStream"/> flag overrides <see cref="Mode.CreateSample"/>.</para>
+		/// </remarks>
+		/// <seealso cref="Sound"/>
+		/// <seealso cref="Encoding.UTF8"/>
+		/// <seealso cref="SetStreamBufferSize(uint, TimeUnit)"/>
+		/// <seealso cref="CreateStream(string, Mode, CreateSoundExInfo?)"/>
+		/// <seealso cref="Mode"/>
+		/// <seealso cref="CreateSoundExInfo"/>
+		/// <seealso cref="Channel.SetPan"/>
+		/// <seealso cref="Sound.GetOpenState()"/>
+		/// <seealso cref="OpenStateInfo"/>
+		public Sound CreateStream(byte[] source, Mode mode, CreateSoundExInfo? exInfo)
+		{
+			IntPtr sound;
+			if (exInfo.HasValue)
+			{
+				var info = exInfo.Value;
+				info.cbsize = Marshal.SizeOf(info);
+				NativeInvoke(FMOD_System_CreateStream(this, source, mode, ref info, out sound));
+			}
+			else
+			{
+				NativeInvoke(FMOD_System_CreateStream(this, source, mode, IntPtr.Zero, out sound));
+			}
+			SoundCreated?.Invoke(this, EventArgs.Empty);
+			return CoreHelper.Create<Sound>(sound);
+		}
+
+		/// <summary>
+		/// Retrieves identification information about a sound device specified by its index, and specific to the output mode set with the <see cref="Output"/> property.
+		/// </summary>
+		/// <param name="id">Index of the sound driver device. The total number of devices can be found with <see cref="RecordDriverCount"/>.</param>
+		/// <returns>A <see cref="Driver"/> object describing the specified driver.</returns>
+		/// <seealso cref="RecordDriverCount"/>
+		/// <seealso cref="Output"/>
+		public Driver GetRecordDriver(int id)
+		{
+			using (var buffer = new MemoryBuffer(512))
+			{
+				NativeInvoke(FMOD_System_GetRecordDriverInfo(this, id, buffer.Pointer, 512, out var guid, out var rate,
+					out var speakerMode, out var channels, out var state));
+				return new Driver
+				{
+					Id = id,
+					Guid = guid,
+					Name = buffer.ToString(Encoding.UTF8),
+					SpeakerMode = speakerMode,
+					SpeakerModeChannels = channels,
+					State = state,
+					SystemRate = rate
+				};
+			}
+		}
+
+		/// <summary>
+		/// Retrieves the current recording position of the record buffer in PCM samples.
+		/// </summary>
+		/// <param name="driverId">
+		/// <para>Enumerated driver ID.</para>
+		/// <para>This must be in a valid range delimited by <see cref="RecordDriverCount"/>. </para>
+		/// </param>
+		/// <returns>The current recording position in PCM samples.</returns>
+		/// <remarks>The position will return to <c>0</c> when <see cref="RecordStop"/> is called or when a non-looping recording reaches the end.</remarks>
+		/// <seealso cref="RecordStart"/>
+		/// <seealso cref="RecordStop"/>
+		public uint GetRecordPosition(int driverId)
+		{
+			NativeInvoke(FMOD_System_GetRecordPosition(this, driverId, out var position));
+			return position;
+		}
+
 		/// <summary>
 		/// Gets or sets a proxy server to use for all subsequent internet connections.
 		/// </summary>
@@ -773,6 +1530,7 @@ namespace FMOD.Core
 		/// <para>To use it, this parameter must be in <b>user:password@host:port</b> format e.g. <b>bob:sekrit123@www.fmod.org:8888</b>.</para>
 		/// <para>Set this property to <c>null</c> if no proxy is required.</para>
 		/// </remarks>
+		/// <seealso cref="NetworkProxyChanged"/>
 		public string NetworkProxy
 		{
 			get
@@ -798,6 +1556,7 @@ namespace FMOD.Core
 		/// <value>
 		/// The network timeout.
 		/// </value>
+		/// <seealso cref="NetworkTimeoutChanged"/>
 		public int NetworkTimeout
 		{
 			get
@@ -873,6 +1632,7 @@ namespace FMOD.Core
 		/// </value>
 		/// <seealso cref="DriversCount"/>
 		/// <seealso cref="GetDriver"/>
+		/// <seealso cref="SelectedDriverChanged"/>
 		public int SelectedDriver
 		{
 			get
@@ -955,6 +1715,7 @@ namespace FMOD.Core
 		/// <seealso cref="CloseSystem"/>
 		/// <seealso cref="Output"/>
 		/// <seealso cref="OutputType"/>
+		/// <seealso cref="OutputChanged"/>
 		public OutputType Output
 		{
 			get
@@ -1625,10 +2386,51 @@ namespace FMOD.Core
 		///     <para>Used on mobile platforms when entering a backgrounded state to reduce CPU to 0%.</para>
 		///     <para>All internal state will be maintained, i.e. created sound and channels will stay available in memory.</para>
 		/// </remarks>
+		/// <seealso cref="ResumeMixer"/>
+		/// <seealso cref="MixerSuspended"/>
 		public void SuspendMixer()
 		{
 			NativeInvoke(FMOD_System_MixerSuspend(this));
 			MixerSuspended?.Invoke(this, EventArgs.Empty);
+		}
+
+		/// <summary>
+		/// <para>Gets or sets the number of 3D "listeners" in the 3D sound scene.</para> 
+		/// <para>This property is useful mainly for split-screen game purposes.</para>
+		/// <para>Valid values are from <c>1</c> to <see cref="Constants.MAX_LISTENERS"/>.</para>
+		/// </summary>
+		/// <value>
+		/// The listener count.
+		/// </value>
+		/// <remarks>If the number of listeners is set to more than one, then panning and doppler are turned off. All sound effects will be mono. <b>FMOD</b> uses a "closest sound to the listener" method to determine what should be heard in this case.</remarks>
+		public int ListenerCount
+		{
+			get
+			{
+				NativeInvoke(FMOD_System_Get3DNumListeners(this, out var listenerCount));
+				return listenerCount;
+			}
+			set
+			{
+				NativeInvoke(FMOD_System_Set3DNumListeners(this, value.Clamp(1, Constants.MAX_LISTENERS)));
+				ListenerCountChanged?.Invoke(this, EventArgs.Empty);
+			}
+		}
+
+
+		/// <summary>
+		/// Resume mixer thread and reacquire access to audio hardware.
+		/// </summary>
+		/// <remarks>
+		/// <para>Used on mobile platforms when entering the foreground after being suspended.</para>
+		/// <para>All internal state will resume, i.e. created sound and channels are still valid and playback will continue.</para>
+		/// </remarks>
+		/// <seealso cref="SuspendMixer"/>
+		/// <seealso cref="MixerResumed"/>
+		public void ResumeMixer()
+		{
+			NativeInvoke(FMOD_System_MixerResume(this));
+			MixerResumed?.Invoke(this, EventArgs.Empty);
 		}
 
 		/// <summary>
@@ -1643,11 +2445,33 @@ namespace FMOD.Core
 		}
 
 		/// <summary>
+		/// <para>Mutual exclusion function to lock the <b>FMOD</b> DSP engine (which runs asynchronously in another thread), so that it will not execute. If the FMOD DSP engine is already executing, this function will block until it has completed.</para>
+		/// <para>The function may be used to synchronize DSP network operations carried out by the user.</para>
+		/// <para>An example of using this function may be for when the user wants to construct a DSP sub-network, without the DSP engine executing in the background while the sub-network is still under construction.</para>
+		/// </summary>
+		/// <remarks>
+		/// <para>Once the user no longer needs the DSP engine locked, it must be unlocked with <see cref="UnlockDsp"/>.</para>
+		/// <alert class="note">
+		/// The DSP engine should not be locked for a significant amount of time, otherwise inconsistency in the audio output may result. (audio skipping/stuttering).
+		/// </alert>
+		/// </remarks>
+		/// <seealso cref="Dsp"/>
+		/// <seealso cref="UnlockDsp"/>
+		/// <seealso cref="DspLocked"/>
+		public void LockDsp()
+		{
+			NativeInvoke(FMOD_System_LockDSP(this));
+			DspLocked?.Invoke(this, EventArgs.Empty);
+		}
+
+		/// <summary>
 		///     Mutual exclusion function to unlock the FMOD DSP engine (which runs asynchronously in another thread) and let it
 		///     continue executing.
 		/// </summary>
 		/// <remarks>The DSP engine must be locked with <see cref="LockDsp" /> before this function is called.</remarks>
+		/// <seealso cref="Dsp"/>
 		/// <seealso cref="LockDsp" />
+		/// <seealso cref="DspUnlocked"/>
 		public void UnlockDsp()
 		{
 			NativeInvoke(FMOD_System_UnlockDSP(this));

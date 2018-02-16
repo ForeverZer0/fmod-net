@@ -50,11 +50,19 @@ namespace FMOD.Core
 			ref CreateSoundExInfo exinfo, out IntPtr sound);
 
 		[DllImport(Constants.LIBRARY)]
+		private static extern Result FMOD_System_CreateSound(IntPtr system, byte[] nameOrData, Mode mode,
+			IntPtr  exinfo, out IntPtr sound);
+
+		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_System_CreateSoundGroup(IntPtr system, byte[] name, out IntPtr soundgroup);
 
 		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_System_CreateStream(IntPtr system, byte[] nameOrData, Mode mode,
 			ref CreateSoundExInfo exinfo, out IntPtr sound);
+
+		[DllImport(Constants.LIBRARY)]
+		private static extern Result FMOD_System_CreateStream(IntPtr system, byte[] nameOrData, Mode mode,
+			IntPtr exinfo, out IntPtr sound);
 
 		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_System_DetachChannelGroupFromPort(IntPtr system, IntPtr channelGroup);

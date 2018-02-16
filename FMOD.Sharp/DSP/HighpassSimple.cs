@@ -1,6 +1,7 @@
 ﻿using System;
+using FMOD.Core;
 
-namespace FMOD.Sharp.DSP
+namespace FMOD.DSP
 {
 	/// <inheritdoc />
 	/// <summary>
@@ -23,10 +24,10 @@ namespace FMOD.Sharp.DSP
 	/// <para>This is a very simple single-order high pass filter.</para>
 	/// <para>The emphasis is on speed rather than accuracy, so this should not be used for task requiring critical filtering.</para>
 	/// </remarks>
-	/// <seealso cref="T:FMOD.Sharp.DspBase" />
+	/// <seealso cref="T:FMOD.Sharp.Dsp" />
 	/// <seealso cref="T:FMOD.Sharp.Dsps.MultiBandEq"/>
 	[Obsolete("Deprecated and will be removed in a future release, to emulate with MultiBandEq. See documentation for example.")]
-	public class HighpassSimple : DspBase
+	public class HighpassSimple : Dsp
 	{
 		/// <summary>
 		///     Occurs when the <see cref="CutoffFrequency" /> property is changed.

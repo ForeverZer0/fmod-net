@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FMOD.Sharp.Enums;
+﻿using FMOD.Enumerations;
 
-namespace FMOD.Sharp.Data
+namespace FMOD.Data
 {
 	public class ChannelFormat
 	{

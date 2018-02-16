@@ -1,12 +1,13 @@
 ﻿using System;
+using FMOD.Core;
 
-namespace FMOD.Sharp.DSP
+namespace FMOD.DSP
 {
 	/// <summary>
 	/// This unit does nothing but take inputs and mix them together then feed the result to the soundcard unit. 
 	/// </summary>
-	/// <seealso cref="FMOD.Sharp.DSP.DspBase" />
-	public class Mixer : DspBase
+	/// <seealso cref="Dsp" />
+	public class Mixer : Dsp
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Mixer"/> class.

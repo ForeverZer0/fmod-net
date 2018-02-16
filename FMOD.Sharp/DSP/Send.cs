@@ -1,13 +1,14 @@
 ﻿using System;
+using FMOD.Core;
 
-namespace FMOD.Sharp.DSP
+namespace FMOD.DSP
 {
 	/// <summary>
 	/// This unit sends a copy of the signal to a return DSP anywhere in the DSP tree.
 	/// </summary>
 	/// <seealso cref="FMOD.Sharp.DSP.DspBase" />
 	/// <seealso cref="Return"/>
-	public class Send : DspBase
+	public class Send : Dsp
 	{
 		/// <summary>
 		/// Occurs when <see cref="SendLevel"/> property is changed.

@@ -2,8 +2,9 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Threading.Tasks;
-using FMOD.Sharp.Enums;
-using FMOD.Sharp.Structs;
+using FMOD.Core;
+using FMOD.Enumerations;
+using FMOD.Structures;
 
 namespace FMOD.Sharp.Controls
 {

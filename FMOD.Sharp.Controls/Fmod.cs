@@ -1,7 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows.Forms;
-using FMOD.Sharp.Enums;
+using FMOD.Core;
+using FMOD.Enumerations;
 
 namespace FMOD.Sharp.Controls
 {
@@ -44,7 +45,7 @@ namespace FMOD.Sharp.Controls
 		{
 			_system?.Dispose();
 			_system	= FmodSystem.Create();
-			_system.Initialize(_initFlags, _updateTimer.Enabled);
+			_system.Initialize(_initFlags);
 		}
 
 		public Fmod(IContainer container)

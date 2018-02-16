@@ -1,11 +1,12 @@
-﻿using FMOD.Sharp.Enums;
+﻿using FMOD.Core;
+using FMOD.Enumerations;
 
-namespace FMOD.Sharp.Data
+namespace FMOD.Data
 {
 	/// <summary>
 	/// Defines a beginning and end points for looping sound.
 	/// </summary>
-	/// <seealso cref="Channel.GetLoopPoints(TimeUnit)"/>
+	/// <seealso cref="Channel.GetLoopPoints(FMOD.Enumerations.TimeUnit)"/>
 	/// <seealso cref="Channel.SetLoopPoints(LoopPoints)"/>
 	/// <seealso cref="TimeUnit"/>
 	public class LoopPoints

@@ -1,6 +1,7 @@
 ﻿using System;
+using FMOD.Core;
 
-namespace FMOD.Sharp.DSP
+namespace FMOD.DSP
 {
 	/// <inheritdoc />
 	/// <summary>
@@ -15,10 +16,10 @@ namespace FMOD.Sharp.DSP
 	///     When a frequency has its gain set to <c>1.0</c>, the sound will be unaffected and represents the original
 	///     signal exactly.
 	/// </remarks>
-	/// <seealso cref="T:FMOD.Sharp.DspBase" />
+	/// <seealso cref="T:FMOD.Sharp.Dsp" />
 	/// <seealso cref="T:FMOD.Sharp.Dsps.MultiBandEq" />
 	[Obsolete("Deprecated and will be removed in a future release, to emulate with MultiBandEq.")]
-	public class ParamEq : DspBase
+	public class ParamEq : Dsp
 	{
 		/// <summary>
 		///     Initializes a new instance of the <see cref="ParamEq" /> class.

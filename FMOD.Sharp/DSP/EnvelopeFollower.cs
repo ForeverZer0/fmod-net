@@ -1,6 +1,7 @@
 ﻿using System;
+using FMOD.Core;
 
-namespace FMOD.Sharp.DSP
+namespace FMOD.DSP
 {
 	/// <summary>
 	///     This unit tracks the envelope of the input/sidechain signal.
@@ -11,7 +12,7 @@ namespace FMOD.Sharp.DSP
 	/// </remarks>
 	/// <seealso cref="FMOD.Sharp.DSP.DspBase" />
 	[Obsolete("Deprecated and will be removed in a future release.")]
-	public class EnvelopeFollower : DspBase
+	public class EnvelopeFollower : Dsp
 	{
 		/// <summary>
 		///     Initializes a new instance of the <see cref="EnvelopeFollower" /> class.

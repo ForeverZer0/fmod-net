@@ -1,13 +1,14 @@
 ﻿using System;
+using FMOD.Core;
 
-namespace FMOD.Sharp.DSP
+namespace FMOD.DSP
 {
 	/// <inheritdoc />
 	/// <summary>
 	///     Applies a basic "echo" effect to a sound.
 	/// </summary>
 	/// <seealso cref="T:FMOD.Sharp.Dsp" />
-	public class Echo : DspBase
+	public class Echo : Dsp
 	{
 		/// <summary>
 		///     Initializes a new instance of the <see cref="Echo" /> class.

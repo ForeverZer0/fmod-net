@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
-namespace FMOD.Sharp.Data
+namespace FMOD.Data
 {
 	public class DspInfo
 	{

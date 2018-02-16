@@ -1,14 +1,15 @@
 ﻿using System;
-using FMOD.Sharp.Enums;
+using FMOD.Core;
+using FMOD.Enumerations;
 
-namespace FMOD.Sharp.DSP
+namespace FMOD.DSP
 {
 	/// <inheritdoc />
 	/// <summary>
 	///     This unit sends a copy of the signal to a return DSP anywhere in the DSP tree.
 	/// </summary>
-	/// <seealso cref="T:FMOD.Sharp.DspBase" />
-	public class Return : DspBase
+	/// <seealso cref="T:FMOD.Sharp.Dsp" />
+	public class Return : Dsp
 	{
 		/// <summary>
 		///     Initializes a new instance of the <see cref="Return" /> class.
@@ -19,7 +20,7 @@ namespace FMOD.Sharp.DSP
 		}
 
 		/// <summary>
-		///     Gets the identifier for this <see cref="DspBase" />.
+		///     Gets the identifier for this <see cref="Dsp" />.
 		/// </summary>
 		/// <value>
 		///     The identifier.

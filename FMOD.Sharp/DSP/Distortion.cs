@@ -1,13 +1,14 @@
 ﻿using System;
+using FMOD.Core;
 
-namespace FMOD.Sharp.DSP
+namespace FMOD.DSP
 {
 	/// <inheritdoc />
 	/// <summary>
 	///     Applies a "distortion" effect on a sound.
 	/// </summary>
-	/// <seealso cref="T:FMOD.Sharp.DspBase" />
-	public class Distortion : DspBase
+	/// <seealso cref="T:FMOD.Sharp.Dsp" />
+	public class Distortion : Dsp
 	{
 		/// <summary>
 		///     Initializes a new instance of the <see cref="Distortion" /> class.

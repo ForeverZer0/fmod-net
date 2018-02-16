@@ -1,6 +1,7 @@
 ﻿using System;
+using FMOD.Core;
 
-namespace FMOD.Sharp.DSP
+namespace FMOD.DSP
 {
 	/// <inheritdoc />
 	/// <summary>
@@ -26,11 +27,11 @@ namespace FMOD.Sharp.DSP
 	///         filtering.
 	///     </para>
 	/// </remarks>
-	/// <seealso cref="T:FMOD.Sharp.DspBase" />
+	/// <seealso cref="T:FMOD.Sharp.Dsp" />
 	/// <seealso cref="T:FMOD.Sharp.Dsps.MultiBandEq" />
 	[Obsolete(
 		"Deprecated and will be removed in a future release, to emulate with MultiBandEq. See documentation for example.")]
-	public class LowpassSimple : DspBase
+	public class LowpassSimple : Dsp
 	{
 		/// <summary>
 		///     Initializes a new instance of the <see cref="LowpassSimple" /> class.

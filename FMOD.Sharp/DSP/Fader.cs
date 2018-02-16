@@ -1,13 +1,14 @@
 ﻿using System;
+using FMOD.Core;
 
-namespace FMOD.Sharp.DSP
+namespace FMOD.DSP
 {
 	/// <inheritdoc />
 	/// <summary>
 	/// This unit pans and scales the volume of a unit.
 	/// </summary>
-	/// <seealso cref="T:FMOD.Sharp.DspBase" />
-	public class Fader : DspBase
+	/// <seealso cref="T:FMOD.Sharp.Dsp" />
+	public class Fader : Dsp
 	{
 		/// <summary>
 		/// Occurs when <see cref="Gain"/> property has changed.

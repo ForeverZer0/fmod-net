@@ -1,12 +1,13 @@
 ﻿using System;
+using FMOD.Core;
 
-namespace FMOD.Sharp.DSP
+namespace FMOD.DSP
 {
 	/// <summary>
 	/// This unit limits the sound to a certain level.
 	/// </summary>
 	/// <seealso cref="FMOD.Sharp.DSP.DspBase" />
-	public class Limiter : DspBase
+	public class Limiter : Dsp
 	{
 		/// <summary>
 		/// Occurs when the <see cref="ReleaseTime"/> property is changed.

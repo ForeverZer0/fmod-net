@@ -1,19 +1,20 @@
 ﻿using System;
+using FMOD.Core;
 
-namespace FMOD.Sharp.DSP
+namespace FMOD.DSP
 {
 	/// <inheritdoc />
 	/// <summary>
 	///     Multichannel software limiter that is uniform across the whole spectrum.
 	/// </summary>
-	/// <seealso cref="T:FMOD.Sharp.DspBase" />
+	/// <seealso cref="T:FMOD.Sharp.Dsp" />
 	/// <remarks>
 	///     The limiter is not guaranteed to catch every peak above the threshold level, because it cannot apply gain
 	///     reduction instantaneously - the time delay is determined by the attack time. However setting the attack time too
 	///     short will distort the sound, so it is a compromise. High level peaks can be avoided by using a short attack time -
 	///     but not too short, and setting the threshold a few decibels below the critical level.
 	/// </remarks>
-	public class Compressor : DspBase
+	public class Compressor : Dsp
 	{
 		/// <summary>
 		///     Initializes a new instance of the <see cref="Compressor" /> class.

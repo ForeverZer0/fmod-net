@@ -1,6 +1,7 @@
 ﻿using System;
+using FMOD.Core;
 
-namespace FMOD.Sharp.DSP
+namespace FMOD.DSP
 {
 	/// <inheritdoc />
 	/// <summary>
@@ -36,9 +37,9 @@ namespace FMOD.Sharp.DSP
 	///     </para>
 	///     <para>The original code is COPYRIGHT 1999-2003 Stephan M. Bernsee smb@dspdimension.com.</para>
 	/// </remarks>
-	/// <seealso cref="T:FMOD.Sharp.DspBase" />
+	/// <seealso cref="T:FMOD.Sharp.Dsp" />
 	/// <seealso cref="T:FMOD.Sharp.Dsps.PitchShift.FftWindowSize" />
-	public class PitchShift : DspBase
+	public class PitchShift : Dsp
 	{
 		/// <summary>
 		///     Describes window sizes to use with a Fast Fourier Transform calculation.
@@ -157,11 +158,11 @@ namespace FMOD.Sharp.DSP
 		///     </para>
 		///     <para>
 		///         If the pitch shift effect is only ever applied to the global mix (ie it was added with
-		///         <see cref="ChannelGroup.AddDsp(DspBase, int)" />), then 0 is the value to set as it will be enough to handle all
+		///         <see cref="ChannelGroup.AddDsp(Dsp, int)" />), then 0 is the value to set as it will be enough to handle all
 		///         speaker modes.
 		///     </para>
 		///     <para>
-		///         When the pitch shift is added to a channel (ie <see cref="Channel.AddDsp(DspBase, int)" />) then the channel
+		///         When the pitch shift is added to a channel (ie <see cref="Channel.AddDsp(Dsp, int)" />) then the channel
 		///         count that comes in could be anything from 1 to 8 possibly. It is only in this case where you might want to
 		///         increase the channel count above the output's channel count.
 		///     </para>

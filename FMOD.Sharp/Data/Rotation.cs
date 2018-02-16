@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FMOD.Sharp.Structs;
+﻿using FMOD.Structures;
 
-namespace FMOD.Sharp.Data
+namespace FMOD.Data
 {
 	public class Rotation
 	{

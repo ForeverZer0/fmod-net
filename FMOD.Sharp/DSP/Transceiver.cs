@@ -1,6 +1,7 @@
 ﻿using System;
+using FMOD.Core;
 
-namespace FMOD.Sharp.DSP
+namespace FMOD.DSP
 {
 	/// <summary>
 	///     <para>This unit 'sends' and 'receives' from a selection of up to 32 different slots.</para>
@@ -34,7 +35,7 @@ namespace FMOD.Sharp.DSP
 	/// <seealso cref="FMOD.Sharp.DSP.DspBase" />
 	/// <seealso cref="Send" />
 	/// <seealso cref="Return" />
-	public class Transceiver : DspBase
+	public class Transceiver : Dsp
 	{
 		/// <summary>
 		///     Describes the speaker modes used with a <see cref="Transceiver" />.

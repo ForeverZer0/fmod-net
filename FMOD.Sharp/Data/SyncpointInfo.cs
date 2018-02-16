@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FMOD.Sharp.Enums;
+﻿using FMOD.Enumerations;
 
-namespace FMOD.Sharp.Data
+namespace FMOD.Data
 {
 	public class SyncPointInfo
 	{
@@ -13,5 +9,17 @@ namespace FMOD.Sharp.Data
 		public uint Offset { get; set; }
 
 		public TimeUnit OffsetTimeUnit { get; set; }
+
+		public SyncPointInfo()
+		{
+			
+		}
+
+		public SyncPointInfo(uint offset, TimeUnit timeUnit, string name)
+		{
+			Offset = offset;
+			OffsetTimeUnit = timeUnit;
+			Name = name;
+		}
 	}
 }

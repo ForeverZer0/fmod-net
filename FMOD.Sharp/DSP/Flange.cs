@@ -1,6 +1,7 @@
 ﻿using System;
+using FMOD.Core;
 
-namespace FMOD.Sharp.DSP
+namespace FMOD.DSP
 {
 	/// <inheritdoc />
 	/// <summary>
@@ -20,8 +21,8 @@ namespace FMOD.Sharp.DSP
 	///         flange because to the ear it begins to 'echo' so 10ms is the highest value possible.
 	///     </para>
 	/// </remarks>
-	/// <seealso cref="T:FMOD.Sharp.DspBase" />
-	public class Flange : DspBase
+	/// <seealso cref="T:FMOD.Sharp.Dsp" />
+	public class Flange : Dsp
 	{
 		/// <summary>
 		///     Initializes a new instance of the <see cref="Flange" /> class.

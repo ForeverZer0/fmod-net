@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using FMOD.Sharp.Structs;
+using FMOD.Core;
+using FMOD.Structures;
 
-namespace FMOD.Sharp.DSP
+namespace FMOD.DSP
 {
 	/// <inheritdoc />
 	/// <summary>
 	///     Uses a Fast Fourier Transform algorithm to obtains spectrum data of a sound for analysis.
 	/// </summary>
-	/// <seealso cref="P:FMOD.Sharp.DSP.Fft.SpectrumData" />
-	/// <seealso cref="T:FMOD.Sharp.DSP.Fft.WindowSize" />
-	/// <seealso cref="T:FMOD.Sharp.DSP.Fft.WindowType" />
-	public class Fft : DspBase
+	/// <seealso cref="P:FMOD.DSP.Fft.SpectrumData" />
+	/// <seealso cref="T:FMOD.DSP.Fft.WindowSize" />
+	/// <seealso cref="T:FMOD.DSP.Fft.WindowType" />
+	public class Fft : Dsp
 	{
 		/// <summary>
 		///     Describes window sizes to use with a Fast Fourier Transform calculation.

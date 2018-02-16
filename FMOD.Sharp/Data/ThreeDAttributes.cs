@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using FMOD.Sharp.Enums;
-using FMOD.Sharp.Structs;
+﻿using System.Runtime.InteropServices;
+using FMOD.Structures;
 
-namespace FMOD.Sharp.Data
+namespace FMOD.Data
 {
 	[StructLayout(LayoutKind.Sequential)]
     public class ThreeDAttributes

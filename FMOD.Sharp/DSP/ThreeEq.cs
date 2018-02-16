@@ -1,13 +1,14 @@
 ﻿using System;
+using FMOD.Core;
 
-namespace FMOD.Sharp.DSP
+namespace FMOD.DSP
 {
 	/// <inheritdoc />
 	/// <summary>
 	///     Basic three-band equalizer.
 	/// </summary>
-	/// <seealso cref="T:FMOD.Sharp.DspBase" />
-	public class ThreeEq : DspBase
+	/// <seealso cref="T:FMOD.Sharp.Dsp" />
+	public class ThreeEq : Dsp
 	{
 		/// <summary>
 		///     Describes a slope used for crossovers in the <see cref="ThreeEq" /> unit.

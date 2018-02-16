@@ -1,6 +1,7 @@
 ﻿using System;
+using FMOD.Core;
 
-namespace FMOD.Sharp.DSP
+namespace FMOD.DSP
 {
 #pragma warning disable 618
 	/// <summary>
@@ -23,11 +24,11 @@ namespace FMOD.Sharp.DSP
 	///         <para>The effective maximum cutoff is about 8060 Hz.</para>
 	///     </alert>
 	/// </remarks>
-	/// <seealso cref="T:FMOD.Sharp.DSP.DspBase" />
+	/// <seealso cref="T:FMOD.Sharp.DSP.Dsp" />
 	/// <seealso cref="T:FMOD.Sharp.DSP.Lowpass" />
 	/// <seealso cref="T:FMOD.Sharp.DSP.LowpassSimple" />
 #pragma warning restore 618 
-	public class ItLowpass : DspBase
+	public class ItLowpass : Dsp
 	{
 		/// <summary>
 		///     Initializes a new instance of the <see cref="ItLowpass" /> class.

@@ -1,6 +1,7 @@
 ﻿using System;
+using FMOD.Core;
 
-namespace FMOD.Sharp.DSP
+namespace FMOD.DSP
 {
 	/// <inheritdoc />
 	/// <summary>
@@ -10,8 +11,8 @@ namespace FMOD.Sharp.DSP
 	///     Chorus is an effect where the sound is more "spacious" due to 1 to 3 versions of the sound being played along
 	///     side the original signal but with the pitch of each copy modulating on a sine wave.
 	/// </remarks>
-	/// <seealso cref="T:FMOD.Sharp.DspBase" />
-	public class Chorus : DspBase
+	/// <seealso cref="T:FMOD.Sharp.Dsp" />
+	public class Chorus : Dsp
 	{
 		/// <summary>
 		///     Initializes a new instance of the <see cref="Chorus" /> class.

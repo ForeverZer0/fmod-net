@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using FMOD.Sharp.Structs;
+using FMOD.Core;
+using FMOD.Structures;
 
-namespace FMOD.Sharp.DSP
+namespace FMOD.DSP
 {
 	/// <inheritdoc />
 	/// <summary>
 	///     Applies a "convulation reverb", or "reverb IR", effect on a sound.
 	/// </summary>
-	/// <seealso cref="T:FMOD.Sharp.DspBase" />
+	/// <seealso cref="T:FMOD.Sharp.Dsp" />
 	/// <seealso cref="T:FMOD.Sharp.Structs.ImpulseResponse" />
-	public class ConvolutionReverb : DspBase
+	public class ConvolutionReverb : Dsp
 	{
 		/// <summary>
 		///     Initializes a new instance of the <see cref="ConvolutionReverb" /> class.

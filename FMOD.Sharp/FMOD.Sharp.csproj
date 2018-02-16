@@ -7,7 +7,7 @@
     <ProjectGuid>{F1A3262B-D6BB-4351-B331-45BCCD44FC57}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FMOD.Sharp</RootNamespace>
+    <RootNamespace>FMOD</RootNamespace>
     <AssemblyName>FMOD.Sharp</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -85,14 +85,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Args.cs" />
+    <Compile Include="Core\Arguments.cs" />
+    <Compile Include="Core\Constants.cs" />
     <Compile Include="Data\CpuUsage.cs" />
     <Compile Include="Data\FileUsage.cs" />
+    <Compile Include="Data\OpenStateInfo.cs" />
     <Compile Include="Data\PluginInfo.cs" />
     <Compile Include="Data\RamUsage.cs" />
     <Compile Include="Data\ReverbPreset.cs" />
     <Compile Include="Data\SoftwareFormat.cs" />
     <Compile Include="Data\SpeakerPosition.cs" />
+    <Compile Include="Data\StreamBufferInfo.cs" />
     <Compile Include="Data\SyncpointInfo.cs" />
     <Compile Include="Data\System3DSettings.cs" />
     <Compile Include="DSP\ChannelMix.cs" />
@@ -128,22 +131,23 @@
     <Compile Include="DSP\ThreeEq.cs" />
     <Compile Include="DSP\Transceiver.cs" />
     <Compile Include="DSP\Tremolo.cs" />
-    <Compile Include="DSP\Util.cs" />
-    <Compile Include="MemoryManager.cs" />
-    <Compile Include="Structs\AdvancedSettings.cs" />
-    <Compile Include="Channel.cs" />
-    <Compile Include="Channel.Native.cs">
+    <Compile Include="Simple\SoundEx.cs" />
+    <Compile Include="Core\Util.cs" />
+    <Compile Include="Core\MemoryManager.cs" />
+    <Compile Include="Structures\AdvancedSettings.cs" />
+    <Compile Include="Core\Channel.cs" />
+    <Compile Include="Core\Channel.Native.cs">
       <DependentUpon>Channel.cs</DependentUpon>
     </Compile>
-    <Compile Include="ChannelControl.cs" />
-    <Compile Include="ChannelControl.Native.cs">
+    <Compile Include="Core\ChannelControl.cs" />
+    <Compile Include="Core\ChannelControl.Native.cs">
       <DependentUpon>ChannelControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="ChannelGroup.cs" />
-    <Compile Include="ChannelGroup.Native.cs">
+    <Compile Include="Core\ChannelGroup.cs" />
+    <Compile Include="Core\ChannelGroup.Native.cs">
       <DependentUpon>ChannelGroup.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core.cs" />
+    <Compile Include="Core\CoreHelper.cs" />
     <Compile Include="Data\ConeSettings.cs" />
     <Compile Include="Data\DistanceFilter.cs" />
     <Compile Include="Data\FadePoint.cs" />
@@ -154,60 +158,59 @@
     <Compile Include="Data\Rotation.cs" />
     <Compile Include="Data\SoundInfo.cs" />
     <Compile Include="Data\SpeakerMix.cs" />
-    <Compile Include="Delegates.cs" />
-    <Compile Include="DSP\DspBase.cs" />
-    <Compile Include="DSP\Dsp.Native.cs">
-      <DependentUpon>DspBase.cs</DependentUpon>
+    <Compile Include="Core\Delegates.cs" />
+    <Compile Include="Core\Dsp.cs" />
+    <Compile Include="Core\Dsp.Native.cs">
+      <DependentUpon>Dsp.cs</DependentUpon>
     </Compile>
-    <Compile Include="DSP\DspConnection.cs" />
+    <Compile Include="Core\DspConnection.cs" />
     <Compile Include="Data\DspInfo.cs" />
-    <Compile Include="DSP\DspConnection.Native.cs">
+    <Compile Include="Core\DspConnection.Native.cs">
       <DependentUpon>DspConnection.cs</DependentUpon>
     </Compile>
-    <Compile Include="Enums\ChannelControlCallbackType.cs" />
-    <Compile Include="Enums\ChannelControlType.cs" />
-    <Compile Include="Enums\ChannelMask.cs" />
-    <Compile Include="Enums\ChannelOrder.cs" />
-    <Compile Include="Enums\DebugFlags.cs" />
-    <Compile Include="Enums\DebugMode.cs" />
-    <Compile Include="Enums\DriverState.cs" />
-    <Compile Include="Enums\DspConnectionType.cs" />
-    <Compile Include="Enums\DspParameterDataTypes.cs" />
-    <Compile Include="Enums\DspParameterType.cs" />
-    <Compile Include="Enums\DspResampler.cs" />
-    <Compile Include="Enums\DspType.cs" />
-    <Compile Include="Enums\ErrorCallbackInstanceType.cs" />
-    <Compile Include="Enums\FloatMappingType.cs" />
-    <Compile Include="Enums\InitFlags.cs" />
-    <Compile Include="Enums\MemoryType.cs" />
-    <Compile Include="Enums\Mode.cs" />
-    <Compile Include="Enums\OpenState.cs" />
-    <Compile Include="Enums\OutputType.cs" />
-    <Compile Include="Enums\PluginType.cs" />
-    <Compile Include="Enums\Result.cs" />
-    <Compile Include="Enums\SoundFormat.cs" />
-    <Compile Include="Enums\SoundGroupBehavior.cs" />
-    <Compile Include="Enums\SoundType.cs" />
-    <Compile Include="Enums\Speaker.cs" />
-    <Compile Include="Enums\SpeakerMode.cs" />
-    <Compile Include="Enums\SystemCallbackType.cs" />
-    <Compile Include="Enums\TagDataType.cs" />
-    <Compile Include="Enums\TagType.cs" />
-    <Compile Include="Enums\TimeUnit.cs" />
-    <Compile Include="FmodException.cs" />
-    <Compile Include="Extensions.cs" />
-    <Compile Include="FmodSystem.Native.cs">
+    <Compile Include="Enumerations\ChannelControlCallbackType.cs" />
+    <Compile Include="Enumerations\ChannelControlType.cs" />
+    <Compile Include="Enumerations\ChannelMask.cs" />
+    <Compile Include="Enumerations\ChannelOrder.cs" />
+    <Compile Include="Enumerations\DebugFlags.cs" />
+    <Compile Include="Enumerations\DebugMode.cs" />
+    <Compile Include="Enumerations\DriverState.cs" />
+    <Compile Include="Enumerations\DspConnectionType.cs" />
+    <Compile Include="Enumerations\DspParameterDataTypes.cs" />
+    <Compile Include="Enumerations\DspParameterType.cs" />
+    <Compile Include="Enumerations\DspResampler.cs" />
+    <Compile Include="Enumerations\DspType.cs" />
+    <Compile Include="Enumerations\ErrorCallbackInstanceType.cs" />
+    <Compile Include="Enumerations\FloatMappingType.cs" />
+    <Compile Include="Enumerations\InitFlags.cs" />
+    <Compile Include="Enumerations\MemoryType.cs" />
+    <Compile Include="Enumerations\Mode.cs" />
+    <Compile Include="Enumerations\OpenState.cs" />
+    <Compile Include="Enumerations\OutputType.cs" />
+    <Compile Include="Enumerations\PluginType.cs" />
+    <Compile Include="Enumerations\Result.cs" />
+    <Compile Include="Enumerations\SoundFormat.cs" />
+    <Compile Include="Enumerations\SoundGroupBehavior.cs" />
+    <Compile Include="Enumerations\SoundType.cs" />
+    <Compile Include="Enumerations\Speaker.cs" />
+    <Compile Include="Enumerations\SpeakerMode.cs" />
+    <Compile Include="Enumerations\SystemCallbackType.cs" />
+    <Compile Include="Enumerations\TagDataType.cs" />
+    <Compile Include="Enumerations\TagType.cs" />
+    <Compile Include="Enumerations\TimeUnit.cs" />
+    <Compile Include="Core\FmodException.cs" />
+    <Compile Include="Core\FmodSystem.Native.cs">
       <DependentUpon>FmodSystem.cs</DependentUpon>
     </Compile>
-    <Compile Include="Geometry.cs" />
-    <Compile Include="Geometry.Native.cs">
+    <Compile Include="Core\Geometry.cs" />
+    <Compile Include="Core\Geometry.Native.cs">
       <DependentUpon>Geometry.cs</DependentUpon>
     </Compile>
-    <Compile Include="HandleBase.cs" />
-    <Compile Include="HandleBase.Native.cs">
+    <Compile Include="Core\HandleBase.cs" />
+    <Compile Include="Core\HandleBase.Native.cs">
       <DependentUpon>HandleBase.cs</DependentUpon>
     </Compile>
-    <Compile Include="MemoryBuffer.cs" />
+    <Compile Include="Core\MemoryBuffer.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -218,57 +221,57 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ResultStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="Reverb.cs" />
-    <Compile Include="Reverb.Native.cs">
+    <Compile Include="Core\Reverb.cs" />
+    <Compile Include="Core\Reverb.Native.cs">
       <DependentUpon>Reverb.cs</DependentUpon>
     </Compile>
-    <Compile Include="ReverbPresets.cs" />
-    <Compile Include="Sound.cs" />
-    <Compile Include="Sound.Native.cs">
+    <Compile Include="Core\ReverbPresets.cs" />
+    <Compile Include="Core\Sound.cs" />
+    <Compile Include="Core\Sound.Native.cs">
       <DependentUpon>Sound.cs</DependentUpon>
     </Compile>
-    <Compile Include="SoundGroup.cs" />
-    <Compile Include="SoundGroup.Native.cs">
+    <Compile Include="Core\SoundGroup.cs" />
+    <Compile Include="Core\SoundGroup.Native.cs">
       <DependentUpon>SoundGroup.cs</DependentUpon>
     </Compile>
-    <Compile Include="Structs\AsyncReadInfo.cs" />
-    <Compile Include="Enums\DspIndex.cs" />
+    <Compile Include="Structures\AsyncReadInfo.cs" />
+    <Compile Include="Enumerations\DspIndex.cs" />
     <Compile Include="Data\ChannelFormat.cs" />
     <Compile Include="Data\DspDelay.cs" />
-    <Compile Include="Structs\BufferReader.cs" />
-    <Compile Include="Structs\CodecDescription.cs" />
-    <Compile Include="Structs\CreateSoundExInfo.cs" />
-    <Compile Include="Structs\DspBufferArray.cs" />
-    <Compile Include="Structs\DspDescription.cs" />
-    <Compile Include="Structs\DspMeteringInfo.cs" />
-    <Compile Include="Structs\DspParameterDesc.cs" />
-    <Compile Include="Structs\DspParameterDescBool.cs" />
-    <Compile Include="Structs\DspParameterDescData.cs" />
-    <Compile Include="Structs\DspParameterDescFloat.cs" />
-    <Compile Include="Structs\DspParameterDescInt.cs" />
-    <Compile Include="Structs\DspParameterDescUnion.cs" />
-    <Compile Include="Structs\DspParameterFft.cs" />
-    <Compile Include="Enums\DspProcessOperation.cs" />
-    <Compile Include="Structs\DspState.cs" />
-    <Compile Include="Structs\ErrorCallbackInfo.cs" />
-    <Compile Include="Structs\FloatMapping.cs" />
-    <Compile Include="Structs\FloatMappingPiecewiseLinear.cs" />
-    <Compile Include="Structs\ImpulseResponse.cs" />
-    <Compile Include="Structs\Int24.cs" />
-    <Compile Include="Structs\OutputDescription.cs" />
-    <Compile Include="Structs\PluginList.cs" />
-    <Compile Include="Structs\PortIndex.cs" />
+    <Compile Include="Structures\BufferReader.cs" />
+    <Compile Include="Structures\CodecDescription.cs" />
+    <Compile Include="Structures\CreateSoundExInfo.cs" />
+    <Compile Include="Structures\DspBufferArray.cs" />
+    <Compile Include="Structures\DspDescription.cs" />
+    <Compile Include="Structures\DspMeteringInfo.cs" />
+    <Compile Include="Structures\DspParameterDesc.cs" />
+    <Compile Include="Structures\DspParameterDescBool.cs" />
+    <Compile Include="Structures\DspParameterDescData.cs" />
+    <Compile Include="Structures\DspParameterDescFloat.cs" />
+    <Compile Include="Structures\DspParameterDescInt.cs" />
+    <Compile Include="Structures\DspParameterDescUnion.cs" />
+    <Compile Include="Structures\DspParameterFft.cs" />
+    <Compile Include="Enumerations\DspProcessOperation.cs" />
+    <Compile Include="Structures\DspState.cs" />
+    <Compile Include="Structures\ErrorCallbackInfo.cs" />
+    <Compile Include="Structures\FloatMapping.cs" />
+    <Compile Include="Structures\FloatMappingPiecewiseLinear.cs" />
+    <Compile Include="Structures\ImpulseResponse.cs" />
+    <Compile Include="Structures\Int24.cs" />
+    <Compile Include="Structures\OutputDescription.cs" />
+    <Compile Include="Structures\PluginList.cs" />
+    <Compile Include="Structures\PortIndex.cs" />
     <Compile Include="Data\Reverb3DAttributes.cs" />
-    <Compile Include="Structs\ReverbProperties.cs" />
-    <Compile Include="Structs\SpectrumData.cs" />
-    <Compile Include="Structs\STRUCT_TEMP.cs" />
-    <Compile Include="Structs\Tag.cs" />
+    <Compile Include="Structures\ReverbProperties.cs" />
+    <Compile Include="Structures\SpectrumData.cs" />
+    <Compile Include="Structures\STRUCT_TEMP.cs" />
+    <Compile Include="Structures\Tag.cs" />
     <Compile Include="Data\ThreeDAttributes.cs" />
-    <Compile Include="Structs\Vector.cs" />
+    <Compile Include="Structures\Vector.cs" />
     <Compile Include="Data\WetDryMix.cs" />
-    <Compile Include="FmodSystem.cs" />
+    <Compile Include="Core\FmodSystem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TagHelper.cs" />
+    <Compile Include="Core\TagHelper.cs" />
   </ItemGroup>
   <ItemGroup Condition="'$(Platform)' == 'x86'">
     <None Include="fmod.dll">

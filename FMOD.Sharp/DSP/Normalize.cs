@@ -1,6 +1,7 @@
 ﻿using System;
+using FMOD.Core;
 
-namespace FMOD.Sharp.DSP
+namespace FMOD.DSP
 {
 	/// <inheritdoc />
 	/// <summary>
@@ -25,8 +26,8 @@ namespace FMOD.Sharp.DSP
 	///         desired amplification which makes for smooth gain control. The fadetime parameter can control this.
 	///     </para>
 	/// </remarks>
-	/// <seealso cref="T:FMOD.Sharp.DspBase" />
-	public class Normalize : DspBase
+	/// <seealso cref="T:FMOD.Sharp.Dsp" />
+	public class Normalize : Dsp
 	{
 		/// <summary>
 		///     Initializes a new instance of the <see cref="Normalize" /> class.

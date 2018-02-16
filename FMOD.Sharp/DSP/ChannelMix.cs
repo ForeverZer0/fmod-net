@@ -1,15 +1,16 @@
 ﻿using System;
-using FMOD.Sharp.Enums;
+using FMOD.Core;
+using FMOD.Enumerations;
 
-namespace FMOD.Sharp.DSP
+namespace FMOD.DSP
 {
 	/// <inheritdoc />
 	/// <summary>
 	///     Provides functions for mixing gain levels and output grouping on speakers.
 	/// </summary>
-	/// <seealso cref="T:FMOD.Sharp.DspBase" />
+	/// <seealso cref="T:FMOD.Sharp.Dsp" />
 	/// <seealso cref="T:FMOD.Sharp.Dsps.ChannelMix.Output" />
-	public class ChannelMix : DspBase
+	public class ChannelMix : Dsp
 	{
 		/// <summary>
 		///     Parameter types for the <see cref="ChannelMix.OutputGrouping" /> parameter for <see cref="ChannelMix" />.
@@ -28,7 +29,7 @@ namespace FMOD.Sharp.DSP
 			///     Output channel count = <c>1</c>.
 			///     <para>
 			///         <b>Mapping:</b> <i>Mono, Mono, Mono, Mono, Mono, Mono, ...</i> (each channel all the way up to
-			///         <see cref="Core.MAX_CHANNELS" /> channels are treated as if they were mono).
+			///         <see cref="Constants.MAX_CHANNELS" /> channels are treated as if they were mono).
 			///     </para>
 			/// </summary>
 			AllMono,
@@ -37,7 +38,7 @@ namespace FMOD.Sharp.DSP
 			///     Output channel count = <c>2</c>.
 			///     <para>
 			///         <b>Mapping:</b> <i>Left, Right, Left, Right, Left, Right, ...</i> (each pair of channels is treated as stereo
-			///         all the way up to <see cref="Core.MAX_CHANNELS" /> channels).
+			///         all the way up to <see cref="Constants.MAX_CHANNELS" /> channels).
 			///     </para>
 			/// </summary>
 			AllStereo,

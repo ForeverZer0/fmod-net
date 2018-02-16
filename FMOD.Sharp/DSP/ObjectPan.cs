@@ -1,8 +1,9 @@
 ﻿using System;
+using FMOD.Core;
 
-namespace FMOD.Sharp.DSP
+namespace FMOD.DSP
 {
-	public class ObjectPan : DspBase
+	public class ObjectPan : Dsp
 	{
 		// TODO: IMPLEMENT
 

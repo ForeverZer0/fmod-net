@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FMOD.Sharp {
+namespace FMOD {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace FMOD.Sharp {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("FMOD.Sharp.ResultStrings", typeof(ResultStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("FMOD.ResultStrings", typeof(ResultStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

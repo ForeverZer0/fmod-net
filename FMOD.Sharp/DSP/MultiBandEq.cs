@@ -1,13 +1,14 @@
 ﻿using System;
+using FMOD.Core;
 
-namespace FMOD.Sharp.DSP
+namespace FMOD.DSP
 {
 	/// <inheritdoc />
 	/// <summary>
 	///     A flexible five band parametric equalizer.
 	/// </summary>
-	/// <seealso cref="T:FMOD.Sharp.DspBase" />
-	public class MultiBandEq : DspBase
+	/// <seealso cref="T:FMOD.Sharp.Dsp" />
+	public class MultiBandEq : Dsp
 	{
 		/// <summary>
 		///     Describes a single band in a multi-band equalizer.

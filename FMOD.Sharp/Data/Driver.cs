@@ -1,7 +1,7 @@
 ﻿using System;
-using FMOD.Sharp.Enums;
+using FMOD.Enumerations;
 
-namespace FMOD.Sharp.Data
+namespace FMOD.Data
 {
 	public class Driver
 	{

@@ -1,12 +1,13 @@
 ﻿using System;
+using FMOD.Core;
 
-namespace FMOD.Sharp.DSP
+namespace FMOD.DSP
 {
 	/// <summary>
 	/// This unit pans the signal, possibly upmixing or downmixing as well.
 	/// </summary>
-	/// <seealso cref="DspBase" />
-	public class Pan : DspBase
+	/// <seealso cref="Dsp" />
+	public class Pan : Dsp
 	{
 		// TODO: IMPLEMENT
 

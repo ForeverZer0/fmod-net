@@ -1,0 +1,436 @@
+﻿using System;
+using System.Drawing;
+using System.Runtime.InteropServices;
+using FMOD.Data;
+using FMOD.DSP;
+using FMOD.Enumerations;
+using FMOD.Structures;
+
+namespace FMOD.Core
+{
+	/// <inheritdoc />
+	/// <summary>
+	/// <para>Describes a Digital Signal Processing unit for applying effects on sounds.</para>
+	/// <para>This class must be inherited.</para>
+	/// </summary>
+	/// <seealso cref="T:FMOD.Sharp.HandleBase" />
+	public partial class Dsp : HandleBase
+	{
+
+		#region Constructors & Destructor
+
+		internal Dsp(IntPtr handle) : base(handle)
+		{
+		}
+
+		#endregion
+
+		#region Properties & Indexers
+
+		public bool Active
+		{
+			get
+			{
+				NativeInvoke(FMOD_DSP_GetActive(this, out var active));
+				return active;
+			}
+			set => NativeInvoke(FMOD_DSP_SetActive(this, value));
+		}
+
+		public bool Bypass
+		{
+			get
+			{
+				NativeInvoke(FMOD_DSP_GetBypass(this, out var bypass));
+				return bypass;
+			}
+			set => NativeInvoke(FMOD_DSP_SetBypass(this, value));
+		}
+
+		public ChannelFormat ChannelFormat
+		{
+			get
+			{
+				NativeInvoke(FMOD_DSP_GetChannelFormat(this, out var mask, out var count, out var mode));
+				return new ChannelFormat
+				{
+					ChannelMask = mask,
+					ChannelCount = count,
+					SpeakerMode = mode
+				};
+			}
+			set => NativeInvoke(FMOD_DSP_SetChannelFormat(this, value.ChannelMask,
+				value.ChannelCount, value.SpeakerMode));
+		}
+
+		public DspType DspType
+		{
+			get
+			{
+				NativeInvoke(FMOD_DSP_GetType(this, out var type));
+				return type;
+			}
+		}
+
+		public int InputCount
+		{
+			get
+			{
+				NativeInvoke(FMOD_DSP_GetNumInputs(this, out var count));
+				return count;
+			}
+		}
+
+		public bool InputMeteringEnabled
+		{
+			get
+			{
+				NativeInvoke(FMOD_DSP_GetMeteringEnabled(this, out var input, out var dummy));
+				return input;
+			}
+			set
+			{
+				var output = OutputMeteringEnabled;
+				NativeInvoke(FMOD_DSP_SetMeteringEnabled(this, value, output));
+			}
+		}
+
+		public bool IsIdle
+		{
+			get
+			{
+				NativeInvoke(FMOD_DSP_GetIdle(this, out var idle));
+				return idle;
+			}
+		}
+
+		public int OutputCount
+		{
+			get
+			{
+				NativeInvoke(FMOD_DSP_GetNumOutputs(this, out var count));
+				return count;
+			}
+		}
+
+		public bool OutputMeteringEnabled
+		{
+			get
+			{
+				NativeInvoke(FMOD_DSP_GetMeteringEnabled(this, out var dummy, out var output));
+				return output;
+			}
+			set
+			{
+				var input = InputMeteringEnabled;
+				NativeInvoke(FMOD_DSP_SetMeteringEnabled(this, input, value));
+			}
+		}
+
+		public int ParameterCount
+		{
+			get
+			{
+				NativeInvoke(FMOD_DSP_GetNumParameters(this, out var count));
+				return count;
+			}
+		}
+
+		public FmodSystem ParentFmodSystem
+		{
+			get
+			{
+				NativeInvoke(FMOD_DSP_GetSystemObject(this, out var system));
+				return CoreHelper.Create<FmodSystem>(system);
+			}
+		}
+
+		public IntPtr UserData
+		{
+			get
+			{
+				NativeInvoke(FMOD_DSP_GetUserData(this, out var data));
+				return data;
+			}
+			set => NativeInvoke(FMOD_DSP_SetUserData(this, value));
+		}
+
+		public WetDryMix WetDryMix
+		{
+			get
+			{
+				NativeInvoke(FMOD_DSP_GetWetDryMix(this, out var prewet, out var postwet, out var dry));
+				return new WetDryMix
+				{
+					PreWet = prewet,
+					PostWet = postwet,
+					Dry = dry
+				};
+			}
+			set => NativeInvoke(FMOD_DSP_SetWetDryMix(this, value.PreWet, value.PostWet, value.Dry));
+		}
+
+		#endregion
+
+		#region Methods
+
+		public DspConnection AddInput(Dsp dsp, DspConnectionType type = DspConnectionType.Standard)
+		{
+			NativeInvoke(FMOD_DSP_AddInput(this, dsp, out var connection, type));
+			return CoreHelper.Create<DspConnection>(connection);
+		}
+
+		public void DisableMetering()
+		{
+			NativeInvoke(FMOD_DSP_SetMeteringEnabled(this, false, false));
+		}
+
+		public void DisconnectAll()
+		{
+			NativeInvoke(FMOD_DSP_DisconnectAll(this, true, true));
+		}
+
+		public void DisconnectFrom(Dsp dsp)
+		{
+			NativeInvoke(FMOD_DSP_DisconnectFrom(this, dsp, IntPtr.Zero));
+		}
+
+		public void DisconnectFrom(Dsp dsp, DspConnection connection)
+		{
+			NativeInvoke(FMOD_DSP_DisconnectFrom(this, dsp, connection));
+		}
+
+		public void DisconnectInputs()
+		{
+			NativeInvoke(FMOD_DSP_DisconnectAll(this, true, false));
+		}
+
+		public void DisconnectOutputs()
+		{
+			NativeInvoke(FMOD_DSP_DisconnectAll(this, false, true));
+		}
+
+		public void EnableMetering()
+		{
+			NativeInvoke(FMOD_DSP_SetMeteringEnabled(this, true, true));
+		}
+
+		public static Dsp FromType(IntPtr dspHandle, DspType dspType)
+		{
+			if (dspHandle == IntPtr.Zero)
+				return null;
+#pragma warning disable 618
+			switch (dspType)
+			{
+				case DspType.Unknown:
+					return null;
+				case DspType.Mixer:
+					return CoreHelper.Create<Mixer>(dspHandle);
+				case DspType.Oscillator:
+					return CoreHelper.Create<Oscillator>(dspHandle);
+				case DspType.Lowpass:
+					return CoreHelper.Create<Lowpass>(dspHandle);
+				case DspType.ItLowpass:
+					return CoreHelper.Create<ItLowpass>(dspHandle);
+				case DspType.Highpass:
+					return CoreHelper.Create<Highpass>(dspHandle);
+				case DspType.Echo:
+					return CoreHelper.Create<Echo>(dspHandle);
+				case DspType.Fader:
+					return CoreHelper.Create<Fader>(dspHandle);
+				case DspType.Flange:
+					return CoreHelper.Create<Flange>(dspHandle);
+				case DspType.Distortion:
+					return CoreHelper.Create<Distortion>(dspHandle);
+				case DspType.Normalize:
+					return CoreHelper.Create<Normalize>(dspHandle);
+				case DspType.Limiter:
+					return CoreHelper.Create<Limiter>(dspHandle);
+				case DspType.ParamEq:
+					return CoreHelper.Create<ParamEq>(dspHandle);
+				case DspType.PitchShift:
+					return CoreHelper.Create<PitchShift>(dspHandle);
+				case DspType.Chorus:
+					return CoreHelper.Create<Chorus>(dspHandle);
+				case DspType.VstPlugin:
+					return null;
+				case DspType.WinampPlugin:
+					return null;
+				case DspType.ItEcho:
+					return CoreHelper.Create<ItEcho>(dspHandle);
+				case DspType.Compressor:
+					return CoreHelper.Create<Compressor>(dspHandle);
+				case DspType.SfxReverb:
+					return CoreHelper.Create<SfxReverb>(dspHandle);
+				case DspType.LowpassSimple:
+					return CoreHelper.Create<LowpassSimple>(dspHandle);
+				case DspType.Delay:
+					return CoreHelper.Create<Delay>(dspHandle);
+				case DspType.Tremolo:
+					return CoreHelper.Create<Tremolo>(dspHandle);
+				case DspType.LadspaPlugin:
+					return null;
+				case DspType.Send:
+					return CoreHelper.Create<Send>(dspHandle);
+				case DspType.Return:
+					return CoreHelper.Create<Return>(dspHandle);
+				case DspType.HighpassSimple:
+					return CoreHelper.Create<HighpassSimple>(dspHandle);
+				case DspType.Pan:
+					return CoreHelper.Create<Pan>(dspHandle);
+				case DspType.ThreeEq:
+					return CoreHelper.Create<ThreeEq>(dspHandle);
+				case DspType.Fft:
+					return CoreHelper.Create<Fft>(dspHandle);
+				case DspType.LoudnessMeter:
+					return CoreHelper.Create<LoudnessMeter>(dspHandle);
+				case DspType.EnvelopeFollower:
+					return CoreHelper.Create<EnvelopeFollower>(dspHandle);
+				case DspType.ConvolutionReverb:
+					return CoreHelper.Create<ConvolutionReverb>(dspHandle);
+				case DspType.ChannelMix:
+					return CoreHelper.Create<ChannelMix>(dspHandle);
+				case DspType.Transceiver:
+					return CoreHelper.Create<Transceiver>(dspHandle);
+				case DspType.ObjectPan:
+					return CoreHelper.Create<ObjectPan>(dspHandle);
+				case DspType.MultiBandEq:
+					return CoreHelper.Create<MultiBandEq>(dspHandle);
+				case DspType.Max:
+					return null;
+				default:
+					return null;
+			}
+#pragma warning restore 618
+		}
+
+		public int GetDataParameterIndex(int dataType)
+		{
+			NativeInvoke(FMOD_DSP_GetDataParameterIndex(this, dataType, out var index));
+			return index;
+		}
+
+		public DspInfo GetInfo()
+		{
+			var namePtr = Marshal.StringToHGlobalAnsi(new String(' ', 32));
+			NativeInvoke(FMOD_DSP_GetInfo(this, namePtr, out var version, out var channels,
+				out var width, out var height));
+			return new DspInfo
+			{
+				Name = Marshal.PtrToStringAnsi(namePtr, 32).Trim(),
+				Version = Util.UInt32ToVersion(version),
+				ChannelCount = channels,
+				ConfigWindowSize = new Size(width, height)
+			};
+		}
+
+		public Dsp GetInput(int index)
+		{
+			NativeInvoke(FMOD_DSP_GetInput(this, index, out var input, out var dummy));
+			return CoreHelper.Create<Dsp>(input);
+		}
+
+		public DspConnection GetInputConnection(int index)
+		{
+			NativeInvoke(FMOD_DSP_GetInput(this, index, out var dummy, out var connection));
+			return CoreHelper.Create<DspConnection>(connection);
+		}
+
+		public Dsp GetOutput(int index)
+		{
+			NativeInvoke(FMOD_DSP_GetOutput(this, index, out var output, out var dummy));
+			return CoreHelper.Create<Dsp>(output);
+		}
+
+		public ChannelFormat GetOutputChannelFormat()
+		{
+			return GetOutputChannelFormat(ChannelFormat);
+		}
+
+		public ChannelFormat GetOutputChannelFormat(ChannelFormat inputFormat)
+		{
+			NativeInvoke(FMOD_DSP_GetOutputChannelFormat(this, inputFormat.ChannelMask,
+				inputFormat.ChannelCount, inputFormat.SpeakerMode, out var chanMask,
+				out var chanCount, out var speakerMode));
+			return new ChannelFormat
+			{
+				ChannelMask = chanMask,
+				ChannelCount = chanCount,
+				SpeakerMode = speakerMode
+			};
+		}
+
+		public DspConnection GetOutputConnection(int index)
+		{
+			NativeInvoke(FMOD_DSP_GetOutput(this, index, out var dummy, out var connection));
+			return CoreHelper.Create<DspConnection>(connection);
+		}
+
+		public DspParameterDesc GetParameterInfo(int parameterIndex)
+		{
+			NativeInvoke(FMOD_DSP_GetParameterInfo(this, parameterIndex, out var desc));
+			var info = Marshal.PtrToStructure(desc, typeof(DspParameterDesc));
+			return (DspParameterDesc) info;
+		}
+
+		public void Reset()
+		{
+			NativeInvoke(FMOD_DSP_Reset(this));
+		}
+
+		public void ShowConfigDialog(IntPtr hwnd, bool show = true)
+		{
+			NativeInvoke(FMOD_DSP_ShowConfigDialog(this, hwnd, show));
+		}
+
+		protected bool GetParameterBool(int index)
+		{
+			NativeInvoke(FMOD_DSP_GetParameterBool(this, index, out var value, IntPtr.Zero, 0));
+			return value;
+		}
+
+		protected byte[] GetParameterData(int index)
+		{
+			NativeInvoke(FMOD_DSP_GetParameterData(this, index, out var ptr, out var size, IntPtr.Zero, 0));
+			var bytes = new byte[size];
+			Marshal.Copy(ptr, bytes, 0, (int) size);
+			return bytes;
+		}
+
+		protected float GetParameterFloat(int index)
+		{
+			NativeInvoke(FMOD_DSP_GetParameterFloat(this, index, out var value, IntPtr.Zero, 0));
+			return value;
+		}
+
+		protected int GetParameterInt(int index)
+		{
+			NativeInvoke(FMOD_DSP_GetParameterInt(this, index, out var value, IntPtr.Zero, 0));
+			return value;
+		}
+
+		protected void SetParameterBool(int index, bool value)
+		{
+			NativeInvoke(FMOD_DSP_SetParameterBool(this, index, value));
+		}
+
+		protected void SetParameterData(int index, byte[] data)
+		{
+			var gcHandle = GCHandle.Alloc(data, GCHandleType.Pinned);
+			NativeInvoke(FMOD_DSP_SetParameterData(this, index, gcHandle.AddrOfPinnedObject(), (uint) data.Length));
+			gcHandle.Free();
+		}
+
+		protected void SetParameterFloat(int index, float value)
+		{
+			NativeInvoke(FMOD_DSP_SetParameterFloat(this, index, value));
+		}
+
+		protected void SetParameterInt(int index, int value)
+		{
+			NativeInvoke(FMOD_DSP_SetParameterInt(this, index, value));
+		}
+
+		#endregion
+	}
+}

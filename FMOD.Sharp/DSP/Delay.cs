@@ -1,6 +1,7 @@
 ﻿using System;
+using FMOD.Core;
 
-namespace FMOD.Sharp.DSP
+namespace FMOD.DSP
 {
 	/// <inheritdoc />
 	/// <summary>
@@ -20,8 +21,8 @@ namespace FMOD.Sharp.DSP
 	///         </para>
 	///     </alert>
 	/// </remarks>
-	/// <seealso cref="T:FMOD.Sharp.DspBase" />
-	public class Delay : DspBase
+	/// <seealso cref="T:FMOD.Sharp.Dsp" />
+	public class Delay : Dsp
 	{
 		/// <summary>
 		///     Initializes a new instance of the <see cref="Delay" /> class.

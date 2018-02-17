@@ -495,7 +495,7 @@ namespace FMOD.Core
 		/// <para>When a sound is played, it will use the sound's default frequency and priority.</para>
 		/// <para>
 		/// A sound defined as <see cref="Mode.ThreeD"/> will by default play at the position of the listener.<lineBreak/>
-		/// To set the 3D position of the channel before the sound is audible, start the channel paused by setting the paused flag to true, and calling <see cref="ChannelControl.SetThreeDAttributes"/>. Following that, unpause the channel with <see cref="ChannelControl.Pause"/>.
+		/// To set the 3D position of the channel before the sound is audible, start the channel paused by setting the paused flag to true, and calling <see cref="ChannelControl.SetAttributes3D"/>. Following that, unpause the channel with <see cref="ChannelControl.Pause"/>.
 		/// </para>
 		/// <para>
 		/// Channels are reference counted. If a channel is stolen by the FMOD priority system, then the handle to the stolen voice becomes invalid, and Channel based commands will not affect the new sound playing in its place.<lineBreak/>
@@ -511,7 +511,7 @@ namespace FMOD.Core
 		/// <seealso cref="ChannelGroup"/>
 		/// <seealso cref="Channel.Priority"/>
 		/// <seealso cref="Mode"/>
-		/// <seealso cref="ChannelControl.SetThreeDAttributes"/>
+		/// <seealso cref="ChannelControl.SetAttributes3D"/>
 		/// <seealso cref="ChannelControl.Paused"/>
 		/// <seealso cref="O:FMOD.Core.FmodSystem.Initialize"/>
 		public Channel PlaySound(Sound sound, bool paused = false, ChannelGroup group = null)
@@ -872,7 +872,7 @@ namespace FMOD.Core
 		/// </para>
 		/// <para>
 		/// In <b>FMODEx</b> a special "ambient" reverb setting was used when outside the influence of all reverb spheres. This function no longer exists.<lineBreak/>
-		/// To avoid this reverb intefering with the reverb slot used by the 3D reverb, 2D reverb should use a different slot ID with <see cref="SetReverbProperties"/>, otherwise <see cref="FMOD.Structures.AdvancedSettings.reverb3Dinstance"/> can also be used to place 3D reverb on a different physical reverb slot. Use <see cref="ChannelControl.SetReverbProperties"/> to turn off reverb for 2D sounds (ie set wet = <c>0</c>).
+		/// To avoid this reverb intefering with the reverb slot used by the 3D reverb, 2D reverb should use a different slot ID with <see cref="SetReverbProperties"/>, otherwise <see cref="FMOD.Structures.AdvancedSettings.ReverbInstance"/> can also be used to place 3D reverb on a different physical reverb slot. Use <see cref="ChannelControl.SetReverbProperties"/> to turn off reverb for 2D sounds (ie set wet = <c>0</c>).
 		/// </para>
 		/// <para>Creating multiple reverb objects does not impact performance. These are "virtual reverbs". There will still be only one physical reverb DSP running that just morphs between the different virtual reverbs.</para>
 		/// <para>

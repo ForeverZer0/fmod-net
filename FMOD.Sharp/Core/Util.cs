@@ -21,6 +21,11 @@ namespace FMOD.Core
 			return RADIAN_FACTOR * angle;
 		}
 
+		public static double RadToDeg(double angle)
+		{
+			return angle * (180.0 / Math.PI);
+		}
+
 		public static float SinFromAngle(float angle)
 		{
 			return (float) Math.Sin(RADIAN_FACTOR * angle);

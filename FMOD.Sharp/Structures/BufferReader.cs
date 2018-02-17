@@ -2,6 +2,8 @@
 using FMOD.Core;
 using FMOD.Enumerations;
 
+// TODO: Document
+
 namespace FMOD.Structures
 {
 	[StructLayout(LayoutKind.Explicit, Pack = 2)]
@@ -9,82 +11,113 @@ namespace FMOD.Structures
 	{
 #pragma warning disable 649
 		[FieldOffset(0)] 
-		private readonly SoundFormat format;
+		private readonly SoundFormat _format;
 
 		[FieldOffset(8)] 
-		private readonly byte[] byteBuffer;
+		private readonly byte[] _byteBuffer;
 
 		[FieldOffset(8)] 
-		private short[] int16Buffer;
+		private short[] _int16Buffer;
 
 		[FieldOffset(8)] 
-		private Int24[] int24Buffer;
+		private Int24[] _int24Buffer;
 
 		[FieldOffset(8)] 
-		private int[] int32Buffer;
+		private int[] _int32Buffer;
 
 		[FieldOffset(8)] 
-		private float[] floatBuffer;
+		private float[] _floatBuffer;
 #pragma warning restore 649
 
+		/// <summary>
+		/// Gets the internal buffer as an array of 8-bit <see cref="byte"/> values.
+		/// </summary>
+		/// <value>
+		/// The byte buffer.
+		/// </value>
 		public byte[] ByteBuffer
 		{
-			get => byteBuffer;
+			get => _byteBuffer;
 		}
 
+		/// <summary>
+		/// Gets the internal buffer as an array of 16-bit signed <see cref="short"/> values.
+		/// </summary>
+		/// <value>
+		/// The int16 buffer.
+		/// </value>
 		public short[] Int16Buffer
 		{
-			get => int16Buffer;
+			get => _int16Buffer;
 		}
 
+		/// <summary>
+		/// Gets the internal buffer as an array of psuedo-24-bit signed <see cref="Int24"/> values.
+		/// </summary>
+		/// <value>
+		/// The int24 buffer.
+		/// </value>
 		public Int24[] Int24Buffer
 		{
-			get => int24Buffer;
+			get => _int24Buffer;
 		}
 
+		/// <summary>
+		/// Gets the internal buffer as an array of 32-bit signed <see cref="int"/> values.
+		/// </summary>
+		/// <value>
+		/// The buffer .
+		/// </value>
 		public int[] Int32Buffer
 		{
-			get => int32Buffer;
+			get => _int32Buffer;
 		}
 
+		/// <summary>
+		/// Gets the internal buffer as an array of 32-bit <see cref="float"/> values.
+		/// </summary>
+		/// <value>
+		/// The float buffer.
+		/// </value>
 		public float[] FloatBuffer
 		{
-			get => floatBuffer;
+			get => _floatBuffer;
 		}
 
 		public int Length
 		{
 			get
 			{
-				switch (format)
+				switch (_format)
 				{
 					case SoundFormat.Pcm8:
-						return byteBuffer.Length;
+						return _byteBuffer.Length;
 					case SoundFormat.Pcm16:
-						return byteBuffer.Length / 2;
+						return _byteBuffer.Length / 2;
 					case SoundFormat.Pcm24:
-						return byteBuffer.Length / 3;
+						return _byteBuffer.Length / 3;
 					case SoundFormat.Pcm32:
 					case SoundFormat.PcmFloat:
-						return byteBuffer.Length / 4;
+						return _byteBuffer.Length / 4;
 					default:
 						return 0;
 				}
 			}
 		}
 
-		public static BufferReader FromSound(Sound sound)
+		public BufferReader(SoundFormat format, byte[] buffer)
 		{
-			return new BufferReader(sound);
+			_format = format;
+			_byteBuffer = buffer;
 		}
 
-		private BufferReader(Sound sound)
+		public BufferReader(Sound sound)
 		{
-			format = sound.Format;
+			_format = sound.Format;
 			var length = sound.GetLength(TimeUnit.PcmBytes);
 			sound.Lock(0, length, out var ptr1, out var ptr2, out var len1, out var len2);
-			byteBuffer = new byte[len1];
-			Marshal.Copy(ptr1, byteBuffer, 0, (int)len1);
+			_byteBuffer = new byte[len1];
+			Marshal.Copy(ptr1, _byteBuffer, 0, (int)len1);
 			sound.Unlock(ptr1, ptr2, len1, len2);
 		}
 	}

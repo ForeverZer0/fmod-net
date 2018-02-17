@@ -272,12 +272,11 @@
     <Compile Include="Structures\SpectrumData.cs" />
     <Compile Include="Structures\STRUCT_TEMP.cs" />
     <Compile Include="Structures\Tag.cs" />
-    <Compile Include="Data\Attributes3D.cs" />
+    <Compile Include="Structures\Attributes3D.cs" />
     <Compile Include="Structures\Vector.cs" />
     <Compile Include="Data\WetDryMix.cs" />
     <Compile Include="Core\FmodSystem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Core\TagHelper.cs" />
   </ItemGroup>
   <ItemGroup Condition="'$(Platform)' == 'x86'">
     <None Include="fmod.dll">

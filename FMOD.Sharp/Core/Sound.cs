@@ -42,7 +42,7 @@ namespace FMOD.Core
 		/// Occurs when <see cref="P:FMOD.Sharp.Core.Sound.Mode"/> property is changed.
 		/// </summary>
 		/// <seealso cref="P:FMOD.Sharp.Core.Sound.Mode"/>
-		/// <seealso cref="T:FMOD.Sharp.Enums.Mode"/>
+		/// <seealso cref="Enumerations.Mode"/>
 		public event EventHandler ModeChanged;
 
 		/// <summary>

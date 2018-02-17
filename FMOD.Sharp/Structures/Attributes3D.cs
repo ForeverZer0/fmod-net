@@ -1,6 +1,6 @@
 ﻿#region License
 
-// DspBufferArray.cs is distributed under the Microsoft Public License (MS-PL)
+// Attributes3D.cs is distributed under the Microsoft Public License (MS-PL)
 // 
 // Copyright (c) 2018,  Eric Freed
 // All Rights Reserved.
@@ -46,52 +46,49 @@
 // which this license cannot change. To the extent permitted under your local laws, the contributors 
 // exclude the implied warranties of merchantability, fitness for a particular purpose and non-infringement.
 // 
-// Created 6:59 PM 02/11/2018
+// Created 12:12 PM 02/17/2018
 
 #endregion
 
 #region Using Directives
 
-using System;
 using System.Runtime.InteropServices;
-using FMOD.Core;
-using FMOD.Enumerations;
 
 #endregion
 
 namespace FMOD.Structures
 {
 	/// <summary>
-	///     Structure for <see cref="DspProcessCallback" /> input and output buffers.
+	///     Structure describing a position, velocity and orientation.
 	/// </summary>
-	/// <seealso cref="DspProcessCallback" />
-	/// <seealso cref="DspDescription" />
+	/// <remarks>
+	///     Attributes should use your chosen coordinate system.
+	/// </remarks>
+	/// <seealso cref="Vector" />
+	/// <seealso cref="DspParameterAttributes3D" />
 	[StructLayout(LayoutKind.Sequential)]
-	public struct DspBufferArray
+	public struct Attributes3D
 	{
 		/// <summary>
-		///     The number of buffers.
+		///     The position of the object in world space, measured in distance units.
 		/// </summary>
-		public int NumBuffers;
+		public Vector Position;
 
 		/// <summary>
-		///     An array of number of channels for each buffer.
+		///     The velocity of the object measured in distance units <b>per second</b>.
 		/// </summary>
-		public int[] BufferChannelCount;
+		public Vector Velocity;
 
 		/// <summary>
-		///     An array of channel masks for each buffer.
+		///     <para>The forwards orientation of the object.</para>
+		///     <para>This vector must be of unit length (<c>1.0</c>) and perpendicular to the <see cref="Up" /> vector.</para>
 		/// </summary>
-		public ChannelMask[] BufferChannelMask;
+		public Vector Forward;
 
 		/// <summary>
-		///     An array of pointers to buffers.
+		///     <para>The upwards orientation of the object.</para>
+		///     <para>This vector must be of unit length (<c>1.0</c>) and perpendicular to the <see cref="Forward" /> vector. </para>
 		/// </summary>
-		public IntPtr[] Buffers;
-
-		/// <summary>
-		///     The speaker mode for all buffers in the array.
-		/// </summary>
-		public SpeakerMode SpeakerMode;
+		public Vector Up;
 	}
 }

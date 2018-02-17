@@ -222,7 +222,7 @@ namespace FMOD.Core
 		}
 
 
-		public void SetThreeDAttributes(Vector position, Vector velocity)
+		public void SetAttributes3D(Vector position, Vector velocity)
 		{
 			NativeInvoke(FMOD_ChannelGroup_Set3DAttributes(this, ref position, ref velocity, IntPtr.Zero));
 			ThreeDPositionChanged?.Invoke(this, EventArgs.Empty);

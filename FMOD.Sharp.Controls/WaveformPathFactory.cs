@@ -28,7 +28,7 @@ namespace FMOD.Sharp.Controls
 
 		public static void Create(Sound sound, out GraphicsPath maxPath, out GraphicsPath avgPath)
 		{
-			_bufferReader = BufferReader.FromSound(sound);
+			_bufferReader = new BufferReader(sound);
 			_numPoints = (int)(sound.GetLength() / (sound.DefaultFrequency / 1000));
 			switch (sound.Format)
 			{

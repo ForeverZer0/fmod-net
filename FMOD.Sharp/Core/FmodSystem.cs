@@ -101,6 +101,8 @@ namespace FMOD.Core
 		#region Properties & Indexers
 
 
+
+
 		public int DspBuffersCount
 		{
 			get
@@ -158,37 +160,7 @@ namespace FMOD.Core
 
 		#region Methods
 
-		/// <summary>
-		/// Route the signal from a channel group into a seperate audio port on the output driver.
-		/// </summary>
-		/// <param name="portType">Output driver specific audio port type. See extra platform specific header (if it exists) for port numbers, i.e. fmod_psvita.h, fmod_wiiu.h, fmodorbis.h.</param>
-		/// <param name="portIndex">Output driver specific index of the audio port.</param>
-		/// <param name="channelGroup"><see cref="ChannelGroup"/> to route away to the new port.</param>
-		/// <param name="passThru">If <c>true</c> the signal will continue to be passed through to the main mix, if <c>false</c> the signal will be entirely to the designated port.</param>
-		/// <remarks>
-		/// Note that an <b>FMOD</b> port is a hardware specific reference, to hardware devices that exist on only certain platforms (like a console headset, or dedicated hardware music channel for example). It is not supported on all platforms.
-		/// </remarks>
-		/// <seealso cref="DetachChannelGroupFromPort"/>
-		/// <seealso cref="ChannelGroup"/>
-		/// <seealso cref="ChannelGroupAttached"/>
-		public void AttachChannelGroupToPort(uint portType, ulong portIndex, ChannelGroup channelGroup, bool passThru)
-		{
-			NativeInvoke(FMOD_System_AttachChannelGroupToPort(this, portType, portIndex, channelGroup, passThru));
-			ChannelGroupAttached?.Invoke(this, EventArgs.Empty);
-		}
 
-		/// <summary>
-		/// Disconnect a channel group from a port and route audio back to the default port of the output driver.
-		/// </summary>
-		/// <param name="channelGroup"><see cref="ChannelGroup"/> to route away back to the default audio port.</param>
-		/// <seealso cref="ChannelGroup"/>
-		/// <seealso cref="AttachChannelGroupToPort"/>
-		/// <seealso cref="ChannelGroupDetached"/>
-		public void DetachChannelGroupFromPort(ChannelGroup channelGroup)
-		{
-			NativeInvoke(FMOD_System_DetachChannelGroupFromPort(this, channelGroup));
-			ChannelGroupDetached?.Invoke(this, EventArgs.Empty);
-		}
 
 
 
@@ -201,12 +173,7 @@ namespace FMOD.Core
 
 
 
-		public Dsp CreateDspByPlugin(uint pluginHandle)
-		{
-			NativeInvoke(FMOD_System_CreateDSPByPlugin(this, pluginHandle, out var dsp));
-			DspCreated?.Invoke(this, EventArgs.Empty);
-			return CoreHelper.Create<Dsp>(dsp);
-		}
+
 
 		public ChannelGroup CreateChannelGroup(string name)
 		{
@@ -216,26 +183,10 @@ namespace FMOD.Core
 			return CoreHelper.Create<ChannelGroup>(group);
 		}
 
-		public Dsp CreateDsp(DspDescription description)
-		{
-			NativeInvoke(FMOD_System_CreateDSP(this, ref description, out var dsp));
-			DspCreated?.Invoke(this, EventArgs.Empty);
-			return CoreHelper.Create<Dsp>(dsp);
-		}
 
-		public T CreateDspByType<T>() where T : Dsp
-		{
-			if (Enum.TryParse<DspType>(typeof(T).Name, true, out var dspType))
-				return (T) CreateDspByType(dspType);
-			return null;
-		}
 
-		public Dsp CreateDspByType(DspType dspType)
-		{
-			NativeInvoke(FMOD_System_CreateDSPByType(this, dspType, out var dsp));
-			DspCreated?.Invoke(this, EventArgs.Empty);
-			return Dsp.FromType(dsp, dspType);
-		}
+
+
 
 
 
@@ -293,11 +244,11 @@ namespace FMOD.Core
 			};
 		}
 
-		public ThreeDAttributes GetListenerAttributes(int listener)
+		public Attributes3D GetListenerAttributes(int listener)
 		{
 			NativeInvoke(FMOD_System_Get3DListenerAttributes(this, listener, out var position,
 				out var velocity, out var forward, out var up));
-			return new ThreeDAttributes
+			return new Attributes3D
 			{
 				Forward = forward,
 				Velocity = velocity,
@@ -370,16 +321,7 @@ namespace FMOD.Core
 			}
 		}
 
-		public RamUsage GetRamUsage()
-		{
-			NativeInvoke(FMOD_System_GetSoundRAM(this, out var current, out var max, out var total));
-			return new RamUsage
-			{
-				CurrentlyAllocated = current,
-				MaximumAllocated = max,
-				Total = total
-			};
-		}
+
 
 		public int GetSpeakerModeChannelCount(SpeakerMode mode)
 		{
@@ -424,48 +366,12 @@ namespace FMOD.Core
 			return recording;
 		}
 
-		public Geometry LoadGeometry(string filename)
-		{
-			return LoadGeometry(File.ReadAllBytes(filename));
-		}
-
-		public Geometry LoadGeometry(byte[] binary)
-		{
-			var gcHandle = GCHandle.Alloc(binary, GCHandleType.Pinned);
-			var geometry = LoadGeometry(gcHandle.AddrOfPinnedObject(), binary.Length);
-			gcHandle.Free();
-			return geometry;
-		}
-
-		public Geometry LoadGeometry(IntPtr data, int dataSize)
-		{
-			NativeInvoke(FMOD_System_LoadGeometry(this, data, dataSize, out var geometry));
-			GeometryCreated?.Invoke(this, EventArgs.Empty);
-			return CoreHelper.Create<Geometry>(geometry);
-		}
-
 		public uint LoadPlugin(string path, uint priority = 128u)
 		{
 			var bytes = Encoding.UTF8.GetBytes(path);
 			NativeInvoke(FMOD_System_LoadPlugin(this, bytes, out var pluginHandle, priority));
 			PluginLoaded?.Invoke(this, EventArgs.Empty);
 			return pluginHandle;
-		}
-
-
-
-		public Channel PlayDsp(Dsp dsp, bool paused = false, ChannelGroup group = null)
-		{
-			NativeInvoke(FMOD_System_PlayDSP(this, dsp, group ?? IntPtr.Zero, paused, out var channel));
-			DspPlayed?.Invoke(this, EventArgs.Empty);
-			return CoreHelper.Create<Channel>(channel);
-		}
-
-		public Channel PlaySound(Sound sound, bool paused = false, ChannelGroup group = null)
-		{
-			NativeInvoke(FMOD_System_PlaySound(this, sound, group ?? IntPtr.Zero, paused, out var channel));
-			SoundPlayed?.Invoke(this, EventArgs.Empty);
-			return CoreHelper.Create<Channel>(channel);
 		}
 
 		public void RecordStart(int driverId, Sound sound, bool loop = false)
@@ -531,7 +437,7 @@ namespace FMOD.Core
 				blockAlign));
 		}
 
-		public void SetListenerAttributes(int listener, ThreeDAttributes attributes)
+		public void SetListenerAttributes(int listener, Attributes3D attributes)
 		{
 			SetListenerAttributes(listener, attributes.Position, attributes.Velocity, attributes.Forward, attributes.Up);
 		}
@@ -543,25 +449,292 @@ namespace FMOD.Core
 		}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+		public Channel PlayDsp(Dsp dsp, bool paused = false, ChannelGroup group = null)
+		{
+			NativeInvoke(FMOD_System_PlayDSP(this, dsp, group ?? IntPtr.Zero, paused, out var channel));
+			DspPlayed?.Invoke(this, EventArgs.Empty);
+			return CoreHelper.Create<Channel>(channel);
+		}
 
 
 
 
 
 		#region Documentation Complete
+
+		/// <summary>
+		/// <para>Retrieves the amount of dedicated sound ram available if the platform supports it.</para>
+		/// <para>Most platforms use main ram to store audio data, so this function usually isn't necessary.</para>
+		/// </summary>
+		/// <returns>A <see cref="RamUsage"/> describing the current use of RAM by <b>FMOD</b>.</returns>
+		/// <seealso cref="O:FMOD.Core.MemoryManager.GetStats"/>
+		/// <seealso cref="RamUsage"/>
+		public RamUsage GetRamUsage()
+		{
+			NativeInvoke(FMOD_System_GetSoundRAM(this, out var current, out var max, out var total));
+			return new RamUsage
+			{
+				CurrentlyAllocated = current,
+				MaximumAllocated = max,
+				Total = total
+			};
+		}
+
+		/// <summary>
+		/// Plays a <see cref="Sound"/> object on a particular channel and <see cref="ChannelGroup"/> if desired.
+		/// </summary>
+		/// <param name="sound">The sound to play.<lineBreak/> This is opened with <see cref="O:FMOD.Core.FmodSystem.CreateSound"/> or <see cref="O:FMOD.Core.FmodSystem.CreateStream"/>. </param>
+		/// <param name="paused"><c>true</c> or <c>false</c> flag to specify whether to start the channel paused or not. Starting a channel paused allows the user to alter its attributes without it being audible, and unpausing with <see cref="ChannelControl.Resume"/> actually starts the sound.</param>
+		/// <param name="group">
+		/// <para>A <see cref="ChannelGroup"/> to become a member of.</para>
+		/// <para>This is more efficient than using <see cref="Channel.ChannelGroup"/>, as it does it during the channel setup, rather than connecting to the master channel group, then later disconnecting and connecting to the new <see cref="ChannelGroup"/> when specified.</para>
+		/// <para>Optional. Use <c>null</c> to ignore (use <see cref="MasterChannelGroup"/>).</para>
+		/// </param>
+		/// <returns>A newly created playing <see cref="Channel"/>.</returns>
+		/// <remarks>
+		/// <para>When a sound is played, it will use the sound's default frequency and priority.</para>
+		/// <para>
+		/// A sound defined as <see cref="Mode.ThreeD"/> will by default play at the position of the listener.<lineBreak/>
+		/// To set the 3D position of the channel before the sound is audible, start the channel paused by setting the paused flag to true, and calling <see cref="ChannelControl.SetThreeDAttributes"/>. Following that, unpause the channel with <see cref="ChannelControl.Pause"/>.
+		/// </para>
+		/// <para>
+		/// Channels are reference counted. If a channel is stolen by the FMOD priority system, then the handle to the stolen voice becomes invalid, and Channel based commands will not affect the new sound playing in its place.<lineBreak/>
+		/// If all channels are currently full playing a sound, FMOD will steal a channel with the lowest priority sound.<lineBreak/>
+		/// If more channels are playing than are currently available on the soundcard/sound device or software mixer, then FMOD will 'virtualize' the channel. This type of channel is not heard, but it is updated as if it was playing. When its priority becomes high enough or another sound stops that was using a real hardware/software channel, it will start playing from where it should be. This technique saves CPU time (thousands of sounds can be played at once without actually being mixed or taking up resources), and also removes the need for the user to manage voices themselves.<lineBreak/>
+		/// An example of virtual channel usage is a dungeon with 100 torches burning, all with a looping crackling sound, but with a soundcard that only supports 32 hardware voices. If the 3D positions and priorities for each torch are set correctly, FMOD will play all 100 sounds without any 'out of channels' errors, and swap the real voices in and out according to which torches are closest in 3D space.<lineBreak/>
+		/// Priority for virtual channels can be changed in the sound's defaults, or at runtime with <see cref="Channel.Priority"/>.
+		/// </para>
+		/// </remarks>
+		/// <seealso cref="O:FMOD.Core.FmodSystem.CreateSound"/>
+		/// <seealso cref="O:FMOD.Core.FmodSystem.CreateStream"/>
+		/// <seealso cref="Channel"/>
+		/// <seealso cref="ChannelGroup"/>
+		/// <seealso cref="Channel.Priority"/>
+		/// <seealso cref="Mode"/>
+		/// <seealso cref="ChannelControl.SetThreeDAttributes"/>
+		/// <seealso cref="ChannelControl.Paused"/>
+		/// <seealso cref="O:FMOD.Core.FmodSystem.Initialize"/>
+		public Channel PlaySound(Sound sound, bool paused = false, ChannelGroup group = null)
+		{
+			NativeInvoke(FMOD_System_PlaySound(this, sound, group ?? IntPtr.Zero, paused, out var channel));
+			SoundPlayed?.Invoke(this, EventArgs.Empty);
+			return CoreHelper.Create<Channel>(channel);
+		}
+
+		/// <summary>
+		/// Creates a geometry object from a block of memory which contains pre-saved geometry data, saved by <see cref="Geometry.Save"/>.
+		/// </summary>
+		/// <param name="filename">The path to a file containing serialized geometry data.</param>
+		/// <returns>A newly created <see cref="Geometry"/> object.</returns>
+		/// <seealso cref="Geometry"/>
+		/// <seealso cref="GeometryCreated"/>
+		/// <seealso cref="CreateGeometry"/>
+		/// <seealso cref="Geometry.Save"/>
+		/// <seealso cref="Geometry.Serialize"/>
+		public Geometry LoadGeometry(string filename)
+		{
+			return LoadGeometry(File.ReadAllBytes(filename));
+		}
+
+		/// <summary>
+		/// Creates a geometry object from a block of memory which contains pre-saved geometry data, saved by <see cref="Geometry.Save"/>.
+		/// </summary>
+		/// <param name="binary">An <see cref="T:byte[]"/> of serialized geometry data.</param>
+		/// <returns>A newly created <see cref="Geometry"/> object.</returns>
+		/// <seealso cref="Geometry"/>
+		/// <seealso cref="GeometryCreated"/>
+		/// <seealso cref="CreateGeometry"/>
+		/// <seealso cref="Geometry.Save"/>
+		/// <seealso cref="Geometry.Serialize"/>
+		public Geometry LoadGeometry(byte[] binary)
+		{
+			var gcHandle = GCHandle.Alloc(binary, GCHandleType.Pinned);
+			var geometry = LoadGeometry(gcHandle.AddrOfPinnedObject(), binary.Length);
+			gcHandle.Free();
+			return geometry;
+		}
+
+		/// <summary>
+		/// Creates a geometry object from a block of memory which contains pre-saved geometry data, saved by <see cref="Geometry.Save"/>.
+		/// </summary>
+		/// <param name="data">Address of data containing pre-saved geometry data.</param>
+		/// <param name="dataSize">Size of geometry data block in bytes.</param>
+		/// <returns>A newly created <see cref="Geometry"/> object.</returns>
+		/// <seealso cref="Geometry"/>
+		/// <seealso cref="GeometryCreated"/>
+		/// <seealso cref="CreateGeometry"/>
+		/// <seealso cref="Geometry.Save"/>
+		/// <seealso cref="Geometry.Serialize"/>
+		public Geometry LoadGeometry(IntPtr data, int dataSize)
+		{
+			NativeInvoke(FMOD_System_LoadGeometry(this, data, dataSize, out var geometry));
+			GeometryCreated?.Invoke(this, EventArgs.Empty);
+			return CoreHelper.Create<Geometry>(geometry);
+		}
+
+		/// <summary>
+		/// Creates a user defined DSP unit object to be inserted into a DSP network, for the purposes of sound filtering or sound generation.
+		/// </summary>
+		/// <param name="description">
+		/// <para>A <see cref="DspDescription"/> structure containing information about the unit to be created.</para>
+		/// <para>Some members of <see cref="DspDescription"/> are referenced directly inside <b>FMOD</b> so the structure should be allocated statically or at least remain in memory for the lifetime of the system.</para> 
+		/// </param>
+		/// <returns>A newly created <see cref="Dsp"/> object.</returns>
+		/// <remarks>
+		/// A DSP unit can generate or filter incoming data.<lineBreak/>
+		/// The data is created or filtered through use of the read callback that is defined by the user.<lineBreak/>
+		/// See the definition for the <see cref="DspDescription"/> structure to find out what each member means.<lineBreak/>
+		/// To be active, a unit must be inserted into the <b>FMOD</b> DSP network to be heard. Use functions such as <see cref="ChannelControl.AddDsp(Dsp, int)"/>, or <see cref="Dsp.AddInput"/> to do this.
+		/// </remarks>
+		/// <seealso cref="Dsp"/>
+		/// <seealso cref="DspCreated"/>
+		/// <seealso cref="DspType"/>
+		/// <seealso cref="DspDescription"/>
+		/// <seealso cref="ChannelControl.AddDsp(Dsp, int)"/>
+		/// <seealso cref="Dsp.AddInput"/>
+		/// <seealso cref="Dsp.Active"/>
+		/// <seealso cref="LoadPlugin"/>
+		/// <seealso cref="CreateDspByType"/>
+		/// <seealso cref="CreateDspByType{T}"/>
+		/// <seealso cref="CreateDspByPlugin"/>
+		public Dsp CreateDsp(DspDescription description)
+		{
+			NativeInvoke(FMOD_System_CreateDSP(this, ref description, out var dsp));
+			DspCreated?.Invoke(this, EventArgs.Empty);
+			return CoreHelper.Create<Dsp>(dsp);
+		}
+
+		/// <summary>
+		/// <para>Creates an <b>FMOD</b> defined built in DSP unit object to be inserted into a DSP network, for the purposes of sound filtering or sound generation</para>.
+		/// <para>This function is used to create special effects that come built into <b>FMOD</b>.</para>
+		/// </summary>
+		/// <typeparam name="T">A <see cref="Type"/> derived from the abstract <see cref="Dsp"/> class.</typeparam>
+		/// <returns>A newly created <see cref="Dsp"/> object.</returns>
+		/// <remarks>
+		/// <para>
+		/// A DSP unit can generate or filter incoming data.<lineBreak/>
+		/// The data is created or filtered through use of the read callback that is defined by the user.<lineBreak/>
+		/// To be active, a unit must be inserted into the <b>FMOD</b> DSP network to be heard. Use functions such as <see cref="ChannelControl.AddDsp(Dsp, int)"/>, or <see cref="Dsp.AddInput"/> to do this.
+		/// </para>
+		/// <alert class="note">
+		/// <para>Winamp DSP and VST plugins will only return the first plugin of this type that was loaded!</para>
+		/// <para>To access all VST or Winamp DSP plugins the <see cref="CreateDspByPlugin"/> function! Use the index returned by <see cref="LoadPlugin"/> if you don't want to enumerate them all.</para>
+		/// </alert>
+		/// </remarks>
+		/// <seealso cref="Dsp"/>
+		/// <seealso cref="DspCreated"/>
+		/// <seealso cref="DspType"/>
+		/// <seealso cref="DspDescription"/>
+		/// <seealso cref="ChannelControl.AddDsp(Dsp, int)"/>
+		/// <seealso cref="Dsp.AddInput"/>
+		/// <seealso cref="Dsp.Active"/>
+		/// <seealso cref="LoadPlugin"/>
+		/// <seealso cref="CreateDsp"/>
+		/// <seealso cref="CreateDspByType"/>
+		/// <seealso cref="CreateDspByPlugin"/>
+		public T CreateDspByType<T>() where T : Dsp
+		{
+			if (Enum.TryParse<DspType>(typeof(T).Name, true, out var dspType))
+				return (T) CreateDspByType(dspType);
+			return null;
+		}
+
+		/// <summary>
+		/// <para>Creates an <b>FMOD</b> defined built in DSP unit object to be inserted into a DSP network, for the purposes of sound filtering or sound generation</para>
+		/// <para>This function is used to create special effects that come built into <b>FMOD</b>.</para>
+		/// </summary>
+		/// <param name="dspType">A pre-defined DSP effect or sound generator described by a <see cref="DspType"/>.</param>
+		/// <returns>A newly created <see cref="Dsp"/> object.</returns>
+		/// <remarks>
+		/// <para>
+		/// A DSP unit can generate or filter incoming data.<lineBreak/>
+		/// The data is created or filtered through use of the read callback that is defined by the user.<lineBreak/>
+		/// To be active, a unit must be inserted into the <b>FMOD</b> DSP network to be heard. Use functions such as <see cref="ChannelControl.AddDsp(Dsp, int)"/>, or <see cref="Dsp.AddInput"/> to do this.
+		/// </para>
+		/// <alert class="note">
+		/// <para>Winamp DSP and VST plugins will only return the first plugin of this type that was loaded!</para>
+		/// <para>To access all VST or Winamp DSP plugins the <see cref="CreateDspByPlugin"/> function! Use the index returned by <see cref="LoadPlugin"/> if you don't want to enumerate them all.</para>
+		/// </alert>
+		/// </remarks>
+		/// <seealso cref="Dsp"/>
+		/// <seealso cref="DspCreated"/>
+		/// <seealso cref="DspType"/>
+		/// <seealso cref="DspDescription"/>
+		/// <seealso cref="ChannelControl.AddDsp(Dsp, int)"/>
+		/// <seealso cref="Dsp.AddInput"/>
+		/// <seealso cref="Dsp.Active"/>
+		/// <seealso cref="LoadPlugin"/>
+		/// <seealso cref="CreateDsp"/>
+		/// <seealso cref="CreateDspByType{T}"/>
+		/// <seealso cref="CreateDspByPlugin"/>
+		public Dsp CreateDspByType(DspType dspType)
+		{
+			NativeInvoke(FMOD_System_CreateDSPByType(this, dspType, out var dsp));
+			DspCreated?.Invoke(this, EventArgs.Empty);
+			return Dsp.FromType(dsp, dspType);
+		}
+
+		/// <summary>
+		/// <para>Creates a <see cref="Dsp"/> unit object which is either built in or loaded as a plugin, to be inserted into a DSP network, for the purposes of sound filtering or sound generation.</para>
+		/// <para>This function creates a DSP unit that can be enumerated by using <see cref="GetPluginCount"/> and <see cref="GetPluginInfo"/>.</para>
+		/// </summary>
+		/// <param name="pluginHandle">A handle to a pre-existing DSP plugin, loaded by <see cref="LoadPlugin"/>.</param>
+		/// <returns>A newly created <see cref="Dsp"/> object.</returns>
+		/// <remarks>
+		/// <para>
+		/// A DSP unit can generate or filter incoming data.<lineBreak/>
+		/// To be active, a unit must be inserted into the <b>FMOD</b> DSP network to be heard. Use functions such as <see cref="ChannelControl.AddDsp(Dsp, int)"/>, or <see cref="Dsp.AddInput"/> to do this.
+		/// </para>
+		/// </remarks>
+		/// <seealso cref="Dsp"/>
+		/// <seealso cref="DspCreated"/>
+		/// <seealso cref="DspType"/>
+		/// <seealso cref="DspDescription"/>
+		/// <seealso cref="ChannelControl.AddDsp(Dsp, int)"/>
+		/// <seealso cref="Dsp.AddInput"/>
+		/// <seealso cref="Dsp.Active"/>
+		/// <seealso cref="LoadPlugin"/>
+		/// <seealso cref="CreateDsp"/>
+		/// <seealso cref="CreateDspByType{T}"/>
+		/// <seealso cref="CreateDspByType"/>
+		public Dsp CreateDspByPlugin(uint pluginHandle)
+		{
+			NativeInvoke(FMOD_System_CreateDSPByPlugin(this, pluginHandle, out var dsp));
+			DspCreated?.Invoke(this, EventArgs.Empty);
+			return CoreHelper.Create<Dsp>(dsp);
+		}
+
+		/// <summary>
+		/// Route the signal from a channel group into a seperate audio port on the output driver.
+		/// </summary>
+		/// <param name="portType">Output driver specific audio port type. See extra platform specific header (if it exists) for port numbers, i.e. fmod_psvita.h, fmod_wiiu.h, fmodorbis.h.</param>
+		/// <param name="portIndex">Output driver specific index of the audio port.</param>
+		/// <param name="channelGroup"><see cref="ChannelGroup"/> to route away to the new port.</param>
+		/// <param name="passThru">If <c>true</c> the signal will continue to be passed through to the main mix, if <c>false</c> the signal will be entirely to the designated port.</param>
+		/// <remarks>
+		/// Note that an <b>FMOD</b> port is a hardware specific reference, to hardware devices that exist on only certain platforms (like a console headset, or dedicated hardware music channel for example). It is not supported on all platforms.
+		/// </remarks>
+		/// <seealso cref="DetachChannelGroupFromPort"/>
+		/// <seealso cref="ChannelGroup"/>
+		/// <seealso cref="ChannelGroupAttached"/>
+		public void AttachChannelGroupToPort(uint portType, ulong portIndex, ChannelGroup channelGroup, bool passThru)
+		{
+			NativeInvoke(FMOD_System_AttachChannelGroupToPort(this, portType, portIndex, channelGroup, passThru));
+			ChannelGroupAttached?.Invoke(this, EventArgs.Empty);
+		}
+
+		/// <summary>
+		/// Disconnect a channel group from a port and route audio back to the default port of the output driver.
+		/// </summary>
+		/// <param name="channelGroup"><see cref="ChannelGroup"/> to route away back to the default audio port.</param>
+		/// <seealso cref="ChannelGroup"/>
+		/// <seealso cref="AttachChannelGroupToPort"/>
+		/// <seealso cref="ChannelGroupDetached"/>
+		public void DetachChannelGroupFromPort(ChannelGroup channelGroup)
+		{
+			NativeInvoke(FMOD_System_DetachChannelGroupFromPort(this, channelGroup));
+			ChannelGroupDetached?.Invoke(this, EventArgs.Empty);
+		}
 
 		/// <summary>
 		/// <para>Closes the <see cref="FmodSystem"/> object without freeing the object's memory, so the system handle will still be valid.</para>

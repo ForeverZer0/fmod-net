@@ -4,7 +4,7 @@ using FMOD.Structures;
 namespace FMOD.Data
 {
 	[StructLayout(LayoutKind.Sequential)]
-    public class ThreeDAttributes
+    public class Attributes3D
     {
         public Vector Position;
 	    public Vector Velocity;

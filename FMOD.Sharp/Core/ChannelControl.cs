@@ -606,7 +606,7 @@ namespace FMOD.Core
 		}
 
 
-		public float ReverbOcclusion
+		public float Occlusion3D
 		{
 			get
 			{

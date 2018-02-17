@@ -20,6 +20,4 @@ namespace FMOD.Enumerations
 		RecordListChanged      = 0x00001000, 
 		All                    = 0xFFFFFFFF																																																																																																																																	 
 	}
-
-
 }

@@ -87,6 +87,7 @@
   <ItemGroup>
     <Compile Include="Core\Arguments.cs" />
     <Compile Include="Core\Constants.cs" />
+    <Compile Include="Core\Debug.cs" />
     <Compile Include="Data\CpuUsage.cs" />
     <Compile Include="Data\FileUsage.cs" />
     <Compile Include="Data\OpenStateInfo.cs" />
@@ -244,6 +245,8 @@
     <Compile Include="Structures\DspBufferArray.cs" />
     <Compile Include="Structures\DspDescription.cs" />
     <Compile Include="Structures\DspMeteringInfo.cs" />
+    <Compile Include="Structures\DspParameterAttributes3D.cs" />
+    <Compile Include="Structures\DspParameterAttributes3DMulti.cs" />
     <Compile Include="Structures\DspParameterDesc.cs" />
     <Compile Include="Structures\DspParameterDescBool.cs" />
     <Compile Include="Structures\DspParameterDescData.cs" />
@@ -252,7 +255,10 @@
     <Compile Include="Structures\DspParameterDescUnion.cs" />
     <Compile Include="Structures\DspParameterFft.cs" />
     <Compile Include="Enumerations\DspProcessOperation.cs" />
+    <Compile Include="Structures\DspParameterOverallGain.cs" />
+    <Compile Include="Structures\DspParameterSideChain.cs" />
     <Compile Include="Structures\DspState.cs" />
+    <Compile Include="Structures\DspStateFunctions.cs" />
     <Compile Include="Structures\ErrorCallbackInfo.cs" />
     <Compile Include="Structures\FloatMapping.cs" />
     <Compile Include="Structures\FloatMappingPiecewiseLinear.cs" />
@@ -266,7 +272,7 @@
     <Compile Include="Structures\SpectrumData.cs" />
     <Compile Include="Structures\STRUCT_TEMP.cs" />
     <Compile Include="Structures\Tag.cs" />
-    <Compile Include="Data\ThreeDAttributes.cs" />
+    <Compile Include="Data\Attributes3D.cs" />
     <Compile Include="Structures\Vector.cs" />
     <Compile Include="Data\WetDryMix.cs" />
     <Compile Include="Core\FmodSystem.cs" />

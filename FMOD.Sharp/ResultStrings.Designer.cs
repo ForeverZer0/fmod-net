@@ -657,6 +657,15 @@ namespace FMOD {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A minimim of 3 vertices are required to define a polygon. {0} provided..
+        /// </summary>
+        internal static string PolygonNotEnoughVertices {
+            get {
+                return ResourceManager.GetString("PolygonNotEnoughVertices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred trying to initialize the recording device..
         /// </summary>
         internal static string Record {

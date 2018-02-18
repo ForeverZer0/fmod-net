@@ -69,6 +69,12 @@ namespace FMOD.Core
 		private static extern Result FMOD_Geometry_SetRotation(IntPtr geometry, ref Vector forward, ref Vector up);
 
 		[DllImport(Constants.LIBRARY)]
+		private static extern Result FMOD_Geometry_SetRotation(IntPtr geometry, IntPtr forward, ref Vector up);
+
+		[DllImport(Constants.LIBRARY)]
+		private static extern Result FMOD_Geometry_SetRotation(IntPtr geometry, ref Vector forward, IntPtr up);
+
+		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_Geometry_SetScale(IntPtr geometry, ref Vector scale);
 
 		[DllImport(Constants.LIBRARY)]

@@ -379,4 +379,7 @@ Possibly a plugin without certain callbacks specified.</value>
   <data name="TooManySamples" xml:space="preserve">
     <value>The length provided exceed the allowable limit.</value>
   </data>
+  <data name="PolygonNotEnoughVertices" xml:space="preserve">
+    <value>A minimim of 3 vertices are required to define a polygon. {0} provided.</value>
+  </data>
 </root>

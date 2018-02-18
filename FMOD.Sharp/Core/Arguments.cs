@@ -4,6 +4,24 @@ using FMOD.DSP;
 
 namespace FMOD.Core
 {
+
+	public class PolygonEventArgs : EventArgs
+	{
+		/// <summary>
+		/// Gets the index of the polygon within the <see cref="Geometry"/> object.
+		/// </summary>
+		/// <value>
+		/// The index.
+		/// </value>
+		public int Index { get; }
+
+		public PolygonEventArgs(int index)
+		{
+			Index = index;
+		}
+	}
+
+
 	public class SoundMusicVolumeChangedEventArgs : EventArgs
 	{
 		public int Channel { get; }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Text;
+using FMOD.Arguments;
 using FMOD.Data;
 using FMOD.Enumerations;
 using FMOD.Structures;
@@ -68,17 +69,17 @@ namespace FMOD.Core
 		/// <summary>
 		/// Occurs when a sync-point is added to the <see cref="Sound"/>.
 		/// </summary>
-		/// <seealso cref="SoundSyncPointEventArgs"/>
+		/// <seealso cref="SyncPointEventArgs"/>
 		/// <seealso cref="AddSyncPoint(FMOD.Data.SyncPointInfo)"/>
 		/// <seealso cref="AddSyncPoint(uint, TimeUnit, string)"/>
-		public event EventHandler<SoundSyncPointEventArgs> SyncPointAdded;
+		public event EventHandler<SyncPointEventArgs> SyncPointAdded;
 
 		/// <summary>
 		/// Occurs when a sync-point is removed from the <see cref="Sound"/>.
 		/// </summary>
-		/// <seealso cref="SoundSyncPointEventArgs"/>
+		/// <seealso cref="SyncPointEventArgs"/>
 		/// <seealso cref="DeleteSyncPoint"/>
-		public event EventHandler<SoundSyncPointEventArgs> SyncPointDeleted;
+		public event EventHandler<SyncPointEventArgs> SyncPointDeleted;
 
 		/// <summary>
 		/// Occurs when the 3D cone settings have changed.
@@ -418,7 +419,7 @@ namespace FMOD.Core
 		public IntPtr AddSyncPoint(SyncPointInfo info)
 		{
 			NativeInvoke(FMOD_Sound_AddSyncPoint(this, info.Offset, info.OffsetTimeUnit, info.Name, out var syncPoint));
-			SyncPointAdded?.Invoke(this, new SoundSyncPointEventArgs(syncPoint));
+			SyncPointAdded?.Invoke(this, new SyncPointEventArgs(syncPoint));
 			return syncPoint;
 		}
 
@@ -431,7 +432,7 @@ namespace FMOD.Core
 		public void DeleteSyncPoint(IntPtr syncPoint)
 		{
 			NativeInvoke(FMOD_Sound_DeleteSyncPoint(this, syncPoint));
-			SyncPointDeleted?.Invoke(this, new SoundSyncPointEventArgs(syncPoint));
+			SyncPointDeleted?.Invoke(this, new SyncPointEventArgs(syncPoint));
 		}
 		// TODO: Implement getting updated tags
 		public Tag[] GetTags()

@@ -11,7 +11,9 @@ namespace FMOD.Structures
         
 		[MarshalAs(UnmanagedType.ByValArray,SizeConst=32)]
 		private IntPtr[] spectrum_internal;                           /* [r] Per channel spectrum arrays.  See remarks for more. */
-        
+
+
+        // TODO: FIX
 		public float[][] spectrum
 		{
 			get

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using FMOD.Arguments;
 
 namespace FMOD.Core
 {
@@ -48,14 +49,14 @@ namespace FMOD.Core
 			}
 		}
 
-		public event EventHandler<ChannelGroupAddEventArgs> ChannelGroupAdded;
+		public event EventHandler<AddChannelGroupEventArgs> ChannelGroupAdded;
 
 
 		public DspConnection AddGroup(ChannelGroup group, bool propagateDspClock = true)
 		{
 			NativeInvoke(FMOD_ChannelGroup_AddGroup(this, group, propagateDspClock, out var connection));
 			var dspConn = CoreHelper.Create<DspConnection>(connection);
-			ChannelGroupAdded?.Invoke(this, new ChannelGroupAddEventArgs(group, dspConn));
+			ChannelGroupAdded?.Invoke(this, new AddChannelGroupEventArgs(group, dspConn));
 			return dspConn;
 		}
 

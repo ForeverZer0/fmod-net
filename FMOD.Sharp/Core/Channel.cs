@@ -1,4 +1,5 @@
 ﻿using System;
+using FMOD.Arguments;
 using FMOD.Data;
 using FMOD.Enumerations;
 
@@ -6,6 +7,10 @@ namespace FMOD.Core
 {
 	public partial class Channel : ChannelControl
 	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Channel"/> class.
+		/// </summary>
+		/// <param name="handle">The handle.</param>
 		internal Channel(IntPtr handle) : base(handle)
 		{
 		}
@@ -169,11 +174,11 @@ namespace FMOD.Core
 
 		public event EventHandler ChannelGroupChanged;
 
-		public event EventHandler<ChannelOcclusionCalculatedEventArgs> OcclusionCalculated;
+		public event EventHandler<OcclusionCalculatedEventArgs> OcclusionCalculated;
 
-		public event EventHandler<ChannelSoundEndEventArgs> SoundEnded;
+		public event EventHandler<SoundEndedEventArgs> SoundEnded;
 
-		public event EventHandler<ChannelSyncPointEncounteredEventArgs> SyncPointEncountered;
+		public event EventHandler<SyncPointEncounteredEventArgs> SyncPointEncountered;
 
 		public event EventHandler<ChannelVoiceSwappedEventArgs> VirtualVoiceSwapped;
 
@@ -244,7 +249,7 @@ namespace FMOD.Core
 			{
 				case ChannelControlCallbackType.End:
 					SetHandleAsInvalid();
-					SoundEnded?.Invoke(this, new ChannelSoundEndEventArgs(CurrentSound));
+					SoundEnded?.Invoke(this, new SoundEndedEventArgs(CurrentSound));
 					break;
 				case ChannelControlCallbackType.Virtualvoice:
 					VirtualVoiceSwapped?.Invoke(this, new ChannelVoiceSwappedEventArgs(commandData1.ToInt32() == 1));
@@ -256,10 +261,10 @@ namespace FMOD.Core
 					var index = commandData1.ToInt32();
 					var syncpoint = sound.GetSyncPoint(index);
 					var info = sound.GetSyncpointInfo(syncpoint);
-					SyncPointEncountered.Invoke(this, new ChannelSyncPointEncounteredEventArgs(index, syncpoint, info));
+					SyncPointEncountered.Invoke(this, new SyncPointEncounteredEventArgs(index, syncpoint, info));
 					break;
 				case ChannelControlCallbackType.Occlusion:
-					OcclusionCalculated?.Invoke(this, new ChannelOcclusionCalculatedEventArgs(commandData1, commandData2));
+					OcclusionCalculated?.Invoke(this, new OcclusionCalculatedEventArgs(commandData1, commandData2));
 					break;
 			}
 			return Result.OK;

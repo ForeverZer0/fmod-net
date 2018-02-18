@@ -1335,7 +1335,7 @@ namespace FMOD.Core
 			if (exInfo.HasValue)
 			{
 				var info = exInfo.Value;
-				info.cbsize = Marshal.SizeOf(info);
+				info.CbSize = Marshal.SizeOf(info);
 				NativeInvoke(FMOD_System_CreateSound(this, source, mode, ref info, out sound));
 			}
 			else
@@ -1638,7 +1638,7 @@ namespace FMOD.Core
 			if (exInfo.HasValue)
 			{
 				var info = exInfo.Value;
-				info.cbsize = Marshal.SizeOf(info);
+				info.CbSize = Marshal.SizeOf(info);
 				NativeInvoke(FMOD_System_CreateStream(this, source, mode, ref info, out sound));
 			}
 			else

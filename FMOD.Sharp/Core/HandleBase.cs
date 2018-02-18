@@ -84,6 +84,7 @@ namespace FMOD.Core
 
 		public override bool IsInvalid
 		{
+			// TODO: Test
 			get => IsClosed || _isInvalid || handle == IntPtr.Zero;
 		}
 

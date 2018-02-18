@@ -85,7 +85,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\Arguments.cs" />
+    <Compile Include="Arguments\AddChannelGroupEventArgs.cs" />
+    <Compile Include="Arguments\OcclusionCalculatedEventArgs.cs" />
+    <Compile Include="Arguments\SoundEndedEventArgs.cs" />
+    <Compile Include="Arguments\SyncPointEncounteredEventArgs.cs" />
+    <Compile Include="Arguments\ChannelVoiceSwappedEventArgs.cs" />
+    <Compile Include="Arguments\DspBoolParamChangedEventArgs.cs" />
+    <Compile Include="Arguments\DspChannelMixGainChangedEventArgs.cs" />
+    <Compile Include="Arguments\DspDelayChangedEventArgs.cs" />
+    <Compile Include="Arguments\DspFloatParamChangedEventArgs.cs" />
+    <Compile Include="Arguments\DspIntParamChangedEventArgs.cs" />
+    <Compile Include="Arguments\DspMultiBandEqFilterChangedEventArgs.cs" />
+    <Compile Include="Arguments\DspMultiBandEqFloatChangedEventArgs.cs" />
+    <Compile Include="Arguments\DspParamChangedEventArgs.cs" />
+    <Compile Include="Arguments\PolygonEventArgs.cs" />
+    <Compile Include="Arguments\SoundMusicVolumeChangedEventArgs.cs" />
+    <Compile Include="Arguments\SyncPointEventArgs.cs" />
     <Compile Include="Core\Constants.cs" />
     <Compile Include="Core\Debug.cs" />
     <Compile Include="Data\CpuUsage.cs" />
@@ -252,7 +267,6 @@
     <Compile Include="Structures\DspParameterDescData.cs" />
     <Compile Include="Structures\DspParameterDescFloat.cs" />
     <Compile Include="Structures\DspParameterDescInt.cs" />
-    <Compile Include="Structures\DspParameterDescUnion.cs" />
     <Compile Include="Structures\DspParameterFft.cs" />
     <Compile Include="Enumerations\DspProcessOperation.cs" />
     <Compile Include="Structures\DspParameterOverallGain.cs" />

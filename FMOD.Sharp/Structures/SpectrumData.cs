@@ -12,6 +12,5 @@ namespace FMOD.Structures
 
 		[MarshalAs(UnmanagedType.ByValArray, SizeConst=32)]
 		public readonly IntPtr[] Spectrum;
-
 	}
 }

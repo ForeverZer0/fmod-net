@@ -54,6 +54,7 @@
 
 using System;
 using System.IO;
+using FMOD.Arguments;
 using FMOD.Data;
 using FMOD.Structures;
 

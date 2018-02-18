@@ -369,8 +369,7 @@ namespace FMOD.Core
 		public DspParameterDesc GetParameterInfo(int parameterIndex)
 		{
 			NativeInvoke(FMOD_DSP_GetParameterInfo(this, parameterIndex, out var desc));
-			var info = Marshal.PtrToStructure(desc, typeof(DspParameterDesc));
-			return (DspParameterDesc) info;
+			return (DspParameterDesc) Marshal.PtrToStructure(desc, typeof(DspParameterDesc));
 		}
 
 		public void Reset()

@@ -10,7 +10,6 @@ namespace FMOD.Core
 
 	public delegate IntPtr MemoryReallocCallback(IntPtr ptr, uint size, MemoryType type, IntPtr sourceStr);
 
-
 	public delegate Result AsyncReadInfoDoneCallback(IntPtr info, Result result);
 
 	public delegate Result DebugCallback(DebugFlags flags, string file, int line, string func, string message);
@@ -21,7 +20,7 @@ namespace FMOD.Core
 	public delegate Result ChannelCallback(IntPtr channelraw, ChannelControlType controltype,
 		ChannelControlCallbackType type, IntPtr commanddata1, IntPtr commanddata2);
 
-	public delegate Result SoundNonBlockCallback(IntPtr soundraw, Result Result);
+	public delegate Result SoundNonBlockCallback(IntPtr soundraw, Result result);
 
 	public delegate Result SoundPcmReadCallback(IntPtr soundraw, IntPtr data, uint datalen);
 

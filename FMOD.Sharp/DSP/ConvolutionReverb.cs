@@ -47,7 +47,7 @@ namespace FMOD.DSP
 				Marshal.StructureToPtr(value, gcHandle.AddrOfPinnedObject(), true);
 				gcHandle.Free();
 				SetParameterData(0, bytes);
-				ImpulseResponseChanged?.Invoke(this, new DspParamChangedEventArgs(0));
+				ImpulseResponseChanged?.Invoke(this, new DspParamEventArgs(0));
 			}
 		}
 
@@ -65,7 +65,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(-80.0f, 10.0f);
 				SetParameterFloat(1, clamped);
-				WetLevelChanged?.Invoke(this, new DspFloatParamChangedEventArgs(1, clamped, -80.0f, 10.0f));
+				WetLevelChanged?.Invoke(this, new FloatParamEventArgs(1, clamped, -80.0f, 10.0f));
 				// POSSIBLE BUG: Max value stored in DSP info is 0.0, while documentation states it is 10.0. Which is it?
 			}
 		}
@@ -84,7 +84,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(-80.0f, 10.0f);
 				SetParameterFloat(2, clamped);
-				DryLevelChanged?.Invoke(this, new DspFloatParamChangedEventArgs(2, clamped, -80.0f, 10.0f));
+				DryLevelChanged?.Invoke(this, new FloatParamEventArgs(2, clamped, -80.0f, 10.0f));
 				// POSSIBLE BUG: Max value stored in DSP info is 0.0, while documentation states it is 10.0. Which is it?
 			}
 		}
@@ -102,33 +102,33 @@ namespace FMOD.DSP
 			set
 			{
 				SetParameterBool(3, value);
-				LinkedChanged?.Invoke(this, new DspBoolParamChangedEventArgs(3, value));
+				LinkedChanged?.Invoke(this, new BoolParamEventArgs(3, value));
 			}
 		}
 
 		/// <summary>
 		///     Occurs when <see cref="ImpulseResponse" /> property is changed.
 		/// </summary>
-		/// <seealso cref="DspParamChangedEventArgs" />
+		/// <seealso cref="DspParamEventArgs" />
 		/// <seealso cref="T:FMOD.Sharp.Structs.ImpulseResponse" />
-		public event EventHandler<DspParamChangedEventArgs> ImpulseResponseChanged;
+		public event EventHandler<DspParamEventArgs> ImpulseResponseChanged;
 
 		/// <summary>
 		///     Occurs when <see cref="WetLevel" /> property is changed.
 		/// </summary>
-		/// <seealso cref="DspFloatParamChangedEventArgs" />
-		public event EventHandler<DspFloatParamChangedEventArgs> WetLevelChanged;
+		/// <seealso cref="FloatParamEventArgs" />
+		public event EventHandler<FloatParamEventArgs> WetLevelChanged;
 
 		/// <summary>
 		///     Occurs when <see cref="DryLevel" /> property is changed.
 		/// </summary>
-		/// <seealso cref="DspFloatParamChangedEventArgs" />
-		public event EventHandler<DspFloatParamChangedEventArgs> DryLevelChanged;
+		/// <seealso cref="FloatParamEventArgs" />
+		public event EventHandler<FloatParamEventArgs> DryLevelChanged;
 
 		/// <summary>
 		///     Occurs when <see cref="Linked" /> property is changed.
 		/// </summary>
-		/// <seealso cref="DspBoolParamChangedEventArgs" />
-		public event EventHandler<DspBoolParamChangedEventArgs> LinkedChanged;
+		/// <seealso cref="BoolParamEventArgs" />
+		public event EventHandler<BoolParamEventArgs> LinkedChanged;
 	}
 }

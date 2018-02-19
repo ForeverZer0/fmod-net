@@ -1,6 +1,6 @@
 ﻿namespace FMOD.Arguments
 {
-	public class DspChannelMixGainChangedEventArgs : DspFloatParamChangedEventArgs
+	public class DspChannelMixGainChangedEventArgs : FloatParamEventArgs
 	{
 		public int ChannelIndex { get; }
 

@@ -47,7 +47,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(0.0f, 10000.0f);
 				SetParameterFloat(16, clamped);
-				MaximumDelayChanged?.Invoke(this, new DspFloatParamChangedEventArgs(16, clamped, 0.0f, 10000.0f));
+				MaximumDelayChanged?.Invoke(this, new FloatParamEventArgs(16, clamped, 0.0f, 10000.0f));
 			}
 		}
 
@@ -61,8 +61,8 @@ namespace FMOD.DSP
 		/// <summary>
 		///     Occurs when the <see cref="MaximumDelay" /> proeprty is changed.
 		/// </summary>
-		/// <seealso cref="DspFloatParamChangedEventArgs" />
-		public event EventHandler<DspFloatParamChangedEventArgs> MaximumDelayChanged;
+		/// <seealso cref="FloatParamEventArgs" />
+		public event EventHandler<FloatParamEventArgs> MaximumDelayChanged;
 
 		/// <summary>
 		///     Gets the delay valeu for the specified channel.

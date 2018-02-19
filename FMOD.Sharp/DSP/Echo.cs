@@ -42,7 +42,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(5.0f, 5000.0f);
 				SetParameterFloat(0, clamped);
-				DelayChanged?.Invoke(this, new DspFloatParamChangedEventArgs(0, clamped, 5.0f, 5000.0f));
+				DelayChanged?.Invoke(this, new FloatParamEventArgs(0, clamped, 5.0f, 5000.0f));
 			}
 		}
 
@@ -61,7 +61,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(0.0f, 100.0f);
 				SetParameterFloat(1, clamped);
-				FeedbackChanged?.Invoke(this, new DspFloatParamChangedEventArgs(1, clamped, 0.0f, 100.0f));
+				FeedbackChanged?.Invoke(this, new FloatParamEventArgs(1, clamped, 0.0f, 100.0f));
 			}
 		}
 
@@ -79,7 +79,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(-80.0f, 10.0f);
 				SetParameterFloat(2, clamped);
-				DryLevelChanged?.Invoke(this, new DspFloatParamChangedEventArgs(2, clamped, -80.0f, 10.0f));
+				DryLevelChanged?.Invoke(this, new FloatParamEventArgs(2, clamped, -80.0f, 10.0f));
 			}
 		}
 
@@ -97,32 +97,32 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(-80.0f, 10.0f);
 				SetParameterFloat(3, clamped);
-				WetLevelChanged?.Invoke(this, new DspFloatParamChangedEventArgs(3, clamped, -80.0f, 10.0f));
+				WetLevelChanged?.Invoke(this, new FloatParamEventArgs(3, clamped, -80.0f, 10.0f));
 			}
 		}
 
 		/// <summary>
 		///     Occurs when <see cref="Delay" /> property is changed.
 		/// </summary>
-		/// <seealso cref="DspFloatParamChangedEventArgs"/>
-		public event EventHandler<DspFloatParamChangedEventArgs> DelayChanged;
+		/// <seealso cref="FloatParamEventArgs"/>
+		public event EventHandler<FloatParamEventArgs> DelayChanged;
 
 		/// <summary>
 		///     Occurs when <see cref="Feedback" /> property is changed.
 		/// </summary>
-		/// <seealso cref="DspFloatParamChangedEventArgs"/>
-		public event EventHandler<DspFloatParamChangedEventArgs> FeedbackChanged;
+		/// <seealso cref="FloatParamEventArgs"/>
+		public event EventHandler<FloatParamEventArgs> FeedbackChanged;
 
 		/// <summary>
 		///     Occurs when <see cref="DryLevel" /> property is changed.
 		/// </summary>
-		/// <seealso cref="DspFloatParamChangedEventArgs"/>
-		public event EventHandler<DspFloatParamChangedEventArgs> DryLevelChanged;
+		/// <seealso cref="FloatParamEventArgs"/>
+		public event EventHandler<FloatParamEventArgs> DryLevelChanged;
 
 		/// <summary>
 		///     Occurs when <see cref="WetLevel" /> property is changed.
 		/// </summary>
-		/// <seealso cref="DspFloatParamChangedEventArgs"/>
-		public event EventHandler<DspFloatParamChangedEventArgs> WetLevelChanged;
+		/// <seealso cref="FloatParamEventArgs"/>
+		public event EventHandler<FloatParamEventArgs> WetLevelChanged;
 	}
 }

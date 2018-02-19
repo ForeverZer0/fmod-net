@@ -9,17 +9,17 @@ namespace FMOD.DSP
 		// TODO: IMPLEMENT
 
 
-		public event EventHandler<DspFloatParamChangedEventArgs> ThreeDMinDistanceChanged;
+		public event EventHandler<FloatParamEventArgs> ThreeDMinDistanceChanged;
 
-		public event EventHandler<DspFloatParamChangedEventArgs> ThreeDMaxDistanceChanged;
-
-
-		public event EventHandler<DspFloatParamChangedEventArgs> ThreeDSoundSizeChanged;
-
-		public event EventHandler<DspFloatParamChangedEventArgs> ThreeDMinExtentChanged;
+		public event EventHandler<FloatParamEventArgs> ThreeDMaxDistanceChanged;
 
 
-		public event EventHandler<DspFloatParamChangedEventArgs> OutputGainChanged;
+		public event EventHandler<FloatParamEventArgs> ThreeDSoundSizeChanged;
+
+		public event EventHandler<FloatParamEventArgs> ThreeDMinExtentChanged;
+
+
+		public event EventHandler<FloatParamEventArgs> OutputGainChanged;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ObjectPan"/> class.
@@ -48,7 +48,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(0.0f, float.MaxValue);
 				SetParameterFloat(2, clamped);
-				ThreeDMinDistanceChanged?.Invoke(this, new DspFloatParamChangedEventArgs(2, clamped, 0.0f));
+				ThreeDMinDistanceChanged?.Invoke(this, new FloatParamEventArgs(2, clamped, 0.0f));
 			}
 		}
 
@@ -59,7 +59,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(0.0f, float.MaxValue);
 				SetParameterFloat(3, clamped);
-				ThreeDMaxDistanceChanged?.Invoke(this, new DspFloatParamChangedEventArgs(3, clamped, 0.0f));
+				ThreeDMaxDistanceChanged?.Invoke(this, new FloatParamEventArgs(3, clamped, 0.0f));
 			}
 		}
 
@@ -76,7 +76,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(0.0f, float.MaxValue);
 				SetParameterFloat(5, clamped);
-				ThreeDSoundSizeChanged?.Invoke(this, new DspFloatParamChangedEventArgs(5, clamped, 0.0f));
+				ThreeDSoundSizeChanged?.Invoke(this, new FloatParamEventArgs(5, clamped, 0.0f));
 			}
 		}
 
@@ -87,7 +87,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(0.0f, 360.0f);
 				SetParameterFloat(6, clamped);
-				ThreeDMinExtentChanged?.Invoke(this, new DspFloatParamChangedEventArgs(6, clamped, 0.0f, 360.0f));
+				ThreeDMinExtentChanged?.Invoke(this, new FloatParamEventArgs(6, clamped, 0.0f, 360.0f));
 			}
 		}
 
@@ -104,7 +104,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(0.0f, 20.0f);
 				SetParameterFloat(8, clamped);
-				OutputGainChanged?.Invoke(this, new DspFloatParamChangedEventArgs(8, clamped, 0.0f, 20.0f));
+				OutputGainChanged?.Invoke(this, new FloatParamEventArgs(8, clamped, 0.0f, 20.0f));
 			}
 		}
 	}

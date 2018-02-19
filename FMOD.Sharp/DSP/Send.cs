@@ -15,8 +15,8 @@ namespace FMOD.DSP
 		/// Occurs when <see cref="SendLevel"/> property is changed.
 		/// </summary>
 		/// <seealso cref="SendLevel"/>
-		/// <seealso cref="DspFloatParamChangedEventArgs"/>
-		public event EventHandler<DspFloatParamChangedEventArgs> SendLevelChanged;
+		/// <seealso cref="FloatParamEventArgs"/>
+		public event EventHandler<FloatParamEventArgs> SendLevelChanged;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Send"/> class.
@@ -52,7 +52,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(0.0f, 10.0f);
 				SetParameterFloat(1, clamped);
-				SendLevelChanged?.Invoke(this, new DspFloatParamChangedEventArgs(1, clamped, 0.0f, 10.0f));
+				SendLevelChanged?.Invoke(this, new FloatParamEventArgs(1, clamped, 0.0f, 10.0f));
 			}
 		}
 

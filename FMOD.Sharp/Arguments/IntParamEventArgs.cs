@@ -1,6 +1,6 @@
 ﻿namespace FMOD.Arguments
 {
-	public class DspIntParamChangedEventArgs : DspParamChangedEventArgs
+	public class IntParamEventArgs : DspParamEventArgs
 	{
 		public int Value { get; }
 
@@ -8,7 +8,7 @@
 
 		public int MaxValue { get; }
 
-		public DspIntParamChangedEventArgs(int index, int value, int min = int.MinValue, int max = int.MaxValue) : base(index)
+		public IntParamEventArgs(int index, int value, int min = int.MinValue, int max = int.MaxValue) : base(index)
 		{
 			Value = value;
 			MinValue = min;

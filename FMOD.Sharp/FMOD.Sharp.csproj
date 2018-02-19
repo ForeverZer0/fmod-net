@@ -86,18 +86,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Arguments\AddChannelGroupEventArgs.cs" />
-    <Compile Include="Arguments\OcclusionCalculatedEventArgs.cs" />
+    <Compile Include="Arguments\OcclusionEventArgs.cs" />
     <Compile Include="Arguments\SoundEndedEventArgs.cs" />
     <Compile Include="Arguments\SyncPointEncounteredEventArgs.cs" />
-    <Compile Include="Arguments\ChannelVoiceSwappedEventArgs.cs" />
-    <Compile Include="Arguments\DspBoolParamChangedEventArgs.cs" />
+    <Compile Include="Arguments\VoiceSwapEventArgs.cs" />
+    <Compile Include="Arguments\BoolParamEventArgs.cs" />
     <Compile Include="Arguments\DspChannelMixGainChangedEventArgs.cs" />
     <Compile Include="Arguments\DspDelayChangedEventArgs.cs" />
-    <Compile Include="Arguments\DspFloatParamChangedEventArgs.cs" />
-    <Compile Include="Arguments\DspIntParamChangedEventArgs.cs" />
-    <Compile Include="Arguments\DspMultiBandEqFilterChangedEventArgs.cs" />
-    <Compile Include="Arguments\DspMultiBandEqFloatChangedEventArgs.cs" />
-    <Compile Include="Arguments\DspParamChangedEventArgs.cs" />
+    <Compile Include="Arguments\FloatParamEventArgs.cs" />
+    <Compile Include="Arguments\IntParamEventArgs.cs" />
+    <Compile Include="Arguments\MultiBandEqFilterEventArgs.cs" />
+    <Compile Include="Arguments\MultiBandEqEventArgs.cs" />
+    <Compile Include="Arguments\DspParamEventArgs.cs" />
     <Compile Include="Arguments\PolygonEventArgs.cs" />
     <Compile Include="Arguments\SoundMusicVolumeChangedEventArgs.cs" />
     <Compile Include="Arguments\SyncPointEventArgs.cs" />

@@ -14,8 +14,8 @@ namespace FMOD.DSP
 		/// <summary>
 		/// Occurs when <see cref="Gain"/> property has changed.
 		/// </summary>
-		/// <seealso cref="DspFloatParamChangedEventArgs"/>
-		public event EventHandler<DspFloatParamChangedEventArgs> GainChanged;
+		/// <seealso cref="FloatParamEventArgs"/>
+		public event EventHandler<FloatParamEventArgs> GainChanged;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Fader"/> class.
@@ -39,7 +39,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(-80.0f, 10.0f);
 				SetParameterFloat(0, clamped);
-				GainChanged?.Invoke(this, new DspFloatParamChangedEventArgs(0, clamped, -80.0f, 10.0f));
+				GainChanged?.Invoke(this, new FloatParamEventArgs(0, clamped, -80.0f, 10.0f));
 			}
 		}
 	}

@@ -39,7 +39,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(-60.0f, 0.0f);
 				SetParameterFloat(0, clamped);
-				ThresholdChanged?.Invoke(this, new DspFloatParamChangedEventArgs(0, clamped, -60.0f, 0.0f));
+				ThresholdChanged?.Invoke(this, new FloatParamEventArgs(0, clamped, -60.0f, 0.0f));
 			}
 		}
 
@@ -57,7 +57,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(1.0f, 50.0f);
 				SetParameterFloat(1, clamped);
-				RatioChanged?.Invoke(this, new DspFloatParamChangedEventArgs(1, clamped, 1.0f, 50.0f));
+				RatioChanged?.Invoke(this, new FloatParamEventArgs(1, clamped, 1.0f, 50.0f));
 			}
 		}
 
@@ -75,7 +75,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(0.1f, 500.0f);
 				SetParameterFloat(2, clamped);
-				AttackChanged?.Invoke(this, new DspFloatParamChangedEventArgs(2, clamped, 0.1f, 500.0f));
+				AttackChanged?.Invoke(this, new FloatParamEventArgs(2, clamped, 0.1f, 500.0f));
 			}
 		}
 
@@ -93,7 +93,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(10.0f, 5000.0f);
 				SetParameterFloat(3, clamped);
-				ReleaseChanged?.Invoke(this, new DspFloatParamChangedEventArgs(3, clamped, 10.0f, 5000.0f));
+				ReleaseChanged?.Invoke(this, new FloatParamEventArgs(3, clamped, 10.0f, 5000.0f));
 			}
 		}
 
@@ -111,7 +111,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(-30.0f, 30.0f);
 				SetParameterFloat(4, clamped);
-				MakeUpGainChanged?.Invoke(this, new DspFloatParamChangedEventArgs(4, clamped, -30.0f, 30.0f));
+				MakeUpGainChanged?.Invoke(this, new FloatParamEventArgs(4, clamped, -30.0f, 30.0f));
 			}
 		}
 
@@ -129,7 +129,7 @@ namespace FMOD.DSP
 			{
 				var bytes = BitConverter.GetBytes(value ? 1 : 0);
 				SetParameterData(5, bytes);
-				UseSideChainChanged?.Invoke(this, new DspBoolParamChangedEventArgs(5, value));
+				UseSideChainChanged?.Invoke(this, new BoolParamEventArgs(5, value));
 			}
 		}
 
@@ -146,50 +146,50 @@ namespace FMOD.DSP
 			set
 			{
 				SetParameterBool(6, value);
-				LinkedChanged?.Invoke(this, new DspBoolParamChangedEventArgs(6, value));
+				LinkedChanged?.Invoke(this, new BoolParamEventArgs(6, value));
 			}
 		}
 
 		/// <summary>
 		///     Occurs when <see cref="Threshold" /> property has changed.
 		/// </summary>
-		/// <seealso cref="DspFloatParamChangedEventArgs" />
-		public event EventHandler<DspFloatParamChangedEventArgs> ThresholdChanged;
+		/// <seealso cref="FloatParamEventArgs" />
+		public event EventHandler<FloatParamEventArgs> ThresholdChanged;
 
 		/// <summary>
 		///     Occurs when <see cref="Ratio" /> property has changed.
 		/// </summary>
-		/// <seealso cref="DspFloatParamChangedEventArgs" />
-		public event EventHandler<DspFloatParamChangedEventArgs> RatioChanged;
+		/// <seealso cref="FloatParamEventArgs" />
+		public event EventHandler<FloatParamEventArgs> RatioChanged;
 
 		/// <summary>
 		///     Occurs when <see cref="Attack" /> property has changed.
 		/// </summary>
-		/// <seealso cref="DspFloatParamChangedEventArgs" />
-		public event EventHandler<DspFloatParamChangedEventArgs> AttackChanged;
+		/// <seealso cref="FloatParamEventArgs" />
+		public event EventHandler<FloatParamEventArgs> AttackChanged;
 
 		/// <summary>
 		///     Occurs when <see cref="Release" /> property has changed.
 		/// </summary>
-		/// <seealso cref="DspFloatParamChangedEventArgs" />
-		public event EventHandler<DspFloatParamChangedEventArgs> ReleaseChanged;
+		/// <seealso cref="FloatParamEventArgs" />
+		public event EventHandler<FloatParamEventArgs> ReleaseChanged;
 
 		/// <summary>
 		///     Occurs when <see cref="MakeUpGain" /> property has changed.
 		/// </summary>
-		/// <seealso cref="DspFloatParamChangedEventArgs" />
-		public event EventHandler<DspFloatParamChangedEventArgs> MakeUpGainChanged;
+		/// <seealso cref="FloatParamEventArgs" />
+		public event EventHandler<FloatParamEventArgs> MakeUpGainChanged;
 
 		/// <summary>
 		///     Occurs when <see cref="UseSideChain" /> property has changed.
 		/// </summary>
-		/// <seealso cref="DspBoolParamChangedEventArgs" />
-		public event EventHandler<DspBoolParamChangedEventArgs> UseSideChainChanged;
+		/// <seealso cref="BoolParamEventArgs" />
+		public event EventHandler<BoolParamEventArgs> UseSideChainChanged;
 
 		/// <summary>
 		///     Occurs when <see cref="Linked" /> property has changed.
 		/// </summary>
-		/// <seealso cref="DspBoolParamChangedEventArgs" />
-		public event EventHandler<DspBoolParamChangedEventArgs> LinkedChanged;
+		/// <seealso cref="BoolParamEventArgs" />
+		public event EventHandler<BoolParamEventArgs> LinkedChanged;
 	}
 }

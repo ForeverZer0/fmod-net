@@ -39,7 +39,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(100.0f, 20000.0f);
 				SetParameterFloat(0, clamped);
-				PropertyChanged?.Invoke(this, new DspFloatParamChangedEventArgs(0, clamped, 100.0f, 20000.0f));
+				PropertyChanged?.Invoke(this, new FloatParamEventArgs(0, clamped, 100.0f, 20000.0f));
 			}
 		}
 
@@ -57,7 +57,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(0.0f, 300.0f);
 				SetParameterFloat(1, clamped);
-				PropertyChanged?.Invoke(this, new DspFloatParamChangedEventArgs(1, clamped, 0.0f, 300.0f));
+				PropertyChanged?.Invoke(this, new FloatParamEventArgs(1, clamped, 0.0f, 300.0f));
 			}
 		}
 
@@ -75,7 +75,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(0.0f, 100.0f);
 				SetParameterFloat(2, clamped);
-				PropertyChanged?.Invoke(this, new DspFloatParamChangedEventArgs(2, clamped, 0.0f, 100.0f));
+				PropertyChanged?.Invoke(this, new FloatParamEventArgs(2, clamped, 0.0f, 100.0f));
 			}
 		}
 
@@ -93,7 +93,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(20.0f, 20000.0f);
 				SetParameterFloat(3, clamped);
-				PropertyChanged?.Invoke(this, new DspFloatParamChangedEventArgs(3, clamped, 20.0f, 20000.0f));
+				PropertyChanged?.Invoke(this, new FloatParamEventArgs(3, clamped, 20.0f, 20000.0f));
 			}
 		}
 
@@ -111,7 +111,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(10.0f, 200.0f);
 				SetParameterFloat(4, clamped);
-				PropertyChanged?.Invoke(this, new DspFloatParamChangedEventArgs(4, clamped, 10.0f, 200.0f));
+				PropertyChanged?.Invoke(this, new FloatParamEventArgs(4, clamped, 10.0f, 200.0f));
 			}
 		}
 
@@ -129,7 +129,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(0.0f, 100.0f);
 				SetParameterFloat(5, clamped);
-				PropertyChanged?.Invoke(this, new DspFloatParamChangedEventArgs(5, clamped, 0.0f, 100.0f));
+				PropertyChanged?.Invoke(this, new FloatParamEventArgs(5, clamped, 0.0f, 100.0f));
 			}
 		}
 
@@ -147,7 +147,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(0.0f, 100.0f);
 				SetParameterFloat(6, clamped);
-				PropertyChanged?.Invoke(this, new DspFloatParamChangedEventArgs(6, clamped, 0.0f, 100.0f));
+				PropertyChanged?.Invoke(this, new FloatParamEventArgs(6, clamped, 0.0f, 100.0f));
 			}
 		}
 
@@ -165,7 +165,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(20.0f, 1000.0f);
 				SetParameterFloat(7, clamped);
-				PropertyChanged?.Invoke(this, new DspFloatParamChangedEventArgs(7, clamped, 20.0f, 1000.0f));
+				PropertyChanged?.Invoke(this, new FloatParamEventArgs(7, clamped, 20.0f, 1000.0f));
 			}
 		}
 
@@ -183,7 +183,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(-48.0f, 12.0f);
 				SetParameterFloat(8, clamped);
-				PropertyChanged?.Invoke(this, new DspFloatParamChangedEventArgs(8, clamped, -48.0f, 12.0f));
+				PropertyChanged?.Invoke(this, new FloatParamEventArgs(8, clamped, -48.0f, 12.0f));
 			}
 		}
 
@@ -201,7 +201,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(20.0f, 20000.0f);
 				SetParameterFloat(9, clamped);
-				PropertyChanged?.Invoke(this, new DspFloatParamChangedEventArgs(9, clamped, 20.0f, 20000.0f));
+				PropertyChanged?.Invoke(this, new FloatParamEventArgs(9, clamped, 20.0f, 20000.0f));
 			}
 		}
 
@@ -219,7 +219,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(0.0f, 100.0f);
 				SetParameterFloat(10, clamped);
-				PropertyChanged?.Invoke(this, new DspFloatParamChangedEventArgs(10, clamped, 0.0f, 100.0f));
+				PropertyChanged?.Invoke(this, new FloatParamEventArgs(10, clamped, 0.0f, 100.0f));
 			}
 		}
 
@@ -237,7 +237,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(-80.0f, 20.0f);
 				SetParameterFloat(11, clamped);
-				PropertyChanged?.Invoke(this, new DspFloatParamChangedEventArgs(11, clamped, -80.0f, 20.0f));
+				PropertyChanged?.Invoke(this, new FloatParamEventArgs(11, clamped, -80.0f, 20.0f));
 			}
 		}
 
@@ -255,7 +255,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(-80.0f, 20.0f);
 				SetParameterFloat(12, clamped);
-				PropertyChanged?.Invoke(this, new DspFloatParamChangedEventArgs(12, clamped, -80.0f, 20.0f));
+				PropertyChanged?.Invoke(this, new FloatParamEventArgs(12, clamped, -80.0f, 20.0f));
 			}
 		}
 
@@ -263,12 +263,12 @@ namespace FMOD.DSP
 		///     <para>Occurs when a property is changed.</para>
 		///     <para>
 		///         When changing the properties all at once with <see cref="SetProperties" />, the
-		///         <see cref="DspFloatParamChangedEventArgs.ParameterIndex" /> will be <c>-1</c> with all other values set to
+		///         <see cref="FloatParamEventArgs.ParameterIndex" /> will be <c>-1</c> with all other values set to
 		///         <c>0.0</c>.
 		///     </para>
 		/// </summary>
-		/// <seealso cref="DspFloatParamChangedEventArgs" />
-		public event EventHandler<DspFloatParamChangedEventArgs> PropertyChanged;
+		/// <seealso cref="FloatParamEventArgs" />
+		public event EventHandler<FloatParamEventArgs> PropertyChanged;
 
 		/// <summary>
 		///     Gets the properties all at once.
@@ -302,7 +302,7 @@ namespace FMOD.DSP
 		/// <param name="dryLevel">The dry level to apply.</param>
 		/// <remarks>
 		///     When changing the properties all at once with this method, the
-		///     <see cref="DspFloatParamChangedEventArgs.ParameterIndex" /> will be <c>-1</c> with all other values set to
+		///     <see cref="FloatParamEventArgs.ParameterIndex" /> will be <c>-1</c> with all other values set to
 		///     <c>0.0</c>.
 		/// </remarks>
 		public void SetProperties(ReverbProperties properties, float dryLevel)
@@ -320,7 +320,7 @@ namespace FMOD.DSP
 			SetParameterFloat(10, properties.EarlyLateMix.Clamp(0.0f, 100.0f));
 			SetParameterFloat(11, properties.WetLevel.Clamp(-80.0f, 20.0f));
 			SetParameterFloat(12, dryLevel.Clamp(-80.0f, 20.0f));
-			PropertyChanged?.Invoke(this, new DspFloatParamChangedEventArgs(-1, 0, 0, 0));
+			PropertyChanged?.Invoke(this, new FloatParamEventArgs(-1, 0, 0, 0));
 		}
 	}
 }

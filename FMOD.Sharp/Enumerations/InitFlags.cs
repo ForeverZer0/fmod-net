@@ -106,7 +106,7 @@ namespace FMOD.Enumerations
 
 		/// <summary>
 		///     All <see cref="Mode.ThreeD" /> based voices will add a software lowpass filter effect into the DSP chain which is
-		///     automatically used when <see cref="ChannelControl.Occlusion3D" /> is used or the <see cref="Geometry" /> API.
+		///     automatically used when <see cref="ChannelControl.ReverbOcclusion3D" /> is used or the <see cref="Geometry" /> API.
 		///     <para>This also causes sounds to sound duller when the sound goes behind the listener, as a fake HRTF style effect.</para>
 		///     <para>Use <see cref="FmodSystem.AdvancedSettings" /> to disable or adjust cutoff frequency for this feature.</para>
 		/// </summary>

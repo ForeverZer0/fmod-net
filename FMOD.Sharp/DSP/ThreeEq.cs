@@ -56,7 +56,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(-80.0f, 10.0f);
 				SetParameterFloat(0, clamped);
-				LowGainChanged?.Invoke(this, new DspFloatParamChangedEventArgs(0, clamped, -80.0f, 10.0f));
+				LowGainChanged?.Invoke(this, new FloatParamEventArgs(0, clamped, -80.0f, 10.0f));
 			}
 		}
 
@@ -74,7 +74,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(-80.0f, 10.0f);
 				SetParameterFloat(1, clamped);
-				MidGainChanged?.Invoke(this, new DspFloatParamChangedEventArgs(1, clamped, -80.0f, 10.0f));
+				MidGainChanged?.Invoke(this, new FloatParamEventArgs(1, clamped, -80.0f, 10.0f));
 			}
 		}
 
@@ -92,7 +92,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(-80.0f, 10.0f);
 				SetParameterFloat(2, clamped);
-				HighGainChanged?.Invoke(this, new DspFloatParamChangedEventArgs(2, clamped, -80.0f, 10.0f));
+				HighGainChanged?.Invoke(this, new FloatParamEventArgs(2, clamped, -80.0f, 10.0f));
 			}
 		}
 
@@ -110,7 +110,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(10.0f, 22000.0f);
 				SetParameterFloat(3, clamped);
-				LowCrossoverChanged?.Invoke(this, new DspFloatParamChangedEventArgs(3, clamped, 10.0f, 22000.0f));
+				LowCrossoverChanged?.Invoke(this, new FloatParamEventArgs(3, clamped, 10.0f, 22000.0f));
 			}
 		}
 
@@ -128,7 +128,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(10.0f, 22000.0f);
 				SetParameterFloat(4, clamped);
-				HighCrossoverChanged?.Invoke(this, new DspFloatParamChangedEventArgs(4, clamped, 10.0f, 22000.0f));
+				HighCrossoverChanged?.Invoke(this, new FloatParamEventArgs(4, clamped, 10.0f, 22000.0f));
 			}
 		}
 
@@ -148,31 +148,31 @@ namespace FMOD.DSP
 		/// <summary>
 		///     Occurs when the <see cref="LowGain" /> property has changed.
 		/// </summary>
-		/// <see cref="DspFloatParamChangedEventArgs" />
-		public event EventHandler<DspFloatParamChangedEventArgs> LowGainChanged;
+		/// <see cref="FloatParamEventArgs" />
+		public event EventHandler<FloatParamEventArgs> LowGainChanged;
 
 		/// <summary>
 		///     Occurs when the <see cref="MidGain" /> property has changed.
 		/// </summary>
-		/// <see cref="DspFloatParamChangedEventArgs" />
-		public event EventHandler<DspFloatParamChangedEventArgs> MidGainChanged;
+		/// <see cref="FloatParamEventArgs" />
+		public event EventHandler<FloatParamEventArgs> MidGainChanged;
 
 		/// <summary>
 		///     Occurs when the <see cref="HighGain" /> property has changed.
 		/// </summary>
-		/// <see cref="DspFloatParamChangedEventArgs" />
-		public event EventHandler<DspFloatParamChangedEventArgs> HighGainChanged;
+		/// <see cref="FloatParamEventArgs" />
+		public event EventHandler<FloatParamEventArgs> HighGainChanged;
 
 		/// <summary>
 		///     Occurs when the <see cref="LowCrossover" /> property has changed.
 		/// </summary>
-		/// <see cref="DspFloatParamChangedEventArgs" />
-		public event EventHandler<DspFloatParamChangedEventArgs> LowCrossoverChanged;
+		/// <see cref="FloatParamEventArgs" />
+		public event EventHandler<FloatParamEventArgs> LowCrossoverChanged;
 
 		/// <summary>
 		///     Occurs when the <see cref="HighCrossover" /> property has changed.
 		/// </summary>
-		/// <see cref="DspFloatParamChangedEventArgs" />
-		public event EventHandler<DspFloatParamChangedEventArgs> HighCrossoverChanged;
+		/// <see cref="FloatParamEventArgs" />
+		public event EventHandler<FloatParamEventArgs> HighCrossoverChanged;
 	}
 }

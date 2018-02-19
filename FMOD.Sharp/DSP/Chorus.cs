@@ -37,7 +37,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(0.0f, 100.0f);
 				SetParameterFloat(0, clamped);
-				MixChanged?.Invoke(this, new DspFloatParamChangedEventArgs(0, clamped, 0.0f, 100.0f));
+				MixChanged?.Invoke(this, new FloatParamEventArgs(0, clamped, 0.0f, 100.0f));
 			}
 		}
 
@@ -55,7 +55,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(0.0f, 20.0f);
 				SetParameterFloat(1, clamped);
-				RateChanged?.Invoke(this, new DspFloatParamChangedEventArgs(1, clamped, 0.0f, 20.0f));
+				RateChanged?.Invoke(this, new FloatParamEventArgs(1, clamped, 0.0f, 20.0f));
 			}
 		}
 
@@ -73,26 +73,26 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(0.0f, 100.0f);
 				SetParameterFloat(2, clamped);
-				DepthChanged?.Invoke(this, new DspFloatParamChangedEventArgs(2, clamped, 0.0f, 100.0f));
+				DepthChanged?.Invoke(this, new FloatParamEventArgs(2, clamped, 0.0f, 100.0f));
 			}
 		}
 
 		/// <summary>
 		///     Occurs when <see cref="Mix" /> property is changed.
 		/// </summary>
-		/// <seealso cref="DspFloatParamChangedEventArgs"/>
-		public event EventHandler<DspFloatParamChangedEventArgs> MixChanged;
+		/// <seealso cref="FloatParamEventArgs"/>
+		public event EventHandler<FloatParamEventArgs> MixChanged;
 
 		/// <summary>
 		///     Occurs when <see cref="Rate" /> property is changed.
 		/// </summary>
-		/// <seealso cref="DspFloatParamChangedEventArgs"/>
-		public event EventHandler<DspFloatParamChangedEventArgs> RateChanged;
+		/// <seealso cref="FloatParamEventArgs"/>
+		public event EventHandler<FloatParamEventArgs> RateChanged;
 
 		/// <summary>
 		///     Occurs when <see cref="Depth" /> property is changed.
 		/// </summary>
-		/// <seealso cref="DspFloatParamChangedEventArgs"/>
-		public event EventHandler<DspFloatParamChangedEventArgs> DepthChanged;
+		/// <seealso cref="FloatParamEventArgs"/>
+		public event EventHandler<FloatParamEventArgs> DepthChanged;
 	}
 }

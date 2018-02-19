@@ -33,14 +33,14 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(0.0f, 1.0f);
 				SetParameterFloat(0, clamped);
-				LevelChanged?.Invoke(this, new DspFloatParamChangedEventArgs(0, clamped, 0.0f, 1.0f));
+				LevelChanged?.Invoke(this, new FloatParamEventArgs(0, clamped, 0.0f, 1.0f));
 			}
 		}
 
 		/// <summary>
 		///     Occurs when the <see cref="Level" /> property is changed.
 		/// </summary>
-		/// <seealso cref="DspFloatParamChangedEventArgs" />
-		public event EventHandler<DspFloatParamChangedEventArgs> LevelChanged;
+		/// <seealso cref="FloatParamEventArgs" />
+		public event EventHandler<FloatParamEventArgs> LevelChanged;
 	}
 }

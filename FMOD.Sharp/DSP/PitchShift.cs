@@ -94,7 +94,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(0.5f, 2.0f);
 				SetParameterFloat(0, clamped);
-				PitchChanged?.Invoke(this, new DspFloatParamChangedEventArgs(0, clamped, 0.5f, 2.0f));
+				PitchChanged?.Invoke(this, new FloatParamEventArgs(0, clamped, 0.5f, 2.0f));
 			}
 		}
 
@@ -133,7 +133,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(1.0f, 32.0f);
 				SetParameterFloat(2, clamped);
-				OverlapChanged?.Invoke(this, new DspFloatParamChangedEventArgs(2, clamped, 1.0f, 32.0f));
+				OverlapChanged?.Invoke(this, new FloatParamEventArgs(2, clamped, 1.0f, 32.0f));
 			}
 		}
 
@@ -179,15 +179,15 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(0.0f, 16.0f);
 				SetParameterFloat(3, clamped);
-				MaxChannelsChanged?.Invoke(this, new DspFloatParamChangedEventArgs(3, clamped, 0.0f, 16.0f));
+				MaxChannelsChanged?.Invoke(this, new FloatParamEventArgs(3, clamped, 0.0f, 16.0f));
 			}
 		}
 
 		/// <summary>
 		///     Occurs when the <see cref="Pitch" /> property is changed.
 		/// </summary>
-		/// <seealso cref="DspFloatParamChangedEventArgs" />
-		public event EventHandler<DspFloatParamChangedEventArgs> PitchChanged;
+		/// <seealso cref="FloatParamEventArgs" />
+		public event EventHandler<FloatParamEventArgs> PitchChanged;
 
 		/// <summary>
 		///     Occurs when the <see cref="FftSize" /> property is changed.
@@ -199,14 +199,14 @@ namespace FMOD.DSP
 		///     Occurs when the <see cref="Overlap" /> property is changed.
 #pragma warning restore 618
 		/// </summary>
-		/// <seealso cref="DspFloatParamChangedEventArgs" />
+		/// <seealso cref="FloatParamEventArgs" />
 		[Obsolete("Do not use, this function has been removed from the native library.")]
-		public event EventHandler<DspFloatParamChangedEventArgs> OverlapChanged;
+		public event EventHandler<FloatParamEventArgs> OverlapChanged;
 
 		/// <summary>
 		///     Occurs when the <see cref="MaxChannels" /> property is changed.
 		/// </summary>
-		/// <seealso cref="DspFloatParamChangedEventArgs" />
-		public event EventHandler<DspFloatParamChangedEventArgs> MaxChannelsChanged;
+		/// <seealso cref="FloatParamEventArgs" />
+		public event EventHandler<FloatParamEventArgs> MaxChannelsChanged;
 	}
 }

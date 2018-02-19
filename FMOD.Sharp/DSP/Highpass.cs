@@ -50,7 +50,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(10.0f, 22000.0f);
 				SetParameterFloat(0, clamped);
-				CutoffFrequencyChanged?.Invoke(this, new DspFloatParamChangedEventArgs(0, clamped, 10.0f, 22000.0f));
+				CutoffFrequencyChanged?.Invoke(this, new FloatParamEventArgs(0, clamped, 10.0f, 22000.0f));
 			}
 		}
 
@@ -68,20 +68,20 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(1.0f, 10.0f);
 				SetParameterFloat(1, clamped);
-				ResonanceChanged?.Invoke(this, new DspFloatParamChangedEventArgs(1, clamped, 1.0f, 10.0f));
+				ResonanceChanged?.Invoke(this, new FloatParamEventArgs(1, clamped, 1.0f, 10.0f));
 			}
 		}
 
 		/// <summary>
 		///     Occurs when the <see cref="CutoffFrequency" /> property is changed.
 		/// </summary>
-		/// <seealso cref="DspFloatParamChangedEventArgs" />
-		public event EventHandler<DspFloatParamChangedEventArgs> CutoffFrequencyChanged;
+		/// <seealso cref="FloatParamEventArgs" />
+		public event EventHandler<FloatParamEventArgs> CutoffFrequencyChanged;
 
 		/// <summary>
 		///     Occurs when the <see cref="Resonance" /> property is changed.
 		/// </summary>
-		/// <seealso cref="DspFloatParamChangedEventArgs" />
-		public event EventHandler<DspFloatParamChangedEventArgs> ResonanceChanged;
+		/// <seealso cref="FloatParamEventArgs" />
+		public event EventHandler<FloatParamEventArgs> ResonanceChanged;
 	}
 }

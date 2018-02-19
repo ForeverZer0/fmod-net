@@ -2,11 +2,11 @@
 
 namespace FMOD.Arguments
 {
-	public class DspParamChangedEventArgs : EventArgs
+	public class DspParamEventArgs : EventArgs
 	{
 		public int ParameterIndex { get; }
 
-		public DspParamChangedEventArgs(int parameterIndex)
+		public DspParamEventArgs(int parameterIndex)
 		{
 			ParameterIndex = parameterIndex;
 		}

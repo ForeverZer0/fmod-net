@@ -56,14 +56,14 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(10.0f, 22000.0f);
 				SetParameterFloat(0, clamped);
-				CutoffFrequencyChanged?.Invoke(this, new DspFloatParamChangedEventArgs(0, clamped, 10.0f, 22000.0f));
+				CutoffFrequencyChanged?.Invoke(this, new FloatParamEventArgs(0, clamped, 10.0f, 22000.0f));
 			}
 		}
 
 		/// <summary>
 		///     Occurs when the <see cref="CutoffFrequency" /> property is changed.
 		/// </summary>
-		/// <seealso cref="DspFloatParamChangedEventArgs" />
-		public event EventHandler<DspFloatParamChangedEventArgs> CutoffFrequencyChanged;
+		/// <seealso cref="FloatParamEventArgs" />
+		public event EventHandler<FloatParamEventArgs> CutoffFrequencyChanged;
 	}
 }

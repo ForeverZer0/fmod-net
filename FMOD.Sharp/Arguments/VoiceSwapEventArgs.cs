@@ -9,7 +9,7 @@ namespace FMOD.Arguments
 	/// <seealso cref="T:System.EventArgs" />
 	/// <seealso cref="T:FMOD.Core.Channel" />
 	/// <seealso cref="E:FMOD.Core.Channel.VirtualVoiceSwapped"/>
-	public class ChannelVoiceSwappedEventArgs : EventArgs
+	public class VoiceSwapEventArgs : EventArgs
 	{
 		/// <summary>
 		/// <para>Gets a value indicating whether this instance is emulated. </para>
@@ -26,7 +26,7 @@ namespace FMOD.Arguments
 		/// Initializes a new instance of the <see cref="T:FMOD.Arguments.ChannelVoiceSwappedEventArgs" /> class.
 		/// </summary>
 		/// <param name="isEmulated">If set to <c>true</c> if emulated, otherwise <c>false</c> and real.</param>
-		public ChannelVoiceSwappedEventArgs(bool isEmulated)
+		public VoiceSwapEventArgs(bool isEmulated)
 		{
 			IsEmulated = isEmulated;
 		}

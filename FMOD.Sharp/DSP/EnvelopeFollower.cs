@@ -37,7 +37,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(0.1f, 500.0f);
 				SetParameterFloat(0, clamped);
-				AttackChanged?.Invoke(this, new DspFloatParamChangedEventArgs(0, clamped, 0.1f, 500.0f));
+				AttackChanged?.Invoke(this, new FloatParamEventArgs(0, clamped, 0.1f, 500.0f));
 			}
 		}
 
@@ -56,7 +56,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(10.0f, 5000.0f);
 				SetParameterFloat(1, clamped);
-				ReleaseChanged?.Invoke(this, new DspFloatParamChangedEventArgs(1, clamped, 10.0f, 5000.0f));
+				ReleaseChanged?.Invoke(this, new FloatParamEventArgs(1, clamped, 10.0f, 5000.0f));
 			}
 		}
 
@@ -82,7 +82,7 @@ namespace FMOD.DSP
 			set
 			{
 				SetParameterData(3, BitConverter.GetBytes(value ? 1 : 0));
-				UseSideChainChanged?.Invoke(this, new DspBoolParamChangedEventArgs(3, value));
+				UseSideChainChanged?.Invoke(this, new BoolParamEventArgs(3, value));
 			}
 		}
 
@@ -90,21 +90,21 @@ namespace FMOD.DSP
 		///     Occurs when the <see cref="Attack" /> property is changed.
 		/// </summary>
 		/// <seealso cref="Attack" />
-		/// <seealso cref="DspFloatParamChangedEventArgs" />
-		public event EventHandler<DspFloatParamChangedEventArgs> AttackChanged;
+		/// <seealso cref="FloatParamEventArgs" />
+		public event EventHandler<FloatParamEventArgs> AttackChanged;
 
 		/// <summary>
 		///     Occurs when the <see cref="Release" /> property is changed.
 		/// </summary>
 		/// <seealso cref="Release" />
-		/// <seealso cref="DspFloatParamChangedEventArgs" />
-		public event EventHandler<DspFloatParamChangedEventArgs> ReleaseChanged;
+		/// <seealso cref="FloatParamEventArgs" />
+		public event EventHandler<FloatParamEventArgs> ReleaseChanged;
 
 		/// <summary>
 		///     Occurs when the <see cref="UseSideChain" /> property is changed.
 		/// </summary>
 		/// <seealso cref="UseSideChain" />
-		/// <seealso cref="DspBoolParamChangedEventArgs" />
-		public event EventHandler<DspBoolParamChangedEventArgs> UseSideChainChanged;
+		/// <seealso cref="BoolParamEventArgs" />
+		public event EventHandler<BoolParamEventArgs> UseSideChainChanged;
 	}
 }

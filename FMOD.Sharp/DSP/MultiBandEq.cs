@@ -142,33 +142,33 @@ namespace FMOD.DSP
 		/// </summary>
 		/// <seealso cref="Filter" />
 		/// <seealso cref="Band" />
-		/// <seealso cref="DspMultiBandEqFilterChangedEventArgs" />
+		/// <seealso cref="MultiBandEqFilterEventArgs" />
 		/// <seealso cref="SetFilter" />
-		public event EventHandler<DspMultiBandEqFilterChangedEventArgs> FilterChanged;
+		public event EventHandler<MultiBandEqFilterEventArgs> FilterChanged;
 
 		/// <summary>
 		///     Occurs when the frequency for a <see cref="Band" /> is changed.
 		/// </summary>
 		/// <seealso cref="Band" />
-		/// <seealso cref="DspMultiBandEqFloatChangedEventArgs" />
+		/// <seealso cref="MultiBandEqEventArgs" />
 		/// <seealso cref="SetFrequency" />
-		public event EventHandler<DspMultiBandEqFloatChangedEventArgs> FrequencyChanged;
+		public event EventHandler<MultiBandEqEventArgs> FrequencyChanged;
 
 		/// <summary>
 		///     Occurs when the quality for a <see cref="Band" /> is changed.
 		/// </summary>
 		/// <seealso cref="Band" />
-		/// <seealso cref="DspMultiBandEqFloatChangedEventArgs" />
+		/// <seealso cref="MultiBandEqEventArgs" />
 		/// <seealso cref="SetQuality" />
-		public event EventHandler<DspMultiBandEqFloatChangedEventArgs> QualityChanged;
+		public event EventHandler<MultiBandEqEventArgs> QualityChanged;
 
 		/// <summary>
 		///     Occurs when the gain for a <see cref="Band" /> is changed.
 		/// </summary>
 		/// <seealso cref="Band" />
-		/// <seealso cref="DspMultiBandEqFloatChangedEventArgs" />
+		/// <seealso cref="MultiBandEqEventArgs" />
 		/// <seealso cref="SetGain" />
-		public event EventHandler<DspMultiBandEqFloatChangedEventArgs> GainChanged;
+		public event EventHandler<MultiBandEqEventArgs> GainChanged;
 
 		/// <summary>
 		///     <para>
@@ -197,7 +197,7 @@ namespace FMOD.DSP
 		{
 			var index = (int) band * 4;
 			SetParameterInt(index, (int) filter);
-			FilterChanged?.Invoke(this, new DspMultiBandEqFilterChangedEventArgs(index, band, filter));
+			FilterChanged?.Invoke(this, new MultiBandEqFilterEventArgs(index, band, filter));
 		}
 
 		/// <summary>
@@ -229,7 +229,7 @@ namespace FMOD.DSP
 			var index = (int) band * 4 + 1;
 			var clamped = frequency.Clamp(20.0f, 22000.0f);
 			SetParameterFloat(index, clamped);
-			FrequencyChanged?.Invoke(this, new DspMultiBandEqFloatChangedEventArgs(index, band, clamped, 20.0f, 22000.0f));
+			FrequencyChanged?.Invoke(this, new MultiBandEqEventArgs(index, band, clamped, 20.0f, 22000.0f));
 		}
 
 		/// <summary>
@@ -263,7 +263,7 @@ namespace FMOD.DSP
 			var index = (int) band * 4 + 2;
 			var clamped = quality.Clamp(0.1f, 10.0f);
 			SetParameterFloat(index, clamped);
-			QualityChanged?.Invoke(this, new DspMultiBandEqFloatChangedEventArgs(index, band, clamped, 0.1f, 10.0f));
+			QualityChanged?.Invoke(this, new MultiBandEqEventArgs(index, band, clamped, 0.1f, 10.0f));
 		}
 
 		/// <summary>
@@ -291,7 +291,7 @@ namespace FMOD.DSP
 			var index = (int) band * 4 + 3;
 			var clamped = gain.Clamp(-30.0f, 30.0f);
 			SetParameterFloat(index, clamped);
-			GainChanged?.Invoke(this, new DspMultiBandEqFloatChangedEventArgs(index, band, clamped, -30.0f, 30.0f));
+			GainChanged?.Invoke(this, new MultiBandEqEventArgs(index, band, clamped, -30.0f, 30.0f));
 		}
 	}
 }

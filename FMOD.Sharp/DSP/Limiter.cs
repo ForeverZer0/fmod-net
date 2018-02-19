@@ -14,29 +14,29 @@ namespace FMOD.DSP
 		/// Occurs when the <see cref="ReleaseTime"/> property is changed.
 		/// </summary>
 		/// <seealso cref="ReleaseTime"/>
-		/// <seealso cref="DspFloatParamChangedEventArgs"/>
-		public event EventHandler<DspFloatParamChangedEventArgs> ReleaseTimeChanged;
+		/// <seealso cref="FloatParamEventArgs"/>
+		public event EventHandler<FloatParamEventArgs> ReleaseTimeChanged;
 
 		/// <summary>
 		/// Occurs when the <see cref="Ceiling"/> property is changed.
 		/// </summary>
 		/// <seealso cref="Ceiling"/>
-		/// <seealso cref="DspFloatParamChangedEventArgs"/>
-		public event EventHandler<DspFloatParamChangedEventArgs> CeilingChanged;
+		/// <seealso cref="FloatParamEventArgs"/>
+		public event EventHandler<FloatParamEventArgs> CeilingChanged;
 
 		/// <summary>
 		/// Occurs when the <see cref="MaximizerGain"/> property is changed.
 		/// </summary>
 		/// <seealso cref="MaximizerGain"/>
-		/// <seealso cref="DspFloatParamChangedEventArgs"/>
-		public event EventHandler<DspFloatParamChangedEventArgs> MaximizerGainChanged;
+		/// <seealso cref="FloatParamEventArgs"/>
+		public event EventHandler<FloatParamEventArgs> MaximizerGainChanged;
 
 		/// <summary>
 		/// Occurs when the <see cref="Linked"/> property is changed.
 		/// </summary>
 		/// <seealso cref="Linked"/>
-		/// <seealso cref="DspBoolParamChangedEventArgs"/>
-		public event EventHandler<DspBoolParamChangedEventArgs> LinkedChanged;
+		/// <seealso cref="BoolParamEventArgs"/>
+		public event EventHandler<BoolParamEventArgs> LinkedChanged;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Limiter"/> class.
@@ -61,7 +61,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(1.0f, 1000.0f);
 				SetParameterFloat(0, clamped);
-				ReleaseTimeChanged?.Invoke(this, new DspFloatParamChangedEventArgs(0, clamped, 1.0f, 1000.0f));
+				ReleaseTimeChanged?.Invoke(this, new FloatParamEventArgs(0, clamped, 1.0f, 1000.0f));
 			}
 		}
 
@@ -80,7 +80,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(-12.0f, 0.0f);
 				SetParameterFloat(1, clamped);
-				CeilingChanged?.Invoke(this, new DspFloatParamChangedEventArgs(1, clamped, -12.0f, 0.0f));
+				CeilingChanged?.Invoke(this, new FloatParamEventArgs(1, clamped, -12.0f, 0.0f));
 			}
 		}
 
@@ -100,7 +100,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(0.0f, 12.0f);
 				SetParameterFloat(2, clamped);
-				MaximizerGainChanged?.Invoke(this, new DspFloatParamChangedEventArgs(2, clamped, 0.0f, 12.0f));
+				MaximizerGainChanged?.Invoke(this, new FloatParamEventArgs(2, clamped, 0.0f, 12.0f));
 			}
 		}
 
@@ -117,7 +117,7 @@ namespace FMOD.DSP
 			set
 			{
 				SetParameterBool(3, value);
-				LinkedChanged?.Invoke(this, new DspBoolParamChangedEventArgs(3, value));
+				LinkedChanged?.Invoke(this, new BoolParamEventArgs(3, value));
 			}
 		}
 	}

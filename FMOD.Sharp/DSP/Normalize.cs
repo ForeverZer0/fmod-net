@@ -52,7 +52,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(0.0f, 20000.0f);
 				SetParameterFloat(0, clamped);
-				FadeInTimeChanged?.Invoke(this, new DspFloatParamChangedEventArgs(0, clamped, 0.0f, 20000.0f));
+				FadeInTimeChanged?.Invoke(this, new FloatParamEventArgs(0, clamped, 0.0f, 20000.0f));
 			}
 		}
 
@@ -71,7 +71,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(0.0f, 1.0f);
 				SetParameterFloat(1, clamped);
-				LowestVolumeChanged?.Invoke(this, new DspFloatParamChangedEventArgs(1, clamped, 0.0f, 1.0f));
+				LowestVolumeChanged?.Invoke(this, new FloatParamEventArgs(1, clamped, 0.0f, 1.0f));
 			}
 		}
 
@@ -90,26 +90,26 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(0.0f, 100000.0f);
 				SetParameterFloat(2, clamped);
-				MaximumAmpChanged?.Invoke(this, new DspFloatParamChangedEventArgs(2, clamped, 0.0f, 100000.0f));
+				MaximumAmpChanged?.Invoke(this, new FloatParamEventArgs(2, clamped, 0.0f, 100000.0f));
 			}
 		}
 
 		/// <summary>
 		///     Occurs when the <see cref="FadeInTime" /> property has changed.
 		/// </summary>
-		/// <seealso cref="DspFloatParamChangedEventArgs" />
-		public event EventHandler<DspFloatParamChangedEventArgs> FadeInTimeChanged;
+		/// <seealso cref="FloatParamEventArgs" />
+		public event EventHandler<FloatParamEventArgs> FadeInTimeChanged;
 
 		/// <summary>
 		///     Occurs when the <see cref="LowestVolume" /> property has changed.
 		/// </summary>
-		/// <seealso cref="DspFloatParamChangedEventArgs" />
-		public event EventHandler<DspFloatParamChangedEventArgs> LowestVolumeChanged;
+		/// <seealso cref="FloatParamEventArgs" />
+		public event EventHandler<FloatParamEventArgs> LowestVolumeChanged;
 
 		/// <summary>
 		///     Occurs when the <see cref="MaximumAmp" /> property has changed.
 		/// </summary>
-		/// <seealso cref="DspFloatParamChangedEventArgs" />
-		public event EventHandler<DspFloatParamChangedEventArgs> MaximumAmpChanged;
+		/// <seealso cref="FloatParamEventArgs" />
+		public event EventHandler<FloatParamEventArgs> MaximumAmpChanged;
 	}
 }

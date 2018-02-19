@@ -9,7 +9,7 @@ namespace FMOD.Arguments
 	/// <seealso cref="T:System.EventArgs" />
 	/// <seealso cref="T:FMOD.Core.Channel" />
 	/// <seealso cref="E:FMOD.Core.Channel.OcclusionCalculated"/>
-	public class OcclusionCalculatedEventArgs : EventArgs
+	public class OcclusionEventArgs : EventArgs
 	{
 		/// <summary>
 		/// Gets the pointer to a <see cref="float"/> direct value that can be read (dereferenced) and modified after the geometry engine has calculated it for this channel.
@@ -33,7 +33,7 @@ namespace FMOD.Arguments
 		/// </summary>
 		/// <param name="direct">The pointer to the direct occlusion value.</param>
 		/// <param name="reverb">The pointer to the reverb occlusion value.</param>
-		public OcclusionCalculatedEventArgs(IntPtr direct, IntPtr reverb)
+		public OcclusionEventArgs(IntPtr direct, IntPtr reverb)
 		{
 			DirectOcclusion = direct;
 			ReverbOcclusion = reverb;

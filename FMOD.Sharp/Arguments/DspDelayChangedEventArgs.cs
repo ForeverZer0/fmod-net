@@ -1,6 +1,6 @@
 ﻿namespace FMOD.Arguments
 {
-	public class DspDelayChangedEventArgs : DspFloatParamChangedEventArgs
+	public class DspDelayChangedEventArgs : FloatParamEventArgs
 	{
 		public int Channel { get; }
 

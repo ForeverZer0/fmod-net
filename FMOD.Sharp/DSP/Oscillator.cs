@@ -85,7 +85,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(1.0f, 22000.0f);
 				SetParameterFloat(1, clamped);
-				FrequencyChanged?.Invoke(this, new DspFloatParamChangedEventArgs(1, clamped, 1.0f, 22000.0f));
+				FrequencyChanged?.Invoke(this, new FloatParamEventArgs(1, clamped, 1.0f, 22000.0f));
 			}
 		}
 
@@ -98,7 +98,7 @@ namespace FMOD.DSP
 		/// <summary>
 		///     Occurs when <see cref="Frequency" /> property has changed.
 		/// </summary>
-		/// <seealso cref="DspFloatParamChangedEventArgs" />
-		public event EventHandler<DspFloatParamChangedEventArgs> FrequencyChanged;
+		/// <seealso cref="FloatParamEventArgs" />
+		public event EventHandler<FloatParamEventArgs> FrequencyChanged;
 	}
 }

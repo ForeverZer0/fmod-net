@@ -44,7 +44,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(20.0f, 22000.0f);
 				SetParameterFloat(0, clamped);
-				CenterChanged?.Invoke(this, new DspFloatParamChangedEventArgs(0, clamped, 20.0f, 22000.0f));
+				CenterChanged?.Invoke(this, new FloatParamEventArgs(0, clamped, 20.0f, 22000.0f));
 			}
 		}
 
@@ -62,7 +62,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(0.2f, 5.0f);
 				SetParameterFloat(1, clamped);
-				BandwidthChanged?.Invoke(this, new DspFloatParamChangedEventArgs(1, clamped, 0.2f, 5.0f));
+				BandwidthChanged?.Invoke(this, new FloatParamEventArgs(1, clamped, 0.2f, 5.0f));
 			}
 		}
 
@@ -80,26 +80,26 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(-30.0f, 30.0f);
 				SetParameterFloat(2, clamped);
-				GainChanged?.Invoke(this, new DspFloatParamChangedEventArgs(2, clamped, -30.0f, 30.0f));
+				GainChanged?.Invoke(this, new FloatParamEventArgs(2, clamped, -30.0f, 30.0f));
 			}
 		}
 
 		/// <summary>
 		///     Occurs when <see cref="Center" /> property has changed.
-		///     <seealso cref="DspFloatParamChangedEventArgs" />
+		///     <seealso cref="FloatParamEventArgs" />
 		/// </summary>
-		public event EventHandler<DspFloatParamChangedEventArgs> CenterChanged;
+		public event EventHandler<FloatParamEventArgs> CenterChanged;
 
 		/// <summary>
 		///     Occurs when <see cref="Bandwidth" /> property has changed.
-		///     <seealso cref="DspFloatParamChangedEventArgs" />
+		///     <seealso cref="FloatParamEventArgs" />
 		/// </summary>
-		public event EventHandler<DspFloatParamChangedEventArgs> BandwidthChanged;
+		public event EventHandler<FloatParamEventArgs> BandwidthChanged;
 
 		/// <summary>
 		///     Occurs when <see cref="Gain" /> property has changed.
-		///     <seealso cref="DspFloatParamChangedEventArgs" />
+		///     <seealso cref="FloatParamEventArgs" />
 		/// </summary>
-		public event EventHandler<DspFloatParamChangedEventArgs> GainChanged;
+		public event EventHandler<FloatParamEventArgs> GainChanged;
 	}
 }

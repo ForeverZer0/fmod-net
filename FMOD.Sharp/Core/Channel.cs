@@ -174,13 +174,9 @@ namespace FMOD.Core
 
 		public event EventHandler ChannelGroupChanged;
 
-		public event EventHandler<OcclusionCalculatedEventArgs> OcclusionCalculated;
-
 		public event EventHandler<SoundEndedEventArgs> SoundEnded;
 
 		public event EventHandler<SyncPointEncounteredEventArgs> SyncPointEncountered;
-
-		public event EventHandler<ChannelVoiceSwappedEventArgs> VirtualVoiceSwapped;
 
 		/// <summary>
 		/// Gets the loop points for the channel.
@@ -239,34 +235,22 @@ namespace FMOD.Core
 			PositionChanged?.Invoke(this, EventArgs.Empty);
 		}
 
-		protected override Result OnChannelCallback(IntPtr channelControl, ChannelControlType controlType,
-			ChannelControlCallbackType type,
-			IntPtr commandData1, IntPtr commandData2)
+		protected override Result OnSyncPointEncountered(int syncPointIndex)
 		{
-			if (controlType != ChannelControlType.Channel)
-				return base.OnChannelCallback(channelControl, controlType, type, commandData1, commandData2);
-			switch (type)
+			if (SyncPointEncountered != null)
 			{
-				case ChannelControlCallbackType.End:
-					SetHandleAsInvalid();
-					SoundEnded?.Invoke(this, new SoundEndedEventArgs(CurrentSound));
-					break;
-				case ChannelControlCallbackType.Virtualvoice:
-					VirtualVoiceSwapped?.Invoke(this, new ChannelVoiceSwappedEventArgs(commandData1.ToInt32() == 1));
-					break;
-				case ChannelControlCallbackType.SyncPoint:
-					if (SyncPointEncountered == null)
-						break;
-					var sound = CurrentSound;
-					var index = commandData1.ToInt32();
-					var syncpoint = sound.GetSyncPoint(index);
-					var info = sound.GetSyncpointInfo(syncpoint);
-					SyncPointEncountered.Invoke(this, new SyncPointEncounteredEventArgs(index, syncpoint, info));
-					break;
-				case ChannelControlCallbackType.Occlusion:
-					OcclusionCalculated?.Invoke(this, new OcclusionCalculatedEventArgs(commandData1, commandData2));
-					break;
+				var sound = CurrentSound;
+				var syncpoint = sound.GetSyncPoint(syncPointIndex);
+				var info = sound.GetSyncpointInfo(syncpoint);
+				SyncPointEncountered.Invoke(this, new SyncPointEncounteredEventArgs(syncPointIndex, syncpoint, info));
 			}
+			return Result.OK;
+		}
+
+		protected override Result OnSoundEnd()
+		{
+			SetHandleAsInvalid();
+			SoundEnded?.Invoke(this, new SoundEndedEventArgs(CurrentSound));
 			return Result.OK;
 		}
 	}

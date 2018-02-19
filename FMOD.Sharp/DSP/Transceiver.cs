@@ -110,7 +110,7 @@ namespace FMOD.DSP
 			set
 			{
 				SetParameterBool(0, value);
-				TransmitModeChanged?.Invoke(this, new DspBoolParamChangedEventArgs(0, value));
+				TransmitModeChanged?.Invoke(this, new BoolParamEventArgs(0, value));
 			}
 		}
 
@@ -129,7 +129,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(-80.0f, 10.0f);
 				SetParameterFloat(1, clamped);
-				LevelChanged?.Invoke(this, new DspFloatParamChangedEventArgs(1, clamped, -80.0f, 10.0f));
+				LevelChanged?.Invoke(this, new FloatParamEventArgs(1, clamped, -80.0f, 10.0f));
 			}
 		}
 
@@ -151,7 +151,7 @@ namespace FMOD.DSP
 			{
 				var clamped = value.Clamp(0, 31);
 				SetParameterInt(2, clamped);
-				ChannelChanged?.Invoke(this, new DspIntParamChangedEventArgs(2, clamped, 0, 32));
+				ChannelChanged?.Invoke(this, new IntParamEventArgs(2, clamped, 0, 32));
 			}
 		}
 
@@ -184,22 +184,22 @@ namespace FMOD.DSP
 		///     Occurs when <see cref="TransmitMode" /> property is changed.
 		/// </summary>
 		/// <seealso cref="TransmitMode" />
-		/// <seealso cref="DspBoolParamChangedEventArgs" />
-		public event EventHandler<DspBoolParamChangedEventArgs> TransmitModeChanged;
+		/// <seealso cref="BoolParamEventArgs" />
+		public event EventHandler<BoolParamEventArgs> TransmitModeChanged;
 
 		/// <summary>
 		///     Occurs when <see cref="Level" /> property is changed.
 		/// </summary>
 		/// <seealso cref="Level" />
-		/// <seealso cref="DspFloatParamChangedEventArgs" />
-		public event EventHandler<DspFloatParamChangedEventArgs> LevelChanged;
+		/// <seealso cref="FloatParamEventArgs" />
+		public event EventHandler<FloatParamEventArgs> LevelChanged;
 
 		/// <summary>
 		///     Occurs when <see cref="Channel" /> property is changed.
 		/// </summary>
 		/// <seealso cref="Channel" />
-		/// <seealso cref="DspIntParamChangedEventArgs" />
-		public event EventHandler<DspIntParamChangedEventArgs> ChannelChanged;
+		/// <seealso cref="IntParamEventArgs" />
+		public event EventHandler<IntParamEventArgs> ChannelChanged;
 
 		/// <summary>
 		///     Occurs when <see cref="SpeakerMode" /> property is changed.

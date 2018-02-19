@@ -1,26 +1,164 @@
-﻿using System;
+﻿#region License
+
+// HandleBase.cs is distributed under the Microsoft Public License (MS-PL)
+// 
+// Copyright (c) 2018,  Eric Freed
+// All Rights Reserved.
+// 
+// This license governs use of the accompanying software. If you use the software, you
+// accept this license. If you do not accept the license, do not use the software.
+// 
+// 1. Definitions
+// The terms "reproduce," "reproduction," "derivative works," and "distribution" have the
+// same meaning here as under U.S. copyright law.
+// A "contribution" is the original software, or any additions or changes to the software.
+// A "contributor" is any person that distributes its contribution under this license.
+// "Licensed patents" are a contributor's patent claims that read directly on its contribution.
+// 
+// 2. Grant of Rights
+// (A) Copyright Grant- Subject to the terms of this license, including the license conditions 
+// and limitations in section 3, each contributor grants you a non-exclusive, worldwide, royalty-free 
+// copyright license to reproduce its contribution, prepare derivative works of its contribution, and 
+// distribute its contribution or any derivative works that you create.
+// 
+// (B) Patent Grant- Subject to the terms of this license, including the license conditions and 
+// limitations in section 3, each contributor grants you a non-exclusive, worldwide, royalty-free license
+//  under its licensed patents to make, have made, use, sell, offer for sale, import, and/or otherwise 
+// dispose of its contribution in the software or derivative works of the contribution in the software.
+// 
+// 3. Conditions and Limitations
+// (A) No Trademark License- This license does not grant you rights to use any contributors' name, 
+// logo, or trademarks.
+// 
+// (B) If you bring a patent claim against any contributor over patents that you claim are infringed by 
+// the software, your patent license from such contributor to the software ends automatically.
+// 
+// (C) If you distribute any portion of the software, you must retain all copyright, patent, trademark, and
+//  attribution notices that are present in the software.
+// 
+// (D) If you distribute any portion of the software in source code form, you may do so only under this 
+// license by including a complete copy of this license with your distribution. If you distribute any portion
+//  of the software in compiled or object code form, you may only do so under a license that complies 
+// with this license.
+// 
+// (E) The software is licensed "as-is." You bear the risk of using it. The contributors give no express 
+// warranties, guarantees or conditions. You may have additional consumer rights under your local laws 
+// which this license cannot change. To the extent permitted under your local laws, the contributors 
+// exclude the implied warranties of merchantability, fitness for a particular purpose and non-infringement.
+// 
+// Created 9:49 PM 02/15/2018
+
+#endregion
+
+#region Using Directives
+
+using System;
 using System.Runtime.ConstrainedExecution;
 using FMOD.Enumerations;
 using Microsoft.Win32.SafeHandles;
 
+#endregion
+
 namespace FMOD.Core
 {
-	public abstract partial class HandleBase : SafeHandleZeroOrMinusOneIsInvalid
+	/// <summary>
+	///     <para>The base class for all the core native <b>FMOD</b> classes.</para>
+	///     <para>
+	///         Wraps an operating system handle into a managed type, but implements a critical finalizer that ensures any
+	///         unmanaged handle, is released (with exception of possible catastrophic failure) by the application to prevent
+	///         memory leaks.
+	///     </para>
+	///     <para>This class must be inherited.</para>
+	/// </summary>
+	/// <seealso cref="T:Microsoft.Win32.SafeHandles.SafeHandleZeroOrMinusOneIsInvalid" />
+	public abstract partial class HandleBase : SafeHandleZeroOrMinusOneIsInvalid, IEquatable<HandleBase>
 	{
-		private bool _isInvalid;
-		private readonly int _handleHashCode;
-
-
+		/// <summary>
+		///     Occurs when the handle is disposed, and the underlying <b>FMOD</b> handle has been released.
+		/// </summary>
+		/// <seealso cref="Dispose" />
 		public event EventHandler Disposed;
 
+		private readonly int _handleHashCode;
+		private bool _isInvalid;
+
+		/// <inheritdoc />
+		/// <summary>
+		///     Initializes a new instance of the <see cref="T:FMOD.Core.HandleBase" /> class.
+		/// </summary>
+		/// <param name="nativeHandle">The native handle.</param>
 		protected HandleBase(IntPtr nativeHandle) : base(true)
 		{
 			_handleHashCode = nativeHandle.GetHashCode();
 			SetHandle(nativeHandle);
 		}
 
+		/// <inheritdoc />
+		/// <summary>
+		///     Gets a value that indicates whether the handle is invalid.
+		/// </summary>
+		public override bool IsInvalid => IsClosed || _isInvalid || handle == IntPtr.Zero;
+
+		/// <summary>
+		///     Encapsulates invocations to functions of the native FMOD library, receiving the result, and throwing exceptions
+		///     when necessary.
+		/// </summary>
+		/// <param name="result">The <see cref="Result" /> returned by the function call.</param>
+		/// <param name="throwException">
+		///     If set to <c>true</c>, an <see cref="FmodException" /> will be thrown if the return value
+		///     does not equal <seealso cref="Result.OK" />.
+		/// </param>
+		/// <returns>The <see cref="Result" /> returned by the function call.</returns>
+		/// <exception cref="FmodException">
+		///     Thrown when the return value of the function does not equal <see cref="Result.OK" />
+		///     and the <see cref="throwException" /> parameter is <c>false</c>.
+		/// </exception>
+		/// <seealso cref="FmodException" />
+		/// <seealso cref="Result" />
+		public static Result NativeInvoke(Result result, bool throwException = true)
+		{
+			if (result != Result.OK && throwException)
+				throw new FmodException(result, Util.GetResultString(result));
+			return result;
+		}
+
+
+		/// <summary>
+		///     Performs an implicit conversion from <see cref="HandleBase" /> to <see cref="IntPtr" />.
+		/// </summary>
+		/// <param name="handleBase">An instance of a HandleBase or derived class.</param>
+		/// <returns>
+		///     The result of the conversion.
+		/// </returns>
+		public static implicit operator IntPtr(HandleBase handleBase)
+		{
+			return handleBase.DangerousGetHandle();
+		}
+
+		/// <inheritdoc />
+		/// <summary>
+		///     Releases the unmanaged resources used by the <see cref="T:System.Runtime.InteropServices.SafeHandle" /> class
+		///     specifying whether to perform a normal dispose operation.
+		/// </summary>
+		/// <param name="disposing"><c>true</c> for a normal dispose operation; <c>false</c> to finalize the handle.</param>
+		protected override void Dispose(bool disposing)
+		{
+			if (!IsInvalid)
+				ReleaseHandle();
+			base.Dispose(disposing);
+			Disposed?.Invoke(this, EventArgs.Empty);
+		}
+
+		/// <inheritdoc />
+		/// <summary>
+		///     Executes the code required to free the underlying <b>FMOD</b> handle.
+		/// </summary>
+		/// <returns>
+		///     <c>true</c> if the handle is released successfully; otherwise, in the event of a catastrophic failure, <c>false</c>
+		///     . In this case, it generates a "releaseHandleFailed" MDA Managed Debugging Assistant.
+		/// </returns>
 		[ReliabilityContract(Consistency.WillNotCorruptState, Cer.MayFail)]
-		protected override bool ReleaseHandle()
+		protected sealed override bool ReleaseHandle()
 		{
 			_isInvalid = true;
 			try
@@ -52,92 +190,57 @@ namespace FMOD.Core
 			}
 		}
 
-		protected override void Dispose(bool disposing)
-		{
-			if (!IsInvalid)
-				ReleaseHandle();
-			base.Dispose(disposing);
-			Disposed?.Invoke(this, EventArgs.Empty);
-		}
-
-
-
-
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		
-
-
-		public override bool IsInvalid
-		{
-			// TODO: Test
-			get => IsClosed || _isInvalid || handle == IntPtr.Zero;
-		}
-
-
-		/// <summary>
-		/// Performs an implicit conversion from <see cref="HandleBase"/> to <see cref="IntPtr"/>.
-		/// </summary>
-		/// <param name="handleBase">An instance of a HandleBase or derived class.</param>
-		/// <returns>
-		/// The result of the conversion.
-		/// </returns>
-		public static implicit operator IntPtr(HandleBase handleBase)
-		{
-			return handleBase.DangerousGetHandle();
-		}
-
-		/// <summary>
-		/// Encapsulates invocations to functions of the native FMOD library, receiving the result, and throwing exceptions when necessary.
-		/// </summary>
-		/// <param name="result">The <see cref="Result"/> returned by the function call.</param>
-		/// <param name="throwException">If set to <c>true</c>, an <see cref="FmodException"/> will be thrown if the return value does not equal <seealso cref="Result.OK"/>.</param>
-		/// <returns>The <see cref="Result"/> returned by the function call.</returns>
-		/// <exception cref="FmodException">Thrown when the return value of the function does not equal <see cref="Result.OK"/> and the <see cref="throwException"/> parameter is <c>false</c>.</exception>
-		/// <seealso cref="FmodException"/>
-		/// <seealso cref="Result"/>
-		public static Result NativeInvoke(Result result, bool throwException = true)
-		{
-			if (result != Result.OK && throwException)
-				throw new FmodException(result, Util.GetResultString(result));
-			return result;
-		}
-
 		#region Equality Functions
 
+		/// <inheritdoc />
+		/// <summary>
+		///     Determines whether the specified <see cref="T:FMOD.Core.HandleBase" />, is equal to this instance.
+		/// </summary>
+		/// <param name="other">The <see cref="T:FMOD.Core.HandleBase" /> to compare with this instance.</param>
+		/// <returns>
+		///     <c>true</c> if the specified <see cref="T:FMOD.Core.HandleBase" /> is equal to this instance; otherwise,
+		///     <c>false</c>.
+		/// </returns>
 		public bool Equals(HandleBase other)
 		{
-			#if X64
+#if X64
 			return handle.ToInt64() == other?.handle.ToInt64();
 			#elif X86
 			return handle.ToInt32() == other?.handle.ToInt32();
-			#endif
+#endif
 		}
 
+		/// <summary>
+		///     Determines whether the specified <see cref="System.Object" />, is equal to this instance.
+		/// </summary>
+		/// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
+		/// <returns>
+		///     <c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.
+		/// </returns>
 		public override bool Equals(object obj)
 		{
 			return Equals(obj as HandleBase);
 		}
 
+		/// <summary>
+		///     Returns a hash code for this instance.
+		/// </summary>
+		/// <returns>
+		///     A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.
+		/// </returns>
 		public override int GetHashCode()
 		{
 			return _handleHashCode;
 		}
 
+		/// <summary>
+		///     Implements the operator ==.
+		/// </summary>
+		/// <param name="a">The first instance to compare.</param>
+		/// <param name="b">The second instance to compare.</param>
+		/// <returns>
+		///     The result of the operation.
+		/// </returns>
 		public static bool operator ==(HandleBase a, HandleBase b)
 		{
 			if (ReferenceEquals(a, b))
@@ -145,6 +248,14 @@ namespace FMOD.Core
 			return a?.handle == b?.handle;
 		}
 
+		/// <summary>
+		///     Implements the operator !=.
+		/// </summary>
+		/// <param name="a">The first instance to compare.</param>
+		/// <param name="b">The second instance to compare.</param>
+		/// <returns>
+		///     The result of the operation.
+		/// </returns>
 		public static bool operator !=(HandleBase a, HandleBase b)
 		{
 			return !(a == b);

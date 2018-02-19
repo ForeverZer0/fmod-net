@@ -67,6 +67,15 @@ namespace FMOD.Core
 	///     <para>The base class for both <see cref="Channel" /> and <see cref="ChannelGroup" />.</para>
 	///     <para>This class must be inherited.</para>
 	/// </summary>
+	/// <remarks>
+	/// Internally, <see cref="Channel"/> and <see cref="ChannelControl"/> objects differ from the other primary classes that inherit <see cref="HandleBase"/>. 
+	/// <para>They are not technically "released" or "disposed", but are reused automatically as needed by <b>FMOD</b>. Because of this, extra care must be taken that the any instance you are using is still valid, as it is possible to maintain a reference to a <see cref="Channel"/>, while the underlying handle it wraps is no longer valid and has been used elsewhere. There are two common circumstances that may cause a reference to Channel to be invalid:</para>
+	/// <list type="ordered">
+	/// <item><para>The sound has completed playing. Once a sound is done playing, the channel is fair-game to be taken and used elsewhere by <b>FMOD</b>, rendering he current handle invalid.</para></item>
+	/// <item><para>The maximum number of "real" channels (See <see cref="Constants.MAX_CHANNELS"/>) is being used, and a sound or channel with a higher priority is required and the channel is stolen.</para></item>
+	/// </list>
+	/// <para><b>FMOD.Sharp</b> automatically marks channels invalid that have become so due to a sound ending, so a quick check of <see cref="SafeHandle.IsInvalid"/> will allow you to recognize if your reference is still valid. Invoking native wrapped functions on an invalid channel will throw an <see cref="FmodException"/>.</para>
+	/// </remarks>
 	/// <seealso cref="FMOD.Core.HandleBase" />
 	/// <seealso cref="HandleBase" />
 	/// <seealso cref="Channel" />
@@ -1601,7 +1610,7 @@ namespace FMOD.Core
 		///         <see cref="Enumerations.Mode.CreateStream" /> may have already been pre-buffered and executed their loop logic
 		///         ahead of time before this call was even made. This is dependant on the size of the sound versus the size of the
 		///         stream decode buffer (see <see cref="CreateSoundExInfo" />). If this happens, you may need to reflush the
-		///         stream buffer by calling <see cref="O:FMOD.Core.Channel.SetPosition" />. Note this will usually only happen if
+		///         stream buffer by calling <see cref="Channel.SetPosition" />. Note this will usually only happen if
 		///         you have sounds or loop points that are smaller than the stream decode buffer size.
 		///     </para>
 		///     <para>
@@ -1626,7 +1635,7 @@ namespace FMOD.Core
 		///     </para>
 		/// </remarks>
 		/// <seealso cref="Enumerations.Mode" />
-		/// <seealso cref="O:FMOD.Core.ChannelControl.SetPosition" />
+		/// <seealso cref="Channel.SetPosition" />
 		/// <seealso cref="Sound.Mode" />
 		/// <seealso cref="O:FMOD.Core.FmodSystem.CreateSound" />
 		/// <seealso cref="O:FMOD.Core.FmodSystem.CreateStream" />

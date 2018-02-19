@@ -217,7 +217,7 @@ namespace FMOD.Enumerations
 
 		/// <summary>
 		///     For <see cref="O:FMOD.Core.FmodSystem.CreateSound" /> - for accurate <see cref="Sound.GetLength" /> /
-		///     <see cref="O:FMOD.Core.Channel.SetPosition" /> on VBR MP3, and MOD/S3M/XM/IT/MIDI files. Scans file first, so takes
+		///     <see cref="Channel.SetPosition" /> on VBR MP3, and MOD/S3M/XM/IT/MIDI files. Scans file first, so takes
 		///     longer to open. <see cref="OpenOnly" /> does not affect this.
 		/// </summary>
 		AccurateTime = 0x00004000,

@@ -82,6 +82,7 @@ namespace FMOD.Core
 
 		public static string GetResultString(string resultName)
 		{
+			// TODO: FIX
 			var str = _resxManager.GetString(resultName, CultureInfo.CurrentCulture);
 			return String.IsNullOrEmpty(str) ? "Unknown Error" : str;
 		}

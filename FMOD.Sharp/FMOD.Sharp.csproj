@@ -86,6 +86,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Arguments\AddChannelGroupEventArgs.cs" />
+    <Compile Include="Arguments\DspDisconnectEventArgs.cs" />
+    <Compile Include="Arguments\DspInputEventArgs.cs" />
     <Compile Include="Arguments\OcclusionEventArgs.cs" />
     <Compile Include="Arguments\SoundEndedEventArgs.cs" />
     <Compile Include="Arguments\SyncPointEncounteredEventArgs.cs" />

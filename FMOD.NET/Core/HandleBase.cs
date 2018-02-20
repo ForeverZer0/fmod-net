@@ -118,7 +118,7 @@ namespace FMOD.Core
 		public static Result NativeInvoke(Result result, bool throwException = true)
 		{
 			if (result != Result.OK && throwException)
-				throw new FmodException(result, Util.GetResultString(result));
+				throw new FmodException(result);
 			return result;
 		}
 

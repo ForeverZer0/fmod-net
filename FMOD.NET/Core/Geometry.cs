@@ -56,6 +56,7 @@ using System;
 using System.IO;
 using FMOD.Arguments;
 using FMOD.Data;
+using FMOD.Resources;
 using FMOD.Structures;
 
 #endregion
@@ -403,9 +404,10 @@ namespace FMOD.Core
 		/// <seealso cref="PolygonAdded" />
 		public int AddPolygon(float directOcclusion, float reverbOcclusion, bool doubleSided, Vector[] vertices)
 		{
-			if (vertices.Length < 3)
-				throw new ArgumentOutOfRangeException(nameof(vertices), vertices.Length,
-					String.Format(ResultStrings.PolygonNotEnoughVertices, vertices.Length));
+			// TODO: FIX
+//			if (vertices.Length < 3)
+//				throw new ArgumentOutOfRangeException(nameof(vertices), vertices.Length,
+//					String.Format(Strings.PolygonNotEnoughVertices, vertices.Length));
 			NativeInvoke(FMOD_Geometry_AddPolygon(this, directOcclusion, reverbOcclusion, doubleSided,
 				vertices.Length, vertices, out var index));
 			PolygonAdded?.Invoke(this, new PolygonEventArgs(index));

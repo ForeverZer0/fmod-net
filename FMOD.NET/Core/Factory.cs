@@ -2,20 +2,18 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
-using System.Resources;
 
 namespace FMOD.Core
 {
-	public static class CoreHelper
+	public static class Factory
 	{
 		private const BindingFlags BINDING_FLAGS = BindingFlags.NonPublic | BindingFlags.Instance;
-		private static readonly ResourceManager _resxManager;
+
 		private static readonly Dictionary<IntPtr, HandleBase> _handles;
 
-		static CoreHelper()
+		static Factory()
 		{
 			_handles = new Dictionary<IntPtr, HandleBase>();
-			_resxManager = new ResourceManager("FMOD.NET.ResultStrings", Assembly.GetExecutingAssembly());
 		}
 
 		public static T Create<T>(IntPtr handle) where T : HandleBase
@@ -32,7 +30,7 @@ namespace FMOD.Core
 			}
 			obj = (T) Activator.CreateInstance(typeof(T), BINDING_FLAGS, null, 
 				new object[] { handle }, CultureInfo.InvariantCulture);
-			AddReference(handle, obj);
+			AddReference(obj);
 			return obj;
 		}
 
@@ -44,12 +42,11 @@ namespace FMOD.Core
 			_handles.Remove(handle);
 		}
 
-		public static void AddReference<T>(IntPtr pointer, T handle) where T : HandleBase
+		public static void AddReference<T>(T handle) where T : HandleBase
 		{
-			handle.Disposed += (s, e) => RemoveReference(pointer);
-			_handles[pointer] = handle;
+			var ptr = (IntPtr) handle;
+			handle.Disposed += (s, e) => RemoveReference(ptr);
+			_handles[ptr] = handle;
 		}
-
-
 	}
 }

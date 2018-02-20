@@ -131,7 +131,7 @@ namespace FMOD.Core
 			get
 			{
 				NativeInvoke(FMOD_DSPConnection_GetInput(this, out var dsp));
-				return CoreHelper.Create<Dsp>(dsp);
+				return Factory.Create<Dsp>(dsp);
 			}
 		}
 
@@ -194,7 +194,7 @@ namespace FMOD.Core
 			get
 			{
 				NativeInvoke(FMOD_DSPConnection_GetOutput(this, out var dsp));
-				return CoreHelper.Create<Dsp>(dsp);
+				return Factory.Create<Dsp>(dsp);
 			}
 		}
 

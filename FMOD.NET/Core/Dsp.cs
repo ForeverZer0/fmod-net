@@ -436,7 +436,7 @@ namespace FMOD.Core
 			get
 			{
 				NativeInvoke(FMOD_DSP_GetSystemObject(this, out var system));
-				return CoreHelper.Create<FmodSystem>(system);
+				return Factory.Create<FmodSystem>(system);
 			}
 		}
 
@@ -543,7 +543,7 @@ namespace FMOD.Core
 		public DspConnection AddInput(Dsp dsp, DspConnectionType type = DspConnectionType.Standard)
 		{
 			NativeInvoke(FMOD_DSP_AddInput(this, dsp, out var connection, type));
-			var dspConnection = CoreHelper.Create<DspConnection>(connection);
+			var dspConnection = Factory.Create<DspConnection>(connection);
 			InputAdded?.Invoke(this, new DspInputEventArgs(dspConnection, type));
 			return dspConnection;
 		}
@@ -693,77 +693,77 @@ namespace FMOD.Core
 				case DspType.Unknown:
 					return null;
 				case DspType.Mixer:
-					return CoreHelper.Create<Mixer>(dspHandle);
+					return Factory.Create<Mixer>(dspHandle);
 				case DspType.Oscillator:
-					return CoreHelper.Create<Oscillator>(dspHandle);
+					return Factory.Create<Oscillator>(dspHandle);
 				case DspType.Lowpass:
-					return CoreHelper.Create<Lowpass>(dspHandle);
+					return Factory.Create<Lowpass>(dspHandle);
 				case DspType.ItLowpass:
-					return CoreHelper.Create<ItLowpass>(dspHandle);
+					return Factory.Create<ItLowpass>(dspHandle);
 				case DspType.Highpass:
-					return CoreHelper.Create<Highpass>(dspHandle);
+					return Factory.Create<Highpass>(dspHandle);
 				case DspType.Echo:
-					return CoreHelper.Create<Echo>(dspHandle);
+					return Factory.Create<Echo>(dspHandle);
 				case DspType.Fader:
-					return CoreHelper.Create<Fader>(dspHandle);
+					return Factory.Create<Fader>(dspHandle);
 				case DspType.Flange:
-					return CoreHelper.Create<Flange>(dspHandle);
+					return Factory.Create<Flange>(dspHandle);
 				case DspType.Distortion:
-					return CoreHelper.Create<Distortion>(dspHandle);
+					return Factory.Create<Distortion>(dspHandle);
 				case DspType.Normalize:
-					return CoreHelper.Create<Normalize>(dspHandle);
+					return Factory.Create<Normalize>(dspHandle);
 				case DspType.Limiter:
-					return CoreHelper.Create<Limiter>(dspHandle);
+					return Factory.Create<Limiter>(dspHandle);
 				case DspType.ParamEq:
-					return CoreHelper.Create<ParamEq>(dspHandle);
+					return Factory.Create<ParamEq>(dspHandle);
 				case DspType.PitchShift:
-					return CoreHelper.Create<PitchShift>(dspHandle);
+					return Factory.Create<PitchShift>(dspHandle);
 				case DspType.Chorus:
-					return CoreHelper.Create<Chorus>(dspHandle);
+					return Factory.Create<Chorus>(dspHandle);
 				case DspType.VstPlugin:
 					return null;
 				case DspType.WinampPlugin:
 					return null;
 				case DspType.ItEcho:
-					return CoreHelper.Create<ItEcho>(dspHandle);
+					return Factory.Create<ItEcho>(dspHandle);
 				case DspType.Compressor:
-					return CoreHelper.Create<Compressor>(dspHandle);
+					return Factory.Create<Compressor>(dspHandle);
 				case DspType.SfxReverb:
-					return CoreHelper.Create<SfxReverb>(dspHandle);
+					return Factory.Create<SfxReverb>(dspHandle);
 				case DspType.LowpassSimple:
-					return CoreHelper.Create<LowpassSimple>(dspHandle);
+					return Factory.Create<LowpassSimple>(dspHandle);
 				case DspType.Delay:
-					return CoreHelper.Create<Delay>(dspHandle);
+					return Factory.Create<Delay>(dspHandle);
 				case DspType.Tremolo:
-					return CoreHelper.Create<Tremolo>(dspHandle);
+					return Factory.Create<Tremolo>(dspHandle);
 				case DspType.LadspaPlugin:
 					return null;
 				case DspType.Send:
-					return CoreHelper.Create<Send>(dspHandle);
+					return Factory.Create<Send>(dspHandle);
 				case DspType.Return:
-					return CoreHelper.Create<Return>(dspHandle);
+					return Factory.Create<Return>(dspHandle);
 				case DspType.HighpassSimple:
-					return CoreHelper.Create<HighpassSimple>(dspHandle);
+					return Factory.Create<HighpassSimple>(dspHandle);
 				case DspType.Pan:
-					return CoreHelper.Create<Pan>(dspHandle);
+					return Factory.Create<Pan>(dspHandle);
 				case DspType.ThreeEq:
-					return CoreHelper.Create<ThreeEq>(dspHandle);
+					return Factory.Create<ThreeEq>(dspHandle);
 				case DspType.Fft:
-					return CoreHelper.Create<Fft>(dspHandle);
+					return Factory.Create<Fft>(dspHandle);
 				case DspType.LoudnessMeter:
-					return CoreHelper.Create<LoudnessMeter>(dspHandle);
+					return Factory.Create<LoudnessMeter>(dspHandle);
 				case DspType.EnvelopeFollower:
-					return CoreHelper.Create<EnvelopeFollower>(dspHandle);
+					return Factory.Create<EnvelopeFollower>(dspHandle);
 				case DspType.ConvolutionReverb:
-					return CoreHelper.Create<ConvolutionReverb>(dspHandle);
+					return Factory.Create<ConvolutionReverb>(dspHandle);
 				case DspType.ChannelMix:
-					return CoreHelper.Create<ChannelMix>(dspHandle);
+					return Factory.Create<ChannelMix>(dspHandle);
 				case DspType.Transceiver:
-					return CoreHelper.Create<Transceiver>(dspHandle);
+					return Factory.Create<Transceiver>(dspHandle);
 				case DspType.ObjectPan:
-					return CoreHelper.Create<ObjectPan>(dspHandle);
+					return Factory.Create<ObjectPan>(dspHandle);
 				case DspType.MultiBandEq:
-					return CoreHelper.Create<MultiBandEq>(dspHandle);
+					return Factory.Create<MultiBandEq>(dspHandle);
 				case DspType.Max:
 					return null;
 				default:
@@ -847,7 +847,7 @@ namespace FMOD.Core
 		public Dsp GetInput(int index)
 		{
 			NativeInvoke(FMOD_DSP_GetInput(this, index, out var input, out var dummy));
-			return CoreHelper.Create<Dsp>(input);
+			return Factory.Create<Dsp>(input);
 		}
 
 		/// <summary>
@@ -862,7 +862,7 @@ namespace FMOD.Core
 		public DspConnection GetInputConnection(int index)
 		{
 			NativeInvoke(FMOD_DSP_GetInput(this, index, out var dummy, out var connection));
-			return CoreHelper.Create<DspConnection>(connection);
+			return Factory.Create<DspConnection>(connection);
 		}
 
 		/// <summary>
@@ -887,7 +887,7 @@ namespace FMOD.Core
 		public Dsp GetOutput(int index)
 		{
 			NativeInvoke(FMOD_DSP_GetOutput(this, index, out var output, out var dummy));
-			return CoreHelper.Create<Dsp>(output);
+			return Factory.Create<Dsp>(output);
 		}
 
 		/// <summary>
@@ -902,7 +902,7 @@ namespace FMOD.Core
 		public DspConnection GetOutputConnection(int index)
 		{
 			NativeInvoke(FMOD_DSP_GetOutput(this, index, out var dummy, out var connection));
-			return CoreHelper.Create<DspConnection>(connection);
+			return Factory.Create<DspConnection>(connection);
 		}
 
 		/// <summary>

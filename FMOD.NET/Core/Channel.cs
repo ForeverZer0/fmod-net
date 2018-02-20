@@ -152,7 +152,7 @@ namespace FMOD.Core
 			get
 			{
 				NativeInvoke(FMOD_Channel_GetCurrentSound(this, out var sound));
-				return sound == IntPtr.Zero ? null : CoreHelper.Create<Sound>(sound);
+				return sound == IntPtr.Zero ? null : Factory.Create<Sound>(sound);
 			}
 		}
 
@@ -172,7 +172,7 @@ namespace FMOD.Core
 			get
 			{
 				NativeInvoke(FMOD_Channel_GetChannelGroup(this, out var group));
-				return CoreHelper.Create<ChannelGroup>(group);
+				return Factory.Create<ChannelGroup>(group);
 			}
 			set
 			{

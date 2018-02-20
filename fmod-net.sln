@@ -15,6 +15,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FMOD.NET.Controls", "FMOD.N
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C265F5F2-0ED0-4982-9E70-3FFA7B6AD7A2}"
 	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		_config.yml = _config.yml
 		LICENSE.md = LICENSE.md
 	EndProjectSection
 EndProject

@@ -17,7 +17,7 @@ namespace FMOD.Core
 			var result = FMOD_Memory_Initialize(IntPtr.Zero, 0, null, null, null, MemoryType.All);
 			if (result == Result.OK)
 				return;
-			throw new FmodException(result, Util.GetResultString(result));
+			throw new FmodException(result);
 		}
 
 		public static void Initialize(IntPtr memPool, int memPoolSize)
@@ -25,7 +25,7 @@ namespace FMOD.Core
 			var result = FMOD_Memory_Initialize(memPool, memPoolSize, null, null, null, MemoryType.All);
 			if (result == Result.OK)
 				return;
-			throw new FmodException(result, Util.GetResultString(result));
+			throw new FmodException(result);
 		}
 
 		public static void Initialize(MemoryAllocCallback userAlloc, MemoryReallocCallback userRealloc, MemoryFreeCallback userFree,
@@ -34,7 +34,7 @@ namespace FMOD.Core
 			var result = FMOD_Memory_Initialize(IntPtr.Zero, 0, userAlloc, userRealloc, userFree, type);
 			if (result == Result.OK)
 				return;
-			throw new FmodException(result, Util.GetResultString(result));
+			throw new FmodException(result);
 		}
 
 		public static void GetStats(out int currentAlloc, out int maxAlloc, bool blocking = false)
@@ -42,7 +42,7 @@ namespace FMOD.Core
 			var result = FMOD_Memory_GetStats(out currentAlloc, out maxAlloc, blocking);
 			if (result == Result.OK)
 				return;
-			throw new FmodException(result, Util.GetResultString(result));
+			throw new FmodException(result);
 		}
 
 		public static Stats GetStats(bool blocking = false)
@@ -50,7 +50,7 @@ namespace FMOD.Core
 			var result = FMOD_Memory_GetStats(out var currentAlloc, out var maxAlloc, blocking);
 			if (result == Result.OK)
 				return new Stats(currentAlloc, maxAlloc);
-			throw new FmodException(result, Util.GetResultString(result));
+			throw new FmodException(result);
 		}
 
 		[DllImport(Constants.LIBRARY)]

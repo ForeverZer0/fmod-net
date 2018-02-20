@@ -180,7 +180,7 @@ namespace FMOD.Core
 			var bytesName = Encoding.UTF8.GetBytes(name);
 			NativeInvoke(FMOD_System_CreateChannelGroup(this, bytesName, out var group));
 			ChannelGroupCreated?.Invoke(this, EventArgs.Empty);
-			return CoreHelper.Create<ChannelGroup>(group);
+			return Factory.Create<ChannelGroup>(group);
 		}
 
 
@@ -203,7 +203,7 @@ namespace FMOD.Core
 		public Channel GetChannel(int index)
 		{
 			NativeInvoke(FMOD_System_GetChannel(this, index, out var channel));
-			return CoreHelper.Create<Channel>(channel);
+			return Factory.Create<Channel>(channel);
 		}
 
 		public CpuUsage GetCpuUsage()
@@ -453,7 +453,7 @@ namespace FMOD.Core
 		{
 			NativeInvoke(FMOD_System_PlayDSP(this, dsp, group ?? IntPtr.Zero, paused, out var channel));
 			DspPlayed?.Invoke(this, EventArgs.Empty);
-			return CoreHelper.Create<Channel>(channel);
+			return Factory.Create<Channel>(channel);
 		}
 
 
@@ -518,7 +518,7 @@ namespace FMOD.Core
 		{
 			NativeInvoke(FMOD_System_PlaySound(this, sound, group ?? IntPtr.Zero, paused, out var channel));
 			SoundPlayed?.Invoke(this, EventArgs.Empty);
-			return CoreHelper.Create<Channel>(channel);
+			return Factory.Create<Channel>(channel);
 		}
 
 		/// <summary>
@@ -569,7 +569,7 @@ namespace FMOD.Core
 		{
 			NativeInvoke(FMOD_System_LoadGeometry(this, data, dataSize, out var geometry));
 			GeometryCreated?.Invoke(this, EventArgs.Empty);
-			return CoreHelper.Create<Geometry>(geometry);
+			return Factory.Create<Geometry>(geometry);
 		}
 
 		/// <summary>
@@ -601,7 +601,7 @@ namespace FMOD.Core
 		{
 			NativeInvoke(FMOD_System_CreateDSP(this, ref description, out var dsp));
 			DspCreated?.Invoke(this, EventArgs.Empty);
-			return CoreHelper.Create<Dsp>(dsp);
+			return Factory.Create<Dsp>(dsp);
 		}
 
 		/// <summary>
@@ -701,7 +701,7 @@ namespace FMOD.Core
 		{
 			NativeInvoke(FMOD_System_CreateDSPByPlugin(this, pluginHandle, out var dsp));
 			DspCreated?.Invoke(this, EventArgs.Empty);
-			return CoreHelper.Create<Dsp>(dsp);
+			return Factory.Create<Dsp>(dsp);
 		}
 
 		/// <summary>
@@ -762,7 +762,7 @@ namespace FMOD.Core
 		{
 			NativeInvoke(FMOD_System_Create(out var pointer));
 			var system = new FmodSystem(pointer);
-			CoreHelper.AddReference(pointer, system);
+			Factory.AddReference(pointer, system);
 			return system;
 		}
 
@@ -855,7 +855,7 @@ namespace FMOD.Core
 		{
 			NativeInvoke(FMOD_System_CreateGeometry(this, maxPolygons, maxVertices, out var geometry));
 			GeometryCreated?.Invoke(this, EventArgs.Empty);
-			return CoreHelper.Create<Geometry>(geometry);
+			return Factory.Create<Geometry>(geometry);
 		}
 
 		/// <summary>
@@ -892,7 +892,7 @@ namespace FMOD.Core
 		{
 			NativeInvoke(FMOD_System_CreateReverb3D(this, out var reverb));
 			ReverbCreated?.Invoke(this, EventArgs.Empty);
-			return CoreHelper.Create<Reverb>(reverb);
+			return Factory.Create<Reverb>(reverb);
 		}
 
 		/// <summary>
@@ -1022,7 +1022,7 @@ namespace FMOD.Core
 			var bytesName = Encoding.UTF8.GetBytes(name + char.MinValue);
 			NativeInvoke(FMOD_System_CreateSoundGroup(this, bytesName, out var group));
 			SoundGroupCreated?.Invoke(this, EventArgs.Empty);
-			return CoreHelper.Create<SoundGroup>(group);
+			return Factory.Create<SoundGroup>(group);
 		}
 
 		/// <summary>
@@ -1343,7 +1343,7 @@ namespace FMOD.Core
 				NativeInvoke(FMOD_System_CreateSound(this, source, mode, IntPtr.Zero, out sound));
 			}
 			SoundCreated?.Invoke(this, EventArgs.Empty);
-			return CoreHelper.Create<Sound>(sound);
+			return Factory.Create<Sound>(sound);
 		}
 
 		/// <summary>
@@ -1646,7 +1646,7 @@ namespace FMOD.Core
 				NativeInvoke(FMOD_System_CreateStream(this, source, mode, IntPtr.Zero, out sound));
 			}
 			SoundCreated?.Invoke(this, EventArgs.Empty);
-			return CoreHelper.Create<Sound>(sound);
+			return Factory.Create<Sound>(sound);
 		}
 
 		/// <summary>
@@ -1774,7 +1774,7 @@ namespace FMOD.Core
 			get
 			{
 				NativeInvoke(FMOD_System_GetMasterChannelGroup(this, out var channelGroup));
-				return CoreHelper.Create<ChannelGroup>(channelGroup);
+				return Factory.Create<ChannelGroup>(channelGroup);
 			}
 		}
 
@@ -1791,7 +1791,7 @@ namespace FMOD.Core
 			get
 			{
 				NativeInvoke(FMOD_System_GetMasterSoundGroup(this, out var soundGroup));
-				return CoreHelper.Create<SoundGroup>(soundGroup);
+				return Factory.Create<SoundGroup>(soundGroup);
 			}
 		}
 

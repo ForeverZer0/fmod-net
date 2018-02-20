@@ -103,7 +103,7 @@ namespace FMOD.Core
 			get
 			{
 				NativeInvoke(FMOD_SoundGroup_GetSystemObject(this, out var system));
-				return CoreHelper.Create<FmodSystem>(system);
+				return Factory.Create<FmodSystem>(system);
 			}
 		}
 
@@ -151,7 +151,7 @@ namespace FMOD.Core
 		public Sound GetSound(int index)
 		{
 			NativeInvoke(FMOD_SoundGroup_GetSound(this, index, out var sound));
-			return sound == IntPtr.Zero ? null : CoreHelper.Create<Sound>(sound);
+			return sound == IntPtr.Zero ? null : Factory.Create<Sound>(sound);
 		}
 
 		public void Stop()

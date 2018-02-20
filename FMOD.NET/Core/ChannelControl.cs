@@ -337,7 +337,7 @@ namespace FMOD.Core
 		public Dsp GetDsp(int index)
 		{
 			NativeInvoke(FMOD_ChannelGroup_GetDSP(this, index, out var dsp));
-			return CoreHelper.Create<Dsp>(dsp);
+			return Factory.Create<Dsp>(dsp);
 		}
 
 		/// <summary>
@@ -675,7 +675,7 @@ namespace FMOD.Core
 			get
 			{
 				NativeInvoke(FMOD_ChannelGroup_GetSystemObject(this, out var system));
-				return CoreHelper.Create<FmodSystem>(system);
+				return Factory.Create<FmodSystem>(system);
 			}
 		}
 

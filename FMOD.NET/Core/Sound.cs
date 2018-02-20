@@ -126,7 +126,7 @@ namespace FMOD.Core
 			get
 			{
 				NativeInvoke(FMOD_Sound_GetSystemObject(this, out var system));
-				return CoreHelper.Create<FmodSystem>(system);
+				return Factory.Create<FmodSystem>(system);
 			}
 		}
 
@@ -283,7 +283,7 @@ namespace FMOD.Core
 			get
 			{
 				NativeInvoke(FMOD_Sound_GetSoundGroup(this, out var soundGroup));
-				return CoreHelper.Create<SoundGroup>(soundGroup);
+				return Factory.Create<SoundGroup>(soundGroup);
 			}
 			set
 			{
@@ -338,7 +338,7 @@ namespace FMOD.Core
 			get
 			{
 				NativeInvoke(FMOD_Sound_GetSubSoundParent(this, out var sound));
-				return CoreHelper.Create<Sound>(sound);
+				return Factory.Create<Sound>(sound);
 			}
 		}
 
@@ -504,7 +504,7 @@ namespace FMOD.Core
 		public Sound GetSubSound(int index)
 		{
 			NativeInvoke(FMOD_Sound_GetSubSound(this, index, out var sound));
-			return CoreHelper.Create<Sound>(sound);
+			return Factory.Create<Sound>(sound);
 		}
 
 		public IntPtr GetSyncPoint(int index)

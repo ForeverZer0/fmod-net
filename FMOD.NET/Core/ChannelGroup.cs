@@ -98,7 +98,7 @@ namespace FMOD.Core
 			get
 			{
 				NativeInvoke(FMOD_ChannelGroup_GetParentGroup(this, out var group));
-				return CoreHelper.Create<ChannelGroup>(group);
+				return Factory.Create<ChannelGroup>(group);
 			}
 		}
 
@@ -178,7 +178,7 @@ namespace FMOD.Core
 		public DspConnection AddGroup(ChannelGroup group, bool propagateDspClock = true)
 		{
 			NativeInvoke(FMOD_ChannelGroup_AddGroup(this, group, propagateDspClock, out var connection));
-			var dspConn = CoreHelper.Create<DspConnection>(connection);
+			var dspConn = Factory.Create<DspConnection>(connection);
 			ChannelGroupAdded?.Invoke(this, new AddChannelGroupEventArgs(group, dspConn));
 			return dspConn;
 		}
@@ -194,7 +194,7 @@ namespace FMOD.Core
 		public Channel GetChannel(int index)
 		{
 			NativeInvoke(FMOD_ChannelGroup_GetChannel(this, index, out var channel));
-			return CoreHelper.Create<Channel>(channel);
+			return Factory.Create<Channel>(channel);
 		}
 
 		/// <summary>
@@ -208,7 +208,7 @@ namespace FMOD.Core
 		public ChannelGroup GetGroup(int index)
 		{
 			NativeInvoke(FMOD_ChannelGroup_GetGroup(this, index, out var group));
-			return CoreHelper.Create<ChannelGroup>(group);
+			return Factory.Create<ChannelGroup>(group);
 		}
 	}
 }

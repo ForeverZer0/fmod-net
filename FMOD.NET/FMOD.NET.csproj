@@ -149,6 +149,11 @@
     <Compile Include="DSP\ThreeEq.cs" />
     <Compile Include="DSP\Transceiver.cs" />
     <Compile Include="DSP\Tremolo.cs" />
+    <Compile Include="Resources\Strings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Simple\SoundEx.cs" />
     <Compile Include="Core\Util.cs" />
     <Compile Include="Core\MemoryManager.cs" />
@@ -165,7 +170,7 @@
     <Compile Include="Core\ChannelGroup.Native.cs">
       <DependentUpon>ChannelGroup.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\CoreHelper.cs" />
+    <Compile Include="Core\Factory.cs" />
     <Compile Include="Data\ConeSettings.cs" />
     <Compile Include="Data\DistanceFilter.cs" />
     <Compile Include="Data\FadePoint.cs" />
@@ -229,16 +234,6 @@
       <DependentUpon>HandleBase.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\MemoryBuffer.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="ResultStrings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ResultStrings.resx</DependentUpon>
-    </Compile>
     <Compile Include="Core\Reverb.cs" />
     <Compile Include="Core\Reverb.Native.cs">
       <DependentUpon>Reverb.cs</DependentUpon>
@@ -305,18 +300,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
+    <EmbeddedResource Include="Resources\Strings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ResultStrings.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ResultStrings.Designer.cs</LastGenOutput>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\WaveformIcon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

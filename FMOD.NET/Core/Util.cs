@@ -71,25 +71,12 @@ namespace FMOD.Core
 		}
 
 		private const BindingFlags BINDING_FLAGS = BindingFlags.NonPublic | BindingFlags.Instance;
-		private static readonly ResourceManager _resxManager;
+
 		private static readonly Dictionary<IntPtr, HandleBase> _handles;
 
 		static Util()
 		{
 			_handles = new Dictionary<IntPtr, HandleBase>();
-			_resxManager = new ResourceManager("FMOD.NET.ResultStrings", Assembly.GetExecutingAssembly());
-		}
-
-		public static string GetResultString(string resultName)
-		{
-			// TODO: FIX
-			var str = _resxManager.GetString(resultName, CultureInfo.CurrentCulture);
-			return String.IsNullOrEmpty(str) ? "Unknown Error" : str;
-		}
-
-		public static string GetResultString(Result result)
-		{
-			return GetResultString(Enum.GetName(typeof(Result), result));
 		}
 	}
 }

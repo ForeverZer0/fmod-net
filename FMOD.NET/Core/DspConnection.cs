@@ -66,41 +66,19 @@ namespace FMOD.Core
 	/// <seealso cref="FMOD.Core.HandleBase" />
 	public partial class DspConnection : HandleBase
 	{
-		#region Constructors & Destructor
+		#region Constructors
 
 		/// <summary>
 		///     Initializes a new instance of the <see cref="DspConnection" /> class.
 		/// </summary>
 		/// <param name="handle">The handle to the object.</param>
-		internal DspConnection(IntPtr handle) : base(handle)
+		protected DspConnection(IntPtr handle) : base(handle)
 		{
 		}
 
 		#endregion
 
-		#region Delegates & Events
-
-		/// <summary>
-		///     Occurs when <seealso cref="UserData" /> property has been changed.
-		/// </summary>
-		/// <seealso cref="UserData" />
-		public event EventHandler UserDataChanged;
-
-		/// <summary>
-		///     Occurs when <see cref="Mix" /> level has changed.
-		/// </summary>
-		/// <seealso cref="Mix" />
-		public event EventHandler MixChanged;
-
-		/// <summary>
-		///     Occurs when mix matrix has changed.
-		/// </summary>
-		/// <seealso cref="SetMixMatrix" />
-		public event EventHandler MixMatrixChanged;
-
-		#endregion
-
-		#region Properties & Indexers
+		#region Properties
 
 		/// <summary>
 		///     Gets the <see cref="DspConnection">DSP</see> unit that is the input of this connection.
@@ -158,7 +136,7 @@ namespace FMOD.Core
 			set
 			{
 				NativeInvoke(FMOD_DSPConnection_SetMix(this, value.Clamp(0.0f, 1.0f)));
-				MixChanged?.Invoke(this, EventArgs.Empty);
+				OnMixChanged();
 			}
 		}
 
@@ -237,7 +215,7 @@ namespace FMOD.Core
 			set
 			{
 				NativeInvoke(FMOD_DSPConnection_SetUserData(this, value));
-				UserDataChanged?.Invoke(this, EventArgs.Empty);
+				OnUserDataChanged();
 			}
 		}
 
@@ -288,7 +266,7 @@ namespace FMOD.Core
 		public void SetMixMatrix(float[] matrix, int outChannels, int inChannels, int inChannelHop)
 		{
 			NativeInvoke(FMOD_DSPConnection_SetMixMatrix(this, matrix, outChannels, inChannels, inChannelHop));
-			MixMatrixChanged?.Invoke(this, EventArgs.Empty);
+			OnMixMatrixChanged();
 		}
 
 		#endregion

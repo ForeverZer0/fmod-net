@@ -44,7 +44,7 @@ namespace FMOD.NET.Controls
 		private void InitializeSystem()
 		{
 			_system?.Dispose();
-			_system	= FmodSystem.Create();
+			_system	= Factory.CreateSystem();
 			_system.Initialize(_initFlags);
 		}
 

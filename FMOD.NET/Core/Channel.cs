@@ -53,8 +53,6 @@
 #region Using Directives
 
 using System;
-using System.Runtime.InteropServices;
-using FMOD.Arguments;
 using FMOD.Data;
 using FMOD.Enumerations;
 using FMOD.Structures;
@@ -71,73 +69,20 @@ namespace FMOD.Core
 	/// <seealso cref="T:FMOD.Core.ChannelControl" />
 	public partial class Channel : ChannelControl
 	{
-		/// <summary>
-		///     Occurs when the <see cref="Channel" /> is either added or removed from a <see cref="Core.ChannelGroup" />.
-		/// </summary>
-		/// <seealso cref="ChannelGroup" />
-		/// <seealso cref="FMOD.Core.ChannelGroup" />
-		public event EventHandler ChannelGroupChanged;
-
-		/// <summary>
-		///     Occurs when frequency has changed.
-		/// </summary>
-		/// <seealso cref="Frequency" />
-		/// <seealso cref="ChannelControl.Pitch" />
-		/// <seealso cref="Sound.DefaultFrequency" />
-		/// <seealso cref="Sound.SetDefaults" />
-		public event EventHandler FrequencyChanged;
-
-		/// <summary>
-		///     Occurs when <see cref="LoopCount" /> property has changed.
-		/// </summary>
-		/// <seealso cref="LoopCount" />
-		public event EventHandler LoopCountChanged;
-
-		/// <summary>
-		///     Occurs when a loop point is added.
-		/// </summary>
-		/// <seealso cref="SetLoopPoints(LoopPoints)" />
-		/// <seealso cref="SetLoopPoints(uint, uint, TimeUnit)" />
-		/// <seealso cref="SetLoopPoints(uint, uint, TimeUnit, TimeUnit)" />
-		public event EventHandler LoopPointAdded;
-
-		/// <summary>
-		///     Occurs when the current position is changed.
-		/// </summary>
-		/// <seealso cref="SetPosition" />
-		public event EventHandler PositionChanged;
-
-		/// <summary>
-		///     Occurs when priority for the channel is changed.
-		/// </summary>
-		/// <seealso cref="Priority" />
-		public event EventHandler PriorityChanged;
-
-		/// <summary>
-		///     Occurs when a sound has completed playing and ends.
-		/// </summary>
-		/// <alert class="note">
-		///     This event is not fired when a sound is currently looping or stopped via
-		///     <see cref="ChannelControl.Stop" />.
-		/// </alert>
-		/// <seealso cref="SoundEndedEventArgs" />
-		/// <seealso cref="ChannelControl.Stop" />
-		public event EventHandler<SoundEndedEventArgs> SoundEnded;
-
-		/// <summary>
-		///     Occurs when sync-point is encountered.
-		/// </summary>
-		/// <seealso cref="SyncPointEncounteredEventArgs" />
-		public event EventHandler<SyncPointEncounteredEventArgs> SyncPointEncountered;
+		#region Constructors
 
 		/// <inheritdoc />
 		/// <summary>
 		///     Initializes a new instance of the <see cref="T:FMOD.Core.Channel" /> class.
 		/// </summary>
 		/// <param name="handle">The handle.</param>
-		internal Channel(IntPtr handle) : base(handle)
+		protected Channel(IntPtr handle) : base(handle)
 		{
 		}
+
+		#endregion
+
+		#region Properties
 
 		/// <summary>
 		///     Gets the currently playing sound for this channel.
@@ -152,7 +97,7 @@ namespace FMOD.Core
 			get
 			{
 				NativeInvoke(FMOD_Channel_GetCurrentSound(this, out var sound));
-				return sound == IntPtr.Zero ? null : Factory.Create<Sound>(sound);
+				return Factory.Create<Sound>(sound);
 			}
 		}
 
@@ -177,7 +122,7 @@ namespace FMOD.Core
 			set
 			{
 				NativeInvoke(FMOD_Channel_SetChannelGroup(this, value));
-				ChannelGroupChanged?.Invoke(this, EventArgs.Empty);
+				OnChannelGroupChanged();
 			}
 		}
 
@@ -236,7 +181,7 @@ namespace FMOD.Core
 			set
 			{
 				NativeInvoke(FMOD_Channel_SetLoopCount(this, value.Clamp(-1, value)));
-				LoopCountChanged?.Invoke(this, EventArgs.Empty);
+				OnLoopCountChanged();
 			}
 		}
 
@@ -286,7 +231,7 @@ namespace FMOD.Core
 			set
 			{
 				NativeInvoke(FMOD_Channel_SetFrequency(this, value));
-				FrequencyChanged?.Invoke(this, EventArgs.Empty);
+				OnFrequencyChanged();
 			}
 		}
 
@@ -315,9 +260,13 @@ namespace FMOD.Core
 			set
 			{
 				NativeInvoke(FMOD_Channel_SetPriority(this, value.Clamp(0, 256)));
-				PriorityChanged?.Invoke(this, EventArgs.Empty);
+				OnPriorityChanged();
 			}
 		}
+
+		#endregion
+
+		#region Methods
 
 		/// <summary>
 		///     Retrieves the loop points for the channel.
@@ -470,7 +419,7 @@ namespace FMOD.Core
 		public void SetLoopPoints(uint loopStart, uint loopEnd, TimeUnit startUnit, TimeUnit endUnit)
 		{
 			NativeInvoke(FMOD_Channel_SetLoopPoints(this, loopStart, startUnit, loopEnd, endUnit));
-			LoopPointAdded?.Invoke(this, EventArgs.Empty);
+			OnLoopPointAdded();
 		}
 
 		/// <summary>
@@ -512,43 +461,16 @@ namespace FMOD.Core
 		public void SetPosition(uint position, TimeUnit timeUnits = TimeUnit.Ms)
 		{
 			NativeInvoke(FMOD_Channel_SetPosition(this, position, timeUnits));
-			PositionChanged?.Invoke(this, EventArgs.Empty);
+			OnPositionChanged();
 		}
 
-		/// <summary>
-		///     <para>Invoked when a playing sound ends.</para>
-		///     <para>
-		///         If overridden, ensure to either call the base method or call <see cref="SafeHandle.SetHandleAsInvalid" /> on
-		///         the <see cref="Channel" />.
-		///     </para>
-		/// </summary>
-		/// <returns>
-		///     The <see cref="Result" /> specifying the outcome of the event.
-		/// </returns>
-		/// <seealso cref="Sound" />
-		/// <seealso cref="Result" />
-		protected override Result OnSoundEnd()
+		/// <inheritdoc />
+		protected override void OnSoundEnded()
 		{
 			SetHandleAsInvalid();
-			SoundEnded?.Invoke(this, new SoundEndedEventArgs(CurrentSound));
-			return Result.OK;
+			base.OnSoundEnded();
 		}
 
-		/// <summary>
-		///     Invoked when a sync-point is encountered.
-		/// </summary>
-		/// <param name="syncPointIndex">Index of the sync-point point.</param>
-		/// <returns>The <see cref="Result" /> specifying the outcome of the event.</returns>
-		protected override Result OnSyncPointEncountered(int syncPointIndex)
-		{
-			if (SyncPointEncountered != null)
-			{
-				var sound = CurrentSound;
-				var syncpoint = sound.GetSyncPoint(syncPointIndex);
-				var info = sound.GetSyncpointInfo(syncpoint);
-				SyncPointEncountered.Invoke(this, new SyncPointEncounteredEventArgs(syncPointIndex, syncpoint, info));
-			}
-			return Result.OK;
-		}
+		#endregion
 	}
 }

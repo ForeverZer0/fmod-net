@@ -10,112 +10,7 @@ namespace FMOD.Core
 {
 	public partial class Sound : HandleBase
 	{
-		/// <summary>
-		/// Occurs when the default frequency or priority is changed.
-		/// </summary>
-		/// <seealso cref="DefaultFrequency"/>
-		/// <seealso cref="DefaultPriority"/>
-		/// <seealso cref="SetDefaults"/>
-		public event EventHandler DefaultsChanged;
 
-		/// <summary>
-		/// Occurs when the sound buffer is locked by the user.
-		/// </summary>
-		/// <seealso cref="Lock"/>
-		/// <seealso cref="Unlock"/>
-		public event EventHandler Locked;
-
-		/// <summary>
-		/// Occurs when <see cref="LoopCount"/> property is changed.
-		/// </summary>
-		/// <seealso cref="LoopCount"/>
-		public event EventHandler LoopCountChanged;
-
-		/// <summary>
-		/// Occurs when a loop points are added to the sound.
-		/// </summary>
-		/// <seealso cref="SetLoopPoints(LoopPoints)"/>
-		/// <seealso cref="SetLoopPoints(uint, uint, TimeUnit)"/>
-		/// <seealso cref="SetLoopPoints(uint, uint, TimeUnit, TimeUnit)"/>
-		public event EventHandler LoopPointAdded;
-
-		/// <summary>
-		/// Occurs when <see cref="P:FMOD.NET.Core.Sound.Mode"/> property is changed.
-		/// </summary>
-		/// <seealso cref="P:FMOD.NET.Core.Sound.Mode"/>
-		/// <seealso cref="Enumerations.Mode"/>
-		public event EventHandler ModeChanged;
-
-		/// <summary>
-		/// Occurs when <see cref="MusicSpeed"/> property is changed.
-		/// </summary>
-		/// <seealso cref="MusicSpeed"/>
-		public event EventHandler MusicSpeedChanged;
-
-		/// <summary>
-		///     Occurs when the volume for a music channel is changed.
-		/// </summary>
-		/// <seealso cref="SetMusicVolume"></seealso>
-		/// <seealso cref="T:FMOD.Core.SoundMusicVolumeChangedEventArgs"></seealso>
-		public event EventHandler<SoundMusicVolumeChangedEventArgs> MusicVolumeChanged;
-
-		/// <summary>
-		/// Occurs when <see cref="P:FMOD.Core.Sound.SoundGroup"/> property is changed.
-		/// </summary>
-		/// <seealso cref="P:FMOD.Core.Sound.SoundGroup"/>
-		/// <seealso cref="T:FMOD.Core.SoundGroup"/>
-		public event EventHandler SoundGroupChanged;
-
-		/// <summary>
-		/// Occurs when a sync-point is added to the <see cref="Sound"/>.
-		/// </summary>
-		/// <seealso cref="SyncPointEventArgs"/>
-		/// <seealso cref="AddSyncPoint(FMOD.Data.SyncPointInfo)"/>
-		/// <seealso cref="AddSyncPoint(uint, TimeUnit, string)"/>
-		public event EventHandler<SyncPointEventArgs> SyncPointAdded;
-
-		/// <summary>
-		/// Occurs when a sync-point is removed from the <see cref="Sound"/>.
-		/// </summary>
-		/// <seealso cref="SyncPointEventArgs"/>
-		/// <seealso cref="DeleteSyncPoint"/>
-		public event EventHandler<SyncPointEventArgs> SyncPointDeleted;
-
-		/// <summary>
-		/// Occurs when the 3D cone settings have changed.
-		/// </summary>
-		/// <seealso cref="SetConeSettings"/>
-		/// <seealso cref="ConeSettings3D"/>
-		/// <seealso cref="ConeSettings"/>
-		public event EventHandler ConeSettings3DChanged;
-
-		/// <summary>
-		/// Occurs when 3D custom roll-off has changed.
-		/// </summary>
-		/// <seealso cref="CustomRolloff3D"/>
-		/// <seealso cref="Vector"/>
-		public event EventHandler CustomRolloff3DChanged;
-
-		/// <summary>
-		/// Occurs when 3D minimum or maximum distance has changed.
-		/// </summary>
-		/// <seealso cref="MinDistance3D"/>
-		/// <seealso cref="MaxDistance3D"/>
-		/// <seealso cref="SetMinMaxDistance"/>
-		public event EventHandler Distance3DChanged;
-
-		/// <summary>
-		/// Occurs when the sound buffer is unlocked by the user.
-		/// </summary>
-		/// <seealso cref="Lock"/>
-		/// <seealso cref="Unlock"/>
-		public event EventHandler Unlocked;
-
-		/// <summary>
-		/// Occurs when the <see cref="UserData"/> propoerty has been changed.
-		/// </summary>
-		/// <seealso cref="UserData"/>
-		public event EventHandler UserDataChanged;
 
 		internal Sound(IntPtr handle) : base(handle)
 		{
@@ -152,7 +47,7 @@ namespace FMOD.Core
 			set
 			{
 				NativeInvoke(FMOD_Sound_SetLoopCount(this, Math.Max(-1, value)));
-				LoopCountChanged?.Invoke(this, EventArgs.Empty);
+				OnLoopCountChanged();
 			}
 		}
 
@@ -166,7 +61,7 @@ namespace FMOD.Core
 			set
 			{
 				NativeInvoke(FMOD_Sound_SetUserData(this, value));
-				UserDataChanged?.Invoke(this, EventArgs.Empty);
+				OnUserDataChanged();
 			}
 		}
 
@@ -180,7 +75,7 @@ namespace FMOD.Core
 			set
 			{
 				NativeInvoke(FMOD_Sound_SetMode(this, value));
-				ModeChanged?.Invoke(this, EventArgs.Empty);
+				OnModeChanged();
 			}
 		}
 
@@ -194,7 +89,7 @@ namespace FMOD.Core
 			set
 			{
 				NativeInvoke(FMOD_Sound_SetDefaults(this, value, DefaultPriority));
-				DefaultsChanged?.Invoke(this, EventArgs.Empty);
+				OnDefaultsChanged();
 			}
 		}
 
@@ -208,7 +103,7 @@ namespace FMOD.Core
 			set
 			{
 				NativeInvoke(FMOD_Sound_SetDefaults(this, DefaultFrequency, value.Clamp(0, 256)));
-				DefaultsChanged?.Invoke(this, EventArgs.Empty);
+				OnDefaultsChanged();
 			}
 		}
 
@@ -288,7 +183,7 @@ namespace FMOD.Core
 			set
 			{
 				NativeInvoke(FMOD_Sound_SetSoundGroup(this, value));
-				SoundGroupChanged?.Invoke(this, EventArgs.Empty);
+				OnSoundGroupChanged();
 			}
 		}
 
@@ -302,7 +197,7 @@ namespace FMOD.Core
 			set
 			{
 				NativeInvoke(FMOD_Sound_SetMusicSpeed(this, value.Clamp(0.01f, 100.0f)));
-				MusicSpeedChanged?.Invoke(this, EventArgs.Empty);
+				OnMusicSpeedChanged();
 			}
 		}
 
@@ -360,7 +255,7 @@ namespace FMOD.Core
 				var outsideAngle = value.OutsideAngle.Clamp(value.InsideAngle, 360.0f);
 				var volume = value.OutsideVolume.Clamp(0.0f, 1.0f);
 				NativeInvoke(FMOD_Sound_Set3DConeSettings(this, insideAngle, outsideAngle, volume));
-				ConeSettings3DChanged?.Invoke(this, EventArgs.Empty);
+				OnConeSettings3DChanged();
 			}
 		}
 
@@ -381,7 +276,7 @@ namespace FMOD.Core
 			set
 			{
 				NativeInvoke(FMOD_Sound_Set3DCustomRolloff(this, ref value, value.Length));
-				CustomRolloff3DChanged?.Invoke(this, EventArgs.Empty);
+				OnCustomRolloff3DChanged();
 			}
 		}
 
@@ -396,7 +291,7 @@ namespace FMOD.Core
 			{
 				NativeInvoke(FMOD_Sound_Get3DMinMaxDistance(this, out var min, out var dummy));
 				NativeInvoke(FMOD_Sound_Set3DMinMaxDistance(this, min, value));
-				Distance3DChanged?.Invoke(this, EventArgs.Empty);
+				OnDistance3DChanged();
 			}
 		}
 
@@ -411,7 +306,7 @@ namespace FMOD.Core
 			{
 				NativeInvoke(FMOD_Sound_Get3DMinMaxDistance(this, out var dummy, out var max));
 				NativeInvoke(FMOD_Sound_Set3DMinMaxDistance(this, value, max));
-				Distance3DChanged?.Invoke(this, EventArgs.Empty);
+				OnDistance3DChanged();
 			}
 		}
 
@@ -419,7 +314,7 @@ namespace FMOD.Core
 		public IntPtr AddSyncPoint(SyncPointInfo info)
 		{
 			NativeInvoke(FMOD_Sound_AddSyncPoint(this, info.Offset, info.OffsetTimeUnit, info.Name, out var syncPoint));
-			SyncPointAdded?.Invoke(this, new SyncPointEventArgs(syncPoint));
+			OnSyncPointAdded(new SyncPointEventArgs(syncPoint));
 			return syncPoint;
 		}
 
@@ -432,7 +327,7 @@ namespace FMOD.Core
 		public void DeleteSyncPoint(IntPtr syncPoint)
 		{
 			NativeInvoke(FMOD_Sound_DeleteSyncPoint(this, syncPoint));
-			SyncPointDeleted?.Invoke(this, new SyncPointEventArgs(syncPoint));
+			OnSyncPointDeleted(new SyncPointEventArgs(syncPoint));
 		}
 		// TODO: Implement getting updated tags
 		public Tag[] GetTags()
@@ -537,7 +432,7 @@ namespace FMOD.Core
 			out uint len1, out uint len2)
 		{
 			NativeInvoke(FMOD_Sound_Lock(this, offset, length, out ptr1, out ptr2, out len1, out len2));
-			Locked?.Invoke(this, EventArgs.Empty);
+			OnLocked();
 		}
 
 
@@ -568,13 +463,13 @@ namespace FMOD.Core
 		public void SetConeSettings(float insideAngle, float outsideAngle, float outsideVolume)
 		{
 			NativeInvoke(FMOD_Sound_Set3DConeSettings(this, insideAngle, outsideAngle, outsideVolume));
-			ConeSettings3DChanged?.Invoke(this, EventArgs.Empty);
+			OnConeSettings3DChanged();
 		}
 
 		public void SetDefaults(float frequency = 44100.0f, int priority = 128)
 		{
 			NativeInvoke(FMOD_Sound_SetDefaults(this, frequency, priority.Clamp(0, 256)));
-			DefaultsChanged?.Invoke(this, EventArgs.Empty);
+			OnDefaultsChanged();
 		}
 
 		public void SetLoopPoints(LoopPoints points)
@@ -590,13 +485,13 @@ namespace FMOD.Core
 		public void SetLoopPoints(uint loopStart, uint loopEnd, TimeUnit startUnit, TimeUnit endUnit)
 		{
 			NativeInvoke(FMOD_Sound_SetLoopPoints(this, loopStart, startUnit, loopEnd, endUnit));
-			LoopPointAdded?.Invoke(this, EventArgs.Empty);
+			OnLoopPointAdded();
 		}
 
 		public void SetMinMaxDistance(float min, float max)
 		{
 			NativeInvoke(FMOD_Sound_Set3DMinMaxDistance(this, min, max));
-			Distance3DChanged?.Invoke(this, EventArgs.Empty);
+			OnDistance3DChanged();
 		}
 
 		/// <summary>
@@ -610,13 +505,13 @@ namespace FMOD.Core
 		{
 			var clamped = volume.Clamp(0.0f, 1.0f);
 			NativeInvoke(FMOD_Sound_SetMusicChannelVolume(this, channel, clamped));
-			MusicVolumeChanged?.Invoke(this, new SoundMusicVolumeChangedEventArgs(channel, clamped));
+			OnMusicVolumeChanged(new SoundMusicVolumeChangedEventArgs(channel, clamped));
 		}
 
 		public void Unlock(IntPtr ptr1, IntPtr ptr2, uint len1, uint len2)
 		{
 			NativeInvoke(FMOD_Sound_Unlock(this, ptr1, ptr2, len1, len2));
-			Unlocked?.Invoke(this, EventArgs.Empty);
+			OnUnlocked();
 		}
 	}
 }

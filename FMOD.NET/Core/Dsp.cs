@@ -75,51 +75,19 @@ namespace FMOD.Core
 	/// <seealso cref="T:FMOD.NET.HandleBase" />
 	public partial class Dsp : HandleBase
 	{
-		#region Constructors & Destructor
+		#region Constructors
 
 		/// <summary>
 		///     Initializes a new instance of the <see cref="Dsp" /> class.
 		/// </summary>
 		/// <param name="handle">The handle.</param>
-		internal Dsp(IntPtr handle) : base(handle)
+		protected Dsp(IntPtr handle) : base(handle)
 		{
 		}
 
 		#endregion
 
-		#region Properties & Indexers
-
-		/// <summary>
-		///     Occurs when the <see cref="Active" /> property has changed.
-		/// </summary>
-		/// <seealso cref="Active" />
-		public event EventHandler ActiveChanged;
-
-		/// <summary>
-		///     Occurs when the <see cref="Bypass" /> property has changed.
-		/// </summary>
-		/// <seealso cref="Bypass" />
-		public event EventHandler BypassChanged;
-
-		/// <summary>
-		///     Occurs when the <see cref="ChannelFormat" /> property has changed.
-		/// </summary>
-		/// <seealso cref="ChannelFormat" />
-		/// <seealso cref="FMOD.Data.ChannelFormat" />
-		public event EventHandler ChannelFormatChanged;
-
-		/// <summary>
-		///     Occurs when the <see cref="UserData" /> property has changed.
-		/// </summary>
-		/// <seealso cref="UserData" />
-		public event EventHandler UserDataChanged;
-
-		/// <summary>
-		///     Occurs when the <see cref="WetDryMix" /> property has changed.
-		/// </summary>
-		/// <seealso cref="WetDryMix" />
-		/// <seealso cref="Data.WetDryMix" />
-		public event EventHandler WetDryMixChanged;
+		#region Properties
 
 		/// <summary>
 		///     Gets or sets a value indicating whether this <see cref="Dsp" /> is active.
@@ -140,7 +108,7 @@ namespace FMOD.Core
 			set
 			{
 				NativeInvoke(FMOD_DSP_SetActive(this, value));
-				ActiveChanged?.Invoke(this, EventArgs.Empty);
+				OnActiveChanged();
 			}
 		}
 
@@ -171,7 +139,7 @@ namespace FMOD.Core
 			set
 			{
 				NativeInvoke(FMOD_DSP_SetBypass(this, value));
-				BypassChanged?.Invoke(this, EventArgs.Empty);
+				OnBypassChanged();
 			}
 		}
 
@@ -211,7 +179,7 @@ namespace FMOD.Core
 			{
 				NativeInvoke(FMOD_DSP_SetChannelFormat(this, value.ChannelMask,
 					value.ChannelCount, value.SpeakerMode));
-				ChannelFormatChanged?.Invoke(this, EventArgs.Empty);
+				OnChannelFormatChanged();
 			}
 		}
 
@@ -331,28 +299,6 @@ namespace FMOD.Core
 		}
 
 		/// <summary>
-		///     Helper function to enable the both input and output metering.
-		/// </summary>
-		/// <seealso cref="DisableMetering" />
-		/// <seealso cref="InputMeteringEnabled" />
-		/// <seealso cref="OutputMeteringEnabled" />
-		public void EnableMetering()
-		{
-			NativeInvoke(FMOD_DSP_SetMeteringEnabled(this, true, true));
-		}
-
-		/// <summary>
-		///     Helper function to disable the both input and output metering.
-		/// </summary>
-		/// <seealso cref="EnableMetering" />
-		/// <seealso cref="InputMeteringEnabled" />
-		/// <seealso cref="OutputMeteringEnabled" />
-		public void DisableMetering()
-		{
-			NativeInvoke(FMOD_DSP_SetMeteringEnabled(this, false, false));
-		}
-
-		/// <summary>
 		///     <para>Gets the idle state of a DSP.</para>
 		///     <para>A DSP is idle when no signal is coming into it. </para>
 		///     <para>
@@ -464,7 +410,7 @@ namespace FMOD.Core
 			set
 			{
 				NativeInvoke(FMOD_DSP_SetUserData(this, value));
-				UserDataChanged?.Invoke(this, EventArgs.Empty);
+				OnUserDataChanged();
 			}
 		}
 
@@ -496,186 +442,13 @@ namespace FMOD.Core
 			set
 			{
 				NativeInvoke(FMOD_DSP_SetWetDryMix(this, value.PreWet, value.PostWet, value.Dry));
-				WetDryMixChanged?.Invoke(this, EventArgs.Empty);
+				OnWetDryMixChanged();
 			}
 		}
 
 		#endregion
 
 		#region Methods
-
-		/// <summary>
-		///     Occurs when a <see cref="Dsp" /> is added to the input.
-		/// </summary>
-		/// <seealso cref="AddInput" />
-		/// <seealso cref="DspInputEventArgs" />
-		public event EventHandler<DspInputEventArgs> InputAdded;
-
-		/// <summary>
-		///     Adds the specified DSP unit as an input of the DSP object.
-		/// </summary>
-		/// <param name="dsp">The DSP unit to add as an input of the current unit.</param>
-		/// <param name="type">
-		///     <para>The type of connection between the two units.</para>
-		///     <para>See <see cref="DspConnectionType" /> for details.</para>
-		/// </param>
-		/// <returns>The newly created connection between the two units.</returns>
-		/// <remarks>
-		///     <para>
-		///         If you want to add a unit as an output of another unit, then add "this" unit as an input of that unit
-		///         instead.
-		///     </para>
-		///     <para>
-		///         Inputs are automatically mixed together, then the mixed data is sent to the unit's output(s).<lineBreak />
-		///         To find the number of inputs or outputs a unit has use <see cref="InputCount" /> or <see cref="OutputCount" />.
-		///     </para>
-		///     <alert class="caution">
-		///         The returned <see cref="DspConnection" /> will become invalid if the DSP is disconnected, and could cause and
-		///         exception if an attempt is made to use a reference to it.
-		///     </alert>
-		/// </remarks>
-		/// <seealso cref="InputAdded" />
-		/// <seealso cref="DspConnection" />
-		/// <seealso cref="DspConnectionType" />
-		/// <seealso cref="InputCount" />
-		/// <seealso cref="OutputCount" />
-		/// <seealso cref="DisconnectFrom(FMOD.Core.Dsp, DspConnection)" />
-		public DspConnection AddInput(Dsp dsp, DspConnectionType type = DspConnectionType.Standard)
-		{
-			NativeInvoke(FMOD_DSP_AddInput(this, dsp, out var connection, type));
-			var dspConnection = Factory.Create<DspConnection>(connection);
-			InputAdded?.Invoke(this, new DspInputEventArgs(dspConnection, type));
-			return dspConnection;
-		}
-
-		/// <summary>
-		///     Occurs when all input DSPs are disconnected.
-		/// </summary>
-		/// <seealso cref="DisconnectAll" />
-		/// <seealso cref="DisconnectInputs" />
-		public event EventHandler AllInputsDisconnected;
-
-		/// <summary>
-		///     Occurs when all output DSPs are disconnected.
-		/// </summary>
-		/// <seealso cref="DisconnectAll" />
-		/// <seealso cref="DisconnectOutputs" />
-		public event EventHandler AllOutputsDisconnected;
-
-		/// <summary>
-		///     <para>Helper function to disconnect all inputs and outputs of a DSP unit.</para>
-		///     <para>This function is optimized to be faster than disconnecting inputs and outputs manually one by one.</para>
-		/// </summary>
-		/// <remarks>
-		///     <alert class="note">This method <b>DOES NOT</b> raise a <see cref="DspDisconnected" /> event.</alert>
-		///     <alert class="warning">
-		///         If you have a reference to a <see cref="DspConnection" /> that bind any of the inputs or outputs to this DSP
-		///         unit, then they will become invalid. The connections are sent back to a freelist to be re-used again by a later
-		///         <see cref="AddInput" /> command.
-		///     </alert>
-		/// </remarks>
-		/// <seealso cref="AllInputsDisconnected" />
-		/// <seealso cref="AllOutputsDisconnected" />
-		/// <seealso cref="DspConnection" />
-		/// <seealso cref="DisconnectFrom" />
-		/// <seealso cref="DisconnectInputs" />
-		/// <seealso cref="DisconnectOutputs" />
-		/// <seealso cref="AddInput" />
-		public void DisconnectAll()
-		{
-			NativeInvoke(FMOD_DSP_DisconnectAll(this, true, true));
-			AllInputsDisconnected?.Invoke(this, EventArgs.Empty);
-			AllOutputsDisconnected?.Invoke(this, EventArgs.Empty);
-		}
-
-		/// <summary>
-		///     <para>Helper function to disconnect all inputs of a DSP unit.</para>
-		///     <para>This function is optimized to be faster than disconnecting inputs and outputs manually one by one.</para>
-		/// </summary>
-		/// <remarks>
-		///     <alert class="note">This method <b>DOES NOT</b> raise a <see cref="DspDisconnected" /> event.</alert>
-		///     <alert class="warning">
-		///         If you have a reference to a <see cref="DspConnection" /> that bind any of the inputs or outputs to this DSP
-		///         unit, then they will become invalid. The connections are sent back to a freelist to be re-used again by a later
-		///         <see cref="AddInput" /> command.
-		///     </alert>
-		/// </remarks>
-		/// <seealso cref="AllInputsDisconnected" />
-		/// <seealso cref="DspConnection" />
-		/// <seealso cref="DisconnectFrom" />
-		/// <seealso cref="DisconnectAll" />
-		/// <seealso cref="DisconnectOutputs" />
-		/// <seealso cref="AddInput" />
-		public void DisconnectInputs()
-		{
-			NativeInvoke(FMOD_DSP_DisconnectAll(this, true, false));
-			AllInputsDisconnected?.Invoke(this, EventArgs.Empty);
-		}
-
-		/// <summary>
-		///     <para>Helper function to disconnect all outputs of a DSP unit.</para>
-		///     <para>This function is optimized to be faster than disconnecting inputs and outputs manually one by one.</para>
-		/// </summary>
-		/// <remarks>
-		///     <alert class="note">This method <b>DOES NOT</b> raise a <see cref="DspDisconnected" /> event.</alert>
-		///     <alert class="warning">
-		///         If you have a reference to a <see cref="DspConnection" /> that bind any of the inputs or outputs to this DSP
-		///         unit, then they will become invalid. The connections are sent back to a freelist to be re-used again by a later
-		///         <see cref="AddInput" /> command.
-		///     </alert>
-		/// </remarks>
-		/// <seealso cref="AllOutputsDisconnected" />
-		/// <seealso cref="DspConnection" />
-		/// <seealso cref="DisconnectFrom" />
-		/// <seealso cref="DisconnectAll" />
-		/// <seealso cref="DisconnectInputs" />
-		/// <seealso cref="AddInput" />
-		public void DisconnectOutputs()
-		{
-			NativeInvoke(FMOD_DSP_DisconnectAll(this, false, true));
-			AllOutputsDisconnected?.Invoke(this, EventArgs.Empty);
-		}
-
-		/// <summary>
-		///     Disconnect the DSP unit from the specified input.
-		/// </summary>
-		/// <param name="dsp">
-		///     <para>The input unit that this unit is to be disconnected from.</para>
-		///     <para>Specify <c>null</c> to disconnect the unit from all outputs and inputs.</para>
-		/// </param>
-		/// <param name="connection">
-		///     If there is more than one connection between two <see cref="Dsp" /> units, this can be used to
-		///     define which of the connections should be disconnected.
-		/// </param>
-		/// <remarks>
-		///     <para>
-		///         Note that when you disconnect a unit, it is up to you to reconnect the network so that data flow can
-		///         continue.
-		///     </para>
-		///     <alert class="warning">
-		///         If you have a reference to a <see cref="DspConnection" /> that bind any of the inputs or outputs to this DSP
-		///         unit, then they will become invalid. The connections are sent back to a freelist to be re-used again by a later
-		///         <see cref="AddInput" /> command.
-		///     </alert>
-		/// </remarks>
-		/// <seealso cref="DspDisconnected" />
-		/// <seealso cref="DspConnection" />
-		/// <seealso cref="DisconnectAll" />
-		/// <seealso cref="DisconnectInputs" />
-		/// <seealso cref="DisconnectOutputs" />
-		/// <seealso cref="AddInput" />
-		public void DisconnectFrom(Dsp dsp, DspConnection connection = null)
-		{
-			NativeInvoke(FMOD_DSP_DisconnectFrom(this, dsp ?? IntPtr.Zero, connection ?? IntPtr.Zero));
-			DspDisconnected?.Invoke(this, new DspDisconnectEventArgs(dsp, connection));
-		}
-
-		/// <summary>
-		///     Occurs when an individual DSP is disconnected.
-		/// </summary>
-		/// <seealso cref="DspDisconnectEventArgs" />
-		/// <seealso cref="DisconnectFrom" />
-		public event EventHandler<DspDisconnectEventArgs> DspDisconnected;
 
 		/// <summary>
 		///     Internal factory method for creating DSPs from a <see cref="DspType" /> enumeration.
@@ -770,6 +543,175 @@ namespace FMOD.Core
 					return null;
 			}
 #pragma warning restore 618
+		}
+
+
+		/// <summary>
+		///     Adds the specified DSP unit as an input of the DSP object.
+		/// </summary>
+		/// <param name="dsp">The DSP unit to add as an input of the current unit.</param>
+		/// <param name="type">
+		///     <para>The type of connection between the two units.</para>
+		///     <para>See <see cref="DspConnectionType" /> for details.</para>
+		/// </param>
+		/// <returns>The newly created connection between the two units.</returns>
+		/// <remarks>
+		///     <para>
+		///         If you want to add a unit as an output of another unit, then add "this" unit as an input of that unit
+		///         instead.
+		///     </para>
+		///     <para>
+		///         Inputs are automatically mixed together, then the mixed data is sent to the unit's output(s).<lineBreak />
+		///         To find the number of inputs or outputs a unit has use <see cref="InputCount" /> or <see cref="OutputCount" />.
+		///     </para>
+		///     <alert class="caution">
+		///         The returned <see cref="DspConnection" /> will become invalid if the DSP is disconnected, and could cause and
+		///         exception if an attempt is made to use a reference to it.
+		///     </alert>
+		/// </remarks>
+		/// <seealso cref="InputAdded" />
+		/// <seealso cref="DspConnection" />
+		/// <seealso cref="DspConnectionType" />
+		/// <seealso cref="InputCount" />
+		/// <seealso cref="OutputCount" />
+		/// <seealso cref="DisconnectFrom(FMOD.Core.Dsp, DspConnection)" />
+		public DspConnection AddInput(Dsp dsp, DspConnectionType type = DspConnectionType.Standard)
+		{
+			NativeInvoke(FMOD_DSP_AddInput(this, dsp, out var connection, type));
+			var dspConnection = Factory.Create<DspConnection>(connection);
+			OnInputAdded(new DspInputEventArgs(dspConnection, type));
+			return dspConnection;
+		}
+
+		/// <summary>
+		///     Helper function to disable the both input and output metering.
+		/// </summary>
+		/// <seealso cref="EnableMetering" />
+		/// <seealso cref="InputMeteringEnabled" />
+		/// <seealso cref="OutputMeteringEnabled" />
+		public void DisableMetering()
+		{
+			NativeInvoke(FMOD_DSP_SetMeteringEnabled(this, false, false));
+		}
+
+
+		/// <summary>
+		///     <para>Helper function to disconnect all inputs and outputs of a DSP unit.</para>
+		///     <para>This function is optimized to be faster than disconnecting inputs and outputs manually one by one.</para>
+		/// </summary>
+		/// <remarks>
+		///     <alert class="note">This method <b>DOES NOT</b> raise a <see cref="DspDisconnected" /> event.</alert>
+		///     <alert class="warning">
+		///         If you have a reference to a <see cref="DspConnection" /> that bind any of the inputs or outputs to this DSP
+		///         unit, then they will become invalid. The connections are sent back to a freelist to be re-used again by a later
+		///         <see cref="AddInput" /> command.
+		///     </alert>
+		/// </remarks>
+		/// <seealso cref="AllInputsDisconnected" />
+		/// <seealso cref="AllOutputsDisconnected" />
+		/// <seealso cref="DspConnection" />
+		/// <seealso cref="DisconnectFrom" />
+		/// <seealso cref="DisconnectInputs" />
+		/// <seealso cref="DisconnectOutputs" />
+		/// <seealso cref="AddInput" />
+		public void DisconnectAll()
+		{
+			NativeInvoke(FMOD_DSP_DisconnectAll(this, true, true));
+			OnAllInputsDisconnected();
+			OnAllOutputsDisconnected();
+		}
+
+		/// <summary>
+		///     Disconnect the DSP unit from the specified input.
+		/// </summary>
+		/// <param name="dsp">
+		///     <para>The input unit that this unit is to be disconnected from.</para>
+		///     <para>Specify <c>null</c> to disconnect the unit from all outputs and inputs.</para>
+		/// </param>
+		/// <param name="connection">
+		///     If there is more than one connection between two <see cref="Dsp" /> units, this can be used to
+		///     define which of the connections should be disconnected.
+		/// </param>
+		/// <remarks>
+		///     <para>
+		///         Note that when you disconnect a unit, it is up to you to reconnect the network so that data flow can
+		///         continue.
+		///     </para>
+		///     <alert class="warning">
+		///         If you have a reference to a <see cref="DspConnection" /> that bind any of the inputs or outputs to this DSP
+		///         unit, then they will become invalid. The connections are sent back to a freelist to be re-used again by a later
+		///         <see cref="AddInput" /> command.
+		///     </alert>
+		/// </remarks>
+		/// <seealso cref="DspDisconnected" />
+		/// <seealso cref="DspConnection" />
+		/// <seealso cref="DisconnectAll" />
+		/// <seealso cref="DisconnectInputs" />
+		/// <seealso cref="DisconnectOutputs" />
+		/// <seealso cref="AddInput" />
+		public void DisconnectFrom(Dsp dsp, DspConnection connection = null)
+		{
+			NativeInvoke(FMOD_DSP_DisconnectFrom(this, dsp ?? IntPtr.Zero, connection ?? IntPtr.Zero));
+			OnDspDisconnected(new DspDisconnectEventArgs(dsp, connection));
+		}
+
+		/// <summary>
+		///     <para>Helper function to disconnect all inputs of a DSP unit.</para>
+		///     <para>This function is optimized to be faster than disconnecting inputs and outputs manually one by one.</para>
+		/// </summary>
+		/// <remarks>
+		///     <alert class="note">This method <b>DOES NOT</b> raise a <see cref="DspDisconnected" /> event.</alert>
+		///     <alert class="warning">
+		///         If you have a reference to a <see cref="DspConnection" /> that bind any of the inputs or outputs to this DSP
+		///         unit, then they will become invalid. The connections are sent back to a freelist to be re-used again by a later
+		///         <see cref="AddInput" /> command.
+		///     </alert>
+		/// </remarks>
+		/// <seealso cref="AllInputsDisconnected" />
+		/// <seealso cref="DspConnection" />
+		/// <seealso cref="DisconnectFrom" />
+		/// <seealso cref="DisconnectAll" />
+		/// <seealso cref="DisconnectOutputs" />
+		/// <seealso cref="AddInput" />
+		public void DisconnectInputs()
+		{
+			NativeInvoke(FMOD_DSP_DisconnectAll(this, true, false));
+			OnAllInputsDisconnected();
+		}
+
+		/// <summary>
+		///     <para>Helper function to disconnect all outputs of a DSP unit.</para>
+		///     <para>This function is optimized to be faster than disconnecting inputs and outputs manually one by one.</para>
+		/// </summary>
+		/// <remarks>
+		///     <alert class="note">This method <b>DOES NOT</b> raise a <see cref="DspDisconnected" /> event.</alert>
+		///     <alert class="warning">
+		///         If you have a reference to a <see cref="DspConnection" /> that bind any of the inputs or outputs to this DSP
+		///         unit, then they will become invalid. The connections are sent back to a freelist to be re-used again by a later
+		///         <see cref="AddInput" /> command.
+		///     </alert>
+		/// </remarks>
+		/// <seealso cref="AllOutputsDisconnected" />
+		/// <seealso cref="DspConnection" />
+		/// <seealso cref="DisconnectFrom" />
+		/// <seealso cref="DisconnectAll" />
+		/// <seealso cref="DisconnectInputs" />
+		/// <seealso cref="AddInput" />
+		public void DisconnectOutputs()
+		{
+			NativeInvoke(FMOD_DSP_DisconnectAll(this, false, true));
+			OnAllOutputsDisconnected();
+		}
+
+		/// <summary>
+		///     Helper function to enable the both input and output metering.
+		/// </summary>
+		/// <seealso cref="DisableMetering" />
+		/// <seealso cref="InputMeteringEnabled" />
+		/// <seealso cref="OutputMeteringEnabled" />
+		public void EnableMetering()
+		{
+			NativeInvoke(FMOD_DSP_SetMeteringEnabled(this, true, true));
 		}
 
 		/// <summary>
@@ -891,21 +833,6 @@ namespace FMOD.Core
 		}
 
 		/// <summary>
-		///     <para>Retrieves the connection to the DSP unit which is acting as an output to this unit.</para>
-		///     <para>Performance Warning! See remarks.</para>
-		/// </summary>
-		/// <param name="index">Index of the output unit connection to retrieve.</param>
-		/// <returns>The desired output DSP connection.</returns>
-		/// <seealso cref="GetOutput" />
-		/// <seealso cref="OutputCount" />
-		/// <seealso cref="DspConnection.Mix" />
-		public DspConnection GetOutputConnection(int index)
-		{
-			NativeInvoke(FMOD_DSP_GetOutput(this, index, out var dummy, out var connection));
-			return Factory.Create<DspConnection>(connection);
-		}
-
-		/// <summary>
 		///     Call the DSP process function to retrieve the output signal format for a DSP based on input values, automatically
 		///     applying the input signal format as an argument.
 		/// </summary>
@@ -994,109 +921,18 @@ namespace FMOD.Core
 		}
 
 		/// <summary>
-		///     Retrieve information about a specified parameter within the DSP unit.
+		///     <para>Retrieves the connection to the DSP unit which is acting as an output to this unit.</para>
+		///     <para>Performance Warning! See remarks.</para>
 		/// </summary>
-		/// <param name="parameterIndex">
-		///     Parameter index for this unit. Find the number of parameters with
-		///     <see cref="ParameterCount" />.
-		/// </param>
-		/// <returns>A <see cref="DspParameterDesc" /> structure containing the relevant parameter information.</returns>
-		/// <seealso cref="DspParameterDesc" />
-		/// <seealso cref="ParameterCount" />
-		/// <seealso cref="GetParameterBool" />
-		/// <seealso cref="GetParameterData" />
-		/// <seealso cref="GetParameterFloat" />
-		/// <seealso cref="GetParameterInt" />
-		/// <seealso cref="SetParameterBool" />
-		/// <seealso cref="SetParameterData" />
-		/// <seealso cref="SetParameterFloat" />
-		/// <seealso cref="SetParameterInt" />
-		public DspParameterDesc GetParameterInfo(int parameterIndex)
+		/// <param name="index">Index of the output unit connection to retrieve.</param>
+		/// <returns>The desired output DSP connection.</returns>
+		/// <seealso cref="GetOutput" />
+		/// <seealso cref="OutputCount" />
+		/// <seealso cref="DspConnection.Mix" />
+		public DspConnection GetOutputConnection(int index)
 		{
-			NativeInvoke(FMOD_DSP_GetParameterInfo(this, parameterIndex, out var desc));
-			return (DspParameterDesc) Marshal.PtrToStructure(desc, typeof(DspParameterDesc));
-		}
-
-		/// <summary>
-		///     Calls the DSP unit's reset function, which will clear internal buffers and reset the unit back to an initial state.
-		/// </summary>
-		/// <remarks>
-		///     <para>Calling this function is useful if the DSP unit relies on a history to process itself (ie an echo filter).</para>
-		///     <para>
-		///         If you disconnected the unit and reconnected it to a different part of the network with a different sound,
-		///         you would want to call this to reset the units state (ie clear and reset the echo filter) so that you dont get
-		///         left over artifacts from the place it used to be connected.
-		///     </para>
-		/// </remarks>
-		public void Reset()
-		{
-			NativeInvoke(FMOD_DSP_Reset(this));
-		}
-
-		/// <summary>
-		///     Display or hide a DSP unit configuration in a newly created window and returns it.
-		/// </summary>
-		/// <returns>The window containing the configuration.</returns>
-		public Form ShowConfigDialog()
-		{
-			var info = GetInfo();
-			var form = new Form
-			{
-				Size = info.ConfigWindowSize,
-				MaximizeBox = false,
-				MinimizeBox = false,
-				ShowIcon = false,
-				Text = info.Name
-			};
-			form.Show();
-			ShowConfigDialog(form.Handle);
-			return form;
-		}
-
-		/// <summary>
-		///     Display or hide a DSP unit configuration dialog box inside the target window.
-		/// </summary>
-		/// <param name="hwnd">Handle tothe target window to display configuration dialog.</param>
-		/// <param name="show">
-		///     <para><c>true</c> = show dialog box inside target <paramref name="hwnd" />.</para>
-		///     <para><c>false</c> = remove dialog from target <paramref name="hwnd" />.</para>
-		/// </param>
-		public void ShowConfigDialog(IntPtr hwnd, bool show = true)
-		{
-			NativeInvoke(FMOD_DSP_ShowConfigDialog(this, hwnd, show));
-		}
-
-		/// <summary>
-		///     <para>Gets a string containing a formatted or more meaningful representation of the DSP parameter's value.</para>
-		///     <para>
-		///         For example if a switch parameter has on and off (<c>0.0</c> or <c>1.0</c>) it will display "ON" or "OFF" by
-		///         using this parameter.
-		///     </para>
-		/// </summary>
-		/// <param name="index">Index for desired parameter.</param>
-		/// <returns>A formatted string representation of the value.</returns>
-		public string GetValueString(int index)
-		{
-			var type = GetParameterInfo(index).Type;
-			using (var buffer = new MemoryBuffer(16))
-			{
-				switch (type)
-				{
-					case DspParameterType.Float:
-						NativeInvoke(FMOD_DSP_GetParameterFloat(this, index, out var dummy1, buffer.Pointer, 16));
-						break;
-					case DspParameterType.Int:
-						NativeInvoke(FMOD_DSP_GetParameterInt(this, index, out var dummy2, buffer.Pointer, 16));
-						break;
-					case DspParameterType.Bool:
-						NativeInvoke(FMOD_DSP_GetParameterBool(this, index, out var dummy3, buffer.Pointer, 16));
-						break;
-					case DspParameterType.Data:
-						NativeInvoke(FMOD_DSP_GetParameterData(this, index, out var dummy4, out var dummy5, buffer.Pointer, 16));
-						break;
-				}
-				return buffer.ToString(Encoding.UTF8);
-			}
+			NativeInvoke(FMOD_DSP_GetOutput(this, index, out var dummy, out var connection));
+			return Factory.Create<DspConnection>(connection);
 		}
 
 		/// <summary>
@@ -1172,6 +1008,30 @@ namespace FMOD.Core
 		}
 
 		/// <summary>
+		///     Retrieve information about a specified parameter within the DSP unit.
+		/// </summary>
+		/// <param name="parameterIndex">
+		///     Parameter index for this unit. Find the number of parameters with
+		///     <see cref="ParameterCount" />.
+		/// </param>
+		/// <returns>A <see cref="DspParameterDesc" /> structure containing the relevant parameter information.</returns>
+		/// <seealso cref="DspParameterDesc" />
+		/// <seealso cref="ParameterCount" />
+		/// <seealso cref="GetParameterBool" />
+		/// <seealso cref="GetParameterData" />
+		/// <seealso cref="GetParameterFloat" />
+		/// <seealso cref="GetParameterInt" />
+		/// <seealso cref="SetParameterBool" />
+		/// <seealso cref="SetParameterData" />
+		/// <seealso cref="SetParameterFloat" />
+		/// <seealso cref="SetParameterInt" />
+		public DspParameterDesc GetParameterInfo(int parameterIndex)
+		{
+			NativeInvoke(FMOD_DSP_GetParameterInfo(this, parameterIndex, out var desc));
+			return (DspParameterDesc) Marshal.PtrToStructure(desc, typeof(DspParameterDesc));
+		}
+
+		/// <summary>
 		///     Retrieves a DSP unit's integer parameter by index.
 		/// </summary>
 		/// <param name="index">The index.</param>
@@ -1197,6 +1057,55 @@ namespace FMOD.Core
 		}
 
 		/// <summary>
+		///     <para>Gets a string containing a formatted or more meaningful representation of the DSP parameter's value.</para>
+		///     <para>
+		///         For example if a switch parameter has on and off (<c>0.0</c> or <c>1.0</c>) it will display "ON" or "OFF" by
+		///         using this parameter.
+		///     </para>
+		/// </summary>
+		/// <param name="index">Index for desired parameter.</param>
+		/// <returns>A formatted string representation of the value.</returns>
+		public string GetValueString(int index)
+		{
+			var type = GetParameterInfo(index).Type;
+			using (var buffer = new MemoryBuffer(16))
+			{
+				switch (type)
+				{
+					case DspParameterType.Float:
+						NativeInvoke(FMOD_DSP_GetParameterFloat(this, index, out var dummy1, buffer.Pointer, 16));
+						break;
+					case DspParameterType.Int:
+						NativeInvoke(FMOD_DSP_GetParameterInt(this, index, out var dummy2, buffer.Pointer, 16));
+						break;
+					case DspParameterType.Bool:
+						NativeInvoke(FMOD_DSP_GetParameterBool(this, index, out var dummy3, buffer.Pointer, 16));
+						break;
+					case DspParameterType.Data:
+						NativeInvoke(FMOD_DSP_GetParameterData(this, index, out var dummy4, out var dummy5, buffer.Pointer, 16));
+						break;
+				}
+				return buffer.ToString(Encoding.UTF8);
+			}
+		}
+
+		/// <summary>
+		///     Calls the DSP unit's reset function, which will clear internal buffers and reset the unit back to an initial state.
+		/// </summary>
+		/// <remarks>
+		///     <para>Calling this function is useful if the DSP unit relies on a history to process itself (ie an echo filter).</para>
+		///     <para>
+		///         If you disconnected the unit and reconnected it to a different part of the network with a different sound,
+		///         you would want to call this to reset the units state (ie clear and reset the echo filter) so that you dont get
+		///         left over artifacts from the place it used to be connected.
+		///     </para>
+		/// </remarks>
+		public void Reset()
+		{
+			NativeInvoke(FMOD_DSP_Reset(this));
+		}
+
+		/// <summary>
 		///     Sets a DSP unit's boolean parameter by index.
 		/// </summary>
 		/// <param name="index">Parameter index for this unit. Find the number of parameters with <see cref="ParameterCount" />.</param>
@@ -1209,6 +1118,7 @@ namespace FMOD.Core
 		///     implemented individually with named classes and methods, but it is here for custom DSPs and the sake of
 		///     completeness.
 		/// </alert>
+		/// <seealso cref="ParameterChanged" />
 		/// <seealso cref="ParameterCount" />
 		/// <seealso cref="GetParameterBool" />
 		/// <seealso cref="GetParameterData" />
@@ -1220,6 +1130,7 @@ namespace FMOD.Core
 		public void SetParameterBool(int index, bool value)
 		{
 			NativeInvoke(FMOD_DSP_SetParameterBool(this, index, value));
+			OnParameterChanged(new DspParameterEventArgs(index, DspParameterType.Bool, value));
 		}
 
 		/// <summary>
@@ -1235,6 +1146,7 @@ namespace FMOD.Core
 		///     implemented individually with named classes and methods, but it is here for custom DSPs and the sake of
 		///     completeness.
 		/// </alert>
+		/// <seealso cref="ParameterChanged" />
 		/// <seealso cref="ParameterCount" />
 		/// <seealso cref="GetParameterBool" />
 		/// <seealso cref="GetParameterData" />
@@ -1248,6 +1160,7 @@ namespace FMOD.Core
 			var gcHandle = GCHandle.Alloc(data, GCHandleType.Pinned);
 			NativeInvoke(FMOD_DSP_SetParameterData(this, index, gcHandle.AddrOfPinnedObject(), (uint) data.Length));
 			gcHandle.Free();
+			OnParameterChanged(new DspParameterEventArgs(index, DspParameterType.Data, data));
 		}
 
 		/// <summary>
@@ -1260,6 +1173,7 @@ namespace FMOD.Core
 		///     implemented individually with named classes and methods, but it is here for custom DSPs and the sake of
 		///     completeness.
 		/// </alert>
+		/// <seealso cref="ParameterChanged" />
 		/// <seealso cref="ParameterCount" />
 		/// <seealso cref="GetParameterBool" />
 		/// <seealso cref="GetParameterData" />
@@ -1271,6 +1185,7 @@ namespace FMOD.Core
 		public void SetParameterFloat(int index, float value)
 		{
 			NativeInvoke(FMOD_DSP_SetParameterFloat(this, index, value));
+			OnParameterChanged(new DspParameterEventArgs(index, DspParameterType.Float, value));
 		}
 
 		/// <summary>
@@ -1283,6 +1198,7 @@ namespace FMOD.Core
 		///     implemented individually with named classes and methods, but it is here for custom DSPs and the sake of
 		///     completeness.
 		/// </alert>
+		/// <seealso cref="ParameterChanged" />
 		/// <seealso cref="ParameterCount" />
 		/// <seealso cref="GetParameterBool" />
 		/// <seealso cref="GetParameterData" />
@@ -1294,6 +1210,40 @@ namespace FMOD.Core
 		public void SetParameterInt(int index, int value)
 		{
 			NativeInvoke(FMOD_DSP_SetParameterInt(this, index, value));
+			OnParameterChanged(new DspParameterEventArgs(index, DspParameterType.Int, value));
+		}
+
+		/// <summary>
+		///     Display or hide a DSP unit configuration in a newly created window and returns it.
+		/// </summary>
+		/// <returns>The window containing the configuration.</returns>
+		public Form ShowConfigDialog()
+		{
+			var info = GetInfo();
+			var form = new Form
+			{
+				Size = info.ConfigWindowSize,
+				MaximizeBox = false,
+				MinimizeBox = false,
+				ShowIcon = false,
+				Text = info.Name
+			};
+			form.Show();
+			ShowConfigDialog(form.Handle);
+			return form;
+		}
+
+		/// <summary>
+		///     Display or hide a DSP unit configuration dialog box inside the target window.
+		/// </summary>
+		/// <param name="hwnd">Handle tothe target window to display configuration dialog.</param>
+		/// <param name="show">
+		///     <para><c>true</c> = show dialog box inside target <paramref name="hwnd" />.</para>
+		///     <para><c>false</c> = remove dialog from target <paramref name="hwnd" />.</para>
+		/// </param>
+		public void ShowConfigDialog(IntPtr hwnd, bool show = true)
+		{
+			NativeInvoke(FMOD_DSP_ShowConfigDialog(this, hwnd, show));
 		}
 
 		#endregion

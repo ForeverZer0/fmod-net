@@ -1,16 +1,73 @@
-﻿using System;
+﻿#region License
+
+// FmodSystem.Native.cs is distributed under the Microsoft Public License (MS-PL)
+// 
+// Copyright (c) 2018,  Eric Freed
+// All Rights Reserved.
+// 
+// This license governs use of the accompanying software. If you use the software, you
+// accept this license. If you do not accept the license, do not use the software.
+// 
+// 1. Definitions
+// The terms "reproduce," "reproduction," "derivative works," and "distribution" have the
+// same meaning here as under U.S. copyright law.
+// A "contribution" is the original software, or any additions or changes to the software.
+// A "contributor" is any person that distributes its contribution under this license.
+// "Licensed patents" are a contributor's patent claims that read directly on its contribution.
+// 
+// 2. Grant of Rights
+// (A) Copyright Grant- Subject to the terms of this license, including the license conditions 
+// and limitations in section 3, each contributor grants you a non-exclusive, worldwide, royalty-free 
+// copyright license to reproduce its contribution, prepare derivative works of its contribution, and 
+// distribute its contribution or any derivative works that you create.
+// 
+// (B) Patent Grant- Subject to the terms of this license, including the license conditions and 
+// limitations in section 3, each contributor grants you a non-exclusive, worldwide, royalty-free license
+//  under its licensed patents to make, have made, use, sell, offer for sale, import, and/or otherwise 
+// dispose of its contribution in the software or derivative works of the contribution in the software.
+// 
+// 3. Conditions and Limitations
+// (A) No Trademark License- This license does not grant you rights to use any contributors' name, 
+// logo, or trademarks.
+// 
+// (B) If you bring a patent claim against any contributor over patents that you claim are infringed by 
+// the software, your patent license from such contributor to the software ends automatically.
+// 
+// (C) If you distribute any portion of the software, you must retain all copyright, patent, trademark, and
+//  attribution notices that are present in the software.
+// 
+// (D) If you distribute any portion of the software in source code form, you may do so only under this 
+// license by including a complete copy of this license with your distribution. If you distribute any portion
+//  of the software in compiled or object code form, you may only do so under a license that complies 
+// with this license.
+// 
+// (E) The software is licensed "as-is." You bear the risk of using it. The contributors give no express 
+// warranties, guarantees or conditions. You may have additional consumer rights under your local laws 
+// which this license cannot change. To the extent permitted under your local laws, the contributors 
+// exclude the implied warranties of merchantability, fitness for a particular purpose and non-infringement.
+// 
+// Created 9:49 PM 02/15/2018
+
+#endregion
+
+#region Using Directives
+
+using System;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Security.Permissions;
 using FMOD.Enumerations;
 using FMOD.Structures;
 
+#endregion
+
 namespace FMOD.Core
 {
-	[SuppressUnmanagedCodeSecurity][SecurityPermission(SecurityAction.Demand, UnmanagedCode = true)]
+	[SuppressUnmanagedCodeSecurity]
+	[SecurityPermission(SecurityAction.Demand, UnmanagedCode = true)]
 	public partial class FmodSystem
 	{
-		#region Methods
+		#region Native Methods
 
 		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_System_AttachChannelGroupToPort(IntPtr system, uint portType, ulong portIndex,
@@ -19,12 +76,9 @@ namespace FMOD.Core
 		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_System_AttachFileSystem(IntPtr system, FileOpenCallback useropen,
 			FileCloseCallback userclose, FileReadCallback userread, FileSeekCallback userseek);
-		
-		[DllImport(Constants.LIBRARY)]
-		private static extern Result FMOD_System_Close(IntPtr system);
 
 		[DllImport(Constants.LIBRARY)]
-		private static extern Result FMOD_System_Create(out IntPtr system);
+		private static extern Result FMOD_System_Close(IntPtr system);
 
 		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_System_CreateChannelGroup(IntPtr system, byte[] name, out IntPtr channelgroup);
@@ -51,7 +105,7 @@ namespace FMOD.Core
 
 		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_System_CreateSound(IntPtr system, byte[] nameOrData, Mode mode,
-			IntPtr  exinfo, out IntPtr sound);
+			IntPtr exinfo, out IntPtr sound);
 
 		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_System_CreateSoundGroup(IntPtr system, byte[] name, out IntPtr soundgroup);
@@ -239,10 +293,15 @@ namespace FMOD.Core
 		private static extern Result FMOD_System_RecordStop(IntPtr system, int id);
 
 		[DllImport(Constants.LIBRARY)]
-		private static extern Result FMOD_System_RegisterCodec(IntPtr system, ref CodecDescription description, out uint handle, uint priority);
-		
+		private static extern Result FMOD_System_RegisterCodec(IntPtr system, ref CodecDescription description,
+			out uint handle, uint priority);
+
 		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_System_RegisterDSP(IntPtr system, ref DspDescription description, out uint handle);
+
+		[DllImport(Constants.LIBRARY)]
+		private static extern Result FMOD_System_RegisterOutput(IntPtr system, ref OutputDescription description,
+			out uint handle);
 
 		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_System_Set3DListenerAttributes(IntPtr system, int listener, ref Vector pos,
@@ -257,9 +316,6 @@ namespace FMOD.Core
 		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_System_Set3DSettings(IntPtr system, float dopplerscale, float distancefactor,
 			float rolloffscale);
-
-		[DllImport(Constants.LIBRARY)]
-		private static extern Result FMOD_System_RegisterOutput(IntPtr system, ref OutputDescription description, out uint handle);
 
 		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_System_SetAdvancedSettings(IntPtr system, ref AdvancedSettings settings);
@@ -302,9 +358,6 @@ namespace FMOD.Core
 
 		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_System_SetReverbProperties(IntPtr system, int instance, IntPtr prop);
-
-		[DllImport(Constants.LIBRARY)]
-		private static extern Result FMOD_System_SetReverbProperties(IntPtr system, int instance, int prop);
 
 		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_System_SetSoftwareChannels(IntPtr system, int numsoftwarechannels);

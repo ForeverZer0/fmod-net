@@ -20,7 +20,7 @@ namespace FMOD.Simple
 
 		static SoundEx()
 		{
-			_system = FmodSystem.Create();
+			_system = Factory.CreateSystem();
 			_system.Initialize();
 		}
 

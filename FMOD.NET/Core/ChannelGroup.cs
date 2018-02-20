@@ -68,21 +68,20 @@ namespace FMOD.Core
 	/// <seealso cref="T:FMOD.Core.ChannelControl" />
 	public partial class ChannelGroup : ChannelControl
 	{
-		/// <summary>
-		///     Occurs when <seea cref="ChannelGroup" /> is added to this group.
-		/// </summary>
-		/// <seealso cref="AddGroup" />
-		/// <seealso cref="AddChannelGroupEventArgs" />
-		public event EventHandler<AddChannelGroupEventArgs> ChannelGroupAdded;
+		#region Constructors
 
 		/// <inheritdoc />
 		/// <summary>
 		///     Initializes a new instance of the <see cref="T:FMOD.Core.ChannelGroup" /> class.
 		/// </summary>
 		/// <param name="handle">The handle.</param>
-		internal ChannelGroup(IntPtr handle) : base(handle)
+		protected ChannelGroup(IntPtr handle) : base(handle)
 		{
 		}
+
+		#endregion
+
+		#region Properties
 
 		/// <summary>
 		///     Retrieves the channel group parent.
@@ -162,6 +161,10 @@ namespace FMOD.Core
 			}
 		}
 
+		#endregion
+
+		#region Methods
+
 		/// <summary>
 		///     Adds a <see cref="ChannelGroup" /> as a child of this channel group.
 		/// </summary>
@@ -179,7 +182,7 @@ namespace FMOD.Core
 		{
 			NativeInvoke(FMOD_ChannelGroup_AddGroup(this, group, propagateDspClock, out var connection));
 			var dspConn = Factory.Create<DspConnection>(connection);
-			ChannelGroupAdded?.Invoke(this, new AddChannelGroupEventArgs(group, dspConn));
+			OnChannelGroupAdded(new AddChannelGroupEventArgs(group, dspConn));
 			return dspConn;
 		}
 
@@ -210,5 +213,7 @@ namespace FMOD.Core
 			NativeInvoke(FMOD_ChannelGroup_GetGroup(this, index, out var group));
 			return Factory.Create<ChannelGroup>(group);
 		}
+
+		#endregion
 	}
 }

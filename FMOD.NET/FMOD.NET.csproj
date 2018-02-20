@@ -88,8 +88,8 @@
     <Compile Include="Arguments\AddChannelGroupEventArgs.cs" />
     <Compile Include="Arguments\DspDisconnectEventArgs.cs" />
     <Compile Include="Arguments\DspInputEventArgs.cs" />
+    <Compile Include="Arguments\DspParameterEventArgs.cs" />
     <Compile Include="Arguments\OcclusionEventArgs.cs" />
-    <Compile Include="Arguments\SoundEndedEventArgs.cs" />
     <Compile Include="Arguments\SyncPointEncounteredEventArgs.cs" />
     <Compile Include="Arguments\VoiceSwapEventArgs.cs" />
     <Compile Include="Arguments\BoolParamEventArgs.cs" />
@@ -159,14 +159,23 @@
     <Compile Include="Core\MemoryManager.cs" />
     <Compile Include="Structures\AdvancedSettings.cs" />
     <Compile Include="Core\Channel.cs" />
+    <Compile Include="Core\Channel.Events.cs">
+      <DependentUpon>Channel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Core\Channel.Native.cs">
       <DependentUpon>Channel.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\ChannelControl.cs" />
+    <Compile Include="Core\ChannelControl.Events.cs">
+      <DependentUpon>ChannelControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Core\ChannelControl.Native.cs">
       <DependentUpon>ChannelControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\ChannelGroup.cs" />
+    <Compile Include="Core\ChannelGroup.Events.cs">
+      <DependentUpon>ChannelGroup.cs</DependentUpon>
+    </Compile>
     <Compile Include="Core\ChannelGroup.Native.cs">
       <DependentUpon>ChannelGroup.cs</DependentUpon>
     </Compile>
@@ -183,11 +192,17 @@
     <Compile Include="Data\SpeakerMix.cs" />
     <Compile Include="Core\Delegates.cs" />
     <Compile Include="Core\Dsp.cs" />
+    <Compile Include="Core\Dsp.Events.cs">
+      <DependentUpon>Dsp.cs</DependentUpon>
+    </Compile>
     <Compile Include="Core\Dsp.Native.cs">
       <DependentUpon>Dsp.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\DspConnection.cs" />
     <Compile Include="Data\DspInfo.cs" />
+    <Compile Include="Core\DspConnection.Events.cs">
+      <DependentUpon>DspConnection.cs</DependentUpon>
+    </Compile>
     <Compile Include="Core\DspConnection.Native.cs">
       <DependentUpon>DspConnection.cs</DependentUpon>
     </Compile>
@@ -222,10 +237,16 @@
     <Compile Include="Enumerations\TagType.cs" />
     <Compile Include="Enumerations\TimeUnit.cs" />
     <Compile Include="Core\FmodException.cs" />
+    <Compile Include="Core\FmodSystem.Events.cs">
+      <DependentUpon>FmodSystem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Core\FmodSystem.Native.cs">
       <DependentUpon>FmodSystem.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\Geometry.cs" />
+    <Compile Include="Core\Geometry.Events.cs">
+      <DependentUpon>Geometry.cs</DependentUpon>
+    </Compile>
     <Compile Include="Core\Geometry.Native.cs">
       <DependentUpon>Geometry.cs</DependentUpon>
     </Compile>
@@ -235,15 +256,24 @@
     </Compile>
     <Compile Include="Core\MemoryBuffer.cs" />
     <Compile Include="Core\Reverb.cs" />
+    <Compile Include="Core\Reverb.Events.cs">
+      <DependentUpon>Reverb.cs</DependentUpon>
+    </Compile>
     <Compile Include="Core\Reverb.Native.cs">
       <DependentUpon>Reverb.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\ReverbPresets.cs" />
     <Compile Include="Core\Sound.cs" />
+    <Compile Include="Core\Sound.Events.cs">
+      <DependentUpon>Sound.cs</DependentUpon>
+    </Compile>
     <Compile Include="Core\Sound.Native.cs">
       <DependentUpon>Sound.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\SoundGroup.cs" />
+    <Compile Include="Core\SoundGroup.Events.cs">
+      <DependentUpon>SoundGroup.cs</DependentUpon>
+    </Compile>
     <Compile Include="Core\SoundGroup.Native.cs">
       <DependentUpon>SoundGroup.cs</DependentUpon>
     </Compile>

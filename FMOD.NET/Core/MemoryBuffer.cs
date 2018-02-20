@@ -37,7 +37,7 @@ namespace FMOD.Core
 
 		public string ToString(Encoding encoding)
 		{
-			return Encoding.UTF8.GetString(_bytes).Trim('\0');
+			return encoding.GetString(_bytes).Trim('\0');
 		}
 
 		public void Dispose()

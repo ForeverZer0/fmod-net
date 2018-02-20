@@ -56,7 +56,6 @@ using System;
 using System.IO;
 using FMOD.Arguments;
 using FMOD.Data;
-using FMOD.Resources;
 using FMOD.Structures;
 
 #endregion
@@ -90,68 +89,19 @@ namespace FMOD.Core
 	/// <seealso cref="Vector" />
 	public partial class Geometry : HandleBase
 	{
-		/// <summary>
-		///     Occurs when the <see cref="Active" /> property has changed.
-		/// </summary>
-		/// <seealso cref="Active" />
-		public event EventHandler ActiveChanged;
-
-		/// <summary>
-		///     Occurs when a polygon has been added to the <see cref="Geometry" /> object.
-		/// </summary>
-		/// <seealso cref="O:FMOD.Core.Geometry.AddPolygon" />
-		/// <seealso cref="Polygon" />
-		/// <seealso cref="PolygonEventArgs" />
-		public event EventHandler<PolygonEventArgs> PolygonAdded;
-
-		/// <summary>
-		///     Occurs when the attributes of a <see cref="Polygon" /> have changed.
-		/// </summary>
-		/// <seealso cref="O:FMOD.Core.Geometry.SetPolygonAttributes" />
-		/// <seealso cref="Polygon" />
-		/// <seealso cref="PolygonEventArgs" />
-		public event EventHandler<PolygonEventArgs> PolygonAttributesChanged;
-
-		/// <summary>
-		///     Occurs when a vertex of a <see cref="Polygon" /> have changed.
-		/// </summary>
-		/// <seealso cref="SetVertex" />
-		/// <seealso cref="Polygon" />
-		/// <seealso cref="PolygonEventArgs" />
-		public event EventHandler<PolygonEventArgs> PolygonVertexChanged;
-
-		/// <summary>
-		///     Occurs when the <see cref="Position" /> property has changed.
-		/// </summary>
-		/// <seealso cref="Position" />
-		public event EventHandler PositionChanged;
-
-		/// <summary>
-		///     Occurs when the rotation has changed.
-		/// </summary>
-		/// <seealso cref="Rotation" />
-		/// <seealso cref="SetRotation" />
-		public event EventHandler RotationChanged;
-
-		/// <summary>
-		///     Occurs when <see cref="Scale" /> property has changed.
-		/// </summary>
-		/// <seealso cref="Scale" />
-		public event EventHandler ScaleChanged;
-
-		/// <summary>
-		///     Occurs when the <see cref="UserData" /> property has changed.
-		/// </summary>
-		/// <seealso cref="UserData" />
-		public event EventHandler UserDataChanged;
+		#region Constructors
 
 		/// <summary>
 		///     Initializes a new instance of the <see cref="Geometry" /> class.
 		/// </summary>
 		/// <param name="handle">The handle.</param>
-		internal Geometry(IntPtr handle) : base(handle)
+		protected Geometry(IntPtr handle) : base(handle)
 		{
 		}
+
+		#endregion
+
+		#region Properties
 
 		/// <summary>
 		///     Gets or sets a user value that the <see cref="FmodSystem" /> object will store internally.
@@ -177,7 +127,7 @@ namespace FMOD.Core
 			set
 			{
 				NativeInvoke(FMOD_Geometry_SetUserData(this, value));
-				UserDataChanged?.Invoke(this, EventArgs.Empty);
+				OnUserDataChanged();
 			}
 		}
 
@@ -199,7 +149,7 @@ namespace FMOD.Core
 			set
 			{
 				NativeInvoke(FMOD_Geometry_SetActive(this, value));
-				ActiveChanged?.Invoke(this, EventArgs.Empty);
+				OnActiveChanged();
 			}
 		}
 
@@ -228,7 +178,7 @@ namespace FMOD.Core
 			set
 			{
 				NativeInvoke(FMOD_Geometry_SetScale(this, ref value));
-				ScaleChanged?.Invoke(this, EventArgs.Empty);
+				OnScaleChanged();
 			}
 		}
 
@@ -290,7 +240,7 @@ namespace FMOD.Core
 			set
 			{
 				NativeInvoke(FMOD_Geometry_SetPosition(this, ref value));
-				PositionChanged?.Invoke(this, EventArgs.Empty);
+				OnPositionChanged();
 			}
 		}
 
@@ -338,6 +288,10 @@ namespace FMOD.Core
 			}
 			set => SetRotation(value.Forward, value.Up);
 		}
+
+		#endregion
+
+		#region Methods
 
 		/// <summary>
 		///     Adds a polygon to an existing geometry object.
@@ -410,7 +364,7 @@ namespace FMOD.Core
 //					String.Format(Strings.PolygonNotEnoughVertices, vertices.Length));
 			NativeInvoke(FMOD_Geometry_AddPolygon(this, directOcclusion, reverbOcclusion, doubleSided,
 				vertices.Length, vertices, out var index));
-			PolygonAdded?.Invoke(this, new PolygonEventArgs(index));
+			OnPolygonAdded(new PolygonEventArgs(index));
 			return index;
 		}
 
@@ -593,7 +547,7 @@ namespace FMOD.Core
 		{
 			NativeInvoke(FMOD_Geometry_SetPolygonAttributes(this, index, directOcclusion,
 				reverbOcclusion, doubleSided));
-			PolygonAttributesChanged?.Invoke(this, new PolygonEventArgs(index));
+			OnPolygonAttributesChanged(new PolygonEventArgs(index));
 		}
 
 		/// <summary>
@@ -644,7 +598,7 @@ namespace FMOD.Core
 				upValue = up.Value;
 				NativeInvoke(FMOD_Geometry_SetRotation(this, IntPtr.Zero, ref upValue));
 			}
-			RotationChanged?.Invoke(this, EventArgs.Empty);
+			OnRotationChanged();
 		}
 
 		/// <summary>
@@ -663,7 +617,9 @@ namespace FMOD.Core
 		public void SetVertex(int polygonIndex, int vertexIndex, Vector vertex)
 		{
 			NativeInvoke(FMOD_Geometry_SetPolygonVertex(this, polygonIndex, vertexIndex, ref vertex));
-			PolygonVertexChanged?.Invoke(this, new PolygonEventArgs(polygonIndex));
+			OnPolygonVertexChanged(new PolygonEventArgs(polygonIndex));
 		}
+
+		#endregion
 	}
 }

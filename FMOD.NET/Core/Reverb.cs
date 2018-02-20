@@ -26,29 +26,6 @@ namespace FMOD.Core
 	/// <seealso cref="FmodSystem.CreateReverb" />
 	public partial class Reverb : HandleBase
 	{
-		#region Delegates & Events
-
-		/// <summary>
-		///     Occurs when active state has changed.
-		/// </summary>
-		public event EventHandler ActiveChanged;
-
-		/// <summary>
-		///     Occurs when environment properties have changed.
-		/// </summary>
-		public event EventHandler PropertiesChanged;
-
-		/// <summary>
-		///     Occurs when 3D attributes for the "virtual" reverb object have changed.
-		/// </summary>
-		public event EventHandler ThreeDAttributesChanged;
-
-		/// <summary>
-		///     Occurs when user data has changed.
-		/// </summary>
-		public event EventHandler UserDataChanged;
-
-		#endregion
 
 		#region Constructors & Destructor
 
@@ -84,7 +61,7 @@ namespace FMOD.Core
 			set
 			{
 				NativeInvoke(FMOD_Reverb3D_SetActive(this, value));
-				ActiveChanged?.Invoke(this, EventArgs.Empty);
+				OnActiveChanged();
 			}
 		}
 
@@ -112,7 +89,7 @@ namespace FMOD.Core
 			set
 			{
 				NativeInvoke(FMOD_Reverb3D_SetProperties(this, ref value));
-				PropertiesChanged?.Invoke(this, EventArgs.Empty);
+				OnPropertiesChanged();
 			}
 		}
 
@@ -122,7 +99,7 @@ namespace FMOD.Core
 		/// <value>
 		///     The 3D attributes.
 		/// </value>
-		public Reverb3DAttributes ThreeDAttributes
+		public Reverb3DAttributes Attributes3D
 		{
 			get
 			{
@@ -143,7 +120,7 @@ namespace FMOD.Core
 				var min = value.MinimumDistance;
 				var max = value.MaximumDistance;
 				NativeInvoke(FMOD_Reverb3D_Set3DAttributes(this, ref vector, min, max));
-				ThreeDAttributesChanged?.Invoke(this, EventArgs.Empty);
+				OnAttributes3DChanged();
 			}
 		}
 
@@ -164,7 +141,7 @@ namespace FMOD.Core
 			set
 			{
 				NativeInvoke(FMOD_Reverb3D_SetUserData(this, value));
-				UserDataChanged?.Invoke(this, EventArgs.Empty);
+				OnUserDataChanged();
 			}
 		}
 
@@ -181,7 +158,7 @@ namespace FMOD.Core
 		public void Set3DAttributes(Vector position, float minDistance, float maxDistance)
 		{
 			NativeInvoke(FMOD_Reverb3D_Set3DAttributes(this, ref position, minDistance, maxDistance));
-			ThreeDAttributesChanged?.Invoke(this, EventArgs.Empty);
+			OnAttributes3DChanged();
 		}
 
 		#endregion

@@ -1,6 +1,6 @@
 #region License
 
-// HandleBase.Native.cs is distributed under the Microsoft Public License (MS-PL)
+// ChannelGroup.Events.cs is distributed under the Microsoft Public License (MS-PL)
 // 
 // Copyright (c) 2018,  Eric Freed
 // All Rights Reserved.
@@ -46,48 +46,42 @@
 // which this license cannot change. To the extent permitted under your local laws, the contributors 
 // exclude the implied warranties of merchantability, fitness for a particular purpose and non-infringement.
 // 
-// Created 9:49 PM 02/15/2018
+// Created 12:02 AM 02/20/2018
 
 #endregion
 
 #region Using Directives
 
 using System;
-using System.Runtime.InteropServices;
-using System.Security;
-using System.Security.Permissions;
-using FMOD.Enumerations;
+using FMOD.Arguments;
 
 #endregion
 
 namespace FMOD.Core
 {
-	[SuppressUnmanagedCodeSecurity]
-	[SecurityPermission(SecurityAction.Demand, UnmanagedCode = true)]
-	public abstract partial class HandleBase
+	public partial class ChannelGroup
 	{
-		#region Native Methods
+		#region Events
 
-		[DllImport(Constants.LIBRARY)]
-		private static extern Result FMOD_ChannelGroup_Release(IntPtr channelGroup);
+		/// <summary>
+		///     Occurs when <seea cref="ChannelGroup" /> is added to this group.
+		/// </summary>
+		/// <seealso cref="AddGroup" />
+		/// <seealso cref="AddChannelGroupEventArgs" />
+		public event EventHandler<AddChannelGroupEventArgs> ChannelGroupAdded;
 
-		[DllImport(Constants.LIBRARY)]
-		private static extern Result FMOD_DSP_Release(IntPtr dsp);
+		#endregion
 
-		[DllImport(Constants.LIBRARY)]
-		private static extern Result FMOD_Geometry_Release(IntPtr geometry);
+		#region Event Invokers
 
-		[DllImport(Constants.LIBRARY)]
-		private static extern Result FMOD_Reverb3D_Release(IntPtr reverb);
-
-		[DllImport(Constants.LIBRARY)]
-		private static extern Result FMOD_Sound_Release(IntPtr sound);
-
-		[DllImport(Constants.LIBRARY)]
-		private static extern Result FMOD_SoundGroup_Release(IntPtr soundGroup);
-
-		[DllImport(Constants.LIBRARY)]
-		private static extern Result FMOD_System_Release(IntPtr system);
+		/// <summary>
+		///     Raises the <see cref="ChannelGroupAdded" /> event.
+		/// </summary>
+		/// <param name="e">The <see cref="AddChannelGroupEventArgs" /> instance containing the event data.</param>
+		protected virtual void OnChannelGroupAdded(AddChannelGroupEventArgs e)
+		{
+			ChannelGroupAdded?.Invoke(this, e);
+		}
 
 		#endregion
 	}

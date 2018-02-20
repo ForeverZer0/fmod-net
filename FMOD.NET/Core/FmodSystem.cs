@@ -17,87 +17,6 @@ namespace FMOD.Core
 		private Timer _updateTimer;
 
 
-
-		#region Events
-
-		public event EventHandler AdvancedSettingsChanged;
-
-		public event EventHandler BufferSizeChanged;
-
-		public event EventHandler ChannelGroupAttached;
-
-		public event EventHandler ChannelGroupCreated;
-
-		public event EventHandler ChannelGroupDetached;
-
-		public event EventHandler Closed;
-
-		public event EventHandler CodecRegistered;
-
-		public event EventHandler DspBufferChanged;
-
-		/// <summary>
-		/// Occurs when a new <see cref="Geometry"/> is created.
-		/// </summary>
-		/// <seealso cref="Geometry"/>
-		/// <seealso cref="CreateGeometry"/>
-		/// <seealso cref="LoadGeometry(string)"/>
-		/// <seealso cref="LoadGeometry(byte[])"/>
-		/// <seealso cref="LoadGeometry(IntPtr, int)"/>
-		public event EventHandler GeometryCreated;
-
-		public event EventHandler ListenerAttributesChanged;
-
-		public event EventHandler ListenerCountChanged;
-
-		public event EventHandler MixerResumed;
-
-		public event EventHandler MixerSuspended;
-
-		public event EventHandler NetworkProxyChanged;
-
-		public event EventHandler NetworkTimeoutChanged;
-
-		public event EventHandler OutputChanged;
-
-		public event EventHandler OutputRegistered;
-
-		public event EventHandler PluginLoaded;
-
-		public event EventHandler PluginPathChanged;
-
-		public event EventHandler PluginUnloaded;
-
-		public event EventHandler RecordingStarted;
-
-		public event EventHandler RecordingStopped;
-
-		public event EventHandler ReverbCreated;
-
-		public event EventHandler ReverbPropertiesChanged;
-
-		public event EventHandler SelectedDriverChanged;
-
-		public event EventHandler Settings3DChanged;
-
-		public event EventHandler SoftwareChannelsChanged;
-
-		public event EventHandler SoftwareFormatChanged;
-
-		public event EventHandler SoundCreated;
-
-		public event EventHandler SoundGroupCreated;
-
-		public event EventHandler SoundPlayed;
-
-		public event EventHandler SpeakerPositionChanged;
-
-		public event EventHandler UserDataChanged;
-
-		public event EventHandler WorldSizeChanged;
-
-		#endregion
-
 		#region Properties & Indexers
 
 
@@ -749,24 +668,6 @@ namespace FMOD.Core
 		}
 
 		/// <summary>
-		/// <para>Creates and returns a new <see cref="FmodSystem"/> object.</para>
-		/// <para>This must be called to create an <see cref="FmodSystem"/> object before you can do anything else. Use this function to create 1, or multiple instances of system objects.</para>
-		/// </summary>
-		/// <returns>A newly created <see cref="FmodSystem"/> object.</returns>
-		/// <remarks><alert class="warning">
-		/// Calls to this method and <see cref="Dispose"/> are not thread-safe. Do not call these functions simultaneously from multiple threads at once.
-		/// </alert></remarks>
-		/// <seealso cref="Initialize()"/>
-		/// <seealso cref="Dispose"/>
-		public static FmodSystem Create()
-		{
-			NativeInvoke(FMOD_System_Create(out var pointer));
-			var system = new FmodSystem(pointer);
-			Factory.AddReference(pointer, system);
-			return system;
-		}
-
-		/// <summary>
 		/// <para>Gets the handle to the system level output device module.</para>
 		/// <para>This means a pointer to a DirectX "LPDIRECTSOUND", or a WINMM handle, or with something like with <see cref="OutputType.NoSound"/> output, the handle will be <see cref="IntPtr.Zero"/>.</para>
 		/// </summary>
@@ -967,44 +868,7 @@ namespace FMOD.Core
 			}
 		}
 
-		/// <summary>
-		/// Occurs when a <see cref="Dsp"/> is created.
-		/// </summary>
-		/// <seealso cref="CreateDsp"/>
-		/// <seealso cref="CreateDspByType"/>
-		/// <seealso cref="CreateDspByType{T}"/>
-		/// <seealso cref="CreateDspByPlugin"/>
-		public event EventHandler DspCreated;
 
-		/// <summary>
-		/// Occurs when <see cref="LockDsp"/> is invoked.
-		/// </summary>
-		/// <seealso cref="Dsp"/>
-		/// <seealso cref="LockDsp"/>
-		/// <seealso cref="UnlockDsp"/>
-		public event EventHandler DspLocked;
-
-		/// <summary>
-		/// Occurs when a <see cref="Dsp"/> is played.
-		/// </summary>
-		/// <seealso cref="Dsp"/>
-		/// <seealso cref="PlayDsp"/>
-		public event EventHandler DspPlayed;
-
-		/// <summary>
-		/// Occurs when a <see cref="Dsp"/> is registered.
-		/// </summary>
-		/// <seealso cref="Dsp"/>
-		/// <seealso cref="RegisterDsp"/>
-		public event EventHandler DspRegistered;
-
-		/// <summary>
-		/// Occurs when <see cref="UnlockDsp"/> is invoked.
-		/// </summary>
-		/// <seealso cref="Dsp"/>
-		/// <seealso cref="LockDsp"/>
-		/// <seealso cref="UnlockDsp"/>
-		public event EventHandler DspUnlocked;
 
 		/// <summary>
 		/// Creates a sound group, which can store handles to multiple <see cref="Sound"/> objects.
@@ -2077,7 +1941,7 @@ namespace FMOD.Core
 
 		/// <summary>
 		/// <para>Initializes the system object, and the sound device. This has to be called at the start of the user's program.</para>
-		/// <para><b>You must first create a system object with <see cref="Create"/>.</b></para>
+		/// <para><b>You must first create a system object with <see cref="Factory.CreateSystem"/>.</b></para>
 		/// </summary>
 		/// <remarks>
 		/// <b><u>Virtual Channels</u></b><lineBreak/>
@@ -2090,7 +1954,7 @@ namespace FMOD.Core
 		/// </remarks>
 		/// <seealso cref="InitFlags"/>
 		/// <seealso cref="OutputType"/>
-		/// <seealso cref="Create"/>
+		/// <seealso cref="Factory.CreateSystem"/>
 		/// <seealso cref="CloseSystem"/>
 		public void Initialize()
 		{
@@ -2099,7 +1963,7 @@ namespace FMOD.Core
 
 		/// <summary>
 		/// <para>Initializes the system object, and the sound device. This has to be called at the start of the user's program.</para>
-		/// <para><b>You must first create a system object with <see cref="Create"/>.</b></para>
+		/// <para><b>You must first create a system object with <see cref="Factory.CreateSystem"/>.</b></para>
 		/// </summary>
 		/// <param name="flags">
 		/// <para>The maximum number of channels to be used in <b>FMOD</b>.</para>
@@ -2117,7 +1981,7 @@ namespace FMOD.Core
 		/// </remarks>
 		/// <seealso cref="InitFlags"/>
 		/// <seealso cref="OutputType"/>
-		/// <seealso cref="Create"/>
+		/// <seealso cref="Factory.CreateSystem"/>
 		/// <seealso cref="CloseSystem"/>
 		public void Initialize(InitFlags flags)
 		{
@@ -2126,7 +1990,7 @@ namespace FMOD.Core
 
 		/// <summary>
 		/// <para>Initializes the system object, and the sound device. This has to be called at the start of the user's program.</para>
-		/// <para><b>You must first create a system object with <see cref="Create"/>.</b></para>
+		/// <para><b>You must first create a system object with <see cref="Factory.CreateSystem"/>.</b></para>
 		/// </summary>
 		/// <param name="flags">
 		/// <para>The maximum number of channels to be used in <b>FMOD</b>.</para>
@@ -2145,7 +2009,7 @@ namespace FMOD.Core
 		/// </remarks>
 		/// <seealso cref="InitFlags"/>
 		/// <seealso cref="OutputType"/>
-		/// <seealso cref="Create"/>
+		/// <seealso cref="Factory.CreateSystem"/>
 		/// <seealso cref="CloseSystem"/>
 		public void Initialize(InitFlags flags, int maxChannels)
 		{
@@ -2155,7 +2019,7 @@ namespace FMOD.Core
 		/// <overloads>
 		/// <summary>
 		/// <para>Initializes the system object, and the sound device. This has to be called at the start of the user's program.</para>
-		/// <para><b>You must first create a system object with <see cref="Create"/>.</b></para>
+		/// <para><b>You must first create a system object with <see cref="Factory.CreateSystem"/>.</b></para>
 		/// </summary>
 		/// <param name="flags">
 		/// <para>The maximum number of channels to be used in <b>FMOD</b>.</para>
@@ -2179,7 +2043,7 @@ namespace FMOD.Core
 		/// </remarks>
 		/// <seealso cref="InitFlags"/>
 		/// <seealso cref="OutputType"/>
-		/// <seealso cref="Create"/>
+		/// <seealso cref="Factory.CreateSystem"/>
 		/// <seealso cref="CloseSystem"/>
 		/// </overloads>
 		public void Initialize(InitFlags flags, int maxChannels, IntPtr? extraDriverData)
@@ -2711,8 +2575,8 @@ namespace FMOD.Core
 		/// <summary>
 		/// Initializes a new instance of the <see cref="FmodSystem"/> class.
 		/// </summary>
-		/// <param name="handle">The handle, created internally via <seealso cref="Create"/>.</param>
-		/// <seealso cref="Create"/>
+		/// <param name="handle">The handle, created internally via <seealso cref="Factory.CreateSystem"/>.</param>
+		/// <seealso cref="Factory.CreateSystem"/>
 		/// <seealso cref="Initialize(InitFlags, int, IntPtr?)"/>
 		private FmodSystem(IntPtr handle) : base(handle)
 		{

@@ -1,6 +1,6 @@
 #region License
 
-// HandleBase.Native.cs is distributed under the Microsoft Public License (MS-PL)
+// Reverb.Events.cs is distributed under the Microsoft Public License (MS-PL)
 // 
 // Copyright (c) 2018,  Eric Freed
 // All Rights Reserved.
@@ -46,48 +46,81 @@
 // which this license cannot change. To the extent permitted under your local laws, the contributors 
 // exclude the implied warranties of merchantability, fitness for a particular purpose and non-infringement.
 // 
-// Created 9:49 PM 02/15/2018
+// Created 12:02 AM 02/20/2018
 
 #endregion
 
 #region Using Directives
 
 using System;
-using System.Runtime.InteropServices;
-using System.Security;
-using System.Security.Permissions;
-using FMOD.Enumerations;
 
 #endregion
 
 namespace FMOD.Core
 {
-	[SuppressUnmanagedCodeSecurity]
-	[SecurityPermission(SecurityAction.Demand, UnmanagedCode = true)]
-	public abstract partial class HandleBase
+	public partial class Reverb
 	{
-		#region Native Methods
+		#region Events
 
-		[DllImport(Constants.LIBRARY)]
-		private static extern Result FMOD_ChannelGroup_Release(IntPtr channelGroup);
+		/// <summary>
+		///     Occurs when active state has changed.
+		/// </summary>
+		public event EventHandler ActiveChanged;
 
-		[DllImport(Constants.LIBRARY)]
-		private static extern Result FMOD_DSP_Release(IntPtr dsp);
+		/// <summary>
+		///     Occurs when 3D attributes for the "virtual" reverb object have changed.
+		/// </summary>
+		public event EventHandler Attributes3DChanged;
 
-		[DllImport(Constants.LIBRARY)]
-		private static extern Result FMOD_Geometry_Release(IntPtr geometry);
+		/// <summary>
+		///     Occurs when environment properties have changed.
+		/// </summary>
+		public event EventHandler PropertiesChanged;
 
-		[DllImport(Constants.LIBRARY)]
-		private static extern Result FMOD_Reverb3D_Release(IntPtr reverb);
+		/// <summary>
+		///     Occurs when user data has changed.
+		/// </summary>
+		public event EventHandler UserDataChanged;
 
-		[DllImport(Constants.LIBRARY)]
-		private static extern Result FMOD_Sound_Release(IntPtr sound);
+		#endregion
 
-		[DllImport(Constants.LIBRARY)]
-		private static extern Result FMOD_SoundGroup_Release(IntPtr soundGroup);
+		#region Event Invokers
 
-		[DllImport(Constants.LIBRARY)]
-		private static extern Result FMOD_System_Release(IntPtr system);
+		/// <summary>
+		///     Raises the <see cref="ActiveChanged" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnActiveChanged()
+		{
+			ActiveChanged?.Invoke(this, EventArgs.Empty);
+		}
+
+		/// <summary>
+		///     Raises the <see cref="Attributes3DChanged" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnAttributes3DChanged()
+		{
+			Attributes3DChanged?.Invoke(this, EventArgs.Empty);
+		}
+
+		/// <summary>
+		///     Raises the <see cref="PropertiesChanged" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnPropertiesChanged()
+		{
+			PropertiesChanged?.Invoke(this, EventArgs.Empty);
+		}
+
+		/// <summary>
+		///     Raises the <see cref="UserDataChanged" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnUserDataChanged()
+		{
+			UserDataChanged?.Invoke(this, EventArgs.Empty);
+		}
 
 		#endregion
 	}

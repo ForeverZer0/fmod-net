@@ -8,7 +8,7 @@ namespace FMOD.DSP
 	/// <summary>
 	/// This unit pans and scales the volume of a unit.
 	/// </summary>
-	/// <seealso cref="T:FMOD.Sharp.Dsp" />
+	/// <seealso cref="T:FMOD.NET.Dsp" />
 	public class Fader : Dsp
 	{
 		/// <summary>

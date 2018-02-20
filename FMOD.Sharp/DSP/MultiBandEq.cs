@@ -8,7 +8,7 @@ namespace FMOD.DSP
 	/// <summary>
 	///     A flexible five band parametric equalizer.
 	/// </summary>
-	/// <seealso cref="T:FMOD.Sharp.Dsp" />
+	/// <seealso cref="T:FMOD.NET.Dsp" />
 	public class MultiBandEq : Dsp
 	{
 		/// <summary>

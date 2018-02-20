@@ -12,7 +12,7 @@ namespace FMOD.DSP
 	/// </summary>
 	/// <remarks>
 	///     <para>
-	///         This is different to the default <see cref="T:FMOD.Sharp.DSP.Lowpass" /> filter in that it uses a different
+	///         This is different to the default <see cref="T:FMOD.NET.DSP.Lowpass" /> filter in that it uses a different
 	///         quality algorithm and is the filter used to produce the correct sounding playback in .IT files.
 	///     </para>
 	///     <para><b>FMOD Studio</b>'s .IT playback uses this filter.</para>
@@ -20,14 +20,14 @@ namespace FMOD.DSP
 	///         <para>
 	///             This filter actually has a limited cutoff frequency below the specified maximum, due to its limited
 	///             design, so for a more open range filter use <see cref="!:LowPass" /> or if you don't mind not having
-	///             resonance, <see cref="T:FMOD.Sharp.DSP.LowpassSimple" />.
+	///             resonance, <see cref="T:FMOD.NET.DSP.LowpassSimple" />.
 	///         </para>
 	///         <para>The effective maximum cutoff is about 8060 Hz.</para>
 	///     </alert>
 	/// </remarks>
-	/// <seealso cref="T:FMOD.Sharp.DSP.Dsp" />
-	/// <seealso cref="T:FMOD.Sharp.DSP.Lowpass" />
-	/// <seealso cref="T:FMOD.Sharp.DSP.LowpassSimple" />
+	/// <seealso cref="T:FMOD.NET.DSP.Dsp" />
+	/// <seealso cref="T:FMOD.NET.DSP.Lowpass" />
+	/// <seealso cref="T:FMOD.NET.DSP.LowpassSimple" />
 #pragma warning restore 618 
 	public class ItLowpass : Dsp
 	{

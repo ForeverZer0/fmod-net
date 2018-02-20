@@ -17,8 +17,8 @@ namespace FMOD.DSP
 	///     When a frequency has its gain set to <c>1.0</c>, the sound will be unaffected and represents the original
 	///     signal exactly.
 	/// </remarks>
-	/// <seealso cref="T:FMOD.Sharp.Dsp" />
-	/// <seealso cref="T:FMOD.Sharp.Dsps.MultiBandEq" />
+	/// <seealso cref="T:FMOD.NET.Dsp" />
+	/// <seealso cref="T:FMOD.NET.Dsps.MultiBandEq" />
 	[Obsolete("Deprecated and will be removed in a future release, to emulate with MultiBandEq.")]
 	public class ParamEq : Dsp
 	{

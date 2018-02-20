@@ -1,4 +1,4 @@
-﻿namespace FMOD.Sharp.Controls
+﻿namespace FMOD.NET.Controls
 {
 	partial class NumericUnitUpDown
 	{

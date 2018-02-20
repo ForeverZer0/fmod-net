@@ -7,7 +7,7 @@ namespace FMOD.DSP
 	/// <summary>
 	/// This unit limits the sound to a certain level.
 	/// </summary>
-	/// <seealso cref="FMOD.Sharp.DSP.DspBase" />
+	/// <seealso cref="FMOD.NET.DSP.DspBase" />
 	public class Limiter : Dsp
 	{
 		/// <summary>

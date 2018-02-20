@@ -22,7 +22,7 @@ namespace FMOD.DSP
 	///         </para>
 	///     </alert>
 	/// </remarks>
-	/// <seealso cref="T:FMOD.Sharp.Dsp" />
+	/// <seealso cref="T:FMOD.NET.Dsp" />
 	public class Delay : Dsp
 	{
 		/// <summary>

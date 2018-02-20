@@ -15,7 +15,7 @@ namespace FMOD.Core
 		static CoreHelper()
 		{
 			_handles = new Dictionary<IntPtr, HandleBase>();
-			_resxManager = new ResourceManager("FMOD.Sharp.ResultStrings", Assembly.GetExecutingAssembly());
+			_resxManager = new ResourceManager("FMOD.NET.ResultStrings", Assembly.GetExecutingAssembly());
 		}
 
 		public static T Create<T>(IntPtr handle) where T : HandleBase

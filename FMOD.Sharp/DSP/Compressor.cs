@@ -8,7 +8,7 @@ namespace FMOD.DSP
 	/// <summary>
 	///     Multichannel software limiter that is uniform across the whole spectrum.
 	/// </summary>
-	/// <seealso cref="T:FMOD.Sharp.Dsp" />
+	/// <seealso cref="T:FMOD.NET.Dsp" />
 	/// <remarks>
 	///     The limiter is not guaranteed to catch every peak above the threshold level, because it cannot apply gain
 	///     reduction instantaneously - the time delay is determined by the attack time. However setting the attack time too

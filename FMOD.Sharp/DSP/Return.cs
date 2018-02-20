@@ -8,7 +8,7 @@ namespace FMOD.DSP
 	/// <summary>
 	///     This unit sends a copy of the signal to a return DSP anywhere in the DSP tree.
 	/// </summary>
-	/// <seealso cref="T:FMOD.Sharp.Dsp" />
+	/// <seealso cref="T:FMOD.NET.Dsp" />
 	public class Return : Dsp
 	{
 		/// <summary>

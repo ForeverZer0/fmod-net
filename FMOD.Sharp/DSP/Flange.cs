@@ -22,7 +22,7 @@ namespace FMOD.DSP
 	///         flange because to the ear it begins to 'echo' so 10ms is the highest value possible.
 	///     </para>
 	/// </remarks>
-	/// <seealso cref="T:FMOD.Sharp.Dsp" />
+	/// <seealso cref="T:FMOD.NET.Dsp" />
 	public class Flange : Dsp
 	{
 		/// <summary>

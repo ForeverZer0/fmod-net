@@ -33,7 +33,7 @@ namespace FMOD.DSP
 	///     </para>
 	///     <para>Multiple transmitters sending to the same channel will be mixed together.</para>
 	/// </remarks>
-	/// <seealso cref="FMOD.Sharp.DSP.DspBase" />
+	/// <seealso cref="FMOD.NET.DSP.DspBase" />
 	/// <seealso cref="Send" />
 	/// <seealso cref="Return" />
 	public class Transceiver : Dsp

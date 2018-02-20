@@ -27,7 +27,7 @@ namespace FMOD.DSP
 	///         desired amplification which makes for smooth gain control. The fadetime parameter can control this.
 	///     </para>
 	/// </remarks>
-	/// <seealso cref="T:FMOD.Sharp.Dsp" />
+	/// <seealso cref="T:FMOD.NET.Dsp" />
 	public class Normalize : Dsp
 	{
 		/// <summary>

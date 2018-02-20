@@ -8,7 +8,7 @@ namespace FMOD.DSP
 	/// <summary>
 	///     A signal generator.
 	/// </summary>
-	/// <seealso cref="T:FMOD.Sharp.Dsp" />
+	/// <seealso cref="T:FMOD.NET.Dsp" />
 	public class Oscillator : Dsp
 	{
 		/// <summary>

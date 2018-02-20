@@ -5,7 +5,7 @@ using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using FMOD.Core;
 
-namespace FMOD.Sharp.Controls
+namespace FMOD.NET.Controls
 {
 	/// <summary>
 	/// Control to display a visual representation of a sound.

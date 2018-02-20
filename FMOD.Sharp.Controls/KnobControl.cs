@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
-namespace FMOD.Sharp.Controls
+namespace FMOD.NET.Controls
 {
 	// A delegate type for hooking up ValueChanged notifications. 
 	public delegate void ValueChangedEventHandler(object sender);

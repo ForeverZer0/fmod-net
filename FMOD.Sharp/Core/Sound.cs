@@ -40,9 +40,9 @@ namespace FMOD.Core
 		public event EventHandler LoopPointAdded;
 
 		/// <summary>
-		/// Occurs when <see cref="P:FMOD.Sharp.Core.Sound.Mode"/> property is changed.
+		/// Occurs when <see cref="P:FMOD.NET.Core.Sound.Mode"/> property is changed.
 		/// </summary>
-		/// <seealso cref="P:FMOD.Sharp.Core.Sound.Mode"/>
+		/// <seealso cref="P:FMOD.NET.Core.Sound.Mode"/>
 		/// <seealso cref="Enumerations.Mode"/>
 		public event EventHandler ModeChanged;
 

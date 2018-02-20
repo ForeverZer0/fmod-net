@@ -13,8 +13,8 @@ namespace FMOD.DSP
 	///     <para>This is a high quality I3DL2 based reverb.</para>
 	///     <para>On top of the I3DL2 property set, "Dry Level" is also included to allow the dry mix to be changed.</para>
 	/// </remarks>
-	/// <seealso cref="T:FMOD.Sharp.Dsp" />
-	/// <seealso cref="T:FMOD.Sharp.Structs.ReverbProperties" />
+	/// <seealso cref="T:FMOD.NET.Dsp" />
+	/// <seealso cref="T:FMOD.NET.Structs.ReverbProperties" />
 	public class SfxReverb : Dsp
 	{
 		/// <summary>

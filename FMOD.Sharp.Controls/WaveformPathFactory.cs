@@ -6,7 +6,7 @@ using FMOD.Core;
 using FMOD.Enumerations;
 using FMOD.Structures;
 
-namespace FMOD.Sharp.Controls
+namespace FMOD.NET.Controls
 {
 	public static class WaveformPathFactory
 	{

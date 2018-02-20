@@ -74,7 +74,7 @@ namespace FMOD.Core
 	/// <item><para>The sound has completed playing. Once a sound is done playing, the channel is fair-game to be taken and used elsewhere by <b>FMOD</b>, rendering he current handle invalid.</para></item>
 	/// <item><para>The maximum number of "real" channels (See <see cref="Constants.MAX_CHANNELS"/>) is being used, and a sound or channel with a higher priority is required and the channel is stolen.</para></item>
 	/// </list>
-	/// <para><b>FMOD.Sharp</b> automatically marks channels invalid that have become so due to a sound ending, so a quick check of <see cref="SafeHandle.IsInvalid"/> will allow you to recognize if your reference is still valid. Invoking native wrapped functions on an invalid channel will throw an <see cref="FmodException"/>.</para>
+	/// <para><b>FMOD.NET</b> automatically marks channels invalid that have become so due to a sound ending, so a quick check of <see cref="SafeHandle.IsInvalid"/> will allow you to recognize if your reference is still valid. Invoking native wrapped functions on an invalid channel will throw an <see cref="FmodException"/>.</para>
 	/// </remarks>
 	/// <seealso cref="FMOD.Core.HandleBase" />
 	/// <seealso cref="HandleBase" />

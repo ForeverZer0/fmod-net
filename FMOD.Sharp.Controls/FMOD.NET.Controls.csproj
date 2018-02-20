@@ -109,9 +109,9 @@
     <Compile Include="WaveformPathFactory.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FMOD.Sharp\FMOD.Sharp.csproj">
+    <ProjectReference Include="..\FMOD.Sharp\FMOD.NET.csproj">
       <Project>{f1a3262b-d6bb-4351-b331-45bccd44fc57}</Project>
-      <Name>FMOD.Sharp</Name>
+      <Name>FMOD.NET</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

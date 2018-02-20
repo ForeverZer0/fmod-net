@@ -10,8 +10,8 @@ namespace FMOD.DSP
 	/// <summary>
 	///     Applies a "convulation reverb", or "reverb IR", effect on a sound.
 	/// </summary>
-	/// <seealso cref="T:FMOD.Sharp.Dsp" />
-	/// <seealso cref="T:FMOD.Sharp.Structs.ImpulseResponse" />
+	/// <seealso cref="T:FMOD.NET.Dsp" />
+	/// <seealso cref="T:FMOD.NET.Structs.ImpulseResponse" />
 	public class ConvolutionReverb : Dsp
 	{
 		/// <summary>
@@ -28,7 +28,7 @@ namespace FMOD.DSP
 		/// <value>
 		///     The impulse response.
 		/// </value>
-		/// <seealso cref="T:FMOD.Sharp.Structs.ImpulseResponse" />
+		/// <seealso cref="T:FMOD.NET.Structs.ImpulseResponse" />
 		public ImpulseResponse ImpulseResponse
 		{
 			get
@@ -110,7 +110,7 @@ namespace FMOD.DSP
 		///     Occurs when <see cref="ImpulseResponse" /> property is changed.
 		/// </summary>
 		/// <seealso cref="DspParamEventArgs" />
-		/// <seealso cref="T:FMOD.Sharp.Structs.ImpulseResponse" />
+		/// <seealso cref="T:FMOD.NET.Structs.ImpulseResponse" />
 		public event EventHandler<DspParamEventArgs> ImpulseResponseChanged;
 
 		/// <summary>

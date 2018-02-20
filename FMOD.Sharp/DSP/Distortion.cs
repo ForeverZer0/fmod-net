@@ -8,7 +8,7 @@ namespace FMOD.DSP
 	/// <summary>
 	///     Applies a "distortion" effect on a sound.
 	/// </summary>
-	/// <seealso cref="T:FMOD.Sharp.Dsp" />
+	/// <seealso cref="T:FMOD.NET.Dsp" />
 	public class Distortion : Dsp
 	{
 		/// <summary>

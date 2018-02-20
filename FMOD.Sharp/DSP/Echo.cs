@@ -8,7 +8,7 @@ namespace FMOD.DSP
 	/// <summary>
 	///     Applies a basic "echo" effect to a sound.
 	/// </summary>
-	/// <seealso cref="T:FMOD.Sharp.Dsp" />
+	/// <seealso cref="T:FMOD.NET.Dsp" />
 	public class Echo : Dsp
 	{
 		/// <summary>

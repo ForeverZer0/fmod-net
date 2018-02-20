@@ -15,23 +15,23 @@ namespace FMOD.DSP
 	///     </para>
 	///     <para>
 	///         The shape of the LFO (low freq. oscillator) can morphed between sine, triangle and sawtooth waves using the
-	///         <see cref="P:FMOD.Sharp.Dsps.Tremolo.Shape" /> and <see cref="P:FMOD.Sharp.Dsps.Tremolo.Skew" /> properties.
+	///         <see cref="P:FMOD.NET.Dsps.Tremolo.Shape" /> and <see cref="P:FMOD.NET.Dsps.Tremolo.Skew" /> properties.
 	///     </para>
 	///     <para>
-	///         <see cref="P:FMOD.Sharp.Dsps.Tremolo.Duty" /> and <see cref="P:FMOD.Sharp.Dsps.Tremolo.Square" /> are useful
+	///         <see cref="P:FMOD.NET.Dsps.Tremolo.Duty" /> and <see cref="P:FMOD.NET.Dsps.Tremolo.Square" /> are useful
 	///         for a chopper-type effect where the first controls the on-time duration and second controls the flatness of the
 	///         envelope.
 	///     </para>
 	///     <para>
-	///         <see cref="P:FMOD.Sharp.Dsps.Tremolo.Spread" /> varies the LFO phase between channels to get an auto-pan
+	///         <see cref="P:FMOD.NET.Dsps.Tremolo.Spread" /> varies the LFO phase between channels to get an auto-pan
 	///         effect. This works best with a sine shape LFO.
 	///     </para>
 	///     <para>
-	///         The LFO can be synchronized using the <see cref="P:FMOD.Sharp.Dsps.Tremolo.Phase" /> parameter which sets its
+	///         The LFO can be synchronized using the <see cref="P:FMOD.NET.Dsps.Tremolo.Phase" /> parameter which sets its
 	///         instantaneous phase.
 	///     </para>
 	/// </remarks>
-	/// <seealso cref="T:FMOD.Sharp.Dsp" />
+	/// <seealso cref="T:FMOD.NET.Dsp" />
 	public class Tremolo : Dsp
 	{
 		/// <summary>

@@ -4,7 +4,7 @@ using System.Windows.Forms;
 using FMOD.Core;
 using FMOD.Enumerations;
 
-namespace FMOD.Sharp.Controls
+namespace FMOD.NET.Controls
 {
 	public partial class Fmod : Component
 	{

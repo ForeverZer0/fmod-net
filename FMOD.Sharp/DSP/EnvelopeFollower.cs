@@ -11,7 +11,7 @@ namespace FMOD.DSP
 	///     <para>Deprecated and will be removed in a future release.</para>
 	///     <para>This unit does not affect the incoming signal.</para>
 	/// </remarks>
-	/// <seealso cref="FMOD.Sharp.DSP.DspBase" />
+	/// <seealso cref="FMOD.NET.DSP.DspBase" />
 	[Obsolete("Deprecated and will be removed in a future release.")]
 	public class EnvelopeFollower : Dsp
 	{

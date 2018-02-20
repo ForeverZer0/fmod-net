@@ -12,7 +12,7 @@ namespace FMOD.DSP
 	///         support DirectX effects!
 	///     </para>
 	/// </summary>
-	/// <seealso cref="T:FMOD.Sharp.Dsp" />
+	/// <seealso cref="T:FMOD.NET.Dsp" />
 	public class ItEcho : Dsp
 	{
 		/// <summary>

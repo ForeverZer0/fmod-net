@@ -77,7 +77,7 @@ namespace FMOD.Core
 		static Util()
 		{
 			_handles = new Dictionary<IntPtr, HandleBase>();
-			_resxManager = new ResourceManager("FMOD.Sharp.ResultStrings", Assembly.GetExecutingAssembly());
+			_resxManager = new ResourceManager("FMOD.NET.ResultStrings", Assembly.GetExecutingAssembly());
 		}
 
 		public static string GetResultString(string resultName)

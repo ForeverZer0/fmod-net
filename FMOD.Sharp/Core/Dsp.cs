@@ -72,7 +72,7 @@ namespace FMOD.Core
 	///     <para>Describes a Digital Signal Processing unit for applying effects on sounds.</para>
 	///     <para>This class must be inherited.</para>
 	/// </summary>
-	/// <seealso cref="T:FMOD.Sharp.HandleBase" />
+	/// <seealso cref="T:FMOD.NET.HandleBase" />
 	public partial class Dsp : HandleBase
 	{
 		#region Constructors & Destructor
@@ -788,7 +788,7 @@ namespace FMOD.Core
 		/// </returns>
 		/// <remarks>
 		///     <alert class="note">
-		///         This function will be largely unused in <b>FMOD.Sharp</b>, as all built-in DSP types are
+		///         This function will be largely unused in <b>FMOD.NET</b>, as all built-in DSP types are
 		///         implemented individually with named classes and methods, but it is here for custom DSPs and the sake of
 		///         completeness.
 		///     </alert>
@@ -1105,7 +1105,7 @@ namespace FMOD.Core
 		/// <param name="index">The index.</param>
 		/// <returns>The value of the specified parameter.</returns>
 		/// <alert class="note">
-		///     This function will be largely unused in <b>FMOD.Sharp</b>, as all built-in DSP types are
+		///     This function will be largely unused in <b>FMOD.NET</b>, as all built-in DSP types are
 		///     implemented individually with named classes and methods, but it is here for custom DSPs and the sake of
 		///     completeness.
 		/// </alert>
@@ -1130,7 +1130,7 @@ namespace FMOD.Core
 		/// <param name="index">The index.</param>
 		/// <returns>The value of the specified parameter.</returns>
 		/// <alert class="note">
-		///     This function will be largely unused in <b>FMOD.Sharp</b>, as all built-in DSP types are
+		///     This function will be largely unused in <b>FMOD.NET</b>, as all built-in DSP types are
 		///     implemented individually with named classes and methods, but it is here for custom DSPs and the sake of
 		///     completeness.
 		/// </alert>
@@ -1177,7 +1177,7 @@ namespace FMOD.Core
 		/// <param name="index">The index.</param>
 		/// <returns>The value of the specified parameter.</returns>
 		/// <alert class="note">
-		///     This function will be largely unused in <b>FMOD.Sharp</b>, as all built-in DSP types are
+		///     This function will be largely unused in <b>FMOD.NET</b>, as all built-in DSP types are
 		///     implemented individually with named classes and methods, but it is here for custom DSPs and the sake of
 		///     completeness.
 		/// </alert>
@@ -1205,7 +1205,7 @@ namespace FMOD.Core
 		///     <para><c>true</c> or <c>false</c>.</para>
 		/// </param>
 		/// <alert class="note">
-		///     This function will be largely unused in <b>FMOD.Sharp</b>, as all built-in DSP types are
+		///     This function will be largely unused in <b>FMOD.NET</b>, as all built-in DSP types are
 		///     implemented individually with named classes and methods, but it is here for custom DSPs and the sake of
 		///     completeness.
 		/// </alert>
@@ -1231,7 +1231,7 @@ namespace FMOD.Core
 		///     <para>This will be raw binary data to be passed to the DSP unit.</para>
 		/// </param>
 		/// <alert class="note">
-		///     This function will be largely unused in <b>FMOD.Sharp</b>, as all built-in DSP types are
+		///     This function will be largely unused in <b>FMOD.NET</b>, as all built-in DSP types are
 		///     implemented individually with named classes and methods, but it is here for custom DSPs and the sake of
 		///     completeness.
 		/// </alert>
@@ -1256,7 +1256,7 @@ namespace FMOD.Core
 		/// <param name="index">Parameter index for this unit. Find the number of parameters with <see cref="ParameterCount" />.</param>
 		/// <param name="value">Floating point parameter value to be passed to the DSP unit. </param>
 		/// <alert class="note">
-		///     This function will be largely unused in <b>FMOD.Sharp</b>, as all built-in DSP types are
+		///     This function will be largely unused in <b>FMOD.NET</b>, as all built-in DSP types are
 		///     implemented individually with named classes and methods, but it is here for custom DSPs and the sake of
 		///     completeness.
 		/// </alert>
@@ -1279,7 +1279,7 @@ namespace FMOD.Core
 		/// <param name="index">Parameter index for this unit. Find the number of parameters with <see cref="ParameterCount" />.</param>
 		/// <param name="value">Integer parameter value to be passed to the DSP unit. </param>
 		/// <alert class="note">
-		///     This function will be largely unused in <b>FMOD.Sharp</b>, as all built-in DSP types are
+		///     This function will be largely unused in <b>FMOD.NET</b>, as all built-in DSP types are
 		///     implemented individually with named classes and methods, but it is here for custom DSPs and the sake of
 		///     completeness.
 		/// </alert>

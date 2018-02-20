@@ -9,10 +9,10 @@ namespace FMOD.DSP
 	///     <para>Applies a "low-pass" filter effect on a sound.</para>
 	///     <para>
 	///         Deprecated and will be removed in a future release, to emulate with
-	///         <see cref="T:FMOD.Sharp.Dsps.MultiBandEq" />.
+	///         <see cref="T:FMOD.NET.Dsps.MultiBandEq" />.
 	///     </para>
 	///     <para>
-	///         See "Example" section for examples on configuring <see cref="T:FMOD.Sharp.Dsps.MultiBandEq" /> for same
+	///         See "Example" section for examples on configuring <see cref="T:FMOD.NET.Dsps.MultiBandEq" /> for same
 	///         effect.
 	///     </para>
 	/// </summary>
@@ -28,8 +28,8 @@ namespace FMOD.DSP
 	///         filtering.
 	///     </para>
 	/// </remarks>
-	/// <seealso cref="T:FMOD.Sharp.Dsp" />
-	/// <seealso cref="T:FMOD.Sharp.Dsps.MultiBandEq" />
+	/// <seealso cref="T:FMOD.NET.Dsp" />
+	/// <seealso cref="T:FMOD.NET.Dsps.MultiBandEq" />
 	[Obsolete(
 		"Deprecated and will be removed in a future release, to emulate with MultiBandEq. See documentation for example.")]
 	public class LowpassSimple : Dsp

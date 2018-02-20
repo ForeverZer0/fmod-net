@@ -39,7 +39,7 @@
 using System;
 using System.Drawing;
 
-namespace FMOD.Sharp.Controls
+namespace FMOD.NET.Controls
 {
 	/// <summary>
 	/// Summary description for Utility.

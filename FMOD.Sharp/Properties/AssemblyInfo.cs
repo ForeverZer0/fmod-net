@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("FMOD.Sharp")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("FMOD.NET")]
+[assembly: AssemblyDescription("Complete managed wrapper around the FMOD Low-Level API.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Eric Freed")]
-[assembly: AssemblyProduct("FMOD.Sharp")]
+[assembly: AssemblyProduct("FMOD.NET")]
 [assembly: AssemblyCopyright("Copyright © Eric Freed 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

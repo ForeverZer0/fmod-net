@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace FMOD.Sharp.Controls
+namespace FMOD.NET.Controls
 {
 	/// <inheritdoc />
 	/// <summary>
@@ -34,7 +34,7 @@ namespace FMOD.Sharp.Controls
 
 		/// <inheritdoc />
 		/// <summary>
-		/// Initializes a new instance of the <see cref="T:FMOD.Sharp.Controls.NumericUnitUpDown" /> class.
+		/// Initializes a new instance of the <see cref="T:FMOD.NET.Controls.NumericUnitUpDown" /> class.
 		/// </summary>
 		public NumericUnitUpDown()
 		{

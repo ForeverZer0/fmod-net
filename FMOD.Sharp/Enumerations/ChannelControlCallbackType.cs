@@ -53,7 +53,7 @@
 namespace FMOD.Enumerations
 {
 	/// <summary>
-	///     These callback types are used with <see cref="M:FMOD.Sharp.Core.ChannelControl.SetCallback" />.
+	///     These callback types are used with <see cref="M:FMOD.NET.Core.ChannelControl.SetCallback" />.
 	/// </summary>
 	/// <remarks>
 	///     <para>
@@ -61,19 +61,19 @@ namespace FMOD.Enumerations
 	///         callback.
 	///     </para>
 	///     <para>
-	///         See reference to <see cref="M:FMOD.Sharp.Core.ChannelControl.SetCallback" /> to determine what they might
+	///         See reference to <see cref="M:FMOD.NET.Core.ChannelControl.SetCallback" /> to determine what they might
 	///         mean for each type of callback.
 	///     </para>
 	///     <alert class="note">
 	///         <para>
-	///             Currently the user must call <see cref="M:FMOD.Sharp.Core.FmodSystem.Update" /> for these callbacks to
+	///             Currently the user must call <see cref="M:FMOD.NET.Core.FmodSystem.Update" /> for these callbacks to
 	///             trigger!
 	///         </para>
 	///     </alert>
 	/// </remarks>
-	/// <seealso cref="M:FMOD.Sharp.Core.ChannelControl.SetCallback" />
-	/// <seealso cref="M:FMOD.Sharp.Core.FmodSystem.Update" />
-	/// <seealso cref="T:FMOD.Sharp.Core.ChannelCallback" />
+	/// <seealso cref="M:FMOD.NET.Core.ChannelControl.SetCallback" />
+	/// <seealso cref="M:FMOD.NET.Core.FmodSystem.Update" />
+	/// <seealso cref="T:FMOD.NET.Core.ChannelCallback" />
 	public enum ChannelControlCallbackType
 	{
 		/// <summary>

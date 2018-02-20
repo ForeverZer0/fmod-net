@@ -38,8 +38,8 @@ namespace FMOD.DSP
 	///     </para>
 	///     <para>The original code is COPYRIGHT 1999-2003 Stephan M. Bernsee smb@dspdimension.com.</para>
 	/// </remarks>
-	/// <seealso cref="T:FMOD.Sharp.Dsp" />
-	/// <seealso cref="T:FMOD.Sharp.Dsps.PitchShift.FftWindowSize" />
+	/// <seealso cref="T:FMOD.NET.Dsp" />
+	/// <seealso cref="T:FMOD.NET.Dsps.PitchShift.FftWindowSize" />
 	public class PitchShift : Dsp
 	{
 		/// <summary>

@@ -8,7 +8,7 @@ namespace FMOD.DSP
 	/// <summary>
 	///     Basic three-band equalizer.
 	/// </summary>
-	/// <seealso cref="T:FMOD.Sharp.Dsp" />
+	/// <seealso cref="T:FMOD.NET.Dsp" />
 	public class ThreeEq : Dsp
 	{
 		/// <summary>

@@ -9,8 +9,8 @@ namespace FMOD.DSP
 	/// <summary>
 	///     Provides functions for mixing gain levels and output grouping on speakers.
 	/// </summary>
-	/// <seealso cref="T:FMOD.Sharp.Dsp" />
-	/// <seealso cref="T:FMOD.Sharp.Dsps.ChannelMix.Output" />
+	/// <seealso cref="T:FMOD.NET.Dsp" />
+	/// <seealso cref="T:FMOD.NET.Dsps.ChannelMix.Output" />
 	public class ChannelMix : Dsp
 	{
 		/// <summary>

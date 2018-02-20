@@ -6,11 +6,10 @@
 *.user
 *.userosscache
 *.sln.docstates
+*.mp3
 
-FMOD.Sharp.ConsoleTest/
-FMOD.Sharp.Sample/
-FMOD.Sharp.Test/
-FMOD.Sharp.TestApp/
+FMOD.NET.ConsoleTest/
+FMOD.NET.Sample/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

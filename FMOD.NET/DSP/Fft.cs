@@ -1,7 +1,63 @@
-﻿using System;
+﻿#region License
+
+// Fft.cs is distributed under the Microsoft Public License (MS-PL)
+// 
+// Copyright (c) 2018,  Eric Freed
+// All Rights Reserved.
+// 
+// This license governs use of the accompanying software. If you use the software, you
+// accept this license. If you do not accept the license, do not use the software.
+// 
+// 1. Definitions
+// The terms "reproduce," "reproduction," "derivative works," and "distribution" have the
+// same meaning here as under U.S. copyright law.
+// A "contribution" is the original software, or any additions or changes to the software.
+// A "contributor" is any person that distributes its contribution under this license.
+// "Licensed patents" are a contributor's patent claims that read directly on its contribution.
+// 
+// 2. Grant of Rights
+// (A) Copyright Grant- Subject to the terms of this license, including the license conditions 
+// and limitations in section 3, each contributor grants you a non-exclusive, worldwide, royalty-free 
+// copyright license to reproduce its contribution, prepare derivative works of its contribution, and 
+// distribute its contribution or any derivative works that you create.
+// 
+// (B) Patent Grant- Subject to the terms of this license, including the license conditions and 
+// limitations in section 3, each contributor grants you a non-exclusive, worldwide, royalty-free license
+//  under its licensed patents to make, have made, use, sell, offer for sale, import, and/or otherwise 
+// dispose of its contribution in the software or derivative works of the contribution in the software.
+// 
+// 3. Conditions and Limitations
+// (A) No Trademark License- This license does not grant you rights to use any contributors' name, 
+// logo, or trademarks.
+// 
+// (B) If you bring a patent claim against any contributor over patents that you claim are infringed by 
+// the software, your patent license from such contributor to the software ends automatically.
+// 
+// (C) If you distribute any portion of the software, you must retain all copyright, patent, trademark, and
+//  attribution notices that are present in the software.
+// 
+// (D) If you distribute any portion of the software in source code form, you may do so only under this 
+// license by including a complete copy of this license with your distribution. If you distribute any portion
+//  of the software in compiled or object code form, you may only do so under a license that complies 
+// with this license.
+// 
+// (E) The software is licensed "as-is." You bear the risk of using it. The contributors give no express 
+// warranties, guarantees or conditions. You may have additional consumer rights under your local laws 
+// which this license cannot change. To the extent permitted under your local laws, the contributors 
+// exclude the implied warranties of merchantability, fitness for a particular purpose and non-infringement.
+// 
+// Created 8:45 PM 02/13/2018
+
+#endregion
+
+#region Using Directives
+
+using System;
 using System.Runtime.InteropServices;
 using FMOD.Core;
 using FMOD.Structures;
+
+#endregion
 
 namespace FMOD.DSP
 {
@@ -9,11 +65,101 @@ namespace FMOD.DSP
 	/// <summary>
 	///     Uses a Fast Fourier Transform algorithm to obtains spectrum data of a sound for analysis.
 	/// </summary>
-	/// <seealso cref="P:FMOD.DSP.Fft.SpectrumData" />
-	/// <seealso cref="T:FMOD.DSP.Fft.WindowSize" />
-	/// <seealso cref="T:FMOD.DSP.Fft.WindowType" />
+	/// <seealso cref="FMOD.DSP.Fft.SpectrumData" />
+	/// <seealso cref="FMOD.DSP.Fft.WindowSize" />
+	/// <seealso cref="FMOD.DSP.Fft.WindowType" />
 	public class Fft : Dsp
 	{
+		private readonly SpectrumData _spectrum;
+
+		#region Events
+
+		/// <summary>
+		///     Occurs when <see cref="Size" /> property is changed.
+		/// </summary>
+		/// <seealso cref="Fft" />
+		/// <seealso cref="WindowSize" />
+		/// <seealso cref="WindowType" />
+		public event EventHandler WindowSizeChanged;
+
+		/// <summary>
+		///     Occurs when <see cref="FftWindowType" /> property is changed.
+		/// </summary>
+		/// <seealso cref="Fft" />
+		/// <seealso cref="WindowSize" />
+		/// <seealso cref="WindowType" />
+		public event EventHandler WindowTypeChanged;
+
+		#endregion
+
+		#region Constructors
+
+		/// <summary>
+		///     Initializes a new instance of the <see cref="Fft" /> class.
+		/// </summary>
+		/// <param name="handle">The handle.</param>
+		protected Fft(IntPtr handle) : base(handle)
+		{
+			// TODO: Need to fix and test spectrum data
+			_spectrum = new SpectrumData();
+		}
+
+		#endregion
+
+		#region Properties
+
+		/// <summary>
+		///     <para>Gets or sets the size of the window for the FFT.</para>
+		///     <para>Default is <see cref="WindowSize.Size2048" /></para>
+		/// </summary>
+		public WindowSize Size
+		{
+			get => (WindowSize) GetParameterInt(0);
+			set
+			{
+				SetParameterInt(0, (int) value);
+				WindowSizeChanged?.Invoke(this, EventArgs.Empty);
+			}
+		}
+
+		/// <summary>
+		///     <para>Gets or sets the type of window used for the FFT.</para>
+		///     <para>See <see cref="Fft.WindowType" /> for an explanation of these types.</para>
+		/// </summary>
+		/// <seealso cref="Fft.WindowType" />
+		public WindowType FftWindowType
+		{
+			get => (WindowType) GetParameterInt(1);
+			set
+			{
+				SetParameterInt(1, (int) value);
+				WindowTypeChanged?.Invoke(this, EventArgs.Empty);
+			}
+		}
+
+		/// <summary>
+		///     Gets the spectrum data at the current point in the playing sound.
+		/// </summary>
+		/// <seealso cref="SpectrumData" />
+		/// <seealso cref="Fft.WindowSize" />
+		/// <seealso cref="Fft.WindowType" />
+		public SpectrumData SpectrumData
+		{
+			get
+			{
+				NativeInvoke(FMOD_DSP_GetParameterData(this, 2, out var ptr, out var dummy, IntPtr.Zero, 0));
+				Marshal.PtrToStructure(ptr, _spectrum);
+				return _spectrum;
+			}
+		}
+
+		/// <summary>
+		///     Gets the dominant frequencies for each channel.
+		/// </summary>
+		public float DominantFrequency => GetParameterFloat(3);
+
+		#endregion
+
 		/// <summary>
 		///     Describes window sizes to use with a Fast Fourier Transform calculation.
 		/// </summary>
@@ -128,83 +274,5 @@ namespace FMOD.DSP
 			/// </summary>
 			BlackmanHarris
 		}
-
-
-		private readonly SpectrumData _spectrum;
-
-		/// <summary>
-		///     Initializes a new instance of the <see cref="Fft" /> class.
-		/// </summary>
-		/// <param name="handle">The handle.</param>
-		internal Fft(IntPtr handle) : base(handle)
-		{
-			_spectrum = new SpectrumData();
-		}
-
-		/// <summary>
-		///     <para>Gets or sets the size of the window for the FFT.</para>
-		///     <para>Default is <see cref="WindowSize.Size2048" /></para>
-		/// </summary>
-		public WindowSize Size
-		{
-			get => (WindowSize) GetParameterInt(0);
-			set
-			{
-				SetParameterInt(0, (int) value);
-				WindowSizeChanged?.Invoke(this, EventArgs.Empty);
-			}
-		}
-
-		/// <summary>
-		///     <para>Gets or sets the type of window used for the FFT.</para>
-		///     <para>See <see cref="Fft.WindowType" /> for an explanation of these types.</para>
-		/// </summary>
-		/// <seealso cref="Fft.WindowType" />
-		public WindowType Type
-		{
-			get => (WindowType) GetParameterInt(1);
-			set
-			{
-				SetParameterInt(1, (int) value);
-				WindowTypeChanged?.Invoke(this, EventArgs.Empty);
-			}
-		}
-
-		/// <summary>
-		///     Gets the spectrum data at the current point in the playing sound.
-		/// </summary>
-		/// <seealso cref="SpectrumData" />
-		/// <seealso cref="Fft.WindowSize" />
-		/// <seealso cref="Fft.WindowType" />
-		public SpectrumData SpectrumData
-		{
-			get
-			{
-				NativeInvoke(FMOD_DSP_GetParameterData(this, 2, out var ptr, out var dummy, IntPtr.Zero, 0));
-				Marshal.PtrToStructure(ptr, _spectrum);
-				return _spectrum;
-			}
-		}
-
-		/// <summary>
-		///     Gets the dominant frequencies for each channel.
-		/// </summary>
-		public float DominantFrequency => GetParameterFloat(3);
-
-		/// <summary>
-		///     Occurs when <see cref="Size" /> property is changed.
-		/// </summary>
-		/// <seealso cref="Fft" />
-		/// <seealso cref="WindowSize" />
-		/// <seealso cref="WindowType" />
-		public event EventHandler WindowSizeChanged;
-
-		/// <summary>
-		///     Occurs when <see cref="Type" /> property is changed.
-		/// </summary>
-		/// <seealso cref="Fft" />
-		/// <seealso cref="WindowSize" />
-		/// <seealso cref="WindowType" />
-		public event EventHandler WindowTypeChanged;
 	}
 }

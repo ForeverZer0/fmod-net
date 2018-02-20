@@ -70,7 +70,7 @@ namespace FMOD.Core
 	///     </para>
 	///     <para>This class must be inherited.</para>
 	/// </summary>
-	/// <seealso cref="T:Microsoft.Win32.SafeHandles.SafeHandleZeroOrMinusOneIsInvalid" />
+	/// <seealso cref="Microsoft.Win32.SafeHandles.SafeHandleZeroOrMinusOneIsInvalid" />
 	public abstract partial class HandleBase : SafeHandleZeroOrMinusOneIsInvalid, IEquatable<HandleBase>
 	{
 		/// <summary>
@@ -84,7 +84,7 @@ namespace FMOD.Core
 
 		/// <inheritdoc />
 		/// <summary>
-		///     Initializes a new instance of the <see cref="T:FMOD.Core.HandleBase" /> class.
+		///     Initializes a new instance of the <see cref="FMOD.Core.HandleBase" /> class.
 		/// </summary>
 		/// <param name="nativeHandle">The native handle.</param>
 		protected HandleBase(IntPtr nativeHandle) : base(true)
@@ -137,7 +137,7 @@ namespace FMOD.Core
 
 		/// <inheritdoc />
 		/// <summary>
-		///     Releases the unmanaged resources used by the <see cref="T:System.Runtime.InteropServices.SafeHandle" /> class
+		///     Releases the unmanaged resources used by the <see cref="System.Runtime.InteropServices.SafeHandle" /> class
 		///     specifying whether to perform a normal dispose operation.
 		/// </summary>
 		/// <param name="disposing"><c>true</c> for a normal dispose operation; <c>false</c> to finalize the handle.</param>
@@ -194,11 +194,11 @@ namespace FMOD.Core
 
 		/// <inheritdoc />
 		/// <summary>
-		///     Determines whether the specified <see cref="T:FMOD.Core.HandleBase" />, is equal to this instance.
+		///     Determines whether the specified <see cref="FMOD.Core.HandleBase" />, is equal to this instance.
 		/// </summary>
-		/// <param name="other">The <see cref="T:FMOD.Core.HandleBase" /> to compare with this instance.</param>
+		/// <param name="other">The <see cref="FMOD.Core.HandleBase" /> to compare with this instance.</param>
 		/// <returns>
-		///     <c>true</c> if the specified <see cref="T:FMOD.Core.HandleBase" /> is equal to this instance; otherwise,
+		///     <c>true</c> if the specified <see cref="FMOD.Core.HandleBase" /> is equal to this instance; otherwise,
 		///     <c>false</c>.
 		/// </returns>
 		public bool Equals(HandleBase other)

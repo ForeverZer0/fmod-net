@@ -1,6 +1,62 @@
-﻿using System;
+﻿#region License
+
+// Transceiver.cs is distributed under the Microsoft Public License (MS-PL)
+// 
+// Copyright (c) 2018,  Eric Freed
+// All Rights Reserved.
+// 
+// This license governs use of the accompanying software. If you use the software, you
+// accept this license. If you do not accept the license, do not use the software.
+// 
+// 1. Definitions
+// The terms "reproduce," "reproduction," "derivative works," and "distribution" have the
+// same meaning here as under U.S. copyright law.
+// A "contribution" is the original software, or any additions or changes to the software.
+// A "contributor" is any person that distributes its contribution under this license.
+// "Licensed patents" are a contributor's patent claims that read directly on its contribution.
+// 
+// 2. Grant of Rights
+// (A) Copyright Grant- Subject to the terms of this license, including the license conditions 
+// and limitations in section 3, each contributor grants you a non-exclusive, worldwide, royalty-free 
+// copyright license to reproduce its contribution, prepare derivative works of its contribution, and 
+// distribute its contribution or any derivative works that you create.
+// 
+// (B) Patent Grant- Subject to the terms of this license, including the license conditions and 
+// limitations in section 3, each contributor grants you a non-exclusive, worldwide, royalty-free license
+//  under its licensed patents to make, have made, use, sell, offer for sale, import, and/or otherwise 
+// dispose of its contribution in the software or derivative works of the contribution in the software.
+// 
+// 3. Conditions and Limitations
+// (A) No Trademark License- This license does not grant you rights to use any contributors' name, 
+// logo, or trademarks.
+// 
+// (B) If you bring a patent claim against any contributor over patents that you claim are infringed by 
+// the software, your patent license from such contributor to the software ends automatically.
+// 
+// (C) If you distribute any portion of the software, you must retain all copyright, patent, trademark, and
+//  attribution notices that are present in the software.
+// 
+// (D) If you distribute any portion of the software in source code form, you may do so only under this 
+// license by including a complete copy of this license with your distribution. If you distribute any portion
+//  of the software in compiled or object code form, you may only do so under a license that complies 
+// with this license.
+// 
+// (E) The software is licensed "as-is." You bear the risk of using it. The contributors give no express 
+// warranties, guarantees or conditions. You may have additional consumer rights under your local laws 
+// which this license cannot change. To the extent permitted under your local laws, the contributors 
+// exclude the implied warranties of merchantability, fitness for a particular purpose and non-infringement.
+// 
+// Created 10:47 PM 02/14/2018
+
+#endregion
+
+#region Using Directives
+
+using System;
 using FMOD.Arguments;
 using FMOD.Core;
+
+#endregion
 
 namespace FMOD.DSP
 {
@@ -33,63 +89,55 @@ namespace FMOD.DSP
 	///     </para>
 	///     <para>Multiple transmitters sending to the same channel will be mixed together.</para>
 	/// </remarks>
-	/// <seealso cref="FMOD.NET.DSP.DspBase" />
+	/// <seealso cref="FMOD.Core.Dsp" />
 	/// <seealso cref="Send" />
 	/// <seealso cref="Return" />
 	public class Transceiver : Dsp
 	{
+		#region Events
+
 		/// <summary>
-		///     Describes the speaker modes used with a <see cref="Transceiver" />.
+		///     Occurs when <see cref="Channel" /> property is changed.
 		/// </summary>
-		/// <remarks>
-		///     <para>
-		///         The speaker mode of a <see cref="Transceiver" /> buffer (of which there are up to 32 of) is determined
-		///         automatically depending on the signal flowing through the transceiver effect, or it can be forced. Use a
-		///         smaller fixed speaker mode buffer to save memory.
-		///     </para>
-		///     <para>Only relevant for transmitter dsps, as they control the format of the transceiver channel's buffer.</para>
-		///     <para>
-		///         If multiple transceivers transmit to a single buffer in different speaker modes, it will allocate memory for
-		///         each speaker mode. This uses more memory than a single speaker mode. If there are multiple receivers reading
-		///         from a channel with multiple speaker modes, it will read them all and mix them together.
-		///     </para>
-		///     <para>
-		///         If the system's speaker mode is stereo or mono, it will not create a 3rd buffer, it will just use the
-		///         mono/stereo speaker mode buffer.
-		///     </para>
-		/// </remarks>
-		public enum TransceiverSpeakerMode
-		{
-			/// <summary>
-			///     A transmitter will use whatever signal channel count coming in to the transmitter, to determine which speaker mode
-			///     is allocated for the transceiver channel.
-			/// </summary>
-			Auto,
+		/// <seealso cref="Channel" />
+		/// <seealso cref="IntParamEventArgs" />
+		public event EventHandler<IntParamEventArgs> ChannelChanged;
 
-			/// <summary>
-			///     A transmitter will always down-mix to a mono channel buffer.
-			/// </summary>
-			Mono,
+		/// <summary>
+		///     Occurs when <see cref="Level" /> property is changed.
+		/// </summary>
+		/// <seealso cref="Level" />
+		/// <seealso cref="FloatParamEventArgs" />
+		public event EventHandler<FloatParamEventArgs> LevelChanged;
 
-			/// <summary>
-			///     A transmitter will always upmix or downmix to a stereo channel buffer.
-			/// </summary>
-			Stereo,
+		/// <summary>
+		///     Occurs when <see cref="SpeakerMode" /> property is changed.
+		/// </summary>
+		/// <seealso cref="SpeakerMode" />
+		public event EventHandler SpeakerModeChanged;
 
-			/// <summary>
-			///     <para>A transmitter will always upmix or downmix to a surround channel buffer. </para>
-			///     <para>Surround is the speaker mode of the system above stereo, so could be quad/surround/5.1/7.1.</para>
-			/// </summary>
-			Surround
-		}
+		/// <summary>
+		///     Occurs when <see cref="TransmitMode" /> property is changed.
+		/// </summary>
+		/// <seealso cref="TransmitMode" />
+		/// <seealso cref="BoolParamEventArgs" />
+		public event EventHandler<BoolParamEventArgs> TransmitModeChanged;
+
+		#endregion
+
+		#region Constructors
 
 		/// <summary>
 		///     Initializes a new instance of the <see cref="Transceiver" /> class.
 		/// </summary>
 		/// <param name="handle">The handle.</param>
-		internal Transceiver(IntPtr handle) : base(handle)
+		protected Transceiver(IntPtr handle) : base(handle)
 		{
 		}
+
+		#endregion
+
+		#region Properties
 
 		/// <summary>
 		///     <para>
@@ -180,31 +228,51 @@ namespace FMOD.DSP
 			set => SetParameterData(4, value);
 		}
 
-		/// <summary>
-		///     Occurs when <see cref="TransmitMode" /> property is changed.
-		/// </summary>
-		/// <seealso cref="TransmitMode" />
-		/// <seealso cref="BoolParamEventArgs" />
-		public event EventHandler<BoolParamEventArgs> TransmitModeChanged;
+		#endregion
 
 		/// <summary>
-		///     Occurs when <see cref="Level" /> property is changed.
+		///     Describes the speaker modes used with a <see cref="Transceiver" />.
 		/// </summary>
-		/// <seealso cref="Level" />
-		/// <seealso cref="FloatParamEventArgs" />
-		public event EventHandler<FloatParamEventArgs> LevelChanged;
+		/// <remarks>
+		///     <para>
+		///         The speaker mode of a <see cref="Transceiver" /> buffer (of which there are up to 32 of) is determined
+		///         automatically depending on the signal flowing through the transceiver effect, or it can be forced. Use a
+		///         smaller fixed speaker mode buffer to save memory.
+		///     </para>
+		///     <para>Only relevant for transmitter dsps, as they control the format of the transceiver channel's buffer.</para>
+		///     <para>
+		///         If multiple transceivers transmit to a single buffer in different speaker modes, it will allocate memory for
+		///         each speaker mode. This uses more memory than a single speaker mode. If there are multiple receivers reading
+		///         from a channel with multiple speaker modes, it will read them all and mix them together.
+		///     </para>
+		///     <para>
+		///         If the system's speaker mode is stereo or mono, it will not create a 3rd buffer, it will just use the
+		///         mono/stereo speaker mode buffer.
+		///     </para>
+		/// </remarks>
+		public enum TransceiverSpeakerMode
+		{
+			/// <summary>
+			///     A transmitter will use whatever signal channel count coming in to the transmitter, to determine which speaker mode
+			///     is allocated for the transceiver channel.
+			/// </summary>
+			Auto,
 
-		/// <summary>
-		///     Occurs when <see cref="Channel" /> property is changed.
-		/// </summary>
-		/// <seealso cref="Channel" />
-		/// <seealso cref="IntParamEventArgs" />
-		public event EventHandler<IntParamEventArgs> ChannelChanged;
+			/// <summary>
+			///     A transmitter will always down-mix to a mono channel buffer.
+			/// </summary>
+			Mono,
 
-		/// <summary>
-		///     Occurs when <see cref="SpeakerMode" /> property is changed.
-		/// </summary>
-		/// <seealso cref="SpeakerMode" />
-		public event EventHandler SpeakerModeChanged;
+			/// <summary>
+			///     A transmitter will always upmix or downmix to a stereo channel buffer.
+			/// </summary>
+			Stereo,
+
+			/// <summary>
+			///     <para>A transmitter will always upmix or downmix to a surround channel buffer. </para>
+			///     <para>Surround is the speaker mode of the system above stereo, so could be quad/surround/5.1/7.1.</para>
+			/// </summary>
+			Surround
+		}
 	}
 }

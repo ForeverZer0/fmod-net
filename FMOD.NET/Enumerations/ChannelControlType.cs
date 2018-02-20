@@ -59,12 +59,12 @@ using FMOD.Core;
 namespace FMOD.Enumerations
 {
 	/// <summary>
-	///     Used to distinguish if a <see cref="ChannelControl" /> parameter is actually a <see cref="T:FMOD.Core.Channel" />
-	///     or a <see cref="T:FMOD.Core.ChannelGroup" />.
+	///     Used to distinguish if a <see cref="ChannelControl" /> parameter is actually a <see cref="FMOD.Core.Channel" />
+	///     or a <see cref="FMOD.Core.ChannelGroup" />.
 	/// </summary>
 	/// <seealso cref="ChannelControl" />
-	/// <seealso cref="T:FMOD.Core.Channel" />
-	/// <seealso cref="T:FMOD.Core.ChannelGroup" />
+	/// <seealso cref="FMOD.Core.Channel" />
+	/// <seealso cref="FMOD.Core.ChannelGroup" />
 	/// <seealso cref="ChannelControl.SetCallback" />
 	public enum ChannelControlType
 	{

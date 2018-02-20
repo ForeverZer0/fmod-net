@@ -72,7 +72,7 @@ namespace FMOD.Core
 	///     <para>Describes a Digital Signal Processing unit for applying effects on sounds.</para>
 	///     <para>This class must be inherited.</para>
 	/// </summary>
-	/// <seealso cref="T:FMOD.NET.HandleBase" />
+	/// <seealso cref="FMOD.Core.HandleBase" />
 	public partial class Dsp : HandleBase
 	{
 		#region Constructors

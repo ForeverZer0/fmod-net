@@ -4,11 +4,11 @@ namespace FMOD.Arguments
 {
 	/// <inheritdoc />
 	/// <summary>
-	/// Provides data for <see cref="E:FMOD.Core.Channel.OcclusionCalculated" /> events.
+	/// Provides data for <see cref="FMOD.Core.Channel.OcclusionCalculated" /> events.
 	/// </summary>
-	/// <seealso cref="T:System.EventArgs" />
-	/// <seealso cref="T:FMOD.Core.Channel" />
-	/// <seealso cref="E:FMOD.Core.Channel.OcclusionCalculated"/>
+	/// <seealso cref="System.EventArgs" />
+	/// <seealso cref="FMOD.Core.Channel" />
+	/// <seealso cref="FMOD.Core.Channel.OcclusionCalculated"/>
 	public class OcclusionEventArgs : EventArgs
 	{
 		/// <summary>
@@ -29,7 +29,7 @@ namespace FMOD.Arguments
 
 		/// <inheritdoc />
 		/// <summary>
-		/// Initializes a new instance of the <see cref="T:FMOD.Arguments.ChannelOcclusionCalculatedEventArgs" /> class.
+		/// Initializes a new instance of the <see cref="FMOD.Arguments.OcclusionEventArgs" /> class.
 		/// </summary>
 		/// <param name="direct">The pointer to the direct occlusion value.</param>
 		/// <param name="reverb">The pointer to the reverb occlusion value.</param>

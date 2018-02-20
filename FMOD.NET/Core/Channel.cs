@@ -63,17 +63,17 @@ namespace FMOD.Core
 {
 	/// <inheritdoc />
 	/// <summary>
-	///     A specialized <see cref="T:FMOD.Core.ChannelControl" /> with common playback functions including seeking and
+	///     A specialized <see cref="FMOD.Core.ChannelControl" /> with common playback functions including seeking and
 	///     looping sounds.
 	/// </summary>
-	/// <seealso cref="T:FMOD.Core.ChannelControl" />
+	/// <seealso cref="FMOD.Core.ChannelControl" />
 	public partial class Channel : ChannelControl
 	{
 		#region Constructors
 
 		/// <inheritdoc />
 		/// <summary>
-		///     Initializes a new instance of the <see cref="T:FMOD.Core.Channel" /> class.
+		///     Initializes a new instance of the <see cref="FMOD.Core.Channel" /> class.
 		/// </summary>
 		/// <param name="handle">The handle.</param>
 		protected Channel(IntPtr handle) : base(handle)

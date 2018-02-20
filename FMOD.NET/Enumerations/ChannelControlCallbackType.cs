@@ -50,6 +50,8 @@
 
 #endregion
 
+using FMOD.Core;
+
 namespace FMOD.Enumerations
 {
 	/// <summary>
@@ -57,7 +59,7 @@ namespace FMOD.Enumerations
 	/// </summary>
 	/// <remarks>
 	///     <para>
-	///         Each callback has command-data parameters passed as <see cref="T:System.IntPtr" /> unique to the type of
+	///         Each callback has command-data parameters passed as <see cref=System.IntPtr" /> unique to the type of
 	///         callback.
 	///     </para>
 	///     <para>
@@ -71,9 +73,9 @@ namespace FMOD.Enumerations
 	///         </para>
 	///     </alert>
 	/// </remarks>
-	/// <seealso cref="M:FMOD.NET.Core.ChannelControl.SetCallback" />
-	/// <seealso cref="M:FMOD.NET.Core.FmodSystem.Update" />
-	/// <seealso cref="T:FMOD.NET.Core.ChannelCallback" />
+	/// <seealso cref="ChannelControl.SetCallback" />
+	/// <seealso cref="M:FMOD.Core.FmodSystem.Update" />
+	/// <seealso cref="FMOD.Core.ChannelCallback" />
 	public enum ChannelControlCallbackType
 	{
 		/// <summary>

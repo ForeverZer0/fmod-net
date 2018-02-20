@@ -119,9 +119,9 @@ namespace FMOD.Core
 		public event EventHandler LoopPointAdded;
 
 		/// <summary>
-		///     Occurs when <see cref="P:FMOD.NET.Core.Sound.Mode" /> property is changed.
+		///     Occurs when <see cref="FMOD.Core.Sound.Mode" /> property is changed.
 		/// </summary>
-		/// <seealso cref="P:FMOD.NET.Core.Sound.Mode" />
+		/// <seealso cref="FMOD.Core.Sound.Mode" />
 		/// <seealso cref="Enumerations.Mode" />
 		public event EventHandler ModeChanged;
 
@@ -135,14 +135,14 @@ namespace FMOD.Core
 		///     Occurs when the volume for a music channel is changed.
 		/// </summary>
 		/// <seealso cref="SetMusicVolume"></seealso>
-		/// <seealso cref="T:FMOD.Core.SoundMusicVolumeChangedEventArgs"></seealso>
+		/// <seealso cref="FMOD.Arguments.SoundMusicVolumeChangedEventArgs"></seealso>
 		public event EventHandler<SoundMusicVolumeChangedEventArgs> MusicVolumeChanged;
 
 		/// <summary>
-		///     Occurs when <see cref="P:FMOD.Core.Sound.SoundGroup" /> property is changed.
+		///     Occurs when <see cref="FMOD.Core.Sound.SoundGroup" /> property is changed.
 		/// </summary>
-		/// <seealso cref="P:FMOD.Core.Sound.SoundGroup" />
-		/// <seealso cref="T:FMOD.Core.SoundGroup" />
+		/// <seealso cref="FMOD.Core.Sound.SoundGroup" />
+		/// <seealso cref="FMOD.Core.SoundGroup" />
 		public event EventHandler SoundGroupChanged;
 
 		/// <summary>

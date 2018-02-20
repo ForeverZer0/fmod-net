@@ -4,11 +4,11 @@ namespace FMOD.Arguments
 {
 	/// <inheritdoc />
 	/// <summary>
-	/// Provides data for <see cref="E:FMOD.Core.Channel.VirtualVoiceSwapped" /> events.
+	/// Provides data for <see cref="FMOD.Core.Channel.VirtualVoiceSwapped" /> events.
 	/// </summary>
-	/// <seealso cref="T:System.EventArgs" />
-	/// <seealso cref="T:FMOD.Core.Channel" />
-	/// <seealso cref="E:FMOD.Core.Channel.VirtualVoiceSwapped"/>
+	/// <seealso cref="System.EventArgs" />
+	/// <seealso cref="FMOD.Core.Channel" />
+	/// <seealso cref="FMOD.Core.Channel.VirtualVoiceSwapped"/>
 	public class VoiceSwapEventArgs : EventArgs
 	{
 		/// <summary>
@@ -23,7 +23,7 @@ namespace FMOD.Arguments
 
 		/// <inheritdoc />
 		/// <summary>
-		/// Initializes a new instance of the <see cref="T:FMOD.Arguments.ChannelVoiceSwappedEventArgs" /> class.
+		/// Initializes a new instance of the <see cref="FMOD.Arguments.VoiceSwapEventArgs" /> class.
 		/// </summary>
 		/// <param name="isEmulated">If set to <c>true</c> if emulated, otherwise <c>false</c> and real.</param>
 		public VoiceSwapEventArgs(bool isEmulated)

@@ -65,16 +65,16 @@ namespace FMOD.Core
 {
 	/// <inheritdoc />
 	/// <summary>
-	///     <para>The base class for both <see cref="T:FMOD.Core.Channel" /> and <see cref="T:FMOD.Core.ChannelGroup" />.</para>
+	///     <para>The base class for both <see cref="FMOD.Core.Channel" /> and <see cref="FMOD.Core.ChannelGroup" />.</para>
 	///     <para>This class must be inherited.</para>
 	/// </summary>
 	/// <remarks>
-	///     Internally, <see cref="T:FMOD.Core.Channel" /> and <see cref="T:FMOD.Core.ChannelControl" /> objects differ from the other primary classes
-	///     that inherit <see cref="T:FMOD.Core.HandleBase" />.
+	///     Internally, <see cref="FMOD.Core.Channel" /> and <see cref="FMOD.Core.ChannelControl" /> objects differ from the other primary classes
+	///     that inherit <see cref="FMOD.Core.HandleBase" />.
 	///     <para>
 	///         They are not technically "released" or "disposed", but are reused automatically as needed by <b>FMOD</b>.
 	///         Because of this, extra care must be taken that the any instance you are using is still valid, as it is possible
-	///         to maintain a reference to a <see cref="T:FMOD.Core.Channel" />, while the underlying handle it wraps is no longer valid
+	///         to maintain a reference to a <see cref="FMOD.Core.Channel" />, while the underlying handle it wraps is no longer valid
 	///         and has been used elsewhere. There are two common circumstances that may cause a reference to Channel to be
 	///         invalid:
 	///     </para>
@@ -94,14 +94,14 @@ namespace FMOD.Core
 	///     </list>
 	///     <para>
 	///         <b>FMOD.NET</b> automatically marks channels invalid that have become so due to a sound ending, so a quick
-	///         check of <see cref="P:System.Runtime.InteropServices.SafeHandle.IsInvalid" /> will allow you to recognize if your reference is still valid.
-	///         Invoking native wrapped functions on an invalid channel will throw an <see cref="T:FMOD.Core.FmodException" />.
+	///         check of <see cref="System.Runtime.InteropServices.SafeHandle.IsInvalid" /> will allow you to recognize if your reference is still valid.
+	///         Invoking native wrapped functions on an invalid channel will throw an <see cref="FMOD.Core.FmodException" />.
 	///     </para>
 	/// </remarks>
-	/// <seealso cref="T:FMOD.Core.HandleBase" />
-	/// <seealso cref="T:FMOD.Core.HandleBase" />
-	/// <seealso cref="T:FMOD.Core.Channel" />
-	/// <seealso cref="T:FMOD.Core.ChannelGroup" />
+	/// <seealso cref="FMOD.Core.HandleBase" />
+	/// <seealso cref="FMOD.Core.HandleBase" />
+	/// <seealso cref="FMOD.Core.Channel" />
+	/// <seealso cref="FMOD.Core.ChannelGroup" />
 	public abstract partial class ChannelControl : HandleBase
 	{
 		/// <summary>
@@ -115,7 +115,7 @@ namespace FMOD.Core
 
 		/// <inheritdoc />
 		/// <summary>
-		///     Initializes a new instance of the <see cref="T:FMOD.Core.ChannelControl" /> class.
+		///     Initializes a new instance of the <see cref="FMOD.Core.ChannelControl" /> class.
 		/// </summary>
 		/// <param name="handle">The handle.</param>
 		protected ChannelControl(IntPtr handle) : base(handle)

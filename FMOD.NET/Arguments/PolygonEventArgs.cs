@@ -5,12 +5,12 @@ namespace FMOD.Arguments
 {
 	/// <inheritdoc />
 	/// <summary>
-	/// Arguments for <see cref="T:FMOD.Data.Polygon" /> specific events.
+	/// Arguments for <see cref="FMOD.Data.Polygon" /> specific events.
 	/// </summary>
-	/// <seealso cref="T:System.EventArgs" />
-	/// <seealso cref="E:FMOD.Core.Geometry.PolygonAdded" />
-	/// <seealso cref="E:FMOD.Core.Geometry.PolygonAttributesChanged" />
-	/// <seealso cref="E:FMOD.Core.Geometry.PolygonVertexChanged" />
+	/// <seealso cref="System.EventArgs" />
+	/// <seealso cref="FMOD.Core.Geometry.PolygonAdded" />
+	/// <seealso cref="FMOD.Core.Geometry.PolygonAttributesChanged" />
+	/// <seealso cref="FMOD.Core.Geometry.PolygonVertexChanged" />
 	public class PolygonEventArgs : EventArgs
 	{
 		/// <summary>
@@ -23,9 +23,9 @@ namespace FMOD.Arguments
 
 		/// <inheritdoc />
 		/// <summary>
-		/// Initializes a new instance of the <see cref="T:FMOD.Arguments.PolygonEventArgs" /> class.
+		/// Initializes a new instance of the <see cref="FMOD.Arguments.PolygonEventArgs" /> class.
 		/// </summary>
-		/// <param name="index">The index of the polygon within a <see cref="T:FMOD.Core.Geometry" /> object.</param>
+		/// <param name="index">The index of the polygon within a <see cref="FMOD.Core.Geometry" /> object.</param>
 		public PolygonEventArgs(int index)
 		{
 			Index = index;

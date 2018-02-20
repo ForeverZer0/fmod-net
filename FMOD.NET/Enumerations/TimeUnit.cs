@@ -90,13 +90,13 @@ namespace FMOD.Enumerations
 		RawBytes = 0x00000008,
 
 		/// <summary>
-		///     <para>Fractions of 1 PCM sample. <seealso cref="T:System.UInt32" /> range <c>0</c> to <c>0xFFFFFFFF</c>. </para>
+		///     <para>Fractions of 1 PCM sample. <seealso cref="System.UInt32" /> range <c>0</c> to <c>0xFFFFFFFF</c>. </para>
 		///     <para>Used for sub-sample granularity for DSP purposes.</para>
 		/// </summary>
 		PcmFraction = 0x00000010,
 
 		/// <summary>
-		///     MOD/S3M/XM/IT. Order in a sequenced module format. Use <see cref="P:FMOD.Core.Sound.Format" /> to determine the PCM
+		///     MOD/S3M/XM/IT. Order in a sequenced module format. Use <see cref="FMOD.Core.Sound.Format" /> to determine the PCM
 		///     format being decoded to.
 		/// </summary>
 		ModOrder = 0x00000100,

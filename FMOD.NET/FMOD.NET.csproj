@@ -7,7 +7,7 @@
     <ProjectGuid>{F1A3262B-D6BB-4351-B331-45BCCD44FC57}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FMOD</RootNamespace>
+    <RootNamespace>FMOD.NET</RootNamespace>
     <AssemblyName>FMOD.NET</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -189,7 +189,6 @@
     <Compile Include="Data\PolygonAttributes.cs" />
     <Compile Include="Data\Driver.cs" />
     <Compile Include="Data\Rotation.cs" />
-    <Compile Include="Data\SoundInfo.cs" />
     <Compile Include="Data\SpeakerMix.cs" />
     <Compile Include="Core\Delegates.cs" />
     <Compile Include="Core\Dsp.cs" />
@@ -332,9 +331,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Strings.resx">
+      <SubType>Designer</SubType>
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

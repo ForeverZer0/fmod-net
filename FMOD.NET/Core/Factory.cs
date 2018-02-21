@@ -5,9 +5,9 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Security.Permissions;
-using FMOD.Enumerations;
+using FMOD.NET.Enumerations;
 
-namespace FMOD.Core
+namespace FMOD.NET.Core
 {
 	/// <summary>
 	/// Static factory class for creating the classes that inherit from <see cref="HandleBase"/>.

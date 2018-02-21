@@ -53,12 +53,12 @@
 #region Using Directives
 
 using System;
-using FMOD.Arguments;
-using FMOD.Core;
+using FMOD.NET.Arguments;
+using FMOD.NET.Core;
 
 #endregion
 
-namespace FMOD.DSP
+namespace FMOD.NET.DSP
 {
 	/// <inheritdoc />
 	/// <summary>
@@ -78,7 +78,7 @@ namespace FMOD.DSP
 	///         </para>
 	///     </alert>
 	/// </remarks>
-	/// <seealso cref="FMOD.Core.Dsp" />
+	/// <seealso cref="Dsp" />
 	public class Delay : Dsp
 	{
 		#region Events

@@ -53,22 +53,22 @@
 #region Using Directives
 
 using System;
-using FMOD.Arguments;
-using FMOD.Core;
+using FMOD.NET.Arguments;
+using FMOD.NET.Core;
 
 #endregion
 
-namespace FMOD.DSP
+namespace FMOD.NET.DSP
 {
 	/// <inheritdoc />
 	/// <summary>
 	///     <para>Applies a "high-pass" filter effect on a sound.</para>
 	///     <para>
 	///         Deprecated and will be removed in a future release, to emulate with
-	///         <see cref="FMOD.DSP.MultiBandEq" />.
+	///         <see cref="MultiBandEq" />.
 	///     </para>
 	///     <para>
-	///         See "Example" section for examples on configuring <see cref="FMOD.DSP.MultiBandEq" /> for same
+	///         See "Example" section for examples on configuring <see cref="MultiBandEq" /> for same
 	///         effect.
 	///     </para>
 	/// </summary>
@@ -84,8 +84,8 @@ namespace FMOD.DSP
 	///         filtering.
 	///     </para>
 	/// </remarks>
-	/// <seealso cref="FMOD.Core.Dsp" />
-	/// <seealso cref="FMOD.DSP.MultiBandEq" />
+	/// <seealso cref="Dsp" />
+	/// <seealso cref="MultiBandEq" />
 	[Obsolete(
 		"Deprecated and will be removed in a future release, to emulate with MultiBandEq. See documentation for example.")]
 	public class HighpassSimple : Dsp

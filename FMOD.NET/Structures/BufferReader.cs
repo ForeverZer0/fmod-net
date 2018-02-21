@@ -1,10 +1,10 @@
 ﻿using System.Runtime.InteropServices;
-using FMOD.Core;
-using FMOD.Enumerations;
+using FMOD.NET.Core;
+using FMOD.NET.Enumerations;
 
 // TODO: Document
 
-namespace FMOD.Structures
+namespace FMOD.NET.Structures
 {
 	[StructLayout(LayoutKind.Explicit, Pack = 2)]
 	public class BufferReader
@@ -113,7 +113,7 @@ namespace FMOD.Structures
 
 		public BufferReader(Sound sound)
 		{
-			_format = sound.Format;
+			_format = sound.Info.Format;
 			var length = sound.GetLength(TimeUnit.PcmBytes);
 			sound.Lock(0, length, out var ptr1, out var ptr2, out var len1, out var len2);
 			_byteBuffer = new byte[len1];

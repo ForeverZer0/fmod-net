@@ -53,11 +53,11 @@
 #region Using Directives
 
 using System;
-using FMOD.Core;
+using FMOD.NET.Core;
 
 #endregion
 
-namespace FMOD.Enumerations
+namespace FMOD.NET.Enumerations
 {
 	/// <summary>
 	///     These callback types are used with <see cref="FmodSystem.SetCallback" />.

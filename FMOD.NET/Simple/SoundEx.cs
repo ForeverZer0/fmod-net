@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using FMOD.Core;
-using FMOD.Enumerations;
+using FMOD.NET.Core;
+using FMOD.NET.Enumerations;
 
-namespace FMOD.Simple
+namespace FMOD.NET.Simple
 {
 	public class SoundEx : IDisposable
 	{

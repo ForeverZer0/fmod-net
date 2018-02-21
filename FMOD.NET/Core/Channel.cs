@@ -53,27 +53,26 @@
 #region Using Directives
 
 using System;
-using FMOD.Data;
-using FMOD.Enumerations;
-using FMOD.Structures;
+using FMOD.NET.Data;
+using FMOD.NET.Enumerations;
 
 #endregion
 
-namespace FMOD.Core
+namespace FMOD.NET.Core
 {
 	/// <inheritdoc />
 	/// <summary>
-	///     A specialized <see cref="FMOD.Core.ChannelControl" /> with common playback functions including seeking and
+	///     A specialized <see cref="ChannelControl" /> with common playback functions including seeking and
 	///     looping sounds.
 	/// </summary>
-	/// <seealso cref="FMOD.Core.ChannelControl" />
+	/// <seealso cref="ChannelControl" />
 	public partial class Channel : ChannelControl
 	{
 		#region Constructors
 
 		/// <inheritdoc />
 		/// <summary>
-		///     Initializes a new instance of the <see cref="FMOD.Core.Channel" /> class.
+		///     Initializes a new instance of the <see cref="Channel" /> class.
 		/// </summary>
 		/// <param name="handle">The handle.</param>
 		protected Channel(IntPtr handle) : base(handle)

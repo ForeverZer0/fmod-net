@@ -53,12 +53,12 @@
 #region Using Directives
 
 using System;
-using FMOD.Arguments;
-using FMOD.Core;
+using FMOD.NET.Arguments;
+using FMOD.NET.Core;
 
 #endregion
 
-namespace FMOD.DSP
+namespace FMOD.NET.DSP
 {
 	/// <inheritdoc />
 	/// <summary>
@@ -69,7 +69,7 @@ namespace FMOD.DSP
 	///         support DirectX effects!
 	///     </para>
 	/// </summary>
-	/// <seealso cref="FMOD.Core.Dsp" />
+	/// <seealso cref="Dsp" />
 	public class ItEcho : Dsp
 	{
 		#region Events

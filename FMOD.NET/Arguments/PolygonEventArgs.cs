@@ -1,16 +1,17 @@
 ﻿using System;
-using FMOD.Core;
+using FMOD.NET.Core;
+using FMOD.NET.Data;
 
-namespace FMOD.Arguments
+namespace FMOD.NET.Arguments
 {
 	/// <inheritdoc />
 	/// <summary>
-	/// Arguments for <see cref="FMOD.Data.Polygon" /> specific events.
+	/// Arguments for <see cref="Polygon" /> specific events.
 	/// </summary>
 	/// <seealso cref="System.EventArgs" />
-	/// <seealso cref="FMOD.Core.Geometry.PolygonAdded" />
-	/// <seealso cref="FMOD.Core.Geometry.PolygonAttributesChanged" />
-	/// <seealso cref="FMOD.Core.Geometry.PolygonVertexChanged" />
+	/// <seealso cref="Geometry.PolygonAdded" />
+	/// <seealso cref="Geometry.PolygonAttributesChanged" />
+	/// <seealso cref="Geometry.PolygonVertexChanged" />
 	public class PolygonEventArgs : EventArgs
 	{
 		/// <summary>
@@ -23,9 +24,9 @@ namespace FMOD.Arguments
 
 		/// <inheritdoc />
 		/// <summary>
-		/// Initializes a new instance of the <see cref="FMOD.Arguments.PolygonEventArgs" /> class.
+		/// Initializes a new instance of the <see cref="PolygonEventArgs" /> class.
 		/// </summary>
-		/// <param name="index">The index of the polygon within a <see cref="FMOD.Core.Geometry" /> object.</param>
+		/// <param name="index">The index of the polygon within a <see cref="Geometry" /> object.</param>
 		public PolygonEventArgs(int index)
 		{
 			Index = index;

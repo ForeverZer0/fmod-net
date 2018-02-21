@@ -53,19 +53,19 @@
 #region Using Directives
 
 using System;
-using FMOD.Arguments;
-using FMOD.Core;
+using FMOD.NET.Arguments;
+using FMOD.NET.Core;
 
 #endregion
 
-namespace FMOD.DSP
+namespace FMOD.NET.DSP
 {
 	/// <inheritdoc />
 	/// <summary>
 	///     <para>This unit implements dynamic compression (linked/unlinked multichannel, wideband). </para>
 	///     <para>This is a multichannel software limiter that is uniform across the whole spectrum.</para>
 	/// </summary>
-	/// <seealso cref="FMOD.Core.Dsp" />
+	/// <seealso cref="Dsp" />
 	/// <remarks>
 	///     The limiter is not guaranteed to catch every peak above the threshold level, because it cannot apply gain
 	///     reduction instantaneously - the time delay is determined by the attack time. However setting the attack time too

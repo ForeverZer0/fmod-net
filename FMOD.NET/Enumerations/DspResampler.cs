@@ -52,12 +52,12 @@
 
 #region Using Directives
 
-using FMOD.Core;
-using FMOD.Structures;
+using FMOD.NET.Core;
+using FMOD.NET.Structures;
 
 #endregion
 
-namespace FMOD.Enumerations
+namespace FMOD.NET.Enumerations
 {
 	/// <summary>
 	///     List of interpolation types that the FMOD Studio software mixer supports.

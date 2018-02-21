@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace FMOD.Core
+namespace FMOD.NET.Core
 {
 	public class MemoryBuffer : IDisposable
 	{

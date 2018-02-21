@@ -54,12 +54,12 @@
 
 using System;
 using System.Runtime.InteropServices;
-using FMOD.Core;
-using FMOD.Enumerations;
+using FMOD.NET.Core;
+using FMOD.NET.Enumerations;
 
 #endregion
 
-namespace FMOD.Structures
+namespace FMOD.NET.Structures
 {
 	/// <summary>
 	///     Base structure for DSP parameter descriptions.

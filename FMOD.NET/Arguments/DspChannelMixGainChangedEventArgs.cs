@@ -1,4 +1,4 @@
-﻿namespace FMOD.Arguments
+﻿namespace FMOD.NET.Arguments
 {
 	public class DspChannelMixGainChangedEventArgs : FloatParamEventArgs
 	{

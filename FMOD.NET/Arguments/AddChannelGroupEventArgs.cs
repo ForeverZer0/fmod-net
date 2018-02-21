@@ -1,7 +1,7 @@
 ﻿using System;
-using FMOD.Core;
+using FMOD.NET.Core;
 
-namespace FMOD.Arguments
+namespace FMOD.NET.Arguments
 {
 	public class AddChannelGroupEventArgs : EventArgs
 	{

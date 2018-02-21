@@ -56,12 +56,12 @@ using System;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Text;
-using FMOD.Core;
-using FMOD.Enumerations;
+using FMOD.NET.Core;
+using FMOD.NET.Enumerations;
 
 #endregion
 
-namespace FMOD.Structures
+namespace FMOD.NET.Structures
 {
 	[StructLayout(LayoutKind.Sequential)]
 	public struct Tag

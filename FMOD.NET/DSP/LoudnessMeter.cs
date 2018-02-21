@@ -1,7 +1,7 @@
 ﻿using System;
-using FMOD.Core;
+using FMOD.NET.Core;
 
-namespace FMOD.DSP
+namespace FMOD.NET.DSP
 {
 	public class LoudnessMeter : Dsp
 	{

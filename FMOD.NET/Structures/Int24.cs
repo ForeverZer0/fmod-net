@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace FMOD.Structures
+namespace FMOD.NET.Structures
 {
 	[StructLayout(LayoutKind.Sequential, Size = 3, Pack = 1)]
 	public struct Int24

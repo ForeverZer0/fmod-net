@@ -54,13 +54,13 @@
 
 using System;
 using System.IO;
-using FMOD.Arguments;
-using FMOD.Data;
-using FMOD.Structures;
+using FMOD.NET.Arguments;
+using FMOD.NET.Data;
+using FMOD.NET.Structures;
 
 #endregion
 
-namespace FMOD.Core
+namespace FMOD.NET.Core
 {
 	/// <summary>
 	///     Describes the shape of a 3D environment.
@@ -250,7 +250,7 @@ namespace FMOD.Core
 		/// <value>
 		///     The polygon count.
 		/// </value>
-		/// <seealso cref="AddPolygon(FMOD.Data.Polygon)" />
+		/// <seealso cref="AddPolygon(FMOD.NET.Data.Polygon)" />
 		/// <seealso cref="AddPolygon(float, float, bool,Vector[])" />
 		public int PolygonCount
 		{
@@ -373,7 +373,7 @@ namespace FMOD.Core
 		/// </summary>
 		/// <param name="index">The index of the polygon to retrieve.</param>
 		/// <returns>The specified <see cref="Polygon" />.</returns>
-		/// <seealso cref="AddPolygon(FMOD.Data.Polygon)" />
+		/// <seealso cref="AddPolygon(FMOD.NET.Data.Polygon)" />
 		/// <seealso cref="Polygon" />
 		public Polygon GetPolygon(int index)
 		{
@@ -394,7 +394,7 @@ namespace FMOD.Core
 		/// <param name="index">The index of the polygon.</param>
 		/// <returns>Attributes describing the polygon.</returns>
 		/// <seealso cref="PolygonAttributes" />
-		/// <seealso cref="SetPolygonAttributes(int, FMOD.Data.PolygonAttributes)" />
+		/// <seealso cref="SetPolygonAttributes(int,FMOD.NET.Data.PolygonAttributes)" />
 		/// <seealso cref="SetPolygonAttributes(int, float, float, bool)" />
 		/// <seealso cref="PolygonCount" />
 		public PolygonAttributes GetPolygonAttributes(int index)

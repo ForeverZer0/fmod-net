@@ -53,11 +53,11 @@
 #region Using Directives
 
 using System.Runtime.InteropServices;
-using FMOD.Enumerations;
+using FMOD.NET.Enumerations;
 
 #endregion
 
-namespace FMOD.Structures
+namespace FMOD.NET.Structures
 {
 	/// <summary>
 	///     <para>Structure for data parameters of type <see cref="DspParameterDataTypes.OverallGain" />.</para>

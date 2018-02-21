@@ -53,12 +53,12 @@
 #region Using Directives
 
 using System;
-using FMOD.Arguments;
-using FMOD.Core;
+using FMOD.NET.Arguments;
+using FMOD.NET.Core;
 
 #endregion
 
-namespace FMOD.DSP
+namespace FMOD.NET.DSP
 {
 	/// <summary>
 	///     This unit tracks the envelope of the input/sidechain signal.
@@ -67,7 +67,7 @@ namespace FMOD.DSP
 	///     <para>Deprecated and will be removed in a future release.</para>
 	///     <para>This unit does not affect the incoming signal.</para>
 	/// </remarks>
-	/// <seealso cref="FMOD.Core.Dsp" />
+	/// <seealso cref="Dsp" />
 	[Obsolete("Deprecated and will be removed in a future release.")]
 	public class EnvelopeFollower : Dsp
 	{

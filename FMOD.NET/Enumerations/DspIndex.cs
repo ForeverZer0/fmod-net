@@ -52,11 +52,11 @@
 
 #region Using Directives
 
-using FMOD.Core;
+using FMOD.NET.Core;
 
 #endregion
 
-namespace FMOD.Enumerations
+namespace FMOD.NET.Enumerations
 {
 	/// <summary>
 	///     These enums denote special types of node within a DSP chain.

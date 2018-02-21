@@ -53,18 +53,18 @@
 #region Using Directives
 
 using System;
-using FMOD.Arguments;
-using FMOD.Core;
+using FMOD.NET.Arguments;
+using FMOD.NET.Core;
 
 #endregion
 
-namespace FMOD.DSP
+namespace FMOD.NET.DSP
 {
 	/// <inheritdoc />
 	/// <summary>
 	///     A flexible five band parametric equalizer.
 	/// </summary>
-	/// <seealso cref="FMOD.Core.Dsp" />
+	/// <seealso cref="Dsp" />
 	public class MultiBandEq : Dsp
 	{
 		#region Events

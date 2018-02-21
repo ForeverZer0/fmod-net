@@ -1,4 +1,4 @@
-﻿namespace FMOD.Structures
+﻿namespace FMOD.NET.Structures
 {
 	public struct OutputDescription
 	{

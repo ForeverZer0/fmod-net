@@ -53,12 +53,12 @@
 #region Using Directives
 
 using System;
-using FMOD.Core;
-using FMOD.Structures;
+using FMOD.NET.Core;
+using FMOD.NET.Structures;
 
 #endregion
 
-namespace FMOD.Enumerations
+namespace FMOD.NET.Enumerations
 {
 	/// <summary>
 	///     <see cref="Sound" /> description bitfields, bitwise OR them together for loading and describing sounds.

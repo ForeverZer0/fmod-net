@@ -53,17 +53,17 @@
 #region Using Directives
 
 using System;
-using FMOD.Arguments;
-using FMOD.Core;
+using FMOD.NET.Arguments;
+using FMOD.NET.Core;
 
 #endregion
 
-namespace FMOD.DSP
+namespace FMOD.NET.DSP
 {
 	/// <summary>
 	///     This unit sends a copy of the signal to a return DSP anywhere in the DSP tree.
 	/// </summary>
-	/// <seealso cref="FMOD.Core.Dsp" />
+	/// <seealso cref="Dsp" />
 	/// <seealso cref="Return" />
 	public class Send : Dsp
 	{

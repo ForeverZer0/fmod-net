@@ -52,11 +52,11 @@
 
 #region Using Directives
 
-using FMOD.Core;
+using FMOD.NET.Core;
 
 #endregion
 
-namespace FMOD.Enumerations
+namespace FMOD.NET.Enumerations
 {
 	/// <summary>
 	///     <para>List of tag types that could be stored within a sound. </para>

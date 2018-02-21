@@ -53,12 +53,12 @@
 #region Using Directives
 
 using System;
-using FMOD.Arguments;
-using FMOD.Core;
+using FMOD.NET.Arguments;
+using FMOD.NET.Core;
 
 #endregion
 
-namespace FMOD.DSP
+namespace FMOD.NET.DSP
 {
 	/// <inheritdoc />
 	/// <summary>
@@ -94,8 +94,8 @@ namespace FMOD.DSP
 	///     </para>
 	///     <para>The original code is COPYRIGHT 1999-2003 Stephan M. Bernsee smb@dspdimension.com.</para>
 	/// </remarks>
-	/// <seealso cref="FMOD.Core.Dsp" />
-	/// <seealso cref="FMOD.DSP.PitchShift.FftWindowSize" />
+	/// <seealso cref="Dsp" />
+	/// <seealso cref="FftWindowSize" />
 	public class PitchShift : Dsp
 	{
 		#region Events

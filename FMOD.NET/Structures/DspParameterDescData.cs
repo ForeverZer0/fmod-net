@@ -53,12 +53,12 @@
 #region Using Directives
 
 using System.Runtime.InteropServices;
-using FMOD.Core;
-using FMOD.Enumerations;
+using FMOD.NET.Core;
+using FMOD.NET.Enumerations;
 
 #endregion
 
-namespace FMOD.Structures
+namespace FMOD.NET.Structures
 {
 	/// <summary>
 	///     <para>Structure to define a data parameter for a DSP unit. Use 0 or above for custom types.</para>

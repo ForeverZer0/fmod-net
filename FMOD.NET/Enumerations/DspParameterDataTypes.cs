@@ -52,12 +52,12 @@
 
 #region Using Directives
 
-using FMOD.Core;
-using FMOD.Structures;
+using FMOD.NET.Core;
+using FMOD.NET.Structures;
 
 #endregion
 
-namespace FMOD.Enumerations
+namespace FMOD.NET.Enumerations
 {
 	/// <summary>
 	///     <para>Built-in types for the "datatype" member of <see cref="DspParameterDescData" />. </para>

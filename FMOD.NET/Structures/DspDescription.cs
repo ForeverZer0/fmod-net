@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using FMOD.Core;
+using FMOD.NET.Core;
 
-namespace FMOD.Structures
+namespace FMOD.NET.Structures
 {
     [StructLayout(LayoutKind.Sequential)]
     public struct DspDescription

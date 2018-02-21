@@ -52,11 +52,11 @@
 
 #region Using Directives
 
-using FMOD.Core;
+using FMOD.NET.Core;
 
 #endregion
 
-namespace FMOD.Enumerations
+namespace FMOD.NET.Enumerations
 {
 	/// <summary>
 	///     List of data types that can be returned by <see cref="Sound.GetTag" />.

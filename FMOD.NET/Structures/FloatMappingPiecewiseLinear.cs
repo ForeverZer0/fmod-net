@@ -54,11 +54,11 @@
 
 using System;
 using System.Runtime.InteropServices;
-using FMOD.Enumerations;
+using FMOD.NET.Enumerations;
 
 #endregion
 
-namespace FMOD.Structures
+namespace FMOD.NET.Structures
 {
 	/// <summary>
 	///     Structure to define a piecewise linear mapping.

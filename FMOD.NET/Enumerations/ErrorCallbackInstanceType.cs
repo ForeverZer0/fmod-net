@@ -52,11 +52,11 @@
 
 #region Using Directives
 
-using FMOD.Core;
+using FMOD.NET.Core;
 
 #endregion
 
-namespace FMOD.Enumerations
+namespace FMOD.NET.Enumerations
 {
 	/// <summary>
 	///     Used to distinguish the instance type of an <see cref="FmodException" />.

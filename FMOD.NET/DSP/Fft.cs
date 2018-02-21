@@ -54,20 +54,20 @@
 
 using System;
 using System.Runtime.InteropServices;
-using FMOD.Core;
-using FMOD.Structures;
+using FMOD.NET.Core;
+using FMOD.NET.Structures;
 
 #endregion
 
-namespace FMOD.DSP
+namespace FMOD.NET.DSP
 {
 	/// <inheritdoc />
 	/// <summary>
 	///     Uses a Fast Fourier Transform algorithm to obtains spectrum data of a sound for analysis.
 	/// </summary>
-	/// <seealso cref="FMOD.DSP.Fft.SpectrumData" />
-	/// <seealso cref="FMOD.DSP.Fft.WindowSize" />
-	/// <seealso cref="FMOD.DSP.Fft.WindowType" />
+	/// <seealso cref="SpectrumData" />
+	/// <seealso cref="WindowSize" />
+	/// <seealso cref="WindowType" />
 	public class Fft : Dsp
 	{
 		private readonly SpectrumData _spectrum;

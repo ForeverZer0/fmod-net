@@ -53,12 +53,12 @@
 #region Using Directives
 
 using System;
-using FMOD.Arguments;
-using FMOD.Core;
+using FMOD.NET.Arguments;
+using FMOD.NET.Core;
 
 #endregion
 
-namespace FMOD.DSP
+namespace FMOD.NET.DSP
 {
 	/// <inheritdoc />
 	/// <summary>
@@ -68,7 +68,7 @@ namespace FMOD.DSP
 	///     Chorus is an effect where the sound is more "spacious" due to one to three versions of the sound being played along
 	///     side the original signal but with the pitch of each copy modulating on a sine wave.
 	/// </remarks>
-	/// <seealso cref="FMOD.Core.Dsp" />
+	/// <seealso cref="Dsp" />
 	public class Chorus : Dsp
 	{
 		#region Events

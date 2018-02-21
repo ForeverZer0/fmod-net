@@ -50,7 +50,7 @@
 
 #endregion
 
-namespace FMOD.Core
+namespace FMOD.NET.Core
 {
 	/// <summary>
 	///     Static class containing constant values for reference.

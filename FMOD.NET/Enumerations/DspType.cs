@@ -53,11 +53,11 @@
 #region Using Directives
 
 using System;
-using FMOD.Core;
+using FMOD.NET.Core;
 
 #endregion
 
-namespace FMOD.Enumerations
+namespace FMOD.NET.Enumerations
 {
 	/// <summary>
 	///     These definitions can be used for creating <b>FMOD</b> defined special effects or DSP units.
@@ -87,7 +87,7 @@ namespace FMOD.Enumerations
 		/// <summary>
 		///     <para>This unit filters sound using a high quality, resonant lowpass filter algorithm but consumes more CPU time. </para>
 		///     <para>
-		///         Deprecated and will be removed in a future release (see <see cref="FMOD.DSP.Lowpass" /> remarks for
+		///         Deprecated and will be removed in a future release (see <see cref="DSP.Lowpass" /> remarks for
 		///         alternatives).
 		///     </para>
 		/// </summary>
@@ -103,7 +103,7 @@ namespace FMOD.Enumerations
 		/// <summary>
 		///     <para>This unit filters sound using a resonant highpass filter algorithm. </para>
 		///     <para>
-		///         Deprecated and will be removed in a future release (see <see cref="FMOD.DSP.Highpass" /> remarks for
+		///         Deprecated and will be removed in a future release (see <see cref="DSP.Highpass" /> remarks for
 		///         alternatives).
 		///     </para>
 		/// </summary>
@@ -144,7 +144,7 @@ namespace FMOD.Enumerations
 		///     <para>This unit attenuates or amplifies a selected frequency range</para>
 		///     .
 		///     <para>
-		///         Deprecated and will be removed in a future release (see <see cref="FMOD.DSP.ParamEq" /> remarks for
+		///         Deprecated and will be removed in a future release (see <see cref="DSP.ParamEq" /> remarks for
 		///         alternatives).
 		///     </para>
 		/// </summary>
@@ -189,7 +189,7 @@ namespace FMOD.Enumerations
 		/// <summary>
 		///     <para>This unit filters sound using a simple lowpass with no resonance, but has flexible cutoff and is fast.</para>
 		///     <para>
-		///         Deprecated and will be removed in a future release (see <see cref="FMOD.DSP.LowpassSimple" /> remarks for
+		///         Deprecated and will be removed in a future release (see <see cref="DSP.LowpassSimple" /> remarks for
 		///         alternatives).
 		///     </para>
 		/// </summary>
@@ -225,7 +225,7 @@ namespace FMOD.Enumerations
 		/// <summary>
 		///     <para>This unit filters sound using a simple highpass with no resonance, but has flexible cutoff and is fast.</para>
 		///     <para>
-		///         Deprecated and will be removed in a future release (see <see cref="FMOD.DSP.LowpassSimple" /> remarks for
+		///         Deprecated and will be removed in a future release (see <see cref="DSP.LowpassSimple" /> remarks for
 		///         alternatives).
 		///     </para>
 		/// </summary>

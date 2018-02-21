@@ -53,12 +53,11 @@
 #region Using Directives
 
 using System;
-using FMOD.Core;
-using FMOD.Structures;
+using FMOD.NET.Core;
 
 #endregion
 
-namespace FMOD.Enumerations
+namespace FMOD.NET.Enumerations
 {
 	/// <summary>
 	///     <para>

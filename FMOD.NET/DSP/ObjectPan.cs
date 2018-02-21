@@ -1,8 +1,8 @@
 ﻿using System;
-using FMOD.Arguments;
-using FMOD.Core;
+using FMOD.NET.Arguments;
+using FMOD.NET.Core;
 
-namespace FMOD.DSP
+namespace FMOD.NET.DSP
 {
 	public class ObjectPan : Dsp
 	{

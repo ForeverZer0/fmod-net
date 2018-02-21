@@ -1,14 +1,15 @@
 ﻿using System;
+using FMOD.NET.Core;
 
-namespace FMOD.Arguments
+namespace FMOD.NET.Arguments
 {
 	/// <inheritdoc />
 	/// <summary>
-	/// Provides data for <see cref="FMOD.Core.Channel.VirtualVoiceSwapped" /> events.
+	/// Provides data for <see cref="ChannelControl.VirtualVoiceSwapped" /> events.
 	/// </summary>
 	/// <seealso cref="System.EventArgs" />
-	/// <seealso cref="FMOD.Core.Channel" />
-	/// <seealso cref="FMOD.Core.Channel.VirtualVoiceSwapped"/>
+	/// <seealso cref="Channel" />
+	/// <seealso cref="ChannelControl.VirtualVoiceSwapped"/>
 	public class VoiceSwapEventArgs : EventArgs
 	{
 		/// <summary>
@@ -23,7 +24,7 @@ namespace FMOD.Arguments
 
 		/// <inheritdoc />
 		/// <summary>
-		/// Initializes a new instance of the <see cref="FMOD.Arguments.VoiceSwapEventArgs" /> class.
+		/// Initializes a new instance of the <see cref="VoiceSwapEventArgs" /> class.
 		/// </summary>
 		/// <param name="isEmulated">If set to <c>true</c> if emulated, otherwise <c>false</c> and real.</param>
 		public VoiceSwapEventArgs(bool isEmulated)

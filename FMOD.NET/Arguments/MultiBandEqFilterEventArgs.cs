@@ -1,6 +1,6 @@
-﻿using FMOD.DSP;
+﻿using FMOD.NET.DSP;
 
-namespace FMOD.Arguments
+namespace FMOD.NET.Arguments
 {
 	public class MultiBandEqFilterEventArgs : DspParamEventArgs
 	{

@@ -1,8 +1,8 @@
 ﻿using System;
-using FMOD.Enumerations;
-using FMOD.Structures;
+using FMOD.NET.Enumerations;
+using FMOD.NET.Structures;
 
-namespace FMOD.Core
+namespace FMOD.NET.Core
 {
 	public delegate IntPtr MemoryAllocCallback(uint size, MemoryType type, IntPtr sourceStr);
 

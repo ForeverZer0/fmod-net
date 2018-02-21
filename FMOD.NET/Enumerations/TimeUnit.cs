@@ -53,18 +53,19 @@
 #region Using Directives
 
 using System;
+using FMOD.NET.Core;
 
 #endregion
 
-namespace FMOD.Enumerations
+namespace FMOD.NET.Enumerations
 {
 	/// <summary>
-	///     List of time types that can be returned by <see cref="M:FMOD.Core.Sound.GetLength" /> and used with
-	///     <see cref="M:FMOD.Core.Channel.SetPosition" /> or <see cref="M:FMOD.Core.Channel.GetPosition" />.
+	///     List of time types that can be returned by <see cref="Sound.GetLength" /> and used with
+	///     <see cref="Channel.SetPosition" /> or <see cref="Channel.GetPosition" />.
 	/// </summary>
-	/// <seealso cref="M:FMOD.Core.Sound.GetLength" />
-	/// <seealso cref="M:FMOD.Core.Channel.GetPosition" />
-	/// <seealso cref="M:FMOD.Core.Channel.SetPosition" />
+	/// <seealso cref="Sound.GetLength" />
+	/// <seealso cref="Channel.GetPosition" />
+	/// <seealso cref="Channel.SetPosition" />
 	[Flags]
 	public enum TimeUnit : uint
 	{
@@ -85,7 +86,7 @@ namespace FMOD.Enumerations
 
 		/// <summary>
 		///     <para>Raw file bytes of (compressed) sound data (does not include headers). </para>
-		///     <para>Only used by <see cref="M:FMOD.Core.Sound.GetLength" /> and <see cref="M:FMOD.Core.Channel.GetPosition" />. </para>
+		///     <para>Only used by <see cref="Sound.GetLength" /> and <see cref="Channel.GetPosition" />. </para>
 		/// </summary>
 		RawBytes = 0x00000008,
 
@@ -103,7 +104,7 @@ namespace FMOD.Enumerations
 
 		/// <summary>
 		///     <para>MOD/S3M/XM/IT. Current row in a sequenced module format. </para>
-		///     <para>Cannot use with <see cref="M:FMOD.Core.Channel.SetPosition" />.</para>
+		///     <para>Cannot use with <see cref="FMOD.Core.Channel.SetPosition" />.</para>
 		///     <para>
 		///         <see cref="O:FMOD.Core.Sound.GetLength" /> will return the number of rows in the currently playing or seeked
 		///         to pattern.
@@ -113,10 +114,10 @@ namespace FMOD.Enumerations
 
 		/// <summary>
 		///     MOD/S3M/XM/IT. Current pattern in a sequenced module format.
-		///     <para>Cannot use with <see cref="M:FMOD.Core.Channel.SetPosition" />.</para>
+		///     <para>Cannot use with <see cref="Channel.SetPosition" />.</para>
 		///     <para>
-		///         <see cref="M:FMOD.Core.Sound.GetLength" /> will return the number of patterns in the song and
-		///         <see cref="M:FMOD.Core.Channel.GetPosition" /> will return the currently playing pattern.
+		///         <see cref="Sound.GetLength" /> will return the number of patterns in the song and
+		///         <see cref="Channel.GetPosition" /> will return the currently playing pattern.
 		///     </para>
 		/// </summary>
 		ModPattern = 0x00000400

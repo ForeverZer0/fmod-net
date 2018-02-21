@@ -53,14 +53,13 @@
 #region Using Directives
 
 using System;
-using FMOD.Arguments;
-using FMOD.Data;
-using FMOD.Enumerations;
-using FMOD.Structures;
+using FMOD.NET.Arguments;
+using FMOD.NET.Data;
+using FMOD.NET.Structures;
 
 #endregion
 
-namespace FMOD.Core
+namespace FMOD.NET.Core
 {
 	public partial class Sound
 	{
@@ -114,14 +113,14 @@ namespace FMOD.Core
 		///     Occurs when a loop points are added to the sound.
 		/// </summary>
 		/// <seealso cref="SetLoopPoints(LoopPoints)" />
-		/// <seealso cref="SetLoopPoints(uint, uint, TimeUnit)" />
-		/// <seealso cref="SetLoopPoints(uint, uint, TimeUnit, TimeUnit)" />
+		/// <seealso cref="SetLoopPoints(uint,uint,FMOD.NET.Enumerations.TimeUnit)" />
+		/// <seealso cref="SetLoopPoints(uint,uint,FMOD.NET.Enumerations.TimeUnit,FMOD.NET.Enumerations.TimeUnit)" />
 		public event EventHandler LoopPointAdded;
 
 		/// <summary>
-		///     Occurs when <see cref="FMOD.Core.Sound.Mode" /> property is changed.
+		///     Occurs when <see cref="Mode" /> property is changed.
 		/// </summary>
-		/// <seealso cref="FMOD.Core.Sound.Mode" />
+		/// <seealso cref="Mode" />
 		/// <seealso cref="Enumerations.Mode" />
 		public event EventHandler ModeChanged;
 
@@ -135,22 +134,22 @@ namespace FMOD.Core
 		///     Occurs when the volume for a music channel is changed.
 		/// </summary>
 		/// <seealso cref="SetMusicVolume"></seealso>
-		/// <seealso cref="FMOD.Arguments.SoundMusicVolumeChangedEventArgs"></seealso>
+		/// <seealso cref="SoundMusicVolumeChangedEventArgs"></seealso>
 		public event EventHandler<SoundMusicVolumeChangedEventArgs> MusicVolumeChanged;
 
 		/// <summary>
-		///     Occurs when <see cref="FMOD.Core.Sound.SoundGroup" /> property is changed.
+		///     Occurs when <see cref="SoundGroup" /> property is changed.
 		/// </summary>
-		/// <seealso cref="FMOD.Core.Sound.SoundGroup" />
-		/// <seealso cref="FMOD.Core.SoundGroup" />
+		/// <seealso cref="SoundGroup" />
+		/// <seealso cref="Core.SoundGroup" />
 		public event EventHandler SoundGroupChanged;
 
 		/// <summary>
 		///     Occurs when a sync-point is added to the <see cref="Sound" />.
 		/// </summary>
 		/// <seealso cref="SyncPointEventArgs" />
-		/// <seealso cref="AddSyncPoint(FMOD.Data.SyncPointInfo)" />
-		/// <seealso cref="AddSyncPoint(uint, TimeUnit, string)" />
+		/// <seealso cref="AddSyncPoint(FMOD.NET.Data.SyncPointInfo)" />
+		/// <seealso cref="AddSyncPoint(uint,FMOD.NET.Enumerations.TimeUnit,string)" />
 		public event EventHandler<SyncPointEventArgs> SyncPointAdded;
 
 		/// <summary>

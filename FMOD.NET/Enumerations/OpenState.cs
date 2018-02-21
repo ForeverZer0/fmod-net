@@ -52,11 +52,9 @@
 
 #region Using Directives
 
-using FMOD.Core;
-
 #endregion
 
-namespace FMOD.Enumerations
+namespace FMOD.NET.Enumerations
 {
 	/// <summary>
 	///     These values describe what state a sound is in after <see cref="Mode.NonBlocking" /> has been used to open it.

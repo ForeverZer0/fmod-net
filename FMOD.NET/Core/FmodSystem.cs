@@ -4,11 +4,11 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
-using FMOD.Data;
-using FMOD.Enumerations;
-using FMOD.Structures;
+using FMOD.NET.Data;
+using FMOD.NET.Enumerations;
+using FMOD.NET.Structures;
 
-namespace FMOD.Core
+namespace FMOD.NET.Core
 {
 	public partial class FmodSystem : HandleBase
 	{
@@ -623,7 +623,7 @@ namespace FMOD.Core
 		/// </para>
 		/// <para>
 		/// In <b>FMODEx</b> a special "ambient" reverb setting was used when outside the influence of all reverb spheres. This function no longer exists.<lineBreak/>
-		/// To avoid this reverb intefering with the reverb slot used by the 3D reverb, 2D reverb should use a different slot ID with <see cref="SetReverbProperties"/>, otherwise <see cref="FMOD.Structures.AdvancedSettings.ReverbInstance"/> can also be used to place 3D reverb on a different physical reverb slot. Use <see cref="ChannelControl.SetReverbProperties"/> to turn off reverb for 2D sounds (ie set wet = <c>0</c>).
+		/// To avoid this reverb intefering with the reverb slot used by the 3D reverb, 2D reverb should use a different slot ID with <see cref="SetReverbProperties"/>, otherwise <see cref="Structures.AdvancedSettings.ReverbInstance"/> can also be used to place 3D reverb on a different physical reverb slot. Use <see cref="ChannelControl.SetReverbProperties"/> to turn off reverb for 2D sounds (ie set wet = <c>0</c>).
 		/// </para>
 		/// <para>Creating multiple reverb objects does not impact performance. These are "virtual reverbs". There will still be only one physical reverb DSP running that just morphs between the different virtual reverbs.</para>
 		/// <para>
@@ -637,7 +637,7 @@ namespace FMOD.Core
 		/// <seealso cref="GetReverbProperties"/>
 		/// <seealso cref="SetReverbProperties"/>
 		/// <seealso cref="Update"/>
-		/// <seealso cref=FMOD.Structures.AdvancedSettings"/>
+		/// <seealso cref="Structures.AdvancedSettings"/>
 		/// <seealso cref="FmodSystem.AdvancedSettings"/>
 		public Reverb CreateReverb()
 		{

@@ -52,12 +52,11 @@
 
 #region Using Directives
 
-using FMOD.Core;
-using FMOD.Structures;
+using FMOD.NET.Structures;
 
 #endregion
 
-namespace FMOD.Data
+namespace FMOD.NET.Data
 {
 	/// <summary>
 	///     Describes the orientation of an object in 3D space.

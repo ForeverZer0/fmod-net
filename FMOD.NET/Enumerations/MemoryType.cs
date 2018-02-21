@@ -53,12 +53,12 @@
 #region Using Directives
 
 using System;
-using FMOD.Core;
-using FMOD.Structures;
+using System.Runtime.InteropServices;
+using FMOD.NET.Structures;
 
 #endregion
 
-namespace FMOD.Enumerations
+namespace FMOD.NET.Enumerations
 {
 	/// <summary>
 	///     <para>Bit fields for memory allocation type being passed into FMOD memory callbacks.</para>
@@ -113,7 +113,7 @@ namespace FMOD.Enumerations
 		Xbox360Physical = 0x00100000,
 
 		/// <summary>
-		///     Persistent memory. Memory will be freed when <see cref="FmodSystem.Dispose" /> is called.
+		///     Persistent memory. Memory will be freed when <see cref="SafeHandle.Dispose" /> is called.
 		/// </summary>
 		Persistent = 0x00200000,
 

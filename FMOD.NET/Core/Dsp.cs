@@ -57,22 +57,22 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
-using FMOD.Arguments;
-using FMOD.Data;
-using FMOD.DSP;
-using FMOD.Enumerations;
-using FMOD.Structures;
+using FMOD.NET.Arguments;
+using FMOD.NET.Data;
+using FMOD.NET.DSP;
+using FMOD.NET.Enumerations;
+using FMOD.NET.Structures;
 
 #endregion
 
-namespace FMOD.Core
+namespace FMOD.NET.Core
 {
 	/// <inheritdoc />
 	/// <summary>
 	///     <para>Describes a Digital Signal Processing unit for applying effects on sounds.</para>
 	///     <para>This class must be inherited.</para>
 	/// </summary>
-	/// <seealso cref="FMOD.Core.HandleBase" />
+	/// <seealso cref="HandleBase" />
 	public partial class Dsp : HandleBase
 	{
 		#region Constructors
@@ -574,7 +574,7 @@ namespace FMOD.Core
 		/// <seealso cref="DspConnectionType" />
 		/// <seealso cref="InputCount" />
 		/// <seealso cref="OutputCount" />
-		/// <seealso cref="DisconnectFrom(FMOD.Core.Dsp, DspConnection)" />
+		/// <seealso cref="DisconnectFrom" />
 		public DspConnection AddInput(Dsp dsp, DspConnectionType type = DspConnectionType.Standard)
 		{
 			NativeInvoke(FMOD_DSP_AddInput(this, dsp, out var connection, type));
@@ -1244,6 +1244,17 @@ namespace FMOD.Core
 		public void ShowConfigDialog(IntPtr hwnd, bool show = true)
 		{
 			NativeInvoke(FMOD_DSP_ShowConfigDialog(this, hwnd, show));
+		}
+
+		/// <summary>
+		/// Returns a <see cref="System.String" /> that represents this instance.
+		/// </summary>
+		/// <returns>
+		/// A <see cref="System.String" /> that represents this instance.
+		/// </returns>
+		public override string ToString()
+		{
+			return GetInfo().Name;
 		}
 
 		#endregion

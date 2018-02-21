@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FMOD.Core;
-using FMOD.Enumerations;
+using FMOD.NET.Core;
+using FMOD.NET.Enumerations;
 
-namespace FMOD.Arguments
+namespace FMOD.NET.Arguments
 {
 	public class DspInputEventArgs : EventArgs
 	{

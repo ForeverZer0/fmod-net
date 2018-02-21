@@ -55,11 +55,11 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Text;
-using FMOD.Enumerations;
+using FMOD.NET.Enumerations;
 
 #endregion
 
-namespace FMOD.Core
+namespace FMOD.NET.Core
 {
 	public partial class SoundGroup : HandleBase
 	{

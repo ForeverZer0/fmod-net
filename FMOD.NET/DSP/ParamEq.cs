@@ -53,12 +53,12 @@
 #region Using Directives
 
 using System;
-using FMOD.Arguments;
-using FMOD.Core;
+using FMOD.NET.Arguments;
+using FMOD.NET.Core;
 
 #endregion
 
-namespace FMOD.DSP
+namespace FMOD.NET.DSP
 {
 	/// <inheritdoc />
 	/// <summary>
@@ -73,8 +73,8 @@ namespace FMOD.DSP
 	///     When a frequency has its gain set to <c>1.0</c>, the sound will be unaffected and represents the original
 	///     signal exactly.
 	/// </remarks>
-	/// <seealso cref="FMOD.Core.Dsp" />
-	/// <seealso cref="FMOD.DSP.MultiBandEq" />
+	/// <seealso cref="Dsp" />
+	/// <seealso cref="MultiBandEq" />
 	[Obsolete("Deprecated and will be removed in a future release, to emulate with MultiBandEq.")]
 	public class ParamEq : Dsp
 	{

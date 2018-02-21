@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
+﻿using System.Runtime.InteropServices;
 
-namespace FMOD.Structures
+namespace FMOD.NET.Structures
 {
 	[StructLayout(LayoutKind.Sequential)]
 	public struct DspStateFunctions

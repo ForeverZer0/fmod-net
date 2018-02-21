@@ -52,17 +52,17 @@
 
 #region Using Directives
 
-using FMOD.Core;
-using FMOD.Structures;
+using FMOD.NET.Core;
+using FMOD.NET.Structures;
 
 #endregion
 
-namespace FMOD.Data
+namespace FMOD.NET.Data
 {
 	/// <summary>
 	///     Describes a shape in 3D space.
 	/// </summary>
-	/// <seealso cref="Geometry.AddPolygon(Polygon)" />
+	/// <seealso cref="Geometry.AddPolygon(FMOD.NET.Data.Polygon)" />
 	/// <seealso cref="Geometry.GetPolygon" />
 	/// <seealso cref="Geometry.PolygonCount" />
 	/// <seealso cref="PolygonAttributes" />

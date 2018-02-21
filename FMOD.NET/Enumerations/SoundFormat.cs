@@ -52,11 +52,9 @@
 
 #region Using Directives
 
-using FMOD.Core;
-
 #endregion
 
-namespace FMOD.Enumerations
+namespace FMOD.NET.Enumerations
 {
 	/// <summary>
 	///     These definitions describe the native format of the hardware or software buffer that will be used.

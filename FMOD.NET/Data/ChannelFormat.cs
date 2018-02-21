@@ -52,12 +52,12 @@
 
 #region Using Directives
 
-using FMOD.Core;
-using FMOD.Enumerations;
+using FMOD.NET.Core;
+using FMOD.NET.Enumerations;
 
 #endregion
 
-namespace FMOD.Data
+namespace FMOD.NET.Data
 {
 	/// <summary>
 	///     <para>
@@ -71,12 +71,12 @@ namespace FMOD.Data
 	/// </summary>
 	/// <seealso cref="Dsp" />
 	/// <seealso cref="Dsp.ChannelFormat" />
-	/// <seealso cref="FMOD.Enumerations.ChannelMask" />
-	/// <seealso cref="FMOD.Enumerations.SpeakerMode" />
+	/// <seealso cref="Enumerations.ChannelMask" />
+	/// <seealso cref="Enumerations.SpeakerMode" />
 	public class ChannelFormat
 	{
 		/// <summary>
-		///     Gets or sets the channel mask, series of flags specified by <see cref="FMOD.Enumerations.ChannelMask" /> to
+		///     Gets or sets the channel mask, series of flags specified by <see cref="Enumerations.ChannelMask" /> to
 		///     determine which speakers are represented by the channels in the signal. .
 		/// </summary>
 		/// <value>
@@ -112,7 +112,7 @@ namespace FMOD.Data
 		///     </para>
 		///     <para>
 		///         It could also describe the signal as all monaural, for example if <see cref="ChannelCount" /> was 16 and the
-		///         speakermode was <see cref="FMOD.Enumerations.SpeakerMode.Mono" />.
+		///         speakermode was <see cref="Enumerations.SpeakerMode.Mono" />.
 		///     </para>
 		/// </remarks>
 		public SpeakerMode SpeakerMode { get; set; }

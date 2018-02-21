@@ -54,12 +54,11 @@
 
 using System;
 using System.Runtime.InteropServices;
-using FMOD.Core;
-using FMOD.Enumerations;
+using FMOD.NET.Enumerations;
 
 #endregion
 
-namespace FMOD.Structures
+namespace FMOD.NET.Structures
 {
 	/// <summary>
 	///     Settings for advanced features like configuring memory and CPU usage for the

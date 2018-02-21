@@ -1,7 +1,7 @@
 ﻿using System;
-using FMOD.Structures;
+using FMOD.NET.Structures;
 
-namespace FMOD.Data
+namespace FMOD.NET.Data
 {
 	/// <summary>
 	/// Describes the 3D properties of a "virtual" reverb object.

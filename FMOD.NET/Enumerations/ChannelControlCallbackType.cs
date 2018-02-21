@@ -50,32 +50,32 @@
 
 #endregion
 
-using FMOD.Core;
+using FMOD.NET.Core;
 
-namespace FMOD.Enumerations
+namespace FMOD.NET.Enumerations
 {
 	/// <summary>
-	///     These callback types are used with <see cref="M:FMOD.NET.Core.ChannelControl.SetCallback" />.
+	///     These callback types are used with <see cref="ChannelControl.SetCallback" />.
 	/// </summary>
 	/// <remarks>
 	///     <para>
-	///         Each callback has command-data parameters passed as <see cref=System.IntPtr" /> unique to the type of
+	///         Each callback has command-data parameters passed as <see cref="System.IntPtr" /> unique to the type of
 	///         callback.
 	///     </para>
 	///     <para>
-	///         See reference to <see cref="M:FMOD.NET.Core.ChannelControl.SetCallback" /> to determine what they might
+	///         See reference to <see cref="ChannelControl.SetCallback" /> to determine what they might
 	///         mean for each type of callback.
 	///     </para>
 	///     <alert class="note">
 	///         <para>
-	///             Currently the user must call <see cref="M:FMOD.NET.Core.FmodSystem.Update" /> for these callbacks to
+	///             Currently the user must call <see cref="FmodSystem.Update" /> for these callbacks to
 	///             trigger!
 	///         </para>
 	///     </alert>
 	/// </remarks>
 	/// <seealso cref="ChannelControl.SetCallback" />
-	/// <seealso cref="M:FMOD.Core.FmodSystem.Update" />
-	/// <seealso cref="FMOD.Core.ChannelCallback" />
+	/// <seealso cref="FmodSystem.Update" />
+	/// <seealso cref="ChannelCallback" />
 	public enum ChannelControlCallbackType
 	{
 		/// <summary>

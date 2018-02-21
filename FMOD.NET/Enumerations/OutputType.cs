@@ -52,11 +52,11 @@
 
 #region Using Directives
 
-using FMOD.Core;
+using FMOD.NET.Core;
 
 #endregion
 
-namespace FMOD.Enumerations
+namespace FMOD.NET.Enumerations
 {
 	/// <summary>
 	///     Specifies the output types used with an <see cref="FmodSystem" />.

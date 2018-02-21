@@ -53,11 +53,11 @@
 #region Using Directives
 
 using System;
-using FMOD.Core;
+using FMOD.NET.Core;
 
 #endregion
 
-namespace FMOD.Enumerations
+namespace FMOD.NET.Enumerations
 {
 	/// <summary>
 	///     Specify the requested information to be output when using the logging version of <b>FMOD</b>.

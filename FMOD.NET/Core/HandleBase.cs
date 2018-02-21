@@ -54,12 +54,12 @@
 
 using System;
 using System.Runtime.ConstrainedExecution;
-using FMOD.Enumerations;
+using FMOD.NET.Enumerations;
 using Microsoft.Win32.SafeHandles;
 
 #endregion
 
-namespace FMOD.Core
+namespace FMOD.NET.Core
 {
 	/// <summary>
 	///     <para>The base class for all the core native <b>FMOD</b> classes.</para>
@@ -84,7 +84,7 @@ namespace FMOD.Core
 
 		/// <inheritdoc />
 		/// <summary>
-		///     Initializes a new instance of the <see cref="FMOD.Core.HandleBase" /> class.
+		///     Initializes a new instance of the <see cref="HandleBase" /> class.
 		/// </summary>
 		/// <param name="nativeHandle">The native handle.</param>
 		protected HandleBase(IntPtr nativeHandle) : base(true)
@@ -194,11 +194,11 @@ namespace FMOD.Core
 
 		/// <inheritdoc />
 		/// <summary>
-		///     Determines whether the specified <see cref="FMOD.Core.HandleBase" />, is equal to this instance.
+		///     Determines whether the specified <see cref="HandleBase" />, is equal to this instance.
 		/// </summary>
-		/// <param name="other">The <see cref="FMOD.Core.HandleBase" /> to compare with this instance.</param>
+		/// <param name="other">The <see cref="HandleBase" /> to compare with this instance.</param>
 		/// <returns>
-		///     <c>true</c> if the specified <see cref="FMOD.Core.HandleBase" /> is equal to this instance; otherwise,
+		///     <c>true</c> if the specified <see cref="HandleBase" /> is equal to this instance; otherwise,
 		///     <c>false</c>.
 		/// </returns>
 		public bool Equals(HandleBase other)

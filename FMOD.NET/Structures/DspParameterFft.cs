@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace FMOD.Structures
+namespace FMOD.NET.Structures
 {
 	[StructLayout(LayoutKind.Sequential)]
 	public struct DspParameterFft

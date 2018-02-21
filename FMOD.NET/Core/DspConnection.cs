@@ -53,17 +53,17 @@
 #region Using Directives
 
 using System;
-using FMOD.Enumerations;
+using FMOD.NET.Enumerations;
 
 #endregion
 
-namespace FMOD.Core
+namespace FMOD.NET.Core
 {
 	/// <summary>
 	///     <para>Represents a connection between two <see cref="HandleBase" /> units.</para>
 	///     <para>Think of it as the line between two circles.</para>
 	/// </summary>
-	/// <seealso cref="FMOD.Core.HandleBase" />
+	/// <seealso cref="HandleBase" />
 	public partial class DspConnection : HandleBase
 	{
 		#region Constructors

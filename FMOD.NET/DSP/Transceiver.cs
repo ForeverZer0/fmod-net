@@ -53,12 +53,12 @@
 #region Using Directives
 
 using System;
-using FMOD.Arguments;
-using FMOD.Core;
+using FMOD.NET.Arguments;
+using FMOD.NET.Core;
 
 #endregion
 
-namespace FMOD.DSP
+namespace FMOD.NET.DSP
 {
 	/// <summary>
 	///     <para>This unit 'sends' and 'receives' from a selection of up to 32 different slots.</para>
@@ -89,7 +89,7 @@ namespace FMOD.DSP
 	///     </para>
 	///     <para>Multiple transmitters sending to the same channel will be mixed together.</para>
 	/// </remarks>
-	/// <seealso cref="FMOD.Core.Dsp" />
+	/// <seealso cref="Dsp" />
 	/// <seealso cref="Send" />
 	/// <seealso cref="Return" />
 	public class Transceiver : Dsp

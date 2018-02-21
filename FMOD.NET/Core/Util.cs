@@ -56,7 +56,7 @@ using System;
 
 #endregion
 
-namespace FMOD.Core
+namespace FMOD.NET.Core
 {
 	public static class Util
 	{

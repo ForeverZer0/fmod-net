@@ -53,12 +53,12 @@
 #region Using Directives
 
 using System;
-using FMOD.Arguments;
-using FMOD.Data;
+using FMOD.NET.Arguments;
+using FMOD.NET.Data;
 
 #endregion
 
-namespace FMOD.Core
+namespace FMOD.NET.Core
 {
 	public partial class Geometry
 	{

@@ -53,11 +53,11 @@
 #region Using Directives
 
 using System;
-using FMOD.Arguments;
+using FMOD.NET.Arguments;
 
 #endregion
 
-namespace FMOD.Core
+namespace FMOD.NET.Core
 {
 	public partial class Dsp
 	{
@@ -93,7 +93,7 @@ namespace FMOD.Core
 		///     Occurs when the <see cref="ChannelFormat" /> property has changed.
 		/// </summary>
 		/// <seealso cref="ChannelFormat" />
-		/// <seealso cref="FMOD.Data.ChannelFormat" />
+		/// <seealso cref="Data.ChannelFormat" />
 		public event EventHandler ChannelFormatChanged;
 
 		/// <summary>
@@ -203,7 +203,7 @@ namespace FMOD.Core
 		/// <summary>
 		///     Raises the <see cref="ParameterChanged" /> event.
 		/// </summary>
-		/// <param name="e">The <see cref="FMOD.Arguments.DspParameterEventArgs" /> instance containing the event data.</param>
+		/// <param name="e">The <see cref="DspParameterEventArgs" /> instance containing the event data.</param>
 		protected virtual void OnParameterChanged(DspParameterEventArgs e)
 		{
 			ParameterChanged?.Invoke(this, e);

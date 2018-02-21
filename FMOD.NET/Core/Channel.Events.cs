@@ -53,12 +53,10 @@
 #region Using Directives
 
 using System;
-using FMOD.Data;
-using FMOD.Enumerations;
 
 #endregion
 
-namespace FMOD.Core
+namespace FMOD.NET.Core
 {
 	public partial class Channel
 	{
@@ -68,7 +66,7 @@ namespace FMOD.Core
 		///     Occurs when the <see cref="Channel" /> is either added or removed from a <see cref="Core.ChannelGroup" />.
 		/// </summary>
 		/// <seealso cref="ChannelGroup" />
-		/// <seealso cref="FMOD.Core.ChannelGroup" />
+		/// <seealso cref="Core.ChannelGroup" />
 		public event EventHandler ChannelGroupChanged;
 
 		/// <summary>
@@ -89,9 +87,9 @@ namespace FMOD.Core
 		/// <summary>
 		///     Occurs when a loop point is added.
 		/// </summary>
-		/// <seealso cref="SetLoopPoints(LoopPoints)" />
-		/// <seealso cref="SetLoopPoints(uint, uint, TimeUnit)" />
-		/// <seealso cref="SetLoopPoints(uint, uint, TimeUnit, TimeUnit)" />
+		/// <seealso cref="SetLoopPoints(FMOD.NET.Data.LoopPoints)" />
+		/// <seealso cref="SetLoopPoints(uint,uint,FMOD.NET.Enumerations.TimeUnit)" />
+		/// <seealso cref="SetLoopPoints(uint,uint,FMOD.NET.Enumerations.TimeUnit,FMOD.NET.Enumerations.TimeUnit)" />
 		public event EventHandler LoopPointAdded;
 
 		/// <summary>

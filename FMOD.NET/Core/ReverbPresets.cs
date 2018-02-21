@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
-using FMOD.Data;
-using FMOD.Structures;
+using FMOD.NET.Data;
+using FMOD.NET.Structures;
 
-namespace FMOD.Core
+namespace FMOD.NET.Core
 {
 	public static class ReverbPresets
 	{

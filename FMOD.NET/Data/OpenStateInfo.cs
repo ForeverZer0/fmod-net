@@ -1,6 +1,6 @@
-﻿using FMOD.Enumerations;
+﻿using FMOD.NET.Enumerations;
 
-namespace FMOD.Data
+namespace FMOD.NET.Data
 {
 	public class OpenStateInfo
 	{

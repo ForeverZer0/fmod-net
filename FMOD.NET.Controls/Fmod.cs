@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows.Forms;
-using FMOD.Core;
-using FMOD.Enumerations;
+using FMOD.NET.Core;
+using FMOD.NET.Enumerations;
 
 namespace FMOD.NET.Controls
 {

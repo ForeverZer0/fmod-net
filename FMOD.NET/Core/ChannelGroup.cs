@@ -54,25 +54,25 @@
 
 using System;
 using System.Text;
-using FMOD.Arguments;
+using FMOD.NET.Arguments;
 
 #endregion
 
-namespace FMOD.Core
+namespace FMOD.NET.Core
 {
 	/// <inheritdoc />
 	/// <summary>
-	///     Specialized <see cref="FMOD.Core.ChannelControl" /> for grouping multiple instances together to operate as a
+	///     Specialized <see cref="ChannelControl" /> for grouping multiple instances together to operate as a
 	///     single unit.
 	/// </summary>
-	/// <seealso cref="FMOD.Core.ChannelControl" />
+	/// <seealso cref="ChannelControl" />
 	public partial class ChannelGroup : ChannelControl
 	{
 		#region Constructors
 
 		/// <inheritdoc />
 		/// <summary>
-		///     Initializes a new instance of the <see cref="FMOD.Core.ChannelGroup" /> class.
+		///     Initializes a new instance of the <see cref="ChannelGroup" /> class.
 		/// </summary>
 		/// <param name="handle">The handle.</param>
 		protected ChannelGroup(IntPtr handle) : base(handle)

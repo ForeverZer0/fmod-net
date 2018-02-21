@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
-using FMOD.Core;
+using FMOD.NET.Core;
 
 namespace FMOD.NET.Controls
 {
@@ -21,28 +21,28 @@ namespace FMOD.NET.Controls
 		/// <summary>
 		/// Occurs when a sound is loaded.
 		/// </summary>
-		[Category("FMOD#")]
+		[Category("FMOD.NET")]
 		[Description("Occurs when a sound is loaded.")]
 		public event EventHandler SoundChanged;
 
 		/// <summary>
 		/// Occurs when the blend colors used to draw the waveform are changed.
 		/// </summary>
-		[Category("FMOD#")]
+		[Category("FMOD.NET")]
 		[Description("Occurs when the blend colors used to draw the waveform are changed.")]
 		public event EventHandler BlendColorsChanged; 
 
 		/// <summary>
 		/// Occurs when the gradient drawing mode used to draw the waveform has changed.
 		/// </summary>
-		[Category("FMOD#")]
+		[Category("FMOD.NET")]
 		[Description("Occurs when the gradient drawing mode used to draw the waveform has changed.")]
 		public event EventHandler GradientModeChanged;
 
 		/// <summary>
 		/// Occurs when the position cursor is clicked.
 		/// </summary>
-		[Category("FMOD#")]
+		[Category("FMOD.NET")]
 		[Description("Occurs when the position cursor is clicked.")]
 		public event EventHandler CursorClick
 			
@@ -54,7 +54,7 @@ namespace FMOD.NET.Controls
 		/// <summary>
 		/// Occurs when the mouse pointer is over the position cursor and a mouse button is pressed.
 		/// </summary>
-		[Category("FMOD#")]
+		[Category("FMOD.NET")]
 		[Description("Occurs when the mouse pointer is over the position cursor and a mouse button is pressed.")]
 		public event MouseEventHandler CursorMouseDown
 			
@@ -66,7 +66,7 @@ namespace FMOD.NET.Controls
 		/// <summary>
 		/// Occurs when the mouse pointer is over the position cursor and a mouse button is released.
 		/// </summary>
-		[Category("FMOD#")]
+		[Category("FMOD.NET")]
 		[Description("Occurs when the mouse pointer is over the position cursor and a mouse button is released.")]
 		public event MouseEventHandler CursorMouseUp
 			
@@ -78,7 +78,7 @@ namespace FMOD.NET.Controls
 		/// <summary>
 		/// Occurs when the mouse remains stationary over the postion cursor for an amount of time.
 		/// </summary>
-		[Category("FMOD#")]
+		[Category("FMOD.NET")]
 		[Description("Occurs when the mouse remains stationary over the postion cursor for an amount of time.")]
 		public event EventHandler CursorMouseHover
 			
@@ -90,7 +90,7 @@ namespace FMOD.NET.Controls
 		/// <summary>
 		/// Occurs when the mouse pointer enters over the visible portion of the position cursor.
 		/// </summary>
-		[Category("FMOD#")]
+		[Category("FMOD.NET")]
 		[Description("Occurs when the mouse pointer entes over the visible portion of the position cursor.")]
 		public event EventHandler CursorMouseEnter
 			
@@ -102,7 +102,7 @@ namespace FMOD.NET.Controls
 		/// <summary>
 		/// Occurs when the mouse pointer leaves the visible portion of the position cursor.
 		/// </summary>
-		[Category("FMOD#")]
+		[Category("FMOD.NET")]
 		[Description("Occurs when the mouse pointer leaves the visible portion of the position cursor.")]
 		public event EventHandler CursorMouseLeave
 			
@@ -114,7 +114,7 @@ namespace FMOD.NET.Controls
 		/// <summary>
 		/// Occurs when the mouse pointer is over the position cursor and moves.
 		/// </summary>
-		[Category("FMOD#")]
+		[Category("FMOD.NET")]
 		[Description("Occurs when the mouse pointer is over the position cursor and moves.")]
 		public event MouseEventHandler CursorMouseMove
 			
@@ -131,7 +131,7 @@ namespace FMOD.NET.Controls
 		/// <value>
 		/// The outer blend colors.
 		/// </value>
-		[Category("FMOD#")][Description("Define the colors used for the gradient of the outer waveform.")]
+		[Category("FMOD.NET")][Description("Define the colors used for the gradient of the outer waveform.")]
 		[TypeConverter(typeof(ExpandableObjectConverter))]
 		public ColorBlend OuterBlendColors
 		{
@@ -150,7 +150,7 @@ namespace FMOD.NET.Controls
 		/// <value>
 		/// The inner blend colors.
 		/// </value>
-		[Category("FMOD#")][Description("Define the colors used for the gradient of the inner waveform.")]
+		[Category("FMOD.NET")][Description("Define the colors used for the gradient of the inner waveform.")]
 		[TypeConverter(typeof(ExpandableObjectConverter))]
 		public ColorBlend InnerBlendColors
 		{
@@ -169,7 +169,7 @@ namespace FMOD.NET.Controls
 		/// <value>
 		/// The outer gradient mode.
 		/// </value>
-		[Category("FMOD#")][Description("Define the direction the the gradient is drawn on the outer waveform.")]
+		[Category("FMOD.NET")][Description("Define the direction the the gradient is drawn on the outer waveform.")]
 		[TypeConverter(typeof(EnumConverter)), DefaultValue(typeof(LinearGradientMode), "Vertical")]
 		public LinearGradientMode OuterGradientMode
 		{
@@ -188,7 +188,7 @@ namespace FMOD.NET.Controls
 		/// <value>
 		/// The inner gradient mode.
 		/// </value>
-		[Category("FMOD#")][Description("Define the direction the the gradient is drawn on the inner waveform.")]
+		[Category("FMOD.NET")][Description("Define the direction the the gradient is drawn on the inner waveform.")]
 		[TypeConverter(typeof(EnumConverter)), DefaultValue(typeof(LinearGradientMode), "Vertical")]
 		public LinearGradientMode InnerGradientMode
 		{
@@ -207,7 +207,7 @@ namespace FMOD.NET.Controls
 		/// <value>
 		///   <c>true</c> if position cursor is visible; otherwise, <c>false</c>.
 		/// </value>
-		[Category("FMOD#"), DefaultValue(true)]
+		[Category("FMOD.NET"), DefaultValue(true)]
 		[Description("Value indicating whether the position cursor is visible.")]
 		public bool PositionCursorVisible
 		{
@@ -221,7 +221,7 @@ namespace FMOD.NET.Controls
 		/// <value>
 		/// The position cursor.
 		/// </value>
-		[Category("FMOD#")][Description("Properties for the position cursor.")]
+		[Category("FMOD.NET")][Description("Properties for the position cursor.")]
 		[TypeConverter(typeof(ExpandableObjectConverter))]
 		public Button PositionCursor
 		{
@@ -255,21 +255,6 @@ namespace FMOD.NET.Controls
 		public WaveForm()
 		{
 			InitializeComponent();
-			if (LicenseManager.UsageMode == LicenseUsageMode.Designtime)
-				CreateSample();
-		}
-
-		private void CreateSample()
-		{
-			var rand = new Random();
-			var points = new PointF[200];
-			for (var i = 0; i < 200; i++)
-				points[i] = new PointF(i / 200.0f, Math.Max((float)rand.NextDouble(), 0.95f));
-			_maxPeakPath = new GraphicsPath();
-			_maxPeakPath.AddLines(points);
-			_avgPeakPath = (GraphicsPath) _maxPeakPath.Clone();
-			BlendColorsChanged += (s, e) => RefreshBrushes();
-			RefreshBrushes();
 		}
 
 		public void UpdateProgress(float progress)
@@ -325,7 +310,7 @@ namespace FMOD.NET.Controls
 				base.OnPaint(e);
 				return;
 			}
-			var halfHeight = (float) ClientSize.Height / 2.0f;
+			var halfHeight = ClientSize.Height / 2.0f;
 			using (var maxPath = (GraphicsPath) _maxPeakPath.Clone())
 			{
 				using (var matrix = new Matrix())

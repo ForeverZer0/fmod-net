@@ -1,8 +1,8 @@
 ﻿using System;
-using FMOD.Data;
-using FMOD.Structures;
+using FMOD.NET.Data;
+using FMOD.NET.Structures;
 
-namespace FMOD.Core
+namespace FMOD.NET.Core
 { // TODO: Finish seealso tags once classes our complete
 	/// <summary>
 	///     Represents a reverberation effect within a 3D environment.

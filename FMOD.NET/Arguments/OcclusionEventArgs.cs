@@ -1,14 +1,15 @@
 ﻿using System;
+using FMOD.NET.Core;
 
-namespace FMOD.Arguments
+namespace FMOD.NET.Arguments
 {
 	/// <inheritdoc />
 	/// <summary>
-	/// Provides data for <see cref="FMOD.Core.Channel.OcclusionCalculated" /> events.
+	/// Provides data for <see cref="ChannelControl.OcclusionCalculated" /> events.
 	/// </summary>
 	/// <seealso cref="System.EventArgs" />
-	/// <seealso cref="FMOD.Core.Channel" />
-	/// <seealso cref="FMOD.Core.Channel.OcclusionCalculated"/>
+	/// <seealso cref="Channel" />
+	/// <seealso cref="ChannelControl.OcclusionCalculated"/>
 	public class OcclusionEventArgs : EventArgs
 	{
 		/// <summary>
@@ -29,7 +30,7 @@ namespace FMOD.Arguments
 
 		/// <inheritdoc />
 		/// <summary>
-		/// Initializes a new instance of the <see cref="FMOD.Arguments.OcclusionEventArgs" /> class.
+		/// Initializes a new instance of the <see cref="OcclusionEventArgs" /> class.
 		/// </summary>
 		/// <param name="direct">The pointer to the direct occlusion value.</param>
 		/// <param name="reverb">The pointer to the reverb occlusion value.</param>

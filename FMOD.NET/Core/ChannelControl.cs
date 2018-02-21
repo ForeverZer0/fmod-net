@@ -54,27 +54,27 @@
 
 using System;
 using System.Runtime.InteropServices;
-using FMOD.Arguments;
-using FMOD.Data;
-using FMOD.Enumerations;
-using FMOD.Structures;
+using FMOD.NET.Arguments;
+using FMOD.NET.Data;
+using FMOD.NET.Enumerations;
+using FMOD.NET.Structures;
 
 #endregion
 
-namespace FMOD.Core
+namespace FMOD.NET.Core
 {
 	/// <inheritdoc />
 	/// <summary>
-	///     <para>The base class for both <see cref="FMOD.Core.Channel" /> and <see cref="FMOD.Core.ChannelGroup" />.</para>
+	///     <para>The base class for both <see cref="Channel" /> and <see cref="ChannelGroup" />.</para>
 	///     <para>This class must be inherited.</para>
 	/// </summary>
 	/// <remarks>
-	///     Internally, <see cref="FMOD.Core.Channel" /> and <see cref="FMOD.Core.ChannelControl" /> objects differ from the other primary classes
-	///     that inherit <see cref="FMOD.Core.HandleBase" />.
+	///     Internally, <see cref="Channel" /> and <see cref="ChannelControl" /> objects differ from the other primary classes
+	///     that inherit <see cref="HandleBase" />.
 	///     <para>
 	///         They are not technically "released" or "disposed", but are reused automatically as needed by <b>FMOD</b>.
 	///         Because of this, extra care must be taken that the any instance you are using is still valid, as it is possible
-	///         to maintain a reference to a <see cref="FMOD.Core.Channel" />, while the underlying handle it wraps is no longer valid
+	///         to maintain a reference to a <see cref="Channel" />, while the underlying handle it wraps is no longer valid
 	///         and has been used elsewhere. There are two common circumstances that may cause a reference to Channel to be
 	///         invalid:
 	///     </para>
@@ -87,7 +87,7 @@ namespace FMOD.Core
 	///         </item>
 	///         <item>
 	///             <para>
-	///                 The maximum number of "real" channels (See <see cref="F:FMOD.Core.Constants.MAX_CHANNELS" />) is being used, and
+	///                 The maximum number of "real" channels (See <see cref="F:FMOD.NET.Core.Constants.MAX_CHANNELS" />) is being used, and
 	///                 a sound or channel with a higher priority is required and the channel is stolen.
 	///             </para>
 	///         </item>
@@ -95,13 +95,13 @@ namespace FMOD.Core
 	///     <para>
 	///         <b>FMOD.NET</b> automatically marks channels invalid that have become so due to a sound ending, so a quick
 	///         check of <see cref="System.Runtime.InteropServices.SafeHandle.IsInvalid" /> will allow you to recognize if your reference is still valid.
-	///         Invoking native wrapped functions on an invalid channel will throw an <see cref="FMOD.Core.FmodException" />.
+	///         Invoking native wrapped functions on an invalid channel will throw an <see cref="FmodException" />.
 	///     </para>
 	/// </remarks>
-	/// <seealso cref="FMOD.Core.HandleBase" />
-	/// <seealso cref="FMOD.Core.HandleBase" />
-	/// <seealso cref="FMOD.Core.Channel" />
-	/// <seealso cref="FMOD.Core.ChannelGroup" />
+	/// <seealso cref="HandleBase" />
+	/// <seealso cref="HandleBase" />
+	/// <seealso cref="Channel" />
+	/// <seealso cref="ChannelGroup" />
 	public abstract partial class ChannelControl : HandleBase
 	{
 		/// <summary>
@@ -115,7 +115,7 @@ namespace FMOD.Core
 
 		/// <inheritdoc />
 		/// <summary>
-		///     Initializes a new instance of the <see cref="FMOD.Core.ChannelControl" /> class.
+		///     Initializes a new instance of the <see cref="ChannelControl" /> class.
 		/// </summary>
 		/// <param name="handle">The handle.</param>
 		protected ChannelControl(IntPtr handle) : base(handle)

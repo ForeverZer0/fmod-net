@@ -7,7 +7,11 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyTitle("FMOD.NET")]
 [assembly: AssemblyDescription("Complete managed wrapper around the FMOD Low-Level API.")]
-[assembly: AssemblyConfiguration("")]
+#if DEBUG
+[assembly: AssemblyConfiguration("Debug")]
+#else
+[assembly: AssemblyConfiguration("Release")]
+#endif
 [assembly: AssemblyCompany("Eric Freed")]
 [assembly: AssemblyProduct("FMOD.NET")]
 [assembly: AssemblyCopyright("Copyright © Eric Freed 2018")]

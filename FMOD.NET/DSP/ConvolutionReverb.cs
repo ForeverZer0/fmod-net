@@ -54,20 +54,20 @@
 
 using System;
 using System.Runtime.InteropServices;
-using FMOD.Arguments;
-using FMOD.Core;
-using FMOD.Structures;
+using FMOD.NET.Arguments;
+using FMOD.NET.Core;
+using FMOD.NET.Structures;
 
 #endregion
 
-namespace FMOD.DSP
+namespace FMOD.NET.DSP
 {
 	/// <inheritdoc />
 	/// <summary>
 	///     Applies a "convulation reverb", or "reverb IR", effect on a sound.
 	/// </summary>
-	/// <seealso cref="FMOD.Core.Dsp" />
-	/// <seealso cref="FMOD.Structures.ImpulseResponse" />
+	/// <seealso cref="Dsp" />
+	/// <seealso cref="Structures.ImpulseResponse" />
 	public class ConvolutionReverb : Dsp
 	{
 		#region Events

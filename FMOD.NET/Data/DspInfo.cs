@@ -57,7 +57,7 @@ using System.Drawing;
 
 #endregion
 
-namespace FMOD.Data
+namespace FMOD.NET.Data
 {
 	public class DspInfo
 	{

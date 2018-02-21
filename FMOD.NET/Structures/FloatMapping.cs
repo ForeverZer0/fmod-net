@@ -53,11 +53,11 @@
 #region Using Directives
 
 using System.Runtime.InteropServices;
-using FMOD.Enumerations;
+using FMOD.NET.Enumerations;
 
 #endregion
 
-namespace FMOD.Structures
+namespace FMOD.NET.Structures
 {
 	/// <summary>
 	///     Structure to define a mapping for a DSP unit's float parameter.

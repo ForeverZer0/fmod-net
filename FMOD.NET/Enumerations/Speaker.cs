@@ -52,11 +52,9 @@
 
 #region Using Directives
 
-using FMOD.Core;
-
 #endregion
 
-namespace FMOD.Enumerations
+namespace FMOD.NET.Enumerations
 {
 	/// <summary>
 	///     Assigns an enumeration for a speaker index.

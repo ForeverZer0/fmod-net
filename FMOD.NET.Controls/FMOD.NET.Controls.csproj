@@ -7,8 +7,8 @@
     <ProjectGuid>{5986F0EC-FD7E-4E00-8ABD-AAE92C6AC4E0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FMOD.Sharp.Controls</RootNamespace>
-    <AssemblyName>FMOD.Sharp.Controls</AssemblyName>
+    <RootNamespace>FMOD.NET.Controls</RootNamespace>
+    <AssemblyName>FMOD.NET.Controls</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

@@ -1,4 +1,4 @@
-﻿namespace FMOD.Data
+﻿namespace FMOD.NET.Data
 {
 	public class DspDelay
 	{

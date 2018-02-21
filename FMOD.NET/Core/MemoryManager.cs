@@ -2,9 +2,9 @@
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Security.Permissions;
-using FMOD.Enumerations;
+using FMOD.NET.Enumerations;
 
-namespace FMOD.Core
+namespace FMOD.NET.Core
 {
 	[SuppressUnmanagedCodeSecurity]
 	[SecurityPermission(SecurityAction.Demand, UnmanagedCode = true)]

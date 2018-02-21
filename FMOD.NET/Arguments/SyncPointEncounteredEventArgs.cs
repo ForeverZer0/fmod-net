@@ -1,7 +1,6 @@
 ﻿using System;
-using FMOD.Data;
 
-namespace FMOD.Arguments
+namespace FMOD.NET.Arguments
 {
 
 	public class SyncPointEncounteredEventArgs : EventArgs

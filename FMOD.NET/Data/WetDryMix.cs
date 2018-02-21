@@ -50,13 +50,15 @@
 
 #endregion
 
-namespace FMOD.Data
+using FMOD.NET.Core;
+
+namespace FMOD.NET.Data
 {
 	/// <summary>
 	///     Allows the user to scale the affect of a DSP effect, through control of the "wet" mix, which is the post-processed
 	///     signal and the "dry" which is the pre-processed signal.
 	/// </summary>
-	/// <seealso cref="FMOD.Core.Dsp.WetDryMix" />
+	/// <seealso cref="Dsp.WetDryMix" />
 	public class WetDryMix
 	{
 		/// <summary>

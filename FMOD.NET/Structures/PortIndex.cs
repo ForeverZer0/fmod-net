@@ -1,4 +1,4 @@
-﻿namespace FMOD.Structures
+﻿namespace FMOD.NET.Structures
 {
 	/// <summary>
 	/// Describes a port index for sound.

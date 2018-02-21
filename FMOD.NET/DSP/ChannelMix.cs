@@ -53,19 +53,19 @@
 #region Using Directives
 
 using System;
-using FMOD.Arguments;
-using FMOD.Core;
-using FMOD.Enumerations;
+using FMOD.NET.Arguments;
+using FMOD.NET.Core;
+using FMOD.NET.Enumerations;
 
 #endregion
 
-namespace FMOD.DSP
+namespace FMOD.NET.DSP
 {
 	/// <inheritdoc />
 	/// <summary>
 	///     This unit provides per signal channel gain, and output channel mapping to allow one multichannel signal made up of many groups of signals to map to a single output signal.
 	/// </summary>
-	/// <seealso cref="FMOD.Core.Dsp" />
+	/// <seealso cref="Dsp" />
 	/// <seealso cref="ChannelMix.Output" />
 	public class ChannelMix : Dsp
 	{

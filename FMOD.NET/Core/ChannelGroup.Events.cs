@@ -53,11 +53,11 @@
 #region Using Directives
 
 using System;
-using FMOD.Arguments;
+using FMOD.NET.Arguments;
 
 #endregion
 
-namespace FMOD.Core
+namespace FMOD.NET.Core
 {
 	public partial class ChannelGroup
 	{

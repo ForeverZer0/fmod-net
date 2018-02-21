@@ -53,11 +53,11 @@
 #region Using Directives
 
 using System;
-using FMOD.Core;
+using FMOD.NET.Core;
 
 #endregion
 
-namespace FMOD.DSP
+namespace FMOD.NET.DSP
 {
 	/// <summary>
 	///     This unit does nothing but take inputs and mix them together then feed the result to the soundcard unit.

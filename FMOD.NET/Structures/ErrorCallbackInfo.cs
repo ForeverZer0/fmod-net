@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using FMOD.Enumerations;
+using FMOD.NET.Enumerations;
 
-namespace FMOD.Structures
+namespace FMOD.NET.Structures
 {
 	[StructLayout(LayoutKind.Sequential)]
     public struct ErrorCallbackInfo

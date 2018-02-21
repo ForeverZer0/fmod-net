@@ -1,7 +1,7 @@
 ﻿using System.Runtime.InteropServices;
-using FMOD.Structures;
+using FMOD.NET.Structures;
 
-namespace FMOD.Data
+namespace FMOD.NET.Data
 {
 	public class ReverbPreset
 	{

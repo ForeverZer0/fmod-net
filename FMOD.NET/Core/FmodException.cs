@@ -53,12 +53,12 @@
 #region Using Directives
 
 using System;
-using FMOD.Enumerations;
-using FMOD.Resources;
+using FMOD.NET.Enumerations;
+using FMOD.NET.Resources;
 
 #endregion
 
-namespace FMOD.Core
+namespace FMOD.NET.Core
 {
 	public class FmodException : Exception
 	{

@@ -2,9 +2,9 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Threading.Tasks;
-using FMOD.Core;
-using FMOD.Enumerations;
-using FMOD.Structures;
+using FMOD.NET.Core;
+using FMOD.NET.Enumerations;
+using FMOD.NET.Structures;
 
 namespace FMOD.NET.Controls
 {
@@ -30,7 +30,7 @@ namespace FMOD.NET.Controls
 		{
 			_bufferReader = new BufferReader(sound);
 			_numPoints = (int)(sound.GetLength() / (sound.DefaultFrequency / 1000));
-			switch (sound.Format)
+			switch (sound.Info.Format)
 			{
 				case SoundFormat.Pcm8:
 					InitPath(1, byte.MaxValue);

@@ -53,14 +53,13 @@
 #region Using Directives
 
 using System;
-using FMOD.Arguments;
-using FMOD.Data;
-using FMOD.Enumerations;
-using FMOD.Structures;
+using FMOD.NET.Arguments;
+using FMOD.NET.Data;
+using FMOD.NET.Structures;
 
 #endregion
 
-namespace FMOD.Core
+namespace FMOD.NET.Core
 {
 	public partial class ChannelControl
 	{
@@ -118,7 +117,7 @@ namespace FMOD.Core
 		/// <summary>
 		///     Occurs when a <see cref="Dsp" /> is added to the DSP chain.
 		/// </summary>
-		/// <seealso cref="AddDsp(Dsp, DspIndex)" />
+		/// <seealso cref="AddDsp(FMOD.NET.Core.Dsp,FMOD.NET.Enumerations.DspIndex)" />
 		/// <seealso cref="AddDsp(Dsp, int)" />
 		/// <seealso cref="Dsp" />
 		public event EventHandler DspAdded;
@@ -128,7 +127,7 @@ namespace FMOD.Core
 		/// </summary>
 		/// <seealso cref="RemoveDsp" />
 		/// <seealso cref="RemoveDspAtIndex(int)" />
-		/// <seealso cref="RemoveDspAtIndex(DspIndex)" />
+		/// <seealso cref="RemoveDspAtIndex(FMOD.NET.Enumerations.DspIndex)" />
 		/// <seealso cref="Dsp" />
 		public event EventHandler DspRemoved;
 

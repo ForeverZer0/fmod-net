@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using FMOD.Data;
-using FMOD.Enumerations;
-using FMOD.Structures;
+using FMOD.NET.Data;
+using FMOD.NET.Enumerations;
+using FMOD.NET.Structures;
 
-namespace FMOD.Core
+namespace FMOD.NET.Core
 {
 	public partial class FmodSystem
 	{
@@ -154,8 +152,8 @@ namespace FMOD.Core
 		/// <value>
 		/// The advanced settings structure.
 		/// </value>
-		/// <seealso cref=FMOD.Structures.AdvancedSettings"/>
-		/// <seealso cref=FMOD.Enumerations.Mode"/>
+		/// <seealso cref="Structures.AdvancedSettings"/>
+		/// <seealso cref="Mode"/>
 		/// <seealso cref="AdvancedSettingsChanged"/>
 		public AdvancedSettings AdvancedSettings
 		{

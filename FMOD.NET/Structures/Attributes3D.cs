@@ -56,7 +56,7 @@ using System.Runtime.InteropServices;
 
 #endregion
 
-namespace FMOD.Structures
+namespace FMOD.NET.Structures
 {
 	/// <summary>
 	///     Structure describing a position, velocity and orientation.

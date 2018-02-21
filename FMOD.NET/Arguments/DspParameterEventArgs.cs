@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FMOD.Enumerations;
+using FMOD.NET.Enumerations;
 
-namespace FMOD.Arguments
+namespace FMOD.NET.Arguments
 {
 	public class DspParameterEventArgs : EventArgs
 	{

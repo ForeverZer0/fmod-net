@@ -54,11 +54,11 @@
 
 using System;
 using System.Runtime.InteropServices;
-using FMOD.Core;
+using FMOD.NET.Core;
 
 #endregion
 
-namespace FMOD.Structures
+namespace FMOD.NET.Structures
 {
 	/// <summary>
 	///     Structure to define a int parameter for a DSP unit.

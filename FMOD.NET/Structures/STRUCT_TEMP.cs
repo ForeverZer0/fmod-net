@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace FMOD.Structures
+namespace FMOD.NET.Structures
 {
 
 

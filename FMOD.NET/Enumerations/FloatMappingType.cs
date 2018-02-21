@@ -52,11 +52,11 @@
 
 #region Using Directives
 
-using FMOD.Structures;
+using FMOD.NET.Structures;
 
 #endregion
 
-namespace FMOD.Enumerations
+namespace FMOD.NET.Enumerations
 {
 	/// <summary>
 	///     DSP float parameter mappings. These determine how values are mapped across dials and automation curves.

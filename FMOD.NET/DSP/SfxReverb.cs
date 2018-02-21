@@ -53,13 +53,13 @@
 #region Using Directives
 
 using System;
-using FMOD.Arguments;
-using FMOD.Core;
-using FMOD.Structures;
+using FMOD.NET.Arguments;
+using FMOD.NET.Core;
+using FMOD.NET.Structures;
 
 #endregion
 
-namespace FMOD.DSP
+namespace FMOD.NET.DSP
 {
 	/// <inheritdoc />
 	/// <summary>
@@ -69,8 +69,8 @@ namespace FMOD.DSP
 	///     <para>This is a high quality I3DL2 based reverb.</para>
 	///     <para>On top of the I3DL2 property set, "Dry Level" is also included to allow the dry mix to be changed.</para>
 	/// </remarks>
-	/// <seealso cref="FMOD.Core.Dsp" />
-	/// <seealso cref="FMOD.Structures.ReverbProperties" />
+	/// <seealso cref="Dsp" />
+	/// <seealso cref="ReverbProperties" />
 	public class SfxReverb : Dsp
 	{
 		#region Events

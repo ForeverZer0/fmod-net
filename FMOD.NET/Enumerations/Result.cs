@@ -207,7 +207,7 @@ namespace FMOD.NET.Enumerations
 		Initialization,
 
 		/// <summary>
-		///     Cannot call this command after <see cref="O:FMOD.Core.FmodSystem.Initialize" />
+		///     Cannot call this command after <see cref="O:FMOD.NET.Core.FmodSystem.Initialize" />
 		/// </summary>
 		Initialized,
 
@@ -420,7 +420,7 @@ namespace FMOD.NET.Enumerations
 		Unimplemented,
 
 		/// <summary>
-		///     This command failed because <see cref="O:FMOD.Core.FmodSystem.Initialize" /> was not called or
+		///     This command failed because <see cref="O:FMOD.NET.Core.FmodSystem.Initialize" /> was not called or
 		///     <see cref="FmodSystem.SelectedDriver" /> was not specified.
 		/// </summary>
 		Uninitialized,

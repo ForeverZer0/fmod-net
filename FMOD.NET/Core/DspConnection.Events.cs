@@ -74,12 +74,6 @@ namespace FMOD.NET.Core
 		/// <seealso cref="SetMixMatrix" />
 		public event EventHandler MixMatrixChanged;
 
-		/// <summary>
-		///     Occurs when <seealso cref="UserData" /> property has been changed.
-		/// </summary>
-		/// <seealso cref="UserData" />
-		public event EventHandler UserDataChanged;
-
 		#endregion
 
 		#region Event Invokers
@@ -100,15 +94,6 @@ namespace FMOD.NET.Core
 		protected virtual void OnMixMatrixChanged()
 		{
 			MixMatrixChanged?.Invoke(this, EventArgs.Empty);
-		}
-
-		/// <summary>
-		///     Raises the <see cref="UserDataChanged" /> event.
-		/// </summary>
-		/// <seealso cref="EventArgs" />
-		protected virtual void OnUserDataChanged()
-		{
-			UserDataChanged?.Invoke(this, EventArgs.Empty);
 		}
 
 		#endregion

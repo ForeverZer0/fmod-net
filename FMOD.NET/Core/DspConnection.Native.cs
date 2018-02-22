@@ -85,17 +85,11 @@ namespace FMOD.NET.Core
 		private static extern Result FMOD_DSPConnection_GetType(IntPtr dspconnection, out DspConnectionType type);
 
 		[DllImport(Constants.LIBRARY)]
-		private static extern Result FMOD_DSPConnection_GetUserData(IntPtr dspconnection, out IntPtr userdata);
-
-		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_DSPConnection_SetMix(IntPtr dspconnection, float volume);
 
 		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_DSPConnection_SetMixMatrix(IntPtr dspconnection, float[] matrix, int outchannels,
 			int inchannels, int inChannelHop);
-
-		[DllImport(Constants.LIBRARY)]
-		private static extern Result FMOD_DSPConnection_SetUserData(IntPtr dspconnection, IntPtr userdata);
 
 		#endregion
 	}

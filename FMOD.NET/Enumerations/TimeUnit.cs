@@ -97,16 +97,16 @@ namespace FMOD.NET.Enumerations
 		PcmFraction = 0x00000010,
 
 		/// <summary>
-		///     MOD/S3M/XM/IT. Order in a sequenced module format. Use <see cref="FMOD.Core.Sound.Format" /> to determine the PCM
+		///     MOD/S3M/XM/IT. Order in a sequenced module format. Use <see cref="FMOD.NET.Core.Sound.Format" /> to determine the PCM
 		///     format being decoded to.
 		/// </summary>
 		ModOrder = 0x00000100,
 
 		/// <summary>
 		///     <para>MOD/S3M/XM/IT. Current row in a sequenced module format. </para>
-		///     <para>Cannot use with <see cref="FMOD.Core.Channel.SetPosition" />.</para>
+		///     <para>Cannot use with <see cref="FMOD.NET.Core.Channel.SetPosition" />.</para>
 		///     <para>
-		///         <see cref="O:FMOD.Core.Sound.GetLength" /> will return the number of rows in the currently playing or seeked
+		///         <see cref="O:FMOD.NET.Core.Sound.GetLength" /> will return the number of rows in the currently playing or seeked
 		///         to pattern.
 		///     </para>
 		/// </summary>

@@ -156,7 +156,7 @@ namespace FMOD.NET.Core
 		///         <i>Issues with streamed audio:</i>
 		///     </para>
 		///     <para>
-		///         When changing the loop count, sounds created with <seealso cref="O:FMOD.Core.FmodSystem.CreateStream" /> or
+		///         When changing the loop count, sounds created with <seealso cref="O:FMOD.NET.Core.FmodSystem.CreateStream" /> or
 		///         <seealso cref="Mode.CreateStream" /> may have already been pre-buffered and executed their loop logic ahead of
 		///         time before this call was even made. This is dependant on the size of the sound versus the size of the stream
 		///         decode buffer (see <see cref="CreateSoundExInfo" />). If this happens, you may need to reflush the stream
@@ -168,8 +168,8 @@ namespace FMOD.NET.Core
 		/// </remarks>
 		/// <seealso cref="LoopCountChanged" />
 		/// <seealso cref="CreateSoundExInfo" />
-		/// <seealso cref="O:FMOD.Core.Channel.SetLoopPoints" />
-		/// <seealso cref="FMOD.Enumerations.Mode" />
+		/// <seealso cref="O:FMOD.NET.Core.Channel.SetLoopPoints" />
+		/// <seealso cref="FMOD.NET.Enumerations.Mode" />
 		public int LoopCount
 		{
 			get
@@ -272,7 +272,7 @@ namespace FMOD.NET.Core
 		/// </summary>
 		/// <param name="timeUnit">Time format used for the loop start and end point.</param>
 		/// <returns>A <see cref="LoopPoints" /> instance describing the loop points.</returns>
-		/// <seealso cref="O:FMOD.Core.Channel.SetLoopPoints" />
+		/// <seealso cref="O:FMOD.NET.Core.Channel.SetLoopPoints" />
 		/// <seealso cref="TimeUnit" />
 		/// <seealso cref="LoopPoints" />
 		public LoopPoints GetLoopPoints(TimeUnit timeUnit = TimeUnit.Ms)
@@ -286,7 +286,7 @@ namespace FMOD.NET.Core
 		/// <param name="startUnit">Time format used for the loop start point.</param>
 		/// <param name="endUnit">Time format used for the loop end point.</param>
 		/// <returns>A <see cref="LoopPoints" /> instance describing the loop points.</returns>
-		/// <seealso cref="O:FMOD.Core.Channel.SetLoopPoints" />
+		/// <seealso cref="O:FMOD.NET.Core.Channel.SetLoopPoints" />
 		/// <seealso cref="TimeUnit" />
 		/// <seealso cref="LoopPoints" />
 		public LoopPoints GetLoopPoints(TimeUnit startUnit, TimeUnit endUnit)
@@ -333,18 +333,18 @@ namespace FMOD.NET.Core
 		///         <i>Issues with streamed audio:</i>
 		///     </para>
 		///     <para>
-		///         When changing the loop count, sounds created with <see cref="O:FMOD.Core.FmodSystem.CreateStream" /> or
-		///         <see cref="FMOD.Enumerations.Mode.CreateStream" /> may have already been pre-buffered and executed their loop
+		///         When changing the loop count, sounds created with <see cref="O:FMOD.NET.Core.FmodSystem.CreateStream" /> or
+		///         <see cref="FMOD.NET.Enumerations.Mode.CreateStream" /> may have already been pre-buffered and executed their loop
 		///         logic ahead of time before this call was even made. This is dependant on the size of the sound versus the size
 		///         of the stream decode buffer (see <see cref="CreateSoundExInfo" />). If this happens, you may need to reflush
 		///         the stream buffer by calling <see cref="SetPosition" />. Note this will usually only happen if you have sounds
 		///         or loop points that are smaller than the stream decode buffer size.
 		///     </para>
 		/// </remarks>
-		/// <seealso cref="O:FMOD.Core.Channel.GetLoopPoints" />
+		/// <seealso cref="O:FMOD.NET.Core.Channel.GetLoopPoints" />
 		/// <seealso cref="LoopPoints" />
 		/// <seealso cref="TimeUnit" />
-		/// <seealso cref="O:FMOD.Core.FmodSystem.CreateStream" />
+		/// <seealso cref="O:FMOD.NET.Core.FmodSystem.CreateStream" />
 		/// <seealso cref="Enumerations.Mode" />
 		public void SetLoopPoints(LoopPoints points)
 		{
@@ -367,18 +367,18 @@ namespace FMOD.NET.Core
 		///         <i>Issues with streamed audio:</i>
 		///     </para>
 		///     <para>
-		///         When changing the loop count, sounds created with <see cref="O:FMOD.Core.FmodSystem.CreateStream" /> or
-		///         <see cref="FMOD.Enumerations.Mode.CreateStream" /> may have already been pre-buffered and executed their loop
+		///         When changing the loop count, sounds created with <see cref="O:FMOD.NET.Core.FmodSystem.CreateStream" /> or
+		///         <see cref="FMOD.NET.Enumerations.Mode.CreateStream" /> may have already been pre-buffered and executed their loop
 		///         logic ahead of time before this call was even made. This is dependant on the size of the sound versus the size
 		///         of the stream decode buffer (see <see cref="CreateSoundExInfo" />). If this happens, you may need to reflush
 		///         the stream buffer by calling <see cref="SetPosition" />. Note this will usually only happen if you have sounds
 		///         or loop points that are smaller than the stream decode buffer size.
 		///     </para>
 		/// </remarks>
-		/// <seealso cref="O:FMOD.Core.Channel.GetLoopPoints" />
+		/// <seealso cref="O:FMOD.NET.Core.Channel.GetLoopPoints" />
 		/// <seealso cref="LoopPoints" />
 		/// <seealso cref="TimeUnit" />
-		/// <seealso cref="O:FMOD.Core.FmodSystem.CreateStream" />
+		/// <seealso cref="O:FMOD.NET.Core.FmodSystem.CreateStream" />
 		/// <seealso cref="Enumerations.Mode" />
 		public void SetLoopPoints(uint loopStart, uint loopEnd, TimeUnit timeUnit = TimeUnit.Ms)
 		{
@@ -402,18 +402,18 @@ namespace FMOD.NET.Core
 		///         <i>Issues with streamed audio:</i>
 		///     </para>
 		///     <para>
-		///         When changing the loop count, sounds created with <see cref="O:FMOD.Core.FmodSystem.CreateStream" /> or
-		///         <see cref="FMOD.Enumerations.Mode.CreateStream" /> may have already been pre-buffered and executed their loop
+		///         When changing the loop count, sounds created with <see cref="O:FMOD.NET.Core.FmodSystem.CreateStream" /> or
+		///         <see cref="FMOD.NET.Enumerations.Mode.CreateStream" /> may have already been pre-buffered and executed their loop
 		///         logic ahead of time before this call was even made. This is dependant on the size of the sound versus the size
 		///         of the stream decode buffer (see <see cref="CreateSoundExInfo" />). If this happens, you may need to reflush
 		///         the stream buffer by calling <see cref="SetPosition" />. Note this will usually only happen if you have sounds
 		///         or loop points that are smaller than the stream decode buffer size.
 		///     </para>
 		/// </remarks>
-		/// <seealso cref="O:FMOD.Core.Channel.GetLoopPoints" />
+		/// <seealso cref="O:FMOD.NET.Core.Channel.GetLoopPoints" />
 		/// <seealso cref="LoopPoints" />
 		/// <seealso cref="TimeUnit" />
-		/// <seealso cref="O:FMOD.Core.FmodSystem.CreateStream" />
+		/// <seealso cref="O:FMOD.NET.Core.FmodSystem.CreateStream" />
 		/// <seealso cref="Enumerations.Mode" />
 		public void SetLoopPoints(uint loopStart, uint loopEnd, TimeUnit startUnit, TimeUnit endUnit)
 		{
@@ -441,7 +441,7 @@ namespace FMOD.NET.Core
 		///     </para>
 		///     <para>
 		///         If you are using <see cref="Mode.NonBlocking" />, note that a stream will go into
-		///         <see cref="OpenState.SetPosition" /> state (see <see cref="O:FMOD.Core.Sound.GetOpenState" />) and sound
+		///         <see cref="OpenState.SetPosition" /> state (see <see cref="O:FMOD.NET.Core.Sound.GetOpenState" />) and sound
 		///         commands will return <see cref="Result.NotReady" />. <see cref="GetPosition" /> will also not update until this
 		///         non-blocking setposition operation has completed.
 		///     </para>

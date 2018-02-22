@@ -80,9 +80,6 @@ namespace FMOD.NET.Core
 		private static extern Result FMOD_Reverb3D_GetProperties(IntPtr reverb, ref ReverbProperties properties);
 
 		[DllImport(Constants.LIBRARY)]
-		private static extern Result FMOD_Reverb3D_GetUserData(IntPtr reverb, out IntPtr userData);
-
-		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_Reverb3D_Set3DAttributes(IntPtr reverb, ref Vector position, float minDistance,
 			float maxDistance);
 
@@ -91,9 +88,6 @@ namespace FMOD.NET.Core
 
 		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_Reverb3D_SetProperties(IntPtr reverb, ref ReverbProperties properties);
-
-		[DllImport(Constants.LIBRARY)]
-		private static extern Result FMOD_Reverb3D_SetUserData(IntPtr reverb, IntPtr userData);
 
 		#endregion
 	}

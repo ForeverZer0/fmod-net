@@ -77,11 +77,6 @@ namespace FMOD.NET.Core
 		/// </summary>
 		public event EventHandler PropertiesChanged;
 
-		/// <summary>
-		///     Occurs when user data has changed.
-		/// </summary>
-		public event EventHandler UserDataChanged;
-
 		#endregion
 
 		#region Event Invokers
@@ -111,15 +106,6 @@ namespace FMOD.NET.Core
 		protected virtual void OnPropertiesChanged()
 		{
 			PropertiesChanged?.Invoke(this, EventArgs.Empty);
-		}
-
-		/// <summary>
-		///     Raises the <see cref="UserDataChanged" /> event.
-		/// </summary>
-		/// <seealso cref="EventArgs" />
-		protected virtual void OnUserDataChanged()
-		{
-			UserDataChanged?.Invoke(this, EventArgs.Empty);
 		}
 
 		#endregion

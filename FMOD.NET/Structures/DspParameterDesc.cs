@@ -115,6 +115,38 @@ namespace FMOD.NET.Structures
 		/// </summary>
 		[FieldOffset(40)] public DspParameterDescData DataDescription;
 
+
+
+
+
+
+
+
+
+//		/// <summary>
+//		///     Type of this parameter.
+//		/// </summary>
+//		public DspParameterType Type;
+//
+//		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)] private readonly char[] _name;
+//
+//		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)] private readonly char[] _label;
+//
+//		private readonly string _description;
+//
+//		private DSP_PARAMETER_DESC_UNION union;
+
+
+
+
+
+
+
+
+
+
+
+
 		/// <summary>
 		///     Gets the name of the parameter to be displayed (ie "Cutoff frequency").
 		/// </summary>

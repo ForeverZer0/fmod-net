@@ -102,8 +102,6 @@ namespace FMOD.NET.Core
 		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_Geometry_GetScale(IntPtr geometry, out Vector scale);
 
-		[DllImport(Constants.LIBRARY)]
-		private static extern Result FMOD_Geometry_GetUserData(IntPtr geometry, out IntPtr userData);
 
 		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_Geometry_Save(IntPtr geometry, IntPtr data, out int dataSize);
@@ -133,9 +131,6 @@ namespace FMOD.NET.Core
 
 		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_Geometry_SetScale(IntPtr geometry, ref Vector scale);
-
-		[DllImport(Constants.LIBRARY)]
-		private static extern Result FMOD_Geometry_SetUserData(IntPtr geometry, IntPtr userData);
 
 		#endregion
 	}

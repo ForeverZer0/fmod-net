@@ -227,31 +227,6 @@ namespace FMOD.NET.Core
 		}
 
 		/// <summary>
-		///     Gets or sets a user value that the <see cref="FmodSystem" /> object will store internally.
-		/// </summary>
-		/// <value>
-		///     The user data.
-		/// </value>
-		/// <remarks>
-		/// <para>This function is primarily used in case the user wishes to "attach" data to an <b>FMOD</b> object.</para>
-		/// <para>It can be useful if an FMOD callback passes an object of this type as a parameter, and the user does not know which object it is (if many of these types of objects exist). </para>
-		/// </remarks>
-		/// <seealso cref="UserDataChanged"/>
-		public IntPtr UserData
-		{
-			get
-			{
-				NativeInvoke(FMOD_System_GetUserData(this, out var data));
-				return data;
-			}
-			set
-			{
-				NativeInvoke(FMOD_System_SetUserData(this, value));
-				UserDataChanged?.Invoke(this, EventArgs.Empty);
-			}
-		}
-
-		/// <summary>
 		/// Returns the current internal buffersize settings for streamable sounds.
 		/// </summary>
 		/// <returns>A <see cref="StreamBufferInfo"/> object containing the values of the buffer size.</returns>

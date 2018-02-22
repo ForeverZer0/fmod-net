@@ -242,11 +242,11 @@ namespace FMOD.NET.Core
 		///     <c>true</c> to enable metering for the input signal (pre-processing), ,<c>false</c> to turn it off.
 		/// </value>
 		/// <remarks>
-		///     <see cref="InitFlags.ProfileMeterAll" /> with <see cref="O:FMOD.Core.FmodSystem.Initialize" /> will automatically
+		///     <see cref="InitFlags.ProfileMeterAll" /> with <see cref="O:FMOD.NET.Core.FmodSystem.Initialize" /> will automatically
 		///     turn on metering for all DSP units inside the <b>FMOD</b> mixer graph.
 		/// </remarks>
 		/// <seealso cref="InitFlags" />
-		/// <seealso cref="O:FMOD.Core.FmodSystem.Initialize" />
+		/// <seealso cref="O:FMOD.NET.Core.FmodSystem.Initialize" />
 		/// <seealso cref="OutputMeteringEnabled" />
 		/// <seealso cref="EnableMetering" />
 		/// <seealso cref="DisableMetering" />
@@ -276,11 +276,11 @@ namespace FMOD.NET.Core
 		///     <c>true</c> to enable metering for the output signal (pre-processing), ,<c>false</c> to turn it off.
 		/// </value>
 		/// <remarks>
-		///     <see cref="InitFlags.ProfileMeterAll" /> with <see cref="O:FMOD.Core.FmodSystem.Initialize" /> will automatically
+		///     <see cref="InitFlags.ProfileMeterAll" /> with <see cref="O:FMOD.NET.Core.FmodSystem.Initialize" /> will automatically
 		///     turn on metering for all DSP units inside the <b>FMOD</b> mixer graph.
 		/// </remarks>
 		/// <seealso cref="InitFlags" />
-		/// <seealso cref="O:FMOD.Core.FmodSystem.Initialize" />
+		/// <seealso cref="O:FMOD.NET.Core.FmodSystem.Initialize" />
 		/// <seealso cref="InputMeteringEnabled" />
 		/// <seealso cref="EnableMetering" />
 		/// <seealso cref="DisableMetering" />
@@ -383,34 +383,6 @@ namespace FMOD.NET.Core
 			{
 				NativeInvoke(FMOD_DSP_GetSystemObject(this, out var system));
 				return Factory.Create<FmodSystem>(system);
-			}
-		}
-
-		/// <summary>
-		///     Gets or sets a user value that the DSP object will store internally.
-		/// </summary>
-		/// <value>
-		///     The user data.
-		/// </value>
-		/// <remarks>
-		///     <para>This function is primarily used in case the user wishes to "attach" data to an <b>FMOD</b> object.</para>
-		///     <para>
-		///         It can be useful if an FMOD callback passes an object of this type as a parameter, and the user does not know
-		///         which object it is (if many of these types of objects exist).
-		///     </para>
-		/// </remarks>
-		/// <seealso cref="UserDataChanged" />
-		public IntPtr UserData
-		{
-			get
-			{
-				NativeInvoke(FMOD_DSP_GetUserData(this, out var data));
-				return data;
-			}
-			set
-			{
-				NativeInvoke(FMOD_DSP_SetUserData(this, value));
-				OnUserDataChanged();
 			}
 		}
 

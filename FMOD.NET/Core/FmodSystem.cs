@@ -295,7 +295,7 @@ namespace FMOD.NET.Core
 		/// <para>Most platforms use main ram to store audio data, so this function usually isn't necessary.</para>
 		/// </summary>
 		/// <returns>A <see cref="RamUsage"/> describing the current use of RAM by <b>FMOD</b>.</returns>
-		/// <seealso cref="O:FMOD.Core.MemoryManager.GetStats"/>
+		/// <seealso cref="O:FMOD.NET.Core.MemoryManager.GetStats"/>
 		/// <seealso cref="RamUsage"/>
 		public RamUsage GetRamUsage()
 		{
@@ -311,7 +311,7 @@ namespace FMOD.NET.Core
 		/// <summary>
 		/// Plays a <see cref="Sound"/> object on a particular channel and <see cref="ChannelGroup"/> if desired.
 		/// </summary>
-		/// <param name="sound">The sound to play.<lineBreak/> This is opened with <see cref="O:FMOD.Core.FmodSystem.CreateSound"/> or <see cref="O:FMOD.Core.FmodSystem.CreateStream"/>. </param>
+		/// <param name="sound">The sound to play.<lineBreak/> This is opened with <see cref="O:FMOD.NET.Core.FmodSystem.CreateSound"/> or <see cref="O:FMOD.NET.Core.FmodSystem.CreateStream"/>. </param>
 		/// <param name="paused"><c>true</c> or <c>false</c> flag to specify whether to start the channel paused or not. Starting a channel paused allows the user to alter its attributes without it being audible, and unpausing with <see cref="ChannelControl.Resume"/> actually starts the sound.</param>
 		/// <param name="group">
 		/// <para>A <see cref="ChannelGroup"/> to become a member of.</para>
@@ -333,15 +333,15 @@ namespace FMOD.NET.Core
 		/// Priority for virtual channels can be changed in the sound's defaults, or at runtime with <see cref="Channel.Priority"/>.
 		/// </para>
 		/// </remarks>
-		/// <seealso cref="O:FMOD.Core.FmodSystem.CreateSound"/>
-		/// <seealso cref="O:FMOD.Core.FmodSystem.CreateStream"/>
+		/// <seealso cref="O:FMOD.NET.Core.FmodSystem.CreateSound"/>
+		/// <seealso cref="O:FMOD.NET.Core.FmodSystem.CreateStream"/>
 		/// <seealso cref="Channel"/>
 		/// <seealso cref="ChannelGroup"/>
 		/// <seealso cref="Channel.Priority"/>
 		/// <seealso cref="Mode"/>
 		/// <seealso cref="ChannelControl.SetAttributes3D"/>
 		/// <seealso cref="ChannelControl.Paused"/>
-		/// <seealso cref="O:FMOD.Core.FmodSystem.Initialize"/>
+		/// <seealso cref="O:FMOD.NET.Core.FmodSystem.Initialize"/>
 		public Channel PlaySound(Sound sound, bool paused = false, ChannelGroup group = null)
 		{
 			NativeInvoke(FMOD_System_PlaySound(this, sound, group ?? IntPtr.Zero, paused, out var channel));

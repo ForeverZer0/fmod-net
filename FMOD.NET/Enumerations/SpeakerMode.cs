@@ -331,7 +331,7 @@ namespace FMOD.NET.Enumerations
 	{
 		/// <summary>
 		///     Default speaker mode for the chosen output mode which will resolve after
-		///     <see cref="O:FMOD.Core.FmodSystem.Initialize" />.
+		///     <see cref="O:FMOD.NET.Core.FmodSystem.Initialize" />.
 		/// </summary>
 		Default,
 

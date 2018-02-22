@@ -154,9 +154,6 @@ namespace FMOD.NET.Core
 		private static extern Result FMOD_Sound_GetTag(IntPtr sound, string name, int index, out Tag tag);
 
 		[DllImport(Constants.LIBRARY)]
-		private static extern Result FMOD_Sound_GetUserData(IntPtr sound, out IntPtr userdata);
-
-		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_Sound_Lock(IntPtr sound, uint offset, uint length, out IntPtr ptr1, out IntPtr ptr2,
 			out uint len1, out uint len2);
 
@@ -197,9 +194,6 @@ namespace FMOD.NET.Core
 
 		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_Sound_SetSoundGroup(IntPtr sound, IntPtr soundgroup);
-
-		[DllImport(Constants.LIBRARY)]
-		private static extern Result FMOD_Sound_SetUserData(IntPtr sound, IntPtr userdata);
 
 		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_Sound_Unlock(IntPtr sound, IntPtr ptr1, IntPtr ptr2, uint len1, uint len2);

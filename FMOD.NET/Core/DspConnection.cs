@@ -197,28 +197,6 @@ namespace FMOD.NET.Core
 			}
 		}
 
-		/// <summary>
-		///     Gets or sets a user value that the <see cref="DspConnection" /> object will store internally.
-		/// </summary>
-		/// <value>
-		///     The user data.
-		/// </value>
-		/// <remarks>This function is primarily used in case the user wishes to "attach" data to an <b>FMOD</b> object.</remarks>
-		/// <seealso cref="UserDataChanged" />
-		public IntPtr UserData
-		{
-			get
-			{
-				NativeInvoke(FMOD_DSPConnection_GetUserData(this, out var data));
-				return data;
-			}
-			set
-			{
-				NativeInvoke(FMOD_DSPConnection_SetUserData(this, value));
-				OnUserDataChanged();
-			}
-		}
-
 		#endregion
 
 		#region Methods

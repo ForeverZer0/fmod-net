@@ -74,7 +74,7 @@ namespace FMOD.NET.Structures
 	///         <see cref="MaxPCMCodecs" /> is for use with PS3 only. It will determine the maximum number of PCM voices that
 	///         can be played at once. This includes streams of any format and all sounds created without the
 	///         <see cref="Mode.CreateCompressedSample" /> flag.<lineBreak />
-	///         Memory will be allocated for codecs "up front" (during <see cref="O:FMOD.Core.FmodSystem.Initialize" />) if
+	///         Memory will be allocated for codecs "up front" (during <see cref="O:FMOD.NET.Core.FmodSystem.Initialize" />) if
 	///         these values are specified as non zero. If any are zero, it allocates memory for the codec whenever a file of
 	///         the type in question is loaded. So if <see cref="MaxMPEGCodecs" /> is <c>0</c> for example, it will allocate
 	///         memory for the mpeg codecs the first time an MP3 is loaded or an mp3 based .FSB file is loaded.
@@ -85,7 +85,7 @@ namespace FMOD.NET.Structures
 	///         block size.
 	///     </para>
 	/// </remarks>
-	/// <seealso cref="O:FMOD.Core.FmodSystem.Initialize" />
+	/// <seealso cref="O:FMOD.NET.Core.FmodSystem.Initialize" />
 	/// <seealso cref="FmodSystem.AdvancedSettings" />
 	/// <seealso cref="AdvancedSettings" />
 	/// <seealso cref="Mode" />
@@ -189,7 +189,7 @@ namespace FMOD.NET.Structures
 		/// <summary>
 		///     <para>Optional. Specify 0 to ignore.</para>
 		///     <para>Pointer to a list of speakers that the ASIO channels map to.</para>
-		///     <para>This can be called after <see cref="O:FMOD.Core.FmodSystem.Initialize" /> to remap ASIO output.</para>
+		///     <para>This can be called after <see cref="O:FMOD.NET.Core.FmodSystem.Initialize" /> to remap ASIO output.</para>
 		/// </summary>
 		public IntPtr ASIOSpeakerList;
 

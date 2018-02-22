@@ -60,8 +60,8 @@ namespace FMOD.NET.Enumerations
 	///     These definitions describe the native format of the hardware or software buffer that will be used.
 	/// </summary>
 	/// <remarks>This is the format the native hardware or software buffer will be or is created in.</remarks>
-	/// <seealso cref="O:FMOD.Core.Sound.CreateSound" />
-	/// <seealso cref="O:FMOD.Core.Sound.CreateStream" />
+	/// <seealso cref="O:FMOD.NET.Core.Sound.CreateSound" />
+	/// <seealso cref="O:FMOD.NET.Core.Sound.CreateStream" />
 	/// <seealso cref="Sound.Format" />
 	public enum SoundFormat
 	{

@@ -72,7 +72,7 @@ namespace FMOD.NET.Enumerations
 	///     </para>
 	/// </remarks>
 	/// <seealso cref="Mode" />
-	/// <seealso cref="O:FMOD.Core.Sound.GetOpenState" />
+	/// <seealso cref="O:FMOD.NET.Core.Sound.GetOpenState" />
 	public enum OpenState
 	{
 		/// <summary>
@@ -87,7 +87,7 @@ namespace FMOD.NET.Enumerations
 
 		/// <summary>
 		///     <para>Failed to open - file not found, out of memory etc.</para>
-		///     <para>See return value of <see cref="O:FMOD.Core.Sound.GetOpenState" /> for what happened.</para>
+		///     <para>See return value of <see cref="O:FMOD.NET.Core.Sound.GetOpenState" /> for what happened.</para>
 		/// </summary>
 		Error,
 

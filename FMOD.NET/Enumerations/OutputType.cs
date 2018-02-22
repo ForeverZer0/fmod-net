@@ -64,24 +64,24 @@ namespace FMOD.NET.Enumerations
 	/// <remarks>
 	///     <para>
 	///         To pass information to the driver when initializing <b>FMOD</b> use the <i>extraDriverData</i> parameter in
-	///         <see cref="O:FMOD.Core.FmodSystem.Initialize" /> for the following reasons.
+	///         <see cref="O:FMOD.NET.Core.FmodSystem.Initialize" /> for the following reasons.
 	///     </para>
 	///     <para>
 	///         <list type="bullet">
 	///             <item>
 	///                 <para>
 	///                     <see cref="WavWriter" /> - <i>extraDriverData</i> parameter of
-	///                     <see cref="O:FMOD.Core.FmodSystem.Initialize" /> is a pointer to a char * file name that the wav
+	///                     <see cref="O:FMOD.NET.Core.FmodSystem.Initialize" /> is a pointer to a char * file name that the wav
 	///                     writer will output to.
 	///                 </para>
 	///             </item>
 	///             <see cref="WavWriterNrt" /> - <i>extraDriverData</i> parameter of
-	///             <see cref="O:FMOD.Core.FmodSystem.Initialize" /> is a pointer to a char * file name that the wav writer
+	///             <see cref="O:FMOD.NET.Core.FmodSystem.Initialize" /> is a pointer to a char * file name that the wav writer
 	///             will output to.
 	///             <item>
 	///                 <para>
 	///                     <see cref="DSound" /> - <i>extraDriverData</i> parameter of
-	///                     <see cref="O:FMOD.Core.FmodSystem.Initialize" /> is cast to a HWND type, so that FMOD can set the
+	///                     <see cref="O:FMOD.NET.Core.FmodSystem.Initialize" /> is cast to a HWND type, so that FMOD can set the
 	///                     focus on the audio for a particular window.
 	///                 </para>
 	///             </item>
@@ -105,7 +105,7 @@ namespace FMOD.NET.Enumerations
 	///     </para>
 	/// </remarks>
 	/// <seealso cref="FmodSystem.Output" />
-	/// <seealso cref="O:FMOD.Core.FmodSystem.Initialize" />
+	/// <seealso cref="O:FMOD.NET.Core.FmodSystem.Initialize" />
 	/// <seealso cref="FmodSystem.Update" />
 	public enum OutputType
 	{

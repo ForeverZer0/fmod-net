@@ -61,7 +61,7 @@ namespace FMOD.NET.Enumerations
 {
 	/// <summary>
 	///     <para>
-	///         Initialization flags. Use them with <see cref="O:FMOD.Core.FmodSystem.Initialize" /> in the flags parameter
+	///         Initialization flags. Use them with <see cref="O:FMOD.NET.Core.FmodSystem.Initialize" /> in the flags parameter
 	///         to change various behavior.
 	///     </para>
 	///     <para>
@@ -69,7 +69,7 @@ namespace FMOD.NET.Enumerations
 	///         by these flags.
 	///     </para>
 	/// </summary>
-	/// <seealso cref="O:FMOD.Core.FmodSystem.Initialize" />
+	/// <seealso cref="O:FMOD.NET.Core.FmodSystem.Initialize" />
 	/// <seealso cref="FmodSystem.Update" />
 	/// <seealso cref="FmodSystem.AdvancedSettings" />
 	/// <seealso cref="AdvancedSettings" />

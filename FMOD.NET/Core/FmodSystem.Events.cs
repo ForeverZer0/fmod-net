@@ -76,8 +76,6 @@ namespace FMOD.NET.Core
 
 		public event EventHandler SpeakerPositionChanged;
 
-		public event EventHandler UserDataChanged;
-
 		public event EventHandler WorldSizeChanged;
 
 		/// <summary>

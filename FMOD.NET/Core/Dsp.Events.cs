@@ -121,12 +121,6 @@ namespace FMOD.NET.Core
 		public event EventHandler<DspParameterEventArgs> ParameterChanged;
 
 		/// <summary>
-		///     Occurs when the <see cref="UserData" /> property has changed.
-		/// </summary>
-		/// <seealso cref="UserData" />
-		public event EventHandler UserDataChanged;
-
-		/// <summary>
 		///     Occurs when the <see cref="WetDryMix" /> property has changed.
 		/// </summary>
 		/// <seealso cref="WetDryMix" />
@@ -207,15 +201,6 @@ namespace FMOD.NET.Core
 		protected virtual void OnParameterChanged(DspParameterEventArgs e)
 		{
 			ParameterChanged?.Invoke(this, e);
-		}
-
-		/// <summary>
-		///     Raises the <see cref="UserDataChanged" /> event.
-		/// </summary>
-		/// <seealso cref="EventArgs" />
-		protected virtual void OnUserDataChanged()
-		{
-			UserDataChanged?.Invoke(this, EventArgs.Empty);
 		}
 
 		/// <summary>

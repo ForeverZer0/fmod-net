@@ -54,6 +54,7 @@
 
 using System;
 using System.Runtime.ConstrainedExecution;
+using System.Runtime.ExceptionServices;
 using FMOD.NET.Enumerations;
 using Microsoft.Win32.SafeHandles;
 
@@ -61,6 +62,7 @@ using Microsoft.Win32.SafeHandles;
 
 namespace FMOD.NET.Core
 {
+	/// <inheritdoc cref="SafeHandleZeroOrMinusOneIsInvalid" />
 	/// <summary>
 	///     <para>The base class for all the core native <b>FMOD</b> classes.</para>
 	///     <para>
@@ -70,17 +72,29 @@ namespace FMOD.NET.Core
 	///     </para>
 	///     <para>This class must be inherited.</para>
 	/// </summary>
-	/// <seealso cref="Microsoft.Win32.SafeHandles.SafeHandleZeroOrMinusOneIsInvalid" />
-	public abstract partial class HandleBase : SafeHandleZeroOrMinusOneIsInvalid, IEquatable<HandleBase>
+	/// <seealso cref="T:Microsoft.Win32.SafeHandles.SafeHandleZeroOrMinusOneIsInvalid" />
+	public abstract partial class HandleBase : SafeHandleZeroOrMinusOneIsInvalid, IHandleBase
 	{
+		private readonly int _handleHashCode;
+		private bool _isInvalid;
+
+		#region Events
+
 		/// <summary>
 		///     Occurs when the handle is disposed, and the underlying <b>FMOD</b> handle has been released.
 		/// </summary>
 		/// <seealso cref="Dispose" />
 		public event EventHandler Disposed;
 
-		private readonly int _handleHashCode;
-		private bool _isInvalid;
+		/// <summary>
+		///     Occurs when the user-data has changed.
+		/// </summary>
+		/// <seealso cref="UserData" />
+		public event EventHandler UserDataChanged;
+
+		#endregion
+
+		#region Constructors
 
 		/// <inheritdoc />
 		/// <summary>
@@ -93,11 +107,37 @@ namespace FMOD.NET.Core
 			SetHandle(nativeHandle);
 		}
 
-		/// <inheritdoc />
-		/// <summary>
-		///     Gets a value that indicates whether the handle is invalid.
-		/// </summary>
+		#endregion
+
+		#region Properties
+
+		/// <inheritdoc cref="IHandleBase.IsInvalid" />
 		public override bool IsInvalid => IsClosed || _isInvalid || handle == IntPtr.Zero;
+
+
+		/// <inheritdoc />
+		public virtual IntPtr UserData
+		{
+			get => GetUserData();
+			set => SetUserData(value);
+		}
+
+		#endregion
+
+		#region Event Invokers
+
+		/// <summary>
+		///     Raises the <see cref="UserDataChanged" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnUserDataChanged()
+		{
+			UserDataChanged?.Invoke(this, EventArgs.Empty);
+		}
+
+		#endregion
+
+		#region Methods
 
 		/// <summary>
 		///     Encapsulates invocations to functions of the native FMOD library, receiving the result, and throwing exceptions
@@ -143,8 +183,8 @@ namespace FMOD.NET.Core
 		/// <param name="disposing"><c>true</c> for a normal dispose operation; <c>false</c> to finalize the handle.</param>
 		protected override void Dispose(bool disposing)
 		{
-			if (!IsInvalid)
-				ReleaseHandle();
+			//if (!IsInvalid)
+			ReleaseHandle();
 			base.Dispose(disposing);
 			Disposed?.Invoke(this, EventArgs.Empty);
 		}
@@ -157,6 +197,7 @@ namespace FMOD.NET.Core
 		///     <c>true</c> if the handle is released successfully; otherwise, in the event of a catastrophic failure, <c>false</c>
 		///     . In this case, it generates a "releaseHandleFailed" MDA Managed Debugging Assistant.
 		/// </returns>
+		[HandleProcessCorruptedStateExceptions]
 		[ReliabilityContract(Consistency.WillNotCorruptState, Cer.MayFail)]
 		protected sealed override bool ReleaseHandle()
 		{
@@ -185,10 +226,83 @@ namespace FMOD.NET.Core
 			}
 			catch (AccessViolationException)
 			{
-				// Already released
-				return true;
+				return false;
 			}
 		}
+
+		private IntPtr GetUserData()
+		{
+			IntPtr userData;
+			switch (this)
+			{
+				case Channel _:
+				case ChannelGroup _:
+				case ChannelControl _:
+					FMOD_ChannelGroup_GetUserData(handle, out userData);
+					break;
+				case Dsp _:
+					FMOD_DSP_GetUserData(handle, out userData);
+					break;
+				case DspConnection _:
+					FMOD_DSPConnection_GetUserData(handle, out userData);
+					break;
+				case FmodSystem _:
+					FMOD_System_GetUserData(handle, out userData);
+					break;
+				case Geometry _:
+					FMOD_Geometry_GetUserData(handle, out userData);
+					break;
+				case Reverb _:
+					FMOD_Reverb3D_GetUserData(handle, out userData);
+					break;
+				case Sound _:
+					FMOD_Sound_GetUserData(handle, out userData);
+					break;
+				case SoundGroup _:
+					FMOD_SoundGroup_GetUserData(handle, out userData);
+					break;
+				default:
+					userData = IntPtr.Zero;
+					break;
+			}
+			return userData;
+		}
+
+		private void SetUserData(IntPtr userData)
+		{
+			switch (this)
+			{
+				case Channel _:
+				case ChannelGroup _:
+				case ChannelControl _:
+					FMOD_ChannelGroup_SetUserData(handle, userData);
+					break;
+				case Dsp _:
+					FMOD_DSP_SetUserData(handle, userData);
+					break;
+				case DspConnection _:
+					FMOD_DSPConnection_SetUserData(handle, userData);
+					break;
+				case FmodSystem _:
+					FMOD_System_SetUserData(handle, userData);
+					break;
+				case Geometry _:
+					FMOD_Geometry_SetUserData(handle, userData);
+					break;
+				case Reverb _:
+					FMOD_Reverb3D_SetUserData(handle, userData);
+					break;
+				case Sound _:
+					FMOD_Sound_SetUserData(handle, userData);
+					break;
+				case SoundGroup _:
+					FMOD_SoundGroup_SetUserData(handle, userData);
+					break;
+			}
+			OnUserDataChanged();
+		}
+
+		#endregion
 
 		#region Equality Functions
 

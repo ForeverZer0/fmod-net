@@ -1,5 +1,44 @@
-﻿namespace FMOD.NET.Structures
+﻿using System;
+using System.Runtime.InteropServices;
+using FMOD.NET.Enumerations;
+
+namespace FMOD.NET.Structures
 {
+	[StructLayout(LayoutKind.Sequential)]
+	public struct CodecWaveFormat
+	{
+		public string Name;
+		public SoundFormat Format;
+		public int Channels;
+		public int Frequency;
+		public uint LengthBytes;
+		public uint LengthPcm;
+		public uint PcmBlockSize;
+		public int LoopStart;
+		public int LoopEnd;
+		public Mode Mode;
+		public ChannelMask ChannelMask;
+		public ChannelOrder ChannelOrder;
+		public float PeakVolume;
+	}
+
+
+
+	[StructLayout(LayoutKind.Sequential)]
+	public struct CodecState
+	{
+		private int SoundCount;
+		public CodecWaveFormat WaveFormat;
+		public IntPtr PluginData;
+		public IntPtr FileHandle;
+		public uint FileSize;
+//		FMOD_FILE_READ_CALLBACK fileread;
+//		FMOD_FILE_SEEK_CALLBACK fileseek;
+//		FMOD_CODEC_METADATA_CALLBACK metadata;
+		public int WaveFormatVersion;
+	}
+
+
 	public struct CodecDescription
 	{
 		// TODO: Implement

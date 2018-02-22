@@ -250,8 +250,6 @@ namespace FMOD.NET.Core
 		private static extern Result FMOD_System_GetStreamBufferSize(IntPtr system, out uint filebuffersize,
 			out TimeUnit filebuffersizetype);
 
-		[DllImport(Constants.LIBRARY)]
-		private static extern Result FMOD_System_GetUserData(IntPtr system, out IntPtr userdata);
 
 		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_System_GetVersion(IntPtr system, out uint version);
@@ -374,8 +372,6 @@ namespace FMOD.NET.Core
 		private static extern Result FMOD_System_SetStreamBufferSize(IntPtr system, uint filebuffersize,
 			TimeUnit filebuffersizetype);
 
-		[DllImport(Constants.LIBRARY)]
-		private static extern Result FMOD_System_SetUserData(IntPtr system, IntPtr userdata);
 
 		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_System_UnloadPlugin(IntPtr system, uint handle);

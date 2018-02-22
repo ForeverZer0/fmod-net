@@ -166,12 +166,6 @@ namespace FMOD.NET.Core
 		/// <seealso cref="Unlock" />
 		public event EventHandler Unlocked;
 
-		/// <summary>
-		///     Occurs when the <see cref="UserData" /> propoerty has been changed.
-		/// </summary>
-		/// <seealso cref="UserData" />
-		public event EventHandler UserDataChanged;
-
 		#endregion
 
 		#region Event Invokers
@@ -301,15 +295,6 @@ namespace FMOD.NET.Core
 		protected virtual void OnUnlocked()
 		{
 			Unlocked?.Invoke(this, EventArgs.Empty);
-		}
-
-		/// <summary>
-		///     Raises the <see cref="UserDataChanged" /> event.
-		/// </summary>
-		/// <seealso cref="EventArgs" />
-		protected virtual void OnUserDataChanged()
-		{
-			UserDataChanged?.Invoke(this, EventArgs.Empty);
 		}
 
 		#endregion

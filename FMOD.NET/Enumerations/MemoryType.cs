@@ -67,13 +67,13 @@ namespace FMOD.NET.Enumerations
 	///         switch on the types! You must check each bit individually or clear out the bits that you do not want within the
 	///         callback.
 	///     </para>
-	///     Bits can be excluded if you want during <see cref="O:FMOD.Core.MemoryManager.Initialize" /> so that you never get
+	///     Bits can be excluded if you want during <see cref="O:FMOD.NET.Core.MemoryManager.Initialize" /> so that you never get
 	///     them.
 	/// </summary>
 	/// <seealso cref="MemoryAllocCallback" />
 	/// <seealso cref="MemoryReallocCallback" />
 	/// <seealso cref="MemoryFreeCallback" />
-	/// <seealso cref="O:FMOD.Core.MemoryManager.Initialize" />
+	/// <seealso cref="O:FMOD.NET.Core.MemoryManager.Initialize" />
 	[Flags]
 	public enum MemoryType : uint
 	{
@@ -83,7 +83,7 @@ namespace FMOD.NET.Enumerations
 		Normal = 0x00000000,
 
 		/// <summary>
-		///     Stream file buffer, size controllable with <see cref="O:FMOD.Core.FmodSystem.SetStreamBufferSize" />.
+		///     Stream file buffer, size controllable with <see cref="O:FMOD.NET.Core.FmodSystem.SetStreamBufferSize" />.
 		/// </summary>
 		StreamFile = 0x00000001,
 

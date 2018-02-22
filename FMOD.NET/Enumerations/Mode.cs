@@ -68,7 +68,7 @@ namespace FMOD.NET.Enumerations
 	///         By default a sound will open as a static sound that is decompressed fully into memory to PCM. (ie equivalent of
 	///         <see cref="CreateSample" />).<lineBreak />
 	///         To have a sound stream instead, use <see cref="CreateSample" />, or use the wrapper function
-	///         <see cref="O:FMOD.Core.FmodSystem.CreateStream" />. Some opening modes (ie <see cref="OpenUser" />,
+	///         <see cref="O:FMOD.NET.Core.FmodSystem.CreateStream" />. Some opening modes (ie <see cref="OpenUser" />,
 	///         <see cref="OpenMemory" />, <see cref="OpenMemoryPoint" />, <see cref="OpenRaw" />) will need extra information.
 	///         <lineBreak />
 	///         This can be provided using the <see cref="CreateSoundExInfo" /> structure.<lineBreak />
@@ -98,13 +98,13 @@ namespace FMOD.NET.Enumerations
 	///         <see cref="Sound.Name" />, which saves 256 bytes per sound.
 	///     </para>
 	/// </remarks>
-	/// <seealso cref="O:FMOD.Core.FmodSystem.CreateSound" />
-	/// <seealso cref="O:FMOD.Core.FmodSystem.CreateStream" />
+	/// <seealso cref="O:FMOD.NET.Core.FmodSystem.CreateSound" />
+	/// <seealso cref="O:FMOD.NET.Core.FmodSystem.CreateStream" />
 	/// <seealso cref="Sound.Mode" />
 	/// <seealso cref="ChannelControl.Mode" />
 	/// <seealso cref="Sound.CustomRolloff3D" />
 	/// <seealso cref="ChannelControl.CustomRolloff3D" />
-	/// <seealso cref="O:FMOD.Core.Sound.GetOpenState" />
+	/// <seealso cref="O:FMOD.NET.Core.Sound.GetOpenState" />
 	[Flags]
 	public enum Mode : uint
 	{
@@ -211,12 +211,12 @@ namespace FMOD.NET.Enumerations
 
 		/// <summary>
 		///     Just open the file, don't prebuffer or read. Good for fast opens for info, or when
-		///     <see cref="O:FMOD.Core.Sound.ReadData" /> is to be used.
+		///     <see cref="O:FMOD.NET.Core.Sound.ReadData" /> is to be used.
 		/// </summary>
 		OpenOnly = 0x00002000,
 
 		/// <summary>
-		///     For <see cref="O:FMOD.Core.FmodSystem.CreateSound" /> - for accurate <see cref="Sound.GetLength" /> /
+		///     For <see cref="O:FMOD.NET.Core.FmodSystem.CreateSound" /> - for accurate <see cref="Sound.GetLength" /> /
 		///     <see cref="Channel.SetPosition" /> on VBR MP3, and MOD/S3M/XM/IT/MIDI files. Scans file first, so takes
 		///     longer to open. <see cref="OpenOnly" /> does not affect this.
 		/// </summary>
@@ -231,7 +231,7 @@ namespace FMOD.NET.Enumerations
 		/// <summary>
 		///     <para>For opening sounds and getting streamed subsounds (seeking) asyncronously.</para>
 		///     <para>
-		///         Use <see cref="O:FMOD.Core.Sound.GetOpenState" /> to poll the state of the sound as it opens or retrieves the
+		///         Use <see cref="O:FMOD.NET.Core.Sound.GetOpenState" /> to poll the state of the sound as it opens or retrieves the
 		///         subsound in the background.
 		///     </para>
 		/// </summary>

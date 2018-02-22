@@ -66,7 +66,7 @@ namespace FMOD.NET.Core
 	///     Describes the shape of a 3D environment.
 	/// </summary>
 	/// <remarks>
-	///     <para>Polygons can be added to a geometry object using <see cref="O:FMOD.Core.Geometry.AddPolygon" />.</para>
+	///     <para>Polygons can be added to a geometry object using <see cref="O:FMOD.NET.Core.Geometry.AddPolygon" />.</para>
 	///     <para>
 	///         A geometry object stores its list of polygons in a structure optimized for quick line intersection testing and
 	///         efficient insertion and updating.<lineBreak />
@@ -83,7 +83,7 @@ namespace FMOD.NET.Core
 	///         Conversely, if maxworldsize is excessively large, the structure may lose precision and efficiency may drop.
 	///     </para>
 	/// </remarks>
-	/// <seealso cref="FMOD.Core.HandleBase" />
+	/// <seealso cref="FMOD.NET.Core.HandleBase" />
 	/// <seealso cref="FmodSystem.CreateGeometry" />
 	/// <seealso cref="Polygon" />
 	/// <seealso cref="Vector" />
@@ -102,34 +102,6 @@ namespace FMOD.NET.Core
 		#endregion
 
 		#region Properties
-
-		/// <summary>
-		///     Gets or sets a user value that the <see cref="FmodSystem" /> object will store internally.
-		/// </summary>
-		/// <value>
-		///     The user data.
-		/// </value>
-		/// <remarks>
-		///     <para>This function is primarily used in case the user wishes to "attach" data to an <b>FMOD</b> object.</para>
-		///     <para>
-		///         It can be useful if an FMOD callback passes an object of this type as a parameter, and the user does not know
-		///         which object it is (if many of these types of objects exist).
-		///     </para>
-		/// </remarks>
-		/// <seealso cref="UserDataChanged" />
-		public IntPtr UserData
-		{
-			get
-			{
-				NativeInvoke(FMOD_Geometry_GetUserData(this, out var data));
-				return data;
-			}
-			set
-			{
-				NativeInvoke(FMOD_Geometry_SetUserData(this, value));
-				OnUserDataChanged();
-			}
-		}
 
 		/// <summary>
 		///     Gets or sets the enabled state of the <see cref="Geometry" /> object from being processed in the geometry engine.
@@ -192,7 +164,7 @@ namespace FMOD.NET.Core
 		/// <remarks>This value is set during creation via <see cref="FmodSystem.CreateGeometry" />.</remarks>
 		/// <seealso cref="MaxVertices" />
 		/// <seealso cref="FmodSystem.CreateGeometry" />
-		/// <seealso cref="O:FMOD.Core.FmodSystem.LoadGeometry" />
+		/// <seealso cref="O:FMOD.NET.Core.FmodSystem.LoadGeometry" />
 		public int MaxPolygons
 		{
 			get
@@ -212,7 +184,7 @@ namespace FMOD.NET.Core
 		/// <remarks>This value is set during creation via <see cref="FmodSystem.CreateGeometry" />.</remarks>
 		/// <seealso cref="MaxPolygons" />
 		/// <seealso cref="FmodSystem.CreateGeometry" />
-		/// <seealso cref="O:FMOD.Core.FmodSystem.LoadGeometry" />
+		/// <seealso cref="O:FMOD.NET.Core.FmodSystem.LoadGeometry" />
 		public int MaxVertices
 		{
 			get
@@ -268,13 +240,13 @@ namespace FMOD.NET.Core
 		///     The rotation.
 		/// </value>
 		/// <remarks>
-		///     See <see cref="O:FMOD.Core.FmodSystem.SetListenerAttributes" /> remarks for more description on forward and up
+		///     See <see cref="O:FMOD.NET.Core.FmodSystem.SetListenerAttributes" /> remarks for more description on forward and up
 		///     vectors.
 		/// </remarks>
 		/// <seealso cref="Rotation" />
 		/// <seealso cref="Data.Rotation" />
 		/// <seealso cref="Vector" />
-		/// <seealso cref="O:FMOD.Core.FmodSystem.SetListenerAttributes" />
+		/// <seealso cref="O:FMOD.NET.Core.FmodSystem.SetListenerAttributes" />
 		public Rotation Rotation
 		{
 			get
@@ -489,7 +461,7 @@ namespace FMOD.NET.Core
 		/// </summary>
 		/// <returns>An array of bytes containing the serialized <see cref="Geometry" /> object.</returns>
 		/// <seealso cref="Save" />
-		/// <seealso cref="O:FMOD.Core.FmodSystem.LoadGeometry" />
+		/// <seealso cref="O:FMOD.NET.Core.FmodSystem.LoadGeometry" />
 		public byte[] Serialize()
 		{
 			NativeInvoke(FMOD_Geometry_Save(this, IntPtr.Zero, out var size));
@@ -568,13 +540,13 @@ namespace FMOD.NET.Core
 		///     <para>Specify <c>null</c> to not update the upwards orientation of the geometry object.</para>
 		/// </param>
 		/// <remarks>
-		///     See <see cref="O:FMOD.Core.FmodSystem.SetListenerAttributes" /> remarks for more description on forward and up
+		///     See <see cref="O:FMOD.NET.Core.FmodSystem.SetListenerAttributes" /> remarks for more description on forward and up
 		///     vectors.
 		/// </remarks>
 		/// <seealso cref="Rotation" />
 		/// <seealso cref="Data.Rotation" />
 		/// <seealso cref="Vector" />
-		/// <seealso cref="O:FMOD.Core.FmodSystem.SetListenerAttributes" />
+		/// <seealso cref="O:FMOD.NET.Core.FmodSystem.SetListenerAttributes" />
 		/// <seealso cref="RotationChanged" />
 		public void SetRotation(Vector? forward, Vector? up)
 		{

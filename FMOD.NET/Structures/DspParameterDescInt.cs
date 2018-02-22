@@ -53,6 +53,7 @@
 #region Using Directives
 
 using System;
+using System.Linq;
 using System.Runtime.InteropServices;
 using FMOD.NET.Core;
 
@@ -94,6 +95,32 @@ namespace FMOD.NET.Structures
 		///     <para>Pointer to the names for each value.</para>
 		///     <para>There should be as many strings as there are possible values (max - min + 1). Optional.</para>
 		/// </summary>
-		public IntPtr ValueNames;
+		private readonly IntPtr _valueNames;
+
+		/// <summary>
+		/// Gets the names for the values.
+		/// </summary>
+		/// <value>
+		/// The value names.
+		/// </value>
+		public string[] ValueNames
+		{
+			get
+			{
+				var names = new string[Maximum - Minimum + 1];
+				if (_valueNames == IntPtr.Zero)
+				{
+					for (var i = 0; i < names.Length; i++)
+						names[i] = i.ToString();
+					return names;
+				}
+				var strPnts = new IntPtr[names.Length];
+				Marshal.Copy(_valueNames, strPnts, 0, strPnts.Length);
+				for (var i = 0; i < names.Length; i++)
+					names[i] = Marshal.PtrToStringAnsi(strPnts[i]);
+				return names;
+			}
+		}
 	}
+	
 }

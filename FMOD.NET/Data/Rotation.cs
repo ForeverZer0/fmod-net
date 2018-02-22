@@ -63,7 +63,7 @@ namespace FMOD.NET.Data
 	/// </summary>
 	/// <seealso cref="Geometry.Rotation" />
 	/// <seealso cref="Vector" />
-	/// <seealso cref="O:FMOD.Core.FmodSystem.SetListenerAttributes" />
+	/// <seealso cref="O:FMOD.NET.Core.FmodSystem.SetListenerAttributes" />
 	public class Rotation
 	{
 		/// <summary>

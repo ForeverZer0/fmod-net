@@ -257,34 +257,6 @@ namespace FMOD.NET.Core
 		}
 
 		/// <summary>
-		///     Gets or sets  a user value that the <see cref="SoundGroup" /> object will store internally.
-		/// </summary>
-		/// <value>
-		///     The user data.
-		/// </value>
-		/// <remarks>
-		///     <para>This function is primarily used in case the user wishes to "attach" data to an <b>FMOD</b> object.</para>
-		///     <para>
-		///         It can be useful if an <b>FMOD</b> callback passes an object of this type as a parameter, and the user does
-		///         not know which object it is (if many of these types of objects exist).
-		///     </para>
-		/// </remarks>
-		/// <seealso cref="UserDataChanged" />
-		public IntPtr UserData
-		{
-			get
-			{
-				NativeInvoke(FMOD_SoundGroup_GetUserData(this, out var data));
-				return data;
-			}
-			set
-			{
-				NativeInvoke(FMOD_SoundGroup_SetUserData(this, value));
-				OnUserDataChanged();
-			}
-		}
-
-		/// <summary>
 		///     <para>
 		///         Gets or sets the volume for a sound group, affecting all channels playing the sounds in this
 		///         <see cref="SoundGroup" />.

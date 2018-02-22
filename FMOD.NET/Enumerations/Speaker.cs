@@ -60,7 +60,7 @@ namespace FMOD.NET.Enumerations
 	///     Assigns an enumeration for a speaker index.
 	/// </summary>
 	/// <see cref="FmodSystem.GetSpeakerPosition" />
-	/// <see cref="O:FMOD.Core.FmodSystem.SetSpeakerPosition" />
+	/// <see cref="O:FMOD.NET.Core.FmodSystem.SetSpeakerPosition" />
 	public enum Speaker
 	{
 		/// <summary>

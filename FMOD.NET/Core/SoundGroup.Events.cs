@@ -87,12 +87,6 @@ namespace FMOD.NET.Core
 		public event EventHandler Stopped;
 
 		/// <summary>
-		/// Occurs when the <see cref="UserData"/> is changed.
-		/// </summary>
-		/// <seealso cref="UserData"/>
-		public event EventHandler UserDataChanged;
-
-		/// <summary>
 		/// Occurs when the <see cref="Volume"/> is changed.
 		/// </summary>
 		/// <seealso cref="Volume"/>
@@ -136,15 +130,6 @@ namespace FMOD.NET.Core
 		protected virtual void OnStopped()
 		{
 			Stopped?.Invoke(this, EventArgs.Empty);
-		}
-
-		/// <summary>
-		///     Raises the <see cref="UserDataChanged" /> event.
-		/// </summary>
-		/// <seealso cref="EventArgs" />
-		protected virtual void OnUserDataChanged()
-		{
-			UserDataChanged?.Invoke(this, EventArgs.Empty);
 		}
 
 		/// <summary>

@@ -255,12 +255,6 @@ namespace FMOD.NET.Core
 		public event EventHandler<SyncPointEncounteredEventArgs> SyncPointEncountered;
 
 		/// <summary>
-		///     Occurs when the user-data has changed.
-		/// </summary>
-		/// <seealso cref="UserData" />
-		public event EventHandler UserDataChanged;
-
-		/// <summary>
 		///     Occurs when the velocity for 3D sound has changed.
 		/// </summary>
 		/// <seealso cref="Velocity3D" />
@@ -530,15 +524,6 @@ namespace FMOD.NET.Core
 		protected virtual void OnSyncPointEncountered(SyncPointEncounteredEventArgs e)
 		{
 			SyncPointEncountered?.Invoke(this, e);
-		}
-
-		/// <summary>
-		///     Raises the <see cref="UserDataChanged" /> event.
-		/// </summary>
-		/// <seealso cref="EventArgs" />
-		protected virtual void OnUserDataChanged()
-		{
-			UserDataChanged?.Invoke(this, EventArgs.Empty);
 		}
 
 		/// <summary>

@@ -70,44 +70,6 @@ namespace FMOD.NET.Core
 		#region Native Methods
 
 		[DllImport(Constants.LIBRARY)]
-		public static extern Result FMOD_DSP_GetMeteringEnabled(IntPtr dsp, out bool inputEnabled, out bool outputEnabled);
-
-		[DllImport(Constants.LIBRARY)]
-		public static extern Result FMOD_DSP_GetMeteringInfo(IntPtr dsp, out DspMeteringInfo inputInfo,
-			[Out] DspMeteringInfo outputInfo);
-
-		[DllImport(Constants.LIBRARY)]
-		public static extern Result FMOD_DSP_SetMeteringEnabled(IntPtr dsp, bool inputEnabled, bool outputEnabled);
-
-		[DllImport(Constants.LIBRARY)]
-		protected static extern Result FMOD_DSP_GetParameterBool(IntPtr dsp, int index, out bool value, IntPtr valuestr,
-			int valuestrlen);
-
-		[DllImport(Constants.LIBRARY)]
-		protected static extern Result FMOD_DSP_GetParameterData(IntPtr dsp, int index, out IntPtr data, out uint length,
-			IntPtr valuestr, int valuestrlen);
-
-		[DllImport(Constants.LIBRARY)]
-		protected static extern Result FMOD_DSP_GetParameterFloat(IntPtr dsp, int index, out float value, IntPtr valuestr,
-			int valuestrlen);
-
-		[DllImport(Constants.LIBRARY)]
-		protected static extern Result FMOD_DSP_GetParameterInt(IntPtr dsp, int index, out int value, IntPtr valuestr,
-			int valuestrlen);
-
-		[DllImport(Constants.LIBRARY)]
-		protected static extern Result FMOD_DSP_SetParameterBool(IntPtr dsp, int index, bool value);
-
-		[DllImport(Constants.LIBRARY)]
-		protected static extern Result FMOD_DSP_SetParameterData(IntPtr dsp, int index, IntPtr data, uint length);
-
-		[DllImport(Constants.LIBRARY)]
-		protected static extern Result FMOD_DSP_SetParameterFloat(IntPtr dsp, int index, float value);
-
-		[DllImport(Constants.LIBRARY)]
-		protected static extern Result FMOD_DSP_SetParameterInt(IntPtr dsp, int index, int value);
-
-		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_DSP_AddInput(IntPtr dsp, IntPtr target, out IntPtr connection,
 			DspConnectionType type);
 
@@ -141,6 +103,13 @@ namespace FMOD.NET.Core
 		private static extern Result FMOD_DSP_GetInput(IntPtr dsp, int index, out IntPtr input, out IntPtr inputconnection);
 
 		[DllImport(Constants.LIBRARY)]
+		public static extern Result FMOD_DSP_GetMeteringEnabled(IntPtr dsp, out bool inputEnabled, out bool outputEnabled);
+
+		[DllImport(Constants.LIBRARY)]
+		public static extern Result FMOD_DSP_GetMeteringInfo(IntPtr dsp, out DspMeteringInfo inputInfo,
+			[Out] DspMeteringInfo outputInfo);
+
+		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_DSP_GetNumInputs(IntPtr dsp, out int numinputs);
 
 		[DllImport(Constants.LIBRARY)]
@@ -158,7 +127,23 @@ namespace FMOD.NET.Core
 			SpeakerMode inSpeakerMode, out ChannelMask outmask, out int outchannels, out SpeakerMode outSpeakerMode);
 
 		[DllImport(Constants.LIBRARY)]
+		protected static extern Result FMOD_DSP_GetParameterBool(IntPtr dsp, int index, out bool value, IntPtr valuestr,
+			int valuestrlen);
+
+		[DllImport(Constants.LIBRARY)]
+		protected static extern Result FMOD_DSP_GetParameterData(IntPtr dsp, int index, out IntPtr data, out uint length,
+			IntPtr valuestr, int valuestrlen);
+
+		[DllImport(Constants.LIBRARY)]
+		protected static extern Result FMOD_DSP_GetParameterFloat(IntPtr dsp, int index, out float value, IntPtr valuestr,
+			int valuestrlen);
+
+		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_DSP_GetParameterInfo(IntPtr dsp, int index, out IntPtr desc);
+
+		[DllImport(Constants.LIBRARY)]
+		protected static extern Result FMOD_DSP_GetParameterInt(IntPtr dsp, int index, out int value, IntPtr valuestr,
+			int valuestrlen);
 
 		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_DSP_GetSystemObject(IntPtr dsp, out IntPtr system);
@@ -166,8 +151,6 @@ namespace FMOD.NET.Core
 		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_DSP_GetType(IntPtr dsp, out DspType type);
 
-		[DllImport(Constants.LIBRARY)]
-		private static extern Result FMOD_DSP_GetUserData(IntPtr dsp, out IntPtr userdata);
 
 		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_DSP_GetWetDryMix(IntPtr dsp, out float prewet, out float postwet, out float dry);
@@ -186,7 +169,19 @@ namespace FMOD.NET.Core
 			SpeakerMode sourceSpeakerMode);
 
 		[DllImport(Constants.LIBRARY)]
-		private static extern Result FMOD_DSP_SetUserData(IntPtr dsp, IntPtr userdata);
+		public static extern Result FMOD_DSP_SetMeteringEnabled(IntPtr dsp, bool inputEnabled, bool outputEnabled);
+
+		[DllImport(Constants.LIBRARY)]
+		protected static extern Result FMOD_DSP_SetParameterBool(IntPtr dsp, int index, bool value);
+
+		[DllImport(Constants.LIBRARY)]
+		protected static extern Result FMOD_DSP_SetParameterData(IntPtr dsp, int index, IntPtr data, uint length);
+
+		[DllImport(Constants.LIBRARY)]
+		protected static extern Result FMOD_DSP_SetParameterFloat(IntPtr dsp, int index, float value);
+
+		[DllImport(Constants.LIBRARY)]
+		protected static extern Result FMOD_DSP_SetParameterInt(IntPtr dsp, int index, int value);
 
 		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_DSP_SetWetDryMix(IntPtr dsp, float prewet, float postwet, float dry);

@@ -26,8 +26,8 @@ namespace FMOD.NET.Core
 		/// The parent system.
 		/// </value>
 		/// <seealso cref="FmodSystem"/>
-		/// <seealso cref="O:FMOD.Core.FmodSystem.CreateSound"/>
-		/// <seealso cref="O:FMOD.Core.FmodSystem.CreateStream"/>
+		/// <seealso cref="O:FMOD.NET.Core.FmodSystem.CreateSound"/>
+		/// <seealso cref="O:FMOD.NET.Core.FmodSystem.CreateStream"/>
 		public FmodSystem ParentSystem
 		{
 			get
@@ -43,9 +43,9 @@ namespace FMOD.NET.Core
 		/// <value>
 		/// The name.
 		/// </value>
-		/// <seealso cref="O:FMOD.Core.FmodSystem.CreateSound"/>
-		/// <seealso cref="O:FMOD.Core.FmodSystem.CreateStream"/>
-		/// <seealso cref="FMOD.Enumerations.Mode"/>
+		/// <seealso cref="O:FMOD.NET.Core.FmodSystem.CreateSound"/>
+		/// <seealso cref="O:FMOD.NET.Core.FmodSystem.CreateStream"/>
+		/// <seealso cref="FMOD.NET.Enumerations.Mode"/>
 		public string Name
 		{
 			get
@@ -67,14 +67,14 @@ namespace FMOD.NET.Core
 		/// The loop count.
 		/// </value>
 		/// <remarks>
-		/// <para><b>Issues with streamed audio. (Sounds created with with <see cref="O:FMOD.Core.FmodSystem.CreateStream"/> or <see cref="FMOD.Enumerations.Mode.CreateStream"/>).</b> </para>
-		/// <para>When changing the loop count, sounds created with <see cref="O:FMOD.Core.FmodSystem.CreateStream"/> or <see cref="FMOD.Enumerations.Mode.CreateStream"/> may already have been pre-buffered and executed their loop logic ahead of time, before this call was even made.<lineBreak/> This is dependant on the size of the sound versus the size of the stream decode buffer. See <see cref="CreateSoundExInfo"/>.</para>
+		/// <para><b>Issues with streamed audio. (Sounds created with with <see cref="O:FMOD.NET.Core.FmodSystem.CreateStream"/> or <see cref="FMOD.NET.Enumerations.Mode.CreateStream"/>).</b> </para>
+		/// <para>When changing the loop count, sounds created with <see cref="O:FMOD.NET.Core.FmodSystem.CreateStream"/> or <see cref="FMOD.NET.Enumerations.Mode.CreateStream"/> may already have been pre-buffered and executed their loop logic ahead of time, before this call was even made.<lineBreak/> This is dependant on the size of the sound versus the size of the stream decode buffer. See <see cref="CreateSoundExInfo"/>.</para>
 		/// <para>If this happens, you may need to reflush the stream buffer. To do this, you can call <see cref="Channel.SetPosition"/> which forces a reflush of the stream buffer.</para>
 		/// <para>Note this will usually only happen if you have sounds or loop points that are smaller than the stream decode buffer size. Otherwise you will not normally encounter any problems.</para>
 		/// </remarks>
 		/// <seealso cref="LoopCountChanged"/>
 		/// <seealso cref="Enumerations.Mode"/>
-		/// <seealso cref="O:FMOD.Core.FmodSystem.CreateStream"/>
+		/// <seealso cref="O:FMOD.NET.Core.FmodSystem.CreateStream"/>
 		/// <seealso cref="Channel.SetPosition"/>
 		public int LoopCount
 		{
@@ -87,20 +87,6 @@ namespace FMOD.NET.Core
 			{
 				NativeInvoke(FMOD_Sound_SetLoopCount(this, Math.Max(-1, value)));
 				OnLoopCountChanged();
-			}
-		}
-
-		public IntPtr UserData
-		{
-			get
-			{
-				NativeInvoke(FMOD_Sound_GetUserData(this, out var data));
-				return data;
-			}
-			set
-			{
-				NativeInvoke(FMOD_Sound_SetUserData(this, value));
-				OnUserDataChanged();
 			}
 		}
 
@@ -130,15 +116,15 @@ namespace FMOD.NET.Core
 		/// <item><para><see cref="Enumerations.Mode.CustomRolloff3D"/></para></item>
 		/// <item><para><see cref="Enumerations.Mode.IgnoreGeometry3D"/></para></item>
 		/// </list>
-		/// <para><b>Issues with streamed audio. (Sounds created with with <see cref="O:FMOD.Core.FmodSystem.CreateStream"/> or <see cref="FMOD.Enumerations.Mode.CreateStream"/>).</b> </para>
-		/// <para>When changing the loop count, sounds created with <see cref="O:FMOD.Core.FmodSystem.CreateStream"/> or <see cref="FMOD.Enumerations.Mode.CreateStream"/> may already have been pre-buffered and executed their loop logic ahead of time, before this call was even made.<lineBreak/> This is dependant on the size of the sound versus the size of the stream decode buffer. See <see cref="CreateSoundExInfo"/>.</para>
+		/// <para><b>Issues with streamed audio. (Sounds created with with <see cref="O:FMOD.NET.Core.FmodSystem.CreateStream"/> or <see cref="FMOD.NET.Enumerations.Mode.CreateStream"/>).</b> </para>
+		/// <para>When changing the loop count, sounds created with <see cref="O:FMOD.NET.Core.FmodSystem.CreateStream"/> or <see cref="FMOD.NET.Enumerations.Mode.CreateStream"/> may already have been pre-buffered and executed their loop logic ahead of time, before this call was even made.<lineBreak/> This is dependant on the size of the sound versus the size of the stream decode buffer. See <see cref="CreateSoundExInfo"/>.</para>
 		/// <para>If this happens, you may need to reflush the stream buffer. To do this, you can call <see cref="Channel.SetPosition"/> which forces a reflush of the stream buffer.</para>
 		/// <para>Note this will usually only happen if you have sounds or loop points that are smaller than the stream decode buffer size. Otherwise you will not normally encounter any problems.</para>
 		/// </remarks>
 		/// <seealso cref="ModeChanged"/>
-		/// <seealso cref="FMOD.Enumerations.Mode"/>
-		/// <seealso cref="O:FMOD.Core.FmodSystem.CreateSound"/>
-		/// <seealso cref="O:FMOD.Core.FmodSystem.CreateStream"/>
+		/// <seealso cref="FMOD.NET.Enumerations.Mode"/>
+		/// <seealso cref="O:FMOD.NET.Core.FmodSystem.CreateSound"/>
+		/// <seealso cref="O:FMOD.NET.Core.FmodSystem.CreateStream"/>
 		/// <seealso cref="FmodSystem.PlaySound"/>
 		/// <seealso cref="CreateSoundExInfo"/>
 		/// <seealso cref="Channel.SetPosition"/>
@@ -489,7 +475,7 @@ namespace FMOD.NET.Core
 		/// <remarks>
 		/// <para>
 		/// If too much data is read, it is possible <see cref="Result.FileEof"/> will be returned, meaning it is out of data. The "read" parameter will reflect this by returning a smaller number of bytes read than was requested.<lineBreak/>
-		/// As a sound already reads the whole file then closes it upon calling <see cref="O:FMOD.Core.FmodSystem.CreateSound"/> (unless <see cref="O:FMOD.Core.FmodSystem.CreateStream"/> or <see cref="Enumerations.Mode.CreateStream"/> is used), this function will not work because the file is no longer open.
+		/// As a sound already reads the whole file then closes it upon calling <see cref="O:FMOD.NET.Core.FmodSystem.CreateSound"/> (unless <see cref="O:FMOD.NET.Core.FmodSystem.CreateStream"/> or <see cref="Enumerations.Mode.CreateStream"/> is used), this function will not work because the file is no longer open.
 		/// </para>
 		/// <para>
 		/// Note that opening a stream makes it read a chunk of data and this will advance the read cursor. You need to either use <see cref="Enumerations.Mode.OpenOnly"/> to stop the stream pre-buffering or call <see cref="SeekData"/> to reset the read cursor.<lineBreak/>
@@ -498,7 +484,7 @@ namespace FMOD.NET.Core
 		/// </para>
 		/// <para>
 		/// <see cref="Channel.SetPosition"/> will have the same result. These function will flush the stream buffer and read in a chunk of audio internally. This is why if you want to read from an absolute position you should use <see cref="SeekData"/> and not the previously mentioned functions.<lineBreak/>
-		/// Remember if you are calling <see cref="O:FMOD.Core.Sound.ReadData"/> and <see cref="SeekData"/> on a stream it is up to you to cope with the side effects that may occur. Information functions such as <see cref="Channel.GetPosition"/> may give misleading results. Calling <see cref="Channel.SetPosition"/> will reset and flush the stream, leading to the time values returning to their correct position.
+		/// Remember if you are calling <see cref="O:FMOD.NET.Core.Sound.ReadData"/> and <see cref="SeekData"/> on a stream it is up to you to cope with the side effects that may occur. Information functions such as <see cref="Channel.GetPosition"/> may give misleading results. Calling <see cref="Channel.SetPosition"/> will reset and flush the stream, leading to the time values returning to their correct position.
 		/// </para>
 		/// <alert class="note">
 		/// <para><b>Thread safety.</b> If you call this from another stream callback, or any other thread besides the main thread, make sure to put a critical section around the call, and another around <see cref="HandleBase.Dispose"/> in case the sound is still being read from while releasing.</para>

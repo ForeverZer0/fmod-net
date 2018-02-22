@@ -162,9 +162,6 @@ namespace FMOD.NET.Core
 		private static extern Result FMOD_ChannelGroup_GetSystemObject(IntPtr channelControl, out IntPtr system);
 
 		[DllImport(Constants.LIBRARY)]
-		private static extern Result FMOD_ChannelGroup_GetUserData(IntPtr channelControl, out IntPtr userData);
-
-		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_ChannelGroup_GetVolume(IntPtr channelControl, out float volume);
 
 		[DllImport(Constants.LIBRARY)]
@@ -274,9 +271,6 @@ namespace FMOD.NET.Core
 
 		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_ChannelGroup_SetReverbProperties(IntPtr channelControl, int instance, float wet);
-
-		[DllImport(Constants.LIBRARY)]
-		private static extern Result FMOD_ChannelGroup_SetUserData(IntPtr channelControl, IntPtr userData);
 
 		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_ChannelGroup_SetVolume(IntPtr channelControl, float volume);

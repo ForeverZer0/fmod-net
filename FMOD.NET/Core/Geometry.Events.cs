@@ -73,7 +73,7 @@ namespace FMOD.NET.Core
 		/// <summary>
 		///     Occurs when a polygon has been added to the <see cref="Geometry" /> object.
 		/// </summary>
-		/// <seealso cref="O:FMOD.Core.Geometry.AddPolygon" />
+		/// <seealso cref="O:FMOD.NET.Core.Geometry.AddPolygon" />
 		/// <seealso cref="Polygon" />
 		/// <seealso cref="PolygonEventArgs" />
 		public event EventHandler<PolygonEventArgs> PolygonAdded;
@@ -81,7 +81,7 @@ namespace FMOD.NET.Core
 		/// <summary>
 		///     Occurs when the attributes of a <see cref="Polygon" /> have changed.
 		/// </summary>
-		/// <seealso cref="O:FMOD.Core.Geometry.SetPolygonAttributes" />
+		/// <seealso cref="O:FMOD.NET.Core.Geometry.SetPolygonAttributes" />
 		/// <seealso cref="Polygon" />
 		/// <seealso cref="PolygonEventArgs" />
 		public event EventHandler<PolygonEventArgs> PolygonAttributesChanged;
@@ -112,12 +112,6 @@ namespace FMOD.NET.Core
 		/// </summary>
 		/// <seealso cref="Scale" />
 		public event EventHandler ScaleChanged;
-
-		/// <summary>
-		///     Occurs when the <see cref="UserData" /> property has changed.
-		/// </summary>
-		/// <seealso cref="UserData" />
-		public event EventHandler UserDataChanged;
 
 		#endregion
 
@@ -184,15 +178,6 @@ namespace FMOD.NET.Core
 		protected virtual void OnScaleChanged()
 		{
 			ScaleChanged?.Invoke(this, EventArgs.Empty);
-		}
-
-		/// <summary>
-		///     Raises the <see cref="UserDataChanged" /> event.
-		/// </summary>
-		/// <seealso cref="EventArgs" />
-		protected virtual void OnUserDataChanged()
-		{
-			UserDataChanged?.Invoke(this, EventArgs.Empty);
 		}
 
 		#endregion

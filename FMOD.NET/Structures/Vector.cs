@@ -66,17 +66,17 @@ namespace FMOD.NET.Structures
 	/// <remarks>
 	///     <b>FMOD</b> uses a left handed coordinate system by default.
 	///     To use a right handed coordinate system specify <see cref="InitFlags.RightHanded3D" /> in
-	///     <see cref="O:FMOD.Core.FmodSystem.Initialize" />.
+	///     <see cref="O:FMOD.NET.Core.FmodSystem.Initialize" />.
 	/// </remarks>
 	/// <seealso cref="FmodSystem.GetListenerAttributes" />
-	/// <seealso cref="O:FMOD.Core.FmodSystem.SetListenerAttributes" />
+	/// <seealso cref="O:FMOD.NET.Core.FmodSystem.SetListenerAttributes" />
 	/// <seealso cref="Attributes3D" />
 	/// <seealso cref="ChannelControl.Position3D" />
 	/// <seealso cref="ChannelControl.Velocity3D" />
 	/// <seealso cref="ChannelControl.SetAttributes3D" />
 	/// <seealso cref="ChannelControl.CustomRolloff3D" />
 	/// <seealso cref="Sound.CustomRolloff3D" />
-	/// <seealso cref="O:FMOD.Core.Geometry.AddPolygon" />
+	/// <seealso cref="O:FMOD.NET.Core.Geometry.AddPolygon" />
 	/// <seealso cref="Geometry" />
 	/// <seealso cref="Polygon" />
 	/// <seealso cref="Geometry.GetVertex" />

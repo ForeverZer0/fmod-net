@@ -94,9 +94,6 @@ namespace FMOD.NET.Core
 		private static extern Result FMOD_SoundGroup_GetSystemObject(IntPtr soundgroup, out IntPtr system);
 
 		[DllImport(Constants.LIBRARY)]
-		private static extern Result FMOD_SoundGroup_GetUserData(IntPtr soundgroup, out IntPtr userData);
-
-		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_SoundGroup_GetVolume(IntPtr soundgroup, out float volume);
 
 		[DllImport(Constants.LIBRARY)]
@@ -107,9 +104,6 @@ namespace FMOD.NET.Core
 
 		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_SoundGroup_SetMuteFadeSpeed(IntPtr soundgroup, float speed);
-
-		[DllImport(Constants.LIBRARY)]
-		private static extern Result FMOD_SoundGroup_SetUserData(IntPtr soundgroup, IntPtr userData);
 
 		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_SoundGroup_SetVolume(IntPtr soundgroup, float volume);

@@ -69,25 +69,73 @@ namespace FMOD.NET.Core
 		#region Native Methods
 
 		[DllImport(Constants.LIBRARY)]
+		private static extern Result FMOD_ChannelGroup_GetUserData(IntPtr channelControl, out IntPtr userData);
+
+		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_ChannelGroup_Release(IntPtr channelGroup);
+
+		[DllImport(Constants.LIBRARY)]
+		private static extern Result FMOD_ChannelGroup_SetUserData(IntPtr channelControl, IntPtr userData);
+
+		[DllImport(Constants.LIBRARY)]
+		private static extern Result FMOD_DSP_GetUserData(IntPtr dsp, out IntPtr userdata);
 
 		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_DSP_Release(IntPtr dsp);
 
 		[DllImport(Constants.LIBRARY)]
+		private static extern Result FMOD_DSP_SetUserData(IntPtr dsp, IntPtr userdata);
+
+		[DllImport(Constants.LIBRARY)]
+		private static extern Result FMOD_DSPConnection_GetUserData(IntPtr dspconnection, out IntPtr userdata);
+
+		[DllImport(Constants.LIBRARY)]
+		private static extern Result FMOD_DSPConnection_SetUserData(IntPtr dspconnection, IntPtr userdata);
+
+		[DllImport(Constants.LIBRARY)]
+		private static extern Result FMOD_Geometry_GetUserData(IntPtr geometry, out IntPtr userData);
+
+		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_Geometry_Release(IntPtr geometry);
+
+		[DllImport(Constants.LIBRARY)]
+		private static extern Result FMOD_Geometry_SetUserData(IntPtr geometry, IntPtr userData);
+
+		[DllImport(Constants.LIBRARY)]
+		private static extern Result FMOD_Reverb3D_GetUserData(IntPtr reverb, out IntPtr userData);
 
 		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_Reverb3D_Release(IntPtr reverb);
 
 		[DllImport(Constants.LIBRARY)]
+		private static extern Result FMOD_Reverb3D_SetUserData(IntPtr reverb, IntPtr userData);
+
+		[DllImport(Constants.LIBRARY)]
+		private static extern Result FMOD_Sound_GetUserData(IntPtr sound, out IntPtr userdata);
+
+		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_Sound_Release(IntPtr sound);
+
+		[DllImport(Constants.LIBRARY)]
+		private static extern Result FMOD_Sound_SetUserData(IntPtr sound, IntPtr userdata);
+
+		[DllImport(Constants.LIBRARY)]
+		private static extern Result FMOD_SoundGroup_GetUserData(IntPtr soundgroup, out IntPtr userData);
 
 		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_SoundGroup_Release(IntPtr soundGroup);
 
 		[DllImport(Constants.LIBRARY)]
+		private static extern Result FMOD_SoundGroup_SetUserData(IntPtr soundgroup, IntPtr userData);
+
+		[DllImport(Constants.LIBRARY)]
+		private static extern Result FMOD_System_GetUserData(IntPtr system, out IntPtr userdata);
+
+		[DllImport(Constants.LIBRARY)]
 		private static extern Result FMOD_System_Release(IntPtr system);
+
+		[DllImport(Constants.LIBRARY)]
+		private static extern Result FMOD_System_SetUserData(IntPtr system, IntPtr userdata);
 
 		#endregion
 	}

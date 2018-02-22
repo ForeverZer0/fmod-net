@@ -103,10 +103,8 @@
     <Compile Include="Arguments\PolygonEventArgs.cs" />
     <Compile Include="Arguments\SoundMusicVolumeChangedEventArgs.cs" />
     <Compile Include="Arguments\SyncPointEventArgs.cs" />
-    <Compile Include="Core\ChannelControl.Properties.cs" />
     <Compile Include="Core\Constants.cs" />
     <Compile Include="Core\Debug.cs" />
-    <Compile Include="Core\FmodSystem.Properties.cs" />
     <Compile Include="Data\CpuUsage.cs" />
     <Compile Include="Data\FileUsage.cs" />
     <Compile Include="Data\OpenStateInfo.cs" />
@@ -151,7 +149,7 @@
     <Compile Include="DSP\ThreeEq.cs" />
     <Compile Include="DSP\Transceiver.cs" />
     <Compile Include="DSP\Tremolo.cs" />
-    <Compile Include="IHandleBase.cs" />
+    <Compile Include="Core\IHandleBase.cs" />
     <Compile Include="Resources\Strings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -173,6 +171,9 @@
       <DependentUpon>ChannelControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\ChannelControl.Native.cs">
+      <DependentUpon>ChannelControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Core\ChannelControl.Properties.cs">
       <DependentUpon>ChannelControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\ChannelGroup.cs" />
@@ -243,6 +244,9 @@
       <DependentUpon>FmodSystem.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\FmodSystem.Native.cs">
+      <DependentUpon>FmodSystem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Core\FmodSystem.Properties.cs">
       <DependentUpon>FmodSystem.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\Geometry.cs" />

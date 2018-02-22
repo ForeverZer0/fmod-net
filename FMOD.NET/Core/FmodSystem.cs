@@ -27,7 +27,7 @@ namespace FMOD.NET.Core
 		{
 			var bytesName = Encoding.UTF8.GetBytes(name);
 			NativeInvoke(FMOD_System_CreateChannelGroup(this, bytesName, out var group));
-			ChannelGroupCreated?.Invoke(this, EventArgs.Empty);
+			OnChannelGroupCreated();
 			return Factory.Create<ChannelGroup>(group);
 		}
 
@@ -205,40 +205,40 @@ namespace FMOD.NET.Core
 		{
 			var bytes = Encoding.UTF8.GetBytes(path);
 			NativeInvoke(FMOD_System_LoadPlugin(this, bytes, out var pluginHandle, priority));
-			PluginLoaded?.Invoke(this, EventArgs.Empty);
+			OnPluginLoaded();
 			return pluginHandle;
 		}
 
 		public void RecordStart(int driverId, Sound sound, bool loop = false)
 		{
 			NativeInvoke(FMOD_System_RecordStart(this, driverId, sound, loop));
-			RecordingStarted?.Invoke(this, EventArgs.Empty);
+			OnRecordingStarted();
 		}
 
 		public void RecordStop(int driverId)
 		{
 			NativeInvoke(FMOD_System_RecordStop(this, driverId));
-			RecordingStopped?.Invoke(this, EventArgs.Empty);
+			OnRecordingStopped();
 		}
 
 		public uint RegisterCodec(CodecDescription description, uint priority)
 		{
 			NativeInvoke(FMOD_System_RegisterCodec(this, ref description, out var codecHandle, priority));
-			CodecRegistered?.Invoke(this, EventArgs.Empty);
+			OnCodecRegistered();
 			return codecHandle;
 		}
 
 		public uint RegisterDsp(DspDescription description)
 		{
 			NativeInvoke(FMOD_System_RegisterDSP(this, ref description, out var dspHandle));
-			DspRegistered?.Invoke(this, EventArgs.Empty);
+			OnDspRegistered();
 			return dspHandle;
 		}
 
 		public uint RegisterOutput(OutputDescription description)
 		{
 			NativeInvoke(FMOD_System_RegisterOutput(this, ref description, out var outputHandle));
-			OutputRegistered?.Invoke(this, EventArgs.Empty);
+			OnOutputRegistered();
 			return outputHandle;
 		}
 
@@ -250,7 +250,7 @@ namespace FMOD.NET.Core
 		public void Set3DSettings(float dopplerScale, float distanceFactor, float rolloffScale)
 		{
 			NativeInvoke(FMOD_System_Set3DSettings(this, dopplerScale, distanceFactor, rolloffScale));
-			Settings3DChanged?.Invoke(this, EventArgs.Empty);
+			OnSettings3DChanged();
 		}
 
 		public void SetCallback(SystemCallback callback, SystemCallbackType type)
@@ -261,7 +261,7 @@ namespace FMOD.NET.Core
 		public void SetDspBufferSize(uint bufferLength, int bufferCount)
 		{
 			NativeInvoke(FMOD_System_SetDSPBufferSize(this, bufferLength, bufferCount));
-			DspBufferChanged?.Invoke(this, EventArgs.Empty);
+			OnDspBufferChanged();
 		}
 
 		public void SetFileSystem(FileOpenCallback userOpen,
@@ -280,13 +280,13 @@ namespace FMOD.NET.Core
 		public void SetListenerAttributes(int listener, Vector position, Vector velocity, Vector forward, Vector up)
 		{
 			NativeInvoke(FMOD_System_Set3DListenerAttributes(this, listener, ref position, ref velocity, ref forward, ref up));
-			ListenerAttributesChanged?.Invoke(this, EventArgs.Empty);
+			OnListenerAttributesChanged();
 		}
 
 		public Channel PlayDsp(Dsp dsp, bool paused = false, ChannelGroup group = null)
 		{
 			NativeInvoke(FMOD_System_PlayDSP(this, dsp, group ?? IntPtr.Zero, paused, out var channel));
-			DspPlayed?.Invoke(this, EventArgs.Empty);
+			OnDspPlayed();
 			return Factory.Create<Channel>(channel);
 		}
 
@@ -345,7 +345,7 @@ namespace FMOD.NET.Core
 		public Channel PlaySound(Sound sound, bool paused = false, ChannelGroup group = null)
 		{
 			NativeInvoke(FMOD_System_PlaySound(this, sound, group ?? IntPtr.Zero, paused, out var channel));
-			SoundPlayed?.Invoke(this, EventArgs.Empty);
+			OnSoundPlayed();
 			return Factory.Create<Channel>(channel);
 		}
 
@@ -396,7 +396,7 @@ namespace FMOD.NET.Core
 		public Geometry LoadGeometry(IntPtr data, int dataSize)
 		{
 			NativeInvoke(FMOD_System_LoadGeometry(this, data, dataSize, out var geometry));
-			GeometryCreated?.Invoke(this, EventArgs.Empty);
+			OnGeometryCreated();
 			return Factory.Create<Geometry>(geometry);
 		}
 
@@ -428,7 +428,7 @@ namespace FMOD.NET.Core
 		public Dsp CreateDsp(DspDescription description)
 		{
 			NativeInvoke(FMOD_System_CreateDSP(this, ref description, out var dsp));
-			DspCreated?.Invoke(this, EventArgs.Empty);
+			OnDspCreated();
 			return Factory.Create<Dsp>(dsp);
 		}
 
@@ -498,7 +498,7 @@ namespace FMOD.NET.Core
 		public Dsp CreateDspByType(DspType dspType)
 		{
 			NativeInvoke(FMOD_System_CreateDSPByType(this, dspType, out var dsp));
-			DspCreated?.Invoke(this, EventArgs.Empty);
+			OnDspCreated();
 			return Dsp.FromType(dsp, dspType);
 		}
 
@@ -528,7 +528,7 @@ namespace FMOD.NET.Core
 		public Dsp CreateDspByPlugin(uint pluginHandle)
 		{
 			NativeInvoke(FMOD_System_CreateDSPByPlugin(this, pluginHandle, out var dsp));
-			DspCreated?.Invoke(this, EventArgs.Empty);
+			OnDspCreated();
 			return Factory.Create<Dsp>(dsp);
 		}
 
@@ -548,7 +548,7 @@ namespace FMOD.NET.Core
 		public void AttachChannelGroupToPort(uint portType, ulong portIndex, ChannelGroup channelGroup, bool passThru)
 		{
 			NativeInvoke(FMOD_System_AttachChannelGroupToPort(this, portType, portIndex, channelGroup, passThru));
-			ChannelGroupAttached?.Invoke(this, EventArgs.Empty);
+			OnChannelGroupAttached();
 		}
 
 		/// <summary>
@@ -561,7 +561,7 @@ namespace FMOD.NET.Core
 		public void DetachChannelGroupFromPort(ChannelGroup channelGroup)
 		{
 			NativeInvoke(FMOD_System_DetachChannelGroupFromPort(this, channelGroup));
-			ChannelGroupDetached?.Invoke(this, EventArgs.Empty);
+			OnChannelGroupDetached();
 		}
 
 		/// <summary>
@@ -573,7 +573,7 @@ namespace FMOD.NET.Core
 		public void CloseSystem()
 		{
 			NativeInvoke(FMOD_System_Close(this));
-			Closed?.Invoke(this, EventArgs.Empty);
+			OnClosed();
 		}
 
 		/// <summary>
@@ -605,7 +605,7 @@ namespace FMOD.NET.Core
 		public Geometry CreateGeometry(int maxPolygons, int maxVertices)
 		{
 			NativeInvoke(FMOD_System_CreateGeometry(this, maxPolygons, maxVertices, out var geometry));
-			GeometryCreated?.Invoke(this, EventArgs.Empty);
+			OnGeometryCreated();
 			return Factory.Create<Geometry>(geometry);
 		}
 
@@ -642,7 +642,7 @@ namespace FMOD.NET.Core
 		public Reverb CreateReverb()
 		{
 			NativeInvoke(FMOD_System_CreateReverb3D(this, out var reverb));
-			ReverbCreated?.Invoke(this, EventArgs.Empty);
+			OnReverbCreated();
 			return Factory.Create<Reverb>(reverb);
 		}
 
@@ -666,7 +666,7 @@ namespace FMOD.NET.Core
 			set
 			{
 				NativeInvoke(FMOD_System_SetSoftwareChannels(this, value));
-				SoftwareChannelsChanged?.Invoke(this, EventArgs.Empty);
+				OnSoftwareChannelsChanged();
 			}
 		}
 
@@ -685,7 +685,7 @@ namespace FMOD.NET.Core
 		{
 			var bytesName = Encoding.UTF8.GetBytes(name + char.MinValue);
 			NativeInvoke(FMOD_System_CreateSoundGroup(this, bytesName, out var group));
-			SoundGroupCreated?.Invoke(this, EventArgs.Empty);
+			OnSoundGroupCreated();
 			return Factory.Create<SoundGroup>(group);
 		}
 
@@ -1006,7 +1006,7 @@ namespace FMOD.NET.Core
 			{
 				NativeInvoke(FMOD_System_CreateSound(this, source, mode, IntPtr.Zero, out sound));
 			}
-			SoundCreated?.Invoke(this, EventArgs.Empty);
+			OnSoundCreated();
 			return Factory.Create<Sound>(sound);
 		}
 
@@ -1309,7 +1309,7 @@ namespace FMOD.NET.Core
 			{
 				NativeInvoke(FMOD_System_CreateStream(this, source, mode, IntPtr.Zero, out sound));
 			}
-			SoundCreated?.Invoke(this, EventArgs.Empty);
+			OnSoundCreated();
 			return Factory.Create<Sound>(sound);
 		}
 
@@ -1460,7 +1460,7 @@ namespace FMOD.NET.Core
 		public void SetStreamBufferSize(uint size, TimeUnit type)
 		{
 			NativeInvoke(FMOD_System_SetStreamBufferSize(this, size, type));
-			BufferSizeChanged?.Invoke(this, EventArgs.Empty);
+			OnBufferSizeChanged();
 		}
 
 		/// <summary>
@@ -1493,7 +1493,7 @@ namespace FMOD.NET.Core
 		public void SetStreamBufferSize(StreamBufferInfo info)
 		{
 			NativeInvoke(FMOD_System_SetStreamBufferSize(this, info.Size, info.SizeType));
-			BufferSizeChanged?.Invoke(this, EventArgs.Empty);
+			OnBufferSizeChanged();
 		}
 
 		/// <summary>
@@ -1631,7 +1631,7 @@ namespace FMOD.NET.Core
 		public void SetOutputByPlugin(uint pluginHandle)
 		{
 			NativeInvoke(FMOD_System_SetOutputByPlugin(this, pluginHandle));
-			OutputChanged?.Invoke(this, EventArgs.Empty);
+			OnOutputChanged();
 		}
 
 		/// <summary>
@@ -1645,7 +1645,7 @@ namespace FMOD.NET.Core
 		{
 			var bytes = Encoding.UTF8.GetBytes(path);
 			NativeInvoke(FMOD_System_SetPluginPath(this, bytes));
-			PluginPathChanged?.Invoke(this, EventArgs.Empty);
+			OnPluginPathChanged();
 		}
 
 		/// <summary>
@@ -1677,7 +1677,7 @@ namespace FMOD.NET.Core
 			{
 				NativeInvoke(FMOD_System_SetReverbProperties(this, index, IntPtr.Zero));
 			}	
-			ReverbPropertiesChanged?.Invoke(this, EventArgs.Empty);
+			OnReverbPropertiesChanged();
 		}
 
 		/// <summary>
@@ -1707,7 +1707,7 @@ namespace FMOD.NET.Core
 		{
 			
 			NativeInvoke(FMOD_System_SetSoftwareFormat(this, sampleRate.Clamp(8000, 192000), speakerMode, rawSpeakerCount));
-			SoftwareFormatChanged?.Invoke(this, EventArgs.Empty);
+			OnSoftwareFormatChanged();
 		}
 
 		/// <summary>
@@ -1838,7 +1838,7 @@ namespace FMOD.NET.Core
 		public void SetSpeakerPosition(Speaker speaker, float x, float y, bool isActive = true)
 		{
 			NativeInvoke(FMOD_System_SetSpeakerPosition(this, speaker, x, y, isActive));
-			SpeakerPositionChanged?.Invoke(this, EventArgs.Empty);
+			OnSpeakerPositionChanged();
 		}
 
 		/// <summary>
@@ -1926,7 +1926,7 @@ namespace FMOD.NET.Core
 		public void SuspendMixer()
 		{
 			NativeInvoke(FMOD_System_MixerSuspend(this));
-			MixerSuspended?.Invoke(this, EventArgs.Empty);
+			OnMixerSuspended();
 		}
 
 		/// <summary>
@@ -1941,7 +1941,7 @@ namespace FMOD.NET.Core
 		public void ResumeMixer()
 		{
 			NativeInvoke(FMOD_System_MixerResume(this));
-			MixerResumed?.Invoke(this, EventArgs.Empty);
+			OnMixerResumed();
 		}
 
 		/// <summary>
@@ -1952,7 +1952,7 @@ namespace FMOD.NET.Core
 		public void UnloadPlugin(uint pluginHandle)
 		{
 			NativeInvoke(FMOD_System_UnloadPlugin(this, pluginHandle));
-			PluginUnloaded?.Invoke(this, EventArgs.Empty);
+			OnPluginUnloaded();
 		}
 
 		/// <summary>
@@ -1972,7 +1972,7 @@ namespace FMOD.NET.Core
 		public void LockDsp()
 		{
 			NativeInvoke(FMOD_System_LockDSP(this));
-			DspLocked?.Invoke(this, EventArgs.Empty);
+			OnDspLocked();
 		}
 
 		/// <summary>
@@ -1986,7 +1986,7 @@ namespace FMOD.NET.Core
 		public void UnlockDsp()
 		{
 			NativeInvoke(FMOD_System_UnlockDSP(this));
-			DspUnlocked?.Invoke(this, EventArgs.Empty);
+			OnDspUnlocked();
 		}
 
 		/// <summary>

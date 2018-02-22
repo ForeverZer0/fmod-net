@@ -53,6 +53,8 @@
 #region Using Directives
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 using FMOD.NET.Enumerations;
@@ -61,7 +63,7 @@ using FMOD.NET.Enumerations;
 
 namespace FMOD.NET.Core
 {
-	public partial class SoundGroup : HandleBase
+	public partial class SoundGroup : HandleBase, IEnumerable<Sound>
 	{
 		#region Constructors
 
@@ -284,6 +286,16 @@ namespace FMOD.NET.Core
 			}
 		}
 
+		/// <summary>
+		///     Gets the <see cref="Sound" /> at the specified index.
+		/// </summary>
+		/// <value>
+		///     The <see cref="Sound" />.
+		/// </value>
+		/// <param name="index">The index.</param>
+		/// <returns>The <see cref="Sound" /> at the specified index.</returns>
+		public Sound this[int index] => GetSound(index);
+
 		#endregion
 
 		#region Methods
@@ -312,6 +324,39 @@ namespace FMOD.NET.Core
 		{
 			NativeInvoke(FMOD_SoundGroup_Stop(this));
 			OnStopped();
+		}
+
+		#endregion
+
+		#region IEnumerable Implementations
+
+		/// <inheritdoc />
+		/// <summary>
+		///     Returns an enumerator that iterates through the collection.
+		/// </summary>
+		/// <returns>
+		///     An enumerator that can be used to iterate through the collection.
+		/// </returns>
+		public IEnumerator<Sound> GetEnumerator()
+		{
+			NativeInvoke(FMOD_SoundGroup_GetNumSounds(this, out var count));
+			for (var i = 0; i < count; i++)
+			{
+				NativeInvoke(FMOD_SoundGroup_GetSound(this, i, out var sound));
+				yield return Factory.Create<Sound>(sound);
+			}
+		}
+
+		/// <inheritdoc />
+		/// <summary>
+		///     Returns an enumerator that iterates through a collection.
+		/// </summary>
+		/// <returns>
+		///     An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.
+		/// </returns>
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return GetEnumerator();
 		}
 
 		#endregion

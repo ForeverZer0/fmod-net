@@ -76,6 +76,9 @@ namespace FMOD.NET.Core
 
 		public event EventHandler SpeakerPositionChanged;
 
+		/// <summary>
+		/// Occurs when <see cref="WorldSize"/> property is changed.
+		/// </summary>
 		public event EventHandler WorldSizeChanged;
 
 		/// <summary>
@@ -116,5 +119,347 @@ namespace FMOD.NET.Core
 		/// <seealso cref="LockDsp"/>
 		/// <seealso cref="UnlockDsp"/>
 		public event EventHandler DspUnlocked;
+		
+		/// <summary>
+		///     Raises the <see cref="AdvancedSettingsChanged" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnAdvancedSettingsChanged()
+		{
+			AdvancedSettingsChanged?.Invoke(this, EventArgs.Empty);
+		}
+
+		/// <summary>
+		///     Raises the <see cref="BufferSizeChanged" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnBufferSizeChanged()
+		{
+			BufferSizeChanged?.Invoke(this, EventArgs.Empty);
+		}
+		
+		/// <summary>
+		///     Raises the <see cref="DspUnlocked" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnDspUnlocked()
+		{
+			DspUnlocked?.Invoke(this, EventArgs.Empty);
+		}
+		
+		/// <summary>
+		///     Raises the <see cref="DspRegistered" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnDspRegistered()
+		{
+			DspRegistered?.Invoke(this, EventArgs.Empty);
+		}
+		
+		/// <summary>
+		///     Raises the <see cref="DspPlayed" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnDspPlayed()
+		{
+			DspPlayed?.Invoke(this, EventArgs.Empty);
+		}
+		
+		/// <summary>
+		///     Raises the <see cref="DspLocked" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnDspLocked()
+		{
+			DspLocked?.Invoke(this, EventArgs.Empty);
+		}
+		
+		/// <summary>
+		///     Raises the <see cref="DspCreated" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnDspCreated()
+		{
+			DspCreated?.Invoke(this, EventArgs.Empty);
+		}
+
+		/// <summary>
+		///     Raises the <see cref="WorldSizeChanged" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnWorldSizeChanged()
+		{
+			WorldSizeChanged?.Invoke(this, EventArgs.Empty);
+		}
+		
+		/// <summary>
+		///     Raises the <see cref="SpeakerPositionChanged" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnSpeakerPositionChanged()
+		{
+			SpeakerPositionChanged?.Invoke(this, EventArgs.Empty);
+		}
+		
+		/// <summary>
+		///     Raises the <see cref="SoundPlayed" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnSoundPlayed()
+		{
+			SoundPlayed?.Invoke(this, EventArgs.Empty);
+		}
+		
+		/// <summary>
+		///     Raises the <see cref="SoundGroupCreated" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnSoundGroupCreated()
+		{
+			SoundGroupCreated?.Invoke(this, EventArgs.Empty);
+		}
+		
+		/// <summary>
+		///     Raises the <see cref="SoundCreated" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnSoundCreated()
+		{
+			SoundCreated?.Invoke(this, EventArgs.Empty);
+		}
+		
+		/// <summary>
+		///     Raises the <see cref="SoftwareFormatChanged" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnSoftwareFormatChanged()
+		{
+			SoftwareFormatChanged?.Invoke(this, EventArgs.Empty);
+		}
+		
+		/// <summary>
+		///     Raises the <see cref="SoftwareChannelsChanged" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnSoftwareChannelsChanged()
+		{
+			SoftwareChannelsChanged?.Invoke(this, EventArgs.Empty);
+		}
+		
+		/// <summary>
+		///     Raises the <see cref="Settings3DChanged" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnSettings3DChanged()
+		{
+			Settings3DChanged?.Invoke(this, EventArgs.Empty);
+		}
+		
+		/// <summary>
+		///     Raises the <see cref="SelectedDriverChanged" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnSelectedDriverChanged()
+		{
+			SelectedDriverChanged?.Invoke(this, EventArgs.Empty);
+		}
+		
+		/// <summary>
+		///     Raises the <see cref="ChannelGroupAttached" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnChannelGroupAttached()
+		{
+			ChannelGroupAttached?.Invoke(this, EventArgs.Empty);
+		}
+		
+		/// <summary>
+		///     Raises the <see cref="ListenerCountChanged" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnListenerCountChanged()
+		{
+			ListenerCountChanged?.Invoke(this, EventArgs.Empty);
+		}
+		
+		/// <summary>
+		///     Raises the <see cref="RecordingStarted" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnRecordingStarted()
+		{
+			RecordingStarted?.Invoke(this, EventArgs.Empty);
+		}
+		
+		/// <summary>
+		///     Raises the <see cref="ReverbPropertiesChanged" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnReverbPropertiesChanged()
+		{
+			ReverbPropertiesChanged?.Invoke(this, EventArgs.Empty);
+		}
+		
+		/// <summary>
+		///     Raises the <see cref="GeometryCreated" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnGeometryCreated()
+		{
+			GeometryCreated?.Invoke(this, EventArgs.Empty);
+		}
+		
+		/// <summary>
+		///     Raises the <see cref="MixerResumed" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnMixerResumed()
+		{
+			MixerResumed?.Invoke(this, EventArgs.Empty);
+		}
+		
+		/// <summary>
+		///     Raises the <see cref="NetworkProxyChanged" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnNetworkProxyChanged()
+		{
+			NetworkProxyChanged?.Invoke(this, EventArgs.Empty);
+		}
+		
+		/// <summary>
+		///     Raises the <see cref="ReverbCreated" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnReverbCreated()
+		{
+			ReverbCreated?.Invoke(this, EventArgs.Empty);
+		}
+		
+		/// <summary>
+		///     Raises the <see cref="PluginLoaded" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnPluginLoaded()
+		{
+			PluginLoaded?.Invoke(this, EventArgs.Empty);
+		}
+		
+		/// <summary>
+		///     Raises the <see cref="ListenerAttributesChanged" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnListenerAttributesChanged()
+		{
+			ListenerAttributesChanged?.Invoke(this, EventArgs.Empty);
+		}
+		
+		/// <summary>
+		///     Raises the <see cref="ChannelGroupCreated" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnChannelGroupCreated()
+		{
+			ChannelGroupCreated?.Invoke(this, EventArgs.Empty);
+		}
+		
+		/// <summary>
+		///     Raises the <see cref="MixerSuspended" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnMixerSuspended()
+		{
+			MixerSuspended?.Invoke(this, EventArgs.Empty);
+		}
+		
+		/// <summary>
+		///     Raises the <see cref="NetworkTimeoutChanged" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnNetworkTimeoutChanged()
+		{
+			NetworkTimeoutChanged?.Invoke(this, EventArgs.Empty);
+		}
+		
+		/// <summary>
+		///     Raises the <see cref="DspBufferChanged" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnDspBufferChanged()
+		{
+			DspBufferChanged?.Invoke(this, EventArgs.Empty);
+		}
+		
+		/// <summary>
+		///     Raises the <see cref="Closed" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnClosed()
+		{
+			Closed?.Invoke(this, EventArgs.Empty);
+		}
+		
+		/// <summary>
+		///     Raises the <see cref="PluginUnloaded" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnPluginUnloaded()
+		{
+			PluginUnloaded?.Invoke(this, EventArgs.Empty);
+		}
+		
+		/// <summary>
+		///     Raises the <see cref="CodecRegistered" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnCodecRegistered()
+		{
+			CodecRegistered?.Invoke(this, EventArgs.Empty);
+		}
+		
+		/// <summary>
+		///     Raises the <see cref="RecordingStopped" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnRecordingStopped()
+		{
+			RecordingStopped?.Invoke(this, EventArgs.Empty);
+		}
+		
+		/// <summary>
+		///     Raises the <see cref="ChannelGroupDetached" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnChannelGroupDetached()
+		{
+			ChannelGroupDetached?.Invoke(this, EventArgs.Empty);
+		}
+		
+		/// <summary>
+		///     Raises the <see cref="OutputChanged" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnOutputChanged()
+		{
+			OutputChanged?.Invoke(this, EventArgs.Empty);
+		}
+		
+		/// <summary>
+		///     Raises the <see cref="OutputRegistered" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnOutputRegistered()
+		{
+			OutputRegistered?.Invoke(this, EventArgs.Empty);
+		}
+
+		/// <summary>
+		///     Raises the <see cref="PluginPathChanged" /> event.
+		/// </summary>
+		/// <seealso cref="EventArgs" />
+		protected virtual void OnPluginPathChanged()
+		{
+			PluginPathChanged?.Invoke(this, EventArgs.Empty);
+		}
 	}
 }

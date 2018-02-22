@@ -57,7 +57,7 @@ using FMOD.NET.Core;
 
 #endregion
 
-namespace FMOD.NET
+namespace FMOD.NET.Core
 {
 	public interface IHandleBase : IEquatable<HandleBase>, IDisposable
 	{

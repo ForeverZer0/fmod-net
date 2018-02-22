@@ -53,6 +53,8 @@
 #region Using Directives
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Text;
 using FMOD.NET.Arguments;
 
@@ -60,13 +62,13 @@ using FMOD.NET.Arguments;
 
 namespace FMOD.NET.Core
 {
-	/// <inheritdoc />
+	/// <inheritdoc cref="ChannelControl" />
 	/// <summary>
 	///     Specialized <see cref="ChannelControl" /> for grouping multiple instances together to operate as a
 	///     single unit.
 	/// </summary>
 	/// <seealso cref="ChannelControl" />
-	public partial class ChannelGroup : ChannelControl
+	public partial class ChannelGroup : ChannelControl, IEnumerable<Channel>
 	{
 		#region Constructors
 
@@ -161,6 +163,16 @@ namespace FMOD.NET.Core
 			}
 		}
 
+		/// <summary>
+		///     Gets the <see cref="Channel" /> at the specified index.
+		/// </summary>
+		/// <value>
+		///     The <see cref="Channel" />.
+		/// </value>
+		/// <param name="index">The index.</param>
+		/// <returns>The channel at the specified index.</returns>
+		public Channel this[int index] => GetChannel(index);
+
 		#endregion
 
 		#region Methods
@@ -212,6 +224,39 @@ namespace FMOD.NET.Core
 		{
 			NativeInvoke(FMOD_ChannelGroup_GetGroup(this, index, out var group));
 			return Factory.Create<ChannelGroup>(group);
+		}
+
+		#endregion
+
+		#region IEnumerable Implementations
+
+		/// <inheritdoc />
+		/// <summary>
+		///     Returns an enumerator that iterates through the collection.
+		/// </summary>
+		/// <returns>
+		///     An enumerator that can be used to iterate through the collection.
+		/// </returns>
+		public IEnumerator<Channel> GetEnumerator()
+		{
+			NativeInvoke(FMOD_ChannelGroup_GetNumChannels(this, out var count));
+			for (var i = 0; i < count; i++)
+			{
+				NativeInvoke(FMOD_ChannelGroup_GetChannel(this, i, out var channel));
+				yield return Factory.Create<Channel>(channel);
+			}
+		}
+
+		/// <inheritdoc />
+		/// <summary>
+		///     Returns an enumerator that iterates through a collection.
+		/// </summary>
+		/// <returns>
+		///     An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.
+		/// </returns>
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return GetEnumerator();
 		}
 
 		#endregion

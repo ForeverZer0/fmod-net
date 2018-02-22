@@ -34,7 +34,7 @@ namespace FMOD.NET.Core
 			{
 				var bytes = Encoding.UTF8.GetBytes(value);
 				NativeInvoke(FMOD_System_SetNetworkProxy(this, bytes));
-				NetworkProxyChanged?.Invoke(this, EventArgs.Empty);
+				OnNetworkProxyChanged();
 			}
 		}
 
@@ -124,7 +124,7 @@ namespace FMOD.NET.Core
 			set
 			{
 				NativeInvoke(FMOD_System_SetOutput(this, value));
-				OutputChanged?.Invoke(this, EventArgs.Empty);
+				OnOutputChanged();
 			}
 		}
 
@@ -165,7 +165,7 @@ namespace FMOD.NET.Core
 			set
 			{
 				NativeInvoke(FMOD_System_SetAdvancedSettings(this, ref value));
-				AdvancedSettingsChanged?.Invoke(this, EventArgs.Empty);
+				OnAdvancedSettingsChanged();
 			}
 		}
 
@@ -199,7 +199,7 @@ namespace FMOD.NET.Core
 			{
 				NativeInvoke(FMOD_System_SetSoftwareFormat(this, value.SampleRate,
 					value.SpeakerMode, value.RawSpeakerCount));
-				SoftwareFormatChanged?.Invoke(this, EventArgs.Empty);
+				OnSoftwareFormatChanged();
 			}
 		}
 
@@ -222,7 +222,7 @@ namespace FMOD.NET.Core
 			set
 			{
 				NativeInvoke(FMOD_System_Set3DNumListeners(this, value.Clamp(1, Constants.MAX_LISTENERS)));
-				ListenerCountChanged?.Invoke(this, EventArgs.Empty);
+				OnListenerCountChanged();
 			}
 		}
 
@@ -283,7 +283,7 @@ namespace FMOD.NET.Core
 			set
 			{
 				NativeInvoke(FMOD_System_SetDriver(this, value));
-				SelectedDriverChanged?.Invoke(this, EventArgs.Empty);
+				OnSelectedDriverChanged();
 			}
 		}
 
@@ -306,7 +306,7 @@ namespace FMOD.NET.Core
 			set
 			{
 				NativeInvoke(FMOD_System_SetNetworkTimeout(this, Math.Max(1, value)));
-				NetworkTimeoutChanged?.Invoke(this, EventArgs.Empty);
+				OnNetworkTimeoutChanged();
 			}
 		}
 
@@ -354,7 +354,7 @@ namespace FMOD.NET.Core
 			set
 			{
 				NativeInvoke(FMOD_System_SetGeometrySettings(this, value));
-				WorldSizeChanged?.Invoke(this, EventArgs.Empty);
+				OnWorldSizeChanged();
 			}
 		}
 
@@ -428,7 +428,7 @@ namespace FMOD.NET.Core
 			{
 				NativeInvoke(FMOD_System_GetDSPBufferSize(this, out var bufferLength, out var dummy));
 				NativeInvoke(FMOD_System_SetDSPBufferSize(this, bufferLength, value));
-				DspBufferChanged?.Invoke(this, EventArgs.Empty);
+				OnDspBufferChanged();
 			}
 		}
 
@@ -443,7 +443,7 @@ namespace FMOD.NET.Core
 			{
 				NativeInvoke(FMOD_System_GetDSPBufferSize(this, out var dummy, out var count));
 				NativeInvoke(FMOD_System_SetDSPBufferSize(this, value, count));
-				DspBufferChanged?.Invoke(this, EventArgs.Empty);
+				OnDspBufferChanged();
 			}
 		}
 

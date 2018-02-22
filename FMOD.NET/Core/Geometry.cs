@@ -53,6 +53,8 @@
 #region Using Directives
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using FMOD.NET.Arguments;
 using FMOD.NET.Data;
@@ -87,7 +89,7 @@ namespace FMOD.NET.Core
 	/// <seealso cref="FmodSystem.CreateGeometry" />
 	/// <seealso cref="Polygon" />
 	/// <seealso cref="Vector" />
-	public partial class Geometry : HandleBase
+	public partial class Geometry : HandleBase, IEnumerable<Polygon>
 	{
 		#region Constructors
 
@@ -260,6 +262,16 @@ namespace FMOD.NET.Core
 			}
 			set => SetRotation(value.Forward, value.Up);
 		}
+
+		/// <summary>
+		///     Gets the <see cref="Polygon" /> at the specified index.
+		/// </summary>
+		/// <value>
+		///     The <see cref="Polygon" />.
+		/// </value>
+		/// <param name="index">The index.</param>
+		/// <returns>The <see cref="Polygon" /> at the specified index.</returns>
+		public Polygon this[int index] => GetPolygon(index);
 
 		#endregion
 
@@ -590,6 +602,36 @@ namespace FMOD.NET.Core
 		{
 			NativeInvoke(FMOD_Geometry_SetPolygonVertex(this, polygonIndex, vertexIndex, ref vertex));
 			OnPolygonVertexChanged(new PolygonEventArgs(polygonIndex));
+		}
+
+		#endregion
+
+		#region IEnumerable Implementations
+
+		/// <inheritdoc />
+		/// <summary>
+		///     Returns an enumerator that iterates through the collection.
+		/// </summary>
+		/// <returns>
+		///     An enumerator that can be used to iterate through the collection.
+		/// </returns>
+		public IEnumerator<Polygon> GetEnumerator()
+		{
+			NativeInvoke(FMOD_Geometry_GetNumPolygons(this, out var count));
+			for (var i = 0; i < count; i++)
+				yield return GetPolygon(i);
+		}
+
+		/// <inheritdoc />
+		/// <summary>
+		///     Returns an enumerator that iterates through a collection.
+		/// </summary>
+		/// <returns>
+		///     An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.
+		/// </returns>
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return GetEnumerator();
 		}
 
 		#endregion

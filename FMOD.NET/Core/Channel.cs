@@ -53,20 +53,23 @@
 #region Using Directives
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using FMOD.NET.Data;
 using FMOD.NET.Enumerations;
+using FMOD.NET.Structures;
 
 #endregion
 
 namespace FMOD.NET.Core
 {
-	/// <inheritdoc />
+	/// <inheritdoc cref="ChannelControl" />
 	/// <summary>
 	///     A specialized <see cref="ChannelControl" /> with common playback functions including seeking and
 	///     looping sounds.
 	/// </summary>
 	/// <seealso cref="ChannelControl" />
-	public partial class Channel : ChannelControl
+	public partial class Channel : ChannelControl, IEnumerable<Dsp>
 	{
 		#region Constructors
 
@@ -263,6 +266,26 @@ namespace FMOD.NET.Core
 			}
 		}
 
+		/// <summary>
+		///     Gets the <see cref="Dsp" /> at the specified index.
+		/// </summary>
+		/// <value>
+		///     The <see cref="Dsp" />.
+		/// </value>
+		/// <param name="index">The index.</param>
+		/// <returns>The <see cref="Dsp" /> at the specified index.</returns>
+		public Dsp this[int index] => GetDsp(index);
+
+		/// <summary>
+		///     Gets the <see cref="Dsp" /> at the specified index.
+		/// </summary>
+		/// <value>
+		///     The <see cref="Dsp" />.
+		/// </value>
+		/// <param name="index">The index.</param>
+		/// <returns>The <see cref="Dsp" /> at the specified index.</returns>
+		public Dsp this[DspIndex index] => GetDsp((int) index);
+
 		#endregion
 
 		#region Methods
@@ -334,7 +357,8 @@ namespace FMOD.NET.Core
 		///     </para>
 		///     <para>
 		///         When changing the loop count, sounds created with <see cref="O:FMOD.NET.Core.FmodSystem.CreateStream" /> or
-		///         <see cref="FMOD.NET.Enumerations.Mode.CreateStream" /> may have already been pre-buffered and executed their loop
+		///         <see cref="FMOD.NET.Enumerations.Mode.CreateStream" /> may have already been pre-buffered and executed their
+		///         loop
 		///         logic ahead of time before this call was even made. This is dependant on the size of the sound versus the size
 		///         of the stream decode buffer (see <see cref="CreateSoundExInfo" />). If this happens, you may need to reflush
 		///         the stream buffer by calling <see cref="SetPosition" />. Note this will usually only happen if you have sounds
@@ -368,7 +392,8 @@ namespace FMOD.NET.Core
 		///     </para>
 		///     <para>
 		///         When changing the loop count, sounds created with <see cref="O:FMOD.NET.Core.FmodSystem.CreateStream" /> or
-		///         <see cref="FMOD.NET.Enumerations.Mode.CreateStream" /> may have already been pre-buffered and executed their loop
+		///         <see cref="FMOD.NET.Enumerations.Mode.CreateStream" /> may have already been pre-buffered and executed their
+		///         loop
 		///         logic ahead of time before this call was even made. This is dependant on the size of the sound versus the size
 		///         of the stream decode buffer (see <see cref="CreateSoundExInfo" />). If this happens, you may need to reflush
 		///         the stream buffer by calling <see cref="SetPosition" />. Note this will usually only happen if you have sounds
@@ -403,7 +428,8 @@ namespace FMOD.NET.Core
 		///     </para>
 		///     <para>
 		///         When changing the loop count, sounds created with <see cref="O:FMOD.NET.Core.FmodSystem.CreateStream" /> or
-		///         <see cref="FMOD.NET.Enumerations.Mode.CreateStream" /> may have already been pre-buffered and executed their loop
+		///         <see cref="FMOD.NET.Enumerations.Mode.CreateStream" /> may have already been pre-buffered and executed their
+		///         loop
 		///         logic ahead of time before this call was even made. This is dependant on the size of the sound versus the size
 		///         of the stream decode buffer (see <see cref="CreateSoundExInfo" />). If this happens, you may need to reflush
 		///         the stream buffer by calling <see cref="SetPosition" />. Note this will usually only happen if you have sounds
@@ -468,6 +494,36 @@ namespace FMOD.NET.Core
 		{
 			SetHandleAsInvalid();
 			base.OnSoundEnded();
+		}
+
+		#endregion
+
+		#region IEnumerable Implementations
+
+		/// <inheritdoc />
+		/// <summary>
+		///     Returns an enumerator that iterates through the collection.
+		/// </summary>
+		/// <returns>
+		///     An enumerator that can be used to iterate through the collection.
+		/// </returns>
+		public IEnumerator<Dsp> GetEnumerator()
+		{
+			var count = DspCount;
+			for (var i = 0; i < count; i++)
+				yield return GetDsp(i);
+		}
+
+		/// <inheritdoc />
+		/// <summary>
+		///     Returns an enumerator that iterates through a collection.
+		/// </summary>
+		/// <returns>
+		///     An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.
+		/// </returns>
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return GetEnumerator();
 		}
 
 		#endregion

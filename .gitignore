@@ -10,7 +10,7 @@
 
 FMOD.NET.Documentation/Help
 FMOD.NET.ConsoleTest/
-FMOD.NET.Sample/
+Music/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

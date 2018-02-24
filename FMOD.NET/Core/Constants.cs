@@ -57,16 +57,53 @@ namespace FMOD.NET.Core
 	/// </summary>
 	public static class Constants
 	{
-#if X64 /// <summary>
-/// The platform specific name of the native library to link to.
-/// </summary>
-		public const string LIBRARY = "fmod64";
-#elif X86
 		/// <summary>
 		///     The platform specific name of the native library to link to.
 		/// </summary>
+#if X64 
+		public const string LIBRARY = "fmod64";
+#elif X86
 		public const string LIBRARY = "fmod";
 #endif
+
+		/// <summary>
+		///     Array containing file extensions, with leading "." character, supported by <b>FMOD</b>.
+		/// </summary>
+		public static readonly string[] SUPPORTED_EXTENSIONS =
+		{
+			".aiff", ".asf", ".asx", ".dls", ".flac", ".fsb", ".it", ".m3u", ".midi", ".mod", ".mp2", ".mp3", ".ogg", ".pls",
+			".s3m", ".vag", ".wav", ".wax", ".wma", ".xm", ".xma"
+		};
+
+		/// <summary>
+		///     <para>Filename filtering string for opening audio files supported by <b>FMOD</b>.</para>
+		///     <para>This could be used for a <see cref="System.Windows.Forms.FileDialog.Filter" /> property.</para>
+		/// </summary>
+		public const string FILE_FILTER =
+			"All Supported Formats|*.aiff;*.asf;*.asx;*.dls;*.flac;*.fsb;*.it;*.m3u;*.mid;*.midi;*.mod;*.mp2;*.mp3;*.ogg;*.pls;*.s3m;*.vag;*.wav;*.wax;*.wma;*.xm;*.xma|" +
+			"Audio Interchange File Format (*.aiff)|*.aiff|" +
+			"Advanced Systems Format (*.asf)|*.asf|" +
+			"Advanced Stream Redirector (*.asx)|*.asx|" +
+			"Downloadable Sounds (*.dls)|*.dls|" +
+			"Free Lossless Audio Codec (*.flac)|*.flac|" +
+			"FMOD Sound Bank (*.fsb)|*.fsb|" +
+			"Impulse Tracker (*.it)|*.it|" +
+			"MPEG Audio Layer 3 URL (*.m3u)|*.m3u|" +
+			"Musical Instrument Digital Interface (*.mid, *.midi)|*.mid;*.midi|" +
+			"Module Format (*.mod)|*.mod|" +
+			"MPEG Audio Layer 2 (*.mp2)|*.mp2|" +
+			"MPEG Audio Layer 3 (*.mp3)|*.mp3|" +
+			"OGG Vorbis (*.ogg)|*.ogg|" +
+			"Playlist (*.pls)|*.pls|" +
+			"ScreamTracker 3 Module (*.s3m)|*.s3m|" +
+			"PS2/PSP Format (*.vag)|*.vag|" +
+			"Waveform Audio File Format (*.wav)|*.wav|" +
+			"Windows Media Audio Redirector (*.wax)|*.wax|" +
+			"Windows Media Audio (*.wma)|*.wma|" +
+			"Extended Module (*.xm)|*.xm|" +
+			"Windows Media Audio (Xbox 360) (*.xma)|*.xma|" +
+			"All Documents (*.*)|*.*";
+
 		/// <summary>
 		///     The version is a 32-bit hexadecimal value formated as 16:8:8, with the upper 16-bits being the major version, the
 		///     middle 8-bits being the minor version and the bottom 8-bits being the development version.

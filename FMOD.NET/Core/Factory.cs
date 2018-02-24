@@ -55,6 +55,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security;
@@ -191,7 +192,7 @@ namespace FMOD.NET.Core
 		/// </summary>
 		public static void ReleaseAll()
 		{
-			foreach (var handle in _handles.Values)
+			foreach (var handle in _handles.Values.ToArray())
 				handle.Dispose();
 		}
 

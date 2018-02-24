@@ -53,6 +53,7 @@
 #region Using Directives
 
 using System;
+using System.ComponentModel;
 using FMOD.NET.Core;
 using FMOD.NET.Structures;
 

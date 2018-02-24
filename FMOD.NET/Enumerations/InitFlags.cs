@@ -53,7 +53,9 @@
 #region Using Directives
 
 using System;
+using System.ComponentModel;
 using FMOD.NET.Core;
+using FMOD.NET.Structures;
 
 #endregion
 
@@ -79,12 +81,14 @@ namespace FMOD.NET.Enumerations
 		/// <summary>
 		///     Initialize normally.
 		/// </summary>
+		[Description("Initialize normally.")]
 		Normal = 0x00000000,
 
 		/// <summary>
 		///     <para>No stream thread is created internally. Streams are driven from <see cref="FmodSystem.Update" />.</para>
 		///     <para>Mainly used with non-realtime outputs.</para>
 		/// </summary>
+		[Description("No stream thread is created internally. Streams are driven from FmodSystem.Update().")]
 		StreamFromUpdate = 0x00000001,
 
 		/// <summary>
@@ -96,11 +100,13 @@ namespace FMOD.NET.Enumerations
 		///         <see cref="OutputType.Xaudio" />.
 		///     </para>
 		/// </summary>
+		[Description("No mixer thread is created internally. Mixing is driven from FmodSystem.Update().")]
 		MixFromUpdate = 0x00000002,
 
 		/// <summary>
 		///     3D calculations will be performed in right-handed coordinates.
 		/// </summary>
+		[Description("3D calculations will be performed in right-handed coordinates.")]
 		RightHanded3D = 0x00000004,
 
 		/// <summary>
@@ -109,6 +115,7 @@ namespace FMOD.NET.Enumerations
 		///     <para>This also causes sounds to sound duller when the sound goes behind the listener, as a fake HRTF style effect.</para>
 		///     <para>Use <see cref="FmodSystem.AdvancedSettings" /> to disable or adjust cutoff frequency for this feature.</para>
 		/// </summary>
+		[Description("All 3D based voices will add a software lowpass filter effect into the DSP chain.")]
 		ChannelLowpass = 0x00000100,
 
 		/// <summary>
@@ -118,12 +125,14 @@ namespace FMOD.NET.Enumerations
 		///     </para>
 		///     <para>Use <see cref="FmodSystem.AdvancedSettings" /> to adjust the center frequency. </para>
 		/// </summary>
+		[Description("All 3D based voices will add a software lowpass and highpass filter effect into the DSP chain which will act as a distance-automated bandpass filter.")]
 		ChannelDistanceFilter = 0x00000200,
 
 		/// <summary>
 		///     Enable TCP/IP based host which allows FMOD Designer or FMOD Profiler to connect to it, and view memory, CPU and the
 		///     DSP network graph in real-time.
 		/// </summary>
+		[Description("Enable TCP/IP based host which allows FMOD Designer or FMOD Profiler to connect to it, and view memory, CPU and the DSP network graph in real-time.")]
 		ProfileEnable = 0x00010000,
 
 		/// <summary>
@@ -133,30 +142,35 @@ namespace FMOD.NET.Enumerations
 		///     </para>
 		///     <para>Use <see cref="FmodSystem.AdvancedSettings" /> to adjust what volume besides zero to switch to virtual at. </para>
 		/// </summary>
+		[Description("Any sounds that are 0 volume will go virtual and not be processed except for having their positions updated virtually.")]
 		Vol0BecomesVirtual = 0x00020000,
 
 		/// <summary>
 		///     With the geometry engine, only process the closest polygon rather than accumulating all polygons the sound to
 		///     listener line intersects.
 		/// </summary>
+		[Description("With the geometry engine, only process the closest polygon rather than accumulating all polygons the sound to listener line intersects.")]
 		GeometryUseClosest = 0x00040000,
 
 		/// <summary>
 		///     When using <see cref="SpeakerMode.FivePointOne" /> with a stereo output device, use the Dolby Pro Logic II downmix
 		///     algorithm instead of the SRS Circle Surround algorithm.
 		/// </summary>
+		[Description("When using SpeakerMode.FivePointOne with a stereo output device, use the Dolby Pro Logic II downmix algorithm instead of the SRS Circle Surround algorithm.")]
 		PreferDolbyDownMix = 0x00080000,
 
 		/// <summary>
 		///     Disables thread safety for API calls. Only use this if <b>FMOD</b> low level is being called from a single thread,
 		///     and if Studio API is not being used!
 		/// </summary>
+		[Description("Disables thread safety for API calls. Only use this if <b>FMOD</b> low level is being called from a single thread, and if Studio API is not being used!")]
 		ThreadUnsafe = 0x00100000,
 
 		/// <summary>
 		///     <para>Slower, but adds level metering for every single DSP unit in the graph. </para>
 		///     <para>Use <see cref="Dsp.EnableMetering" /> to turn meters off individually.</para>
 		/// </summary>
+		[Description("Slower, but adds level metering for every single DSP unit in the graph.")]
 		ProfileMeterAll = 0x00200000,
 
 		/// <summary>
@@ -168,6 +182,7 @@ namespace FMOD.NET.Enumerations
 		///         Logic II downmix algorithm instead.
 		///     </para>
 		/// </summary>
+		[Description("Using SpeakerMode.FivePointOne with a stereo output device will enable the SRS Circle Surround downmixer.")]
 		DisableSrsHighpassFilter = 0x00400000
 	}
 }

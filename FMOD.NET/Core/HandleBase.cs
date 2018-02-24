@@ -162,7 +162,6 @@ namespace FMOD.NET.Core
 			return result;
 		}
 
-
 		/// <summary>
 		///     Performs an implicit conversion from <see cref="HandleBase" /> to <see cref="IntPtr" />.
 		/// </summary>

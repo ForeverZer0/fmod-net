@@ -104,7 +104,6 @@
     <Compile Include="Arguments\SoundMusicVolumeChangedEventArgs.cs" />
     <Compile Include="Arguments\SyncPointEventArgs.cs" />
     <Compile Include="Core\Constants.cs" />
-    <Compile Include="Core\Debug.cs" />
     <Compile Include="Data\CpuUsage.cs" />
     <Compile Include="Data\FileUsage.cs" />
     <Compile Include="Data\OpenStateInfo.cs" />
@@ -213,8 +212,6 @@
     <Compile Include="Enumerations\ChannelControlType.cs" />
     <Compile Include="Enumerations\ChannelMask.cs" />
     <Compile Include="Enumerations\ChannelOrder.cs" />
-    <Compile Include="Enumerations\DebugFlags.cs" />
-    <Compile Include="Enumerations\DebugMode.cs" />
     <Compile Include="Enumerations\DriverState.cs" />
     <Compile Include="Enumerations\DspConnectionType.cs" />
     <Compile Include="Enumerations\DspParameterDataTypes.cs" />

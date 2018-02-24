@@ -12,8 +12,6 @@ namespace FMOD.NET.Core
 
 	public delegate Result AsyncReadInfoDoneCallback(IntPtr info, Result result);
 
-	public delegate Result DebugCallback(DebugFlags flags, string file, int line, string func, string message);
-
 	public delegate Result SystemCallback(IntPtr systemraw, SystemCallbackType type, IntPtr commanddata1,
 		IntPtr commanddata2, IntPtr userdata);
 

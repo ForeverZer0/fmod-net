@@ -84,6 +84,11 @@
       <DependentUpon>ColorSlider.cs</DependentUpon>
     </Compile>
     <Compile Include="ControlHelper.cs" />
+    <Compile Include="EnumFlagCheckList.cs" />
+    <Compile Include="EnumFlagsConverter.cs" />
+    <Compile Include="FlagEnumEditor.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Fmod.cs">
       <SubType>Component</SubType>
     </Compile>

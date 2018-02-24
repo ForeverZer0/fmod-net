@@ -59,11 +59,16 @@
           <colorizer syntaxFile="{@SHFBFolder}PresentationStyles\Colorizer\highlight.xml" styleFile="{@SHFBFolder}PresentationStyles\Colorizer\highlight.xsl" stylesheet="{@SHFBFolder}PresentationStyles\Colorizer\highlight.css" scriptFile="{@SHFBFolder}PresentationStyles\Colorizer\highlight.js" disabled="{@DisableCodeBlockComponent}" language="cs" tabSize="4" numberLines="true" outlining="false" keepSeeTags="false" defaultTitle="true" />
         </component>
       </ComponentConfig>
-<ComponentConfig id="Syntax Component" enabled="True"><component id="Syntax Component"><syntax input="/document/reference" output="/document/syntax" renderReferenceLinks="false" />
-<generators>
+      <ComponentConfig id="Syntax Component" enabled="True">
+        <component id="Syntax Component">
+          <syntax input="/document/reference" output="/document/syntax" renderReferenceLinks="false" />
+          <generators>
     {@SyntaxFilters}
 </generators>
-<containerElement name="codeSnippetGroup" addNoExampleTabs="true" includeOnSingleSnippets="false" groupingEnabled="{@CodeSnippetGrouping}" /></component></ComponentConfig></ComponentConfigurations>
+          <containerElement name="codeSnippetGroup" addNoExampleTabs="true" includeOnSingleSnippets="false" groupingEnabled="{@CodeSnippetGrouping}" />
+        </component>
+      </ComponentConfig>
+    </ComponentConfigurations>
     <CopyrightText>Copyright %28c%29 2018,  Eric Freed  All Rights Reserved.</CopyrightText>
     <FeedbackEMailAddress>efreed09%40gmail.com</FeedbackEMailAddress>
     <FeedbackEMailLinkText>Support</FeedbackEMailLinkText>
@@ -118,6 +123,32 @@
       <Project>{f1a3262b-d6bb-4351-b331-45bccd44fc57}</Project>
       <Private>True</Private>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="media\fft-blackman.png">
+      <ImageId>fft-blackman</ImageId>
+      <AlternateText>fft-blackman</AlternateText>
+    </Image>
+    <Image Include="media\fft-blackmanharris.png">
+      <ImageId>fft-blackmanharris</ImageId>
+      <AlternateText>fft-blackmanharris</AlternateText>
+    </Image>
+    <Image Include="media\fft-hamming.png">
+      <ImageId>fft-hamming</ImageId>
+      <AlternateText>fft-hamming</AlternateText>
+    </Image>
+    <Image Include="media\fft-hann.png">
+      <ImageId>fft-hann</ImageId>
+      <AlternateText>fft-hann</AlternateText>
+    </Image>
+    <Image Include="media\fft-rectangle.png">
+      <ImageId>fft-rectangle</ImageId>
+      <AlternateText>fft-rectangle</AlternateText>
+    </Image>
+    <Image Include="media\fft-triangle.png">
+      <ImageId>fft-triangle</ImageId>
+      <AlternateText>fft-triangle</AlternateText>
+    </Image>
   </ItemGroup>
   <!-- Import the SHFB build targets -->
   <Import Project="$(SHFBROOT)\SandcastleHelpFileBuilder.targets" />

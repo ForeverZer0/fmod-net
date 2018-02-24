@@ -28,17 +28,9 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.components = new System.ComponentModel.Container();
-			this._updateTimer = new System.Windows.Forms.Timer(this.components);
-			// 
-			// _updateTimer
-			// 
-			this._updateTimer.Tick += new System.EventHandler(this.timer1_Tick);
 
 		}
 
 		#endregion
-
-		private System.Windows.Forms.Timer _updateTimer;
 	}
 }

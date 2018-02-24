@@ -64,6 +64,7 @@ using FMOD.NET.Structures;
 
 namespace FMOD.NET.Core
 {
+	/// <inheritdoc cref="HandleBase" />
 	/// <summary>
 	///     Describes the shape of a 3D environment.
 	/// </summary>
@@ -80,21 +81,22 @@ namespace FMOD.NET.Core
 	///         The same type of structure is used to optimize line intersection testing with multiple geometry objects.
 	///     </para>
 	///     <para>
-	///         It is important to set the value of <see cref="FmodSystem.WorldSize" /> to an appropriate value.<lineBreak />
+	///         It is important to set the value of <see cref="P:FMOD.NET.Core.FmodSystem.WorldSize" /> to an appropriate value.<lineBreak />
 	///         Objects or polygons outside the range of maxworldsize will not be handled efficiently.<lineBreak />
 	///         Conversely, if maxworldsize is excessively large, the structure may lose precision and efficiency may drop.
 	///     </para>
 	/// </remarks>
-	/// <seealso cref="FMOD.NET.Core.HandleBase" />
-	/// <seealso cref="FmodSystem.CreateGeometry" />
-	/// <seealso cref="Polygon" />
-	/// <seealso cref="Vector" />
+	/// <seealso cref="T:FMOD.NET.Core.HandleBase" />
+	/// <seealso cref="M:FMOD.NET.Core.FmodSystem.CreateGeometry(System.Int32,System.Int32)" />
+	/// <seealso cref="T:FMOD.NET.Data.Polygon" />
+	/// <seealso cref="T:FMOD.NET.Structures.Vector" />
 	public partial class Geometry : HandleBase, IEnumerable<Polygon>
 	{
 		#region Constructors
 
+		/// <inheritdoc />
 		/// <summary>
-		///     Initializes a new instance of the <see cref="Geometry" /> class.
+		///     Initializes a new instance of the <see cref="T:FMOD.NET.Core.Geometry" /> class.
 		/// </summary>
 		/// <param name="handle">The handle.</param>
 		protected Geometry(IntPtr handle) : base(handle)

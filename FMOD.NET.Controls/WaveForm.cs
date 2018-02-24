@@ -2,8 +2,10 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Threading;
 using System.Windows.Forms;
 using FMOD.NET.Core;
+using FMOD.NET.Enumerations;
 
 namespace FMOD.NET.Controls
 {
@@ -249,9 +251,6 @@ namespace FMOD.NET.Controls
 			Positions = new[] { 0.0f, 0.5f, 1.0f }
 		};
 
-		
-
-
 		public WaveForm()
 		{
 			InitializeComponent();
@@ -341,9 +340,12 @@ namespace FMOD.NET.Controls
 		public void LoadSound(FmodSystem system, string filename)
 		{
 			SoundChanged?.Invoke(this, EventArgs.Empty);
-			using (var sound = system.CreateStream(filename))
-				WaveformPathFactory.Create(sound, out _maxPeakPath, out _avgPeakPath);
-			RefreshBrushes();
+			new Thread(() =>
+			{
+				using (var sound = system.CreateSound(filename, Mode.Default))
+					WaveformPathFactory.Create(sound, out _maxPeakPath, out _avgPeakPath);
+				Invoke(new Action(RefreshBrushes));
+			}).Start();
 		}
 	}
 }
